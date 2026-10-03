@@ -1,0 +1,105 @@
+{
+  "metadata": {
+    "dataset": "CSR GRACE/GRACE-FO RL06.3 Mascons",
+    "target_month": "2026-03",
+    "target_date_label": "March 2026",
+    "prev_year_month": "2025-03",
+    "prev_year_label": "March 2025",
+    "generated_at": "2026-10-03T15:29:04.794488",
+    "variable": "Liquid Water Equivalent (LWE) thickness anomaly",
+    "unit": "cm"
+  },
+  "divisions": {
+    "Chattogram": {
+      "name": "Chattogram",
+      "area_km2": 29223.2,
+      "cell_count": 42,
+      "mean_anomaly_cm": -21.88,
+      "min_anomaly_cm": -31.65,
+      "max_anomaly_cm": 1.89,
+      "std_anomaly_cm": 6.04,
+      "volume_km3": -6.393,
+      "status": "Severe Deficit",
+      "yoy_delta_cm": 2.88,
+      "prev_year_mean_cm": -24.76
+    },
+    "Sylhet": {
+      "name": "Sylhet",
+      "area_km2": 11968.9,
+      "cell_count": 17,
+      "mean_anomaly_cm": -28.68,
+      "min_anomaly_cm": -37.15,
+      "max_anomaly_cm": -24.71,
+      "std_anomaly_cm": 4.22,
+      "volume_km3": -3.433,
+      "status": "Severe Deficit",
+      "yoy_delta_cm": 9.2,
+      "prev_year_mean_cm": -37.88
+    },
+    "Dhaka": {
+      "name": "Dhaka",
+      "area_km2": 30548.7,
+      "cell_count": 45,
+      "mean_anomaly_cm": -33.03,
+      "min_anomaly_cm": -41.69,
+      "max_anomaly_cm": -22.1,
+      "std_anomaly_cm": 5.92,
+      "volume_km3": -10.091,
+      "status": "Severe Deficit",
+      "yoy_delta_cm": 8.55,
+      "prev_year_mean_cm": -41.58
+    },
+    "Rangpur": {
+      "name": "Rangpur",
+      "area_km2": 15392.7,
+      "cell_count": 22,
+      "mean_anomaly_cm": -50.95,
+      "min_anomaly_cm": -60.67,
+      "max_anomaly_cm": -44.73,
+      "std_anomaly_cm": 5.71,
+      "volume_km3": -7.843,
+      "status": "Severe Deficit",
+      "yoy_delta_cm": 9.78,
+      "prev_year_mean_cm": -60.73
+    },
+    "Rajshahi": {
+      "name": "Rajshahi",
+      "area_km2": 18843.7,
+      "cell_count": 27,
+      "mean_anomaly_cm": -36.28,
+      "min_anomaly_cm": -47.44,
+      "max_anomaly_cm": -29.92,
+      "std_anomaly_cm": 5.7,
+      "volume_km3": -6.837,
+      "status": "Severe Deficit",
+      "yoy_delta_cm": 13.01,
+      "prev_year_mean_cm": -49.29
+    },
+    "Khulna": {
+      "name": "Khulna",
+      "area_km2": 21822.4,
+      "cell_count": 30,
+      "mean_anomaly_cm": -21.14,
+      "min_anomaly_cm": -33.49,
+      "max_anomaly_cm": -5.89,
+      "std_anomaly_cm": 4.14,
+      "volume_km3": -4.614,
+      "status": "Severe Deficit",
+      "yoy_delta_cm": 5.07,
+      "prev_year_mean_cm": -26.21
+    },
+    "Barishal": {
+      "name": "Barishal",
+      "area_km2": 9104.1,
+      "cell_count": 10,
+      "mean_anomaly_cm": -19.71,
+      "min_anomaly_cm": -22.86,
+      "max_anomaly_cm": -3.72,
+      "std_anomaly_cm": 5.54,
+      "volume_km3": -1.795,
+      "status": "Severe Deficit",
+      "yoy_delta_cm": 2.11,
+      "prev_year_mean_cm": -21.82
+    }
+  }
+}

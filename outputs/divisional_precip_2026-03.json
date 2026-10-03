@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "dataset": "NASA Satellite Precipitation (GPM IMERG & GMAO)",
+    "target_month": "2026-03",
+    "target_date_label": "March 2026",
+    "prev_year_month": "2025-03",
+    "prev_year_label": "March 2025",
+    "generated_at": "2026-10-03T15:29:23.725337",
+    "variable": "Monthly Total Accumulated Precipitation",
+    "unit": "mm/month"
+  },
+  "divisions": {
+    "Chattogram": {
+      "name": "Chattogram",
+      "area_km2": 29223.2,
+      "cell_count": 8,
+      "mean_precip_mm": 58.8,
+      "daily_rate_mm_day": 1.96,
+      "min_precip_mm": 22.6,
+      "max_precip_mm": 178.6,
+      "std_precip_mm": 47.8,
+      "water_volume_km3": 1.718,
+      "condition": "Below Normal",
+      "yoy_delta_mm": 32.8,
+      "prev_year_precip_mm": 26.0
+    },
+    "Sylhet": {
+      "name": "Sylhet",
+      "area_km2": 11968.9,
+      "cell_count": 4,
+      "mean_precip_mm": 290.6,
+      "daily_rate_mm_day": 9.69,
+      "min_precip_mm": 266.9,
+      "max_precip_mm": 314.3,
+      "std_precip_mm": 19.3,
+      "water_volume_km3": 3.478,
+      "condition": "Moderate Monsoonal",
+      "yoy_delta_mm": 251.9,
+      "prev_year_precip_mm": 38.7
+    },
+    "Dhaka": {
+      "name": "Dhaka",
+      "area_km2": 30548.7,
+      "cell_count": 8,
+      "mean_precip_mm": 138.1,
+      "daily_rate_mm_day": 4.6,
+      "min_precip_mm": 75.3,
+      "max_precip_mm": 218.6,
+      "std_precip_mm": 45.5,
+      "water_volume_km3": 4.219,
+      "condition": "Moderate Monsoonal",
+      "yoy_delta_mm": 132.8,
+      "prev_year_precip_mm": 5.3
+    },
+    "Rangpur": {
+      "name": "Rangpur",
+      "area_km2": 15392.7,
+      "cell_count": 4,
+      "mean_precip_mm": 167.8,
+      "daily_rate_mm_day": 5.59,
+      "min_precip_mm": 105.1,
+      "max_precip_mm": 211.4,
+      "std_precip_mm": 39.1,
+      "water_volume_km3": 2.583,
+      "condition": "Moderate Monsoonal",
+      "yoy_delta_mm": 156.8,
+      "prev_year_precip_mm": 11.0
+    },
+    "Rajshahi": {
+      "name": "Rajshahi",
+      "area_km2": 18843.7,
+      "cell_count": 6,
+      "mean_precip_mm": 91.1,
+      "daily_rate_mm_day": 3.04,
+      "min_precip_mm": 64.2,
+      "max_precip_mm": 130.2,
+      "std_precip_mm": 21.8,
+      "water_volume_km3": 1.717,
+      "condition": "Below Normal",
+      "yoy_delta_mm": 85.8,
+      "prev_year_precip_mm": 5.3
+    },
+    "Khulna": {
+      "name": "Khulna",
+      "area_km2": 21822.4,
+      "cell_count": 6,
+      "mean_precip_mm": 62.1,
+      "daily_rate_mm_day": 2.07,
+      "min_precip_mm": 51.2,
+      "max_precip_mm": 69.4,
+      "std_precip_mm": 5.9,
+      "water_volume_km3": 1.354,
+      "condition": "Below Normal",
+      "yoy_delta_mm": 55.4,
+      "prev_year_precip_mm": 6.7
+    },
+    "Barishal": {
+      "name": "Barishal",
+      "area_km2": 9104.1,
+      "cell_count": 2,
+      "mean_precip_mm": 65.4,
+      "daily_rate_mm_day": 2.18,
+      "min_precip_mm": 64.8,
+      "max_precip_mm": 66.0,
+      "std_precip_mm": 0.6,
+      "water_volume_km3": 0.596,
+      "condition": "Below Normal",
+      "yoy_delta_mm": 51.1,
+      "prev_year_precip_mm": 14.3
+    }
+  }
+}

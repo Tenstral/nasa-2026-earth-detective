@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trend Detective: Bengal Water Paradox — Slide Deck Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Inter:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --board-bg: #fbfbfa;
+      --grid-line: #e3e6e8;
+      --ink-dark: #1e293b;
+      --ink-red: #dc2626;
+      --ink-blue: #0284c7;
+      --ink-amber: #d97706;
+      --ink-green: #16a34a;
+      --border-sketch: 2.5px solid #1e293b;
+      --sketch-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f172a;
+      color: var(--ink-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+    }
+
+    .app-header {
+      width: 100%;
+      max-width: 1040px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #f8fafc;
+      margin-bottom: 16px;
+    }
+
+    .app-title {
+      font-family: 'Architects Daughter', cursive;
+      font-size: 1.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    .deck-container {
+      width: 100%;
+      max-width: 1040px;
+      background: var(--board-bg);
+      background-image: 
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 24px 24px;
+      border: 8px solid #334155;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+      border-radius: 12px;
+      min-height: 600px;
+      position: relative;
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .slide {
+      display: none;
+      height: 100%;
+      animation: fadeIn 0.15s ease-in-out;
+    }
+
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hand-Drawn Elements */
+    .sketch-box {
+      border: var(--border-sketch);
+      border-radius: var(--sketch-radius);
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 3px 4px 0px rgba(30, 41, 59, 0.15);
+    }
+
+    .sketch-title {
+      font-family: 'Permanent Marker', cursive;
+      color: var(--ink-dark);
+      font-size: 1.8rem;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .sketch-subtitle {
+      font-family: 'Architects Daughter', cursive;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #475569;
+      margin-bottom: 20px;
+    }
+
+    .case-tag {
+      display: inline-block;
+      border: 2px dashed var(--ink-red);
+      color: var(--ink-red);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      transform: rotate(-1.5deg);
+    }
+
+    .stamp {
+      display: inline-block;
+      border: 3px solid var(--ink-green);
+      color: var(--ink-green);
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1.1rem;
+      padding: 6px 14px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      transform: rotate(-3deg);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      flex: 1;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      flex: 1;
+    }
+
+    /* Deck Controls */
+    .controls-bar {
+      width: 100%;
+      max-width: 1040px;
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 2px solid #475569;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn:hover {
+      background: #334155;
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: #334155;
+    }
+
+    .slide-pills {
+      display: flex;
+      gap: 8px;
+    }
+
+    .pill {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #475569;
+      background: transparent;
+      color: #94a3b8;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .pill.active {
+      background: #38bdf8;
+      color: #0f172a;
+      border-color: #38bdf8;
+    }
+
+    /* Script Drawer */
+    .script-drawer {
+      width: 100%;
+      max-width: 1040px;
+      margin-top: 16px;
+      background: #1e293b;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      border: 1px solid #334155;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .script-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #38bdf8;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    ul.sketch-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul.sketch-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    ul.sketch-list li::before {
+      content: "➔";
+      position: absolute;
+      left: 0;
+      color: var(--ink-red);
+      font-size: 1rem;
+    }
+
+    .metric-badge {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1.4rem;
+      display: block;
+      margin: 8px 0;
+    }
+
+    .metric-amber { color: var(--ink-amber); }
+    .metric-blue { color: var(--ink-blue); }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="app-title">NASA Space Apps 2026 // Trend Detective</div>
+    <div style="font-size: 0.9rem; color: #94a3b8;">Pitch Target: <strong>240 Seconds</strong></div>
+  </header>
+
+  <main class="deck-container">
+
+    <!-- SLIDE 1 -->
+    <section class="slide active" data-time="0:00 – 0:30">
+      <div>
+        <span class="case-tag">Case File #026-BD</span>
+        <h1 class="sketch-title">The Bengal Water Paradox</h1>
+        <div class="sketch-subtitle">Witness Reports Contradict: Is Bangladesh Drying Out or Drowning?</div>
+      </div>
+      <div class="grid-2">
+        <div class="sketch-box" style="border-color: var(--ink-amber);">
+          <div style="color: var(--ink-amber); font-weight: 700; text-transform: uppercase;">Witness A: Inland Northwest</div>
+          <div class="metric-badge metric-amber">CRACKED SOIL & DROUGHT</div>
+          <p>Local well reports and studies cite dropping water tables, dry suction tubewells in Rajshahi, and desertification risks during the Boro season.</p>
+        </div>
+        <div class="sketch-box" style="border-color: var(--ink-blue);">
+          <div style="color: var(--ink-blue); font-weight: 700; text-transform: uppercase;">Witness B: Northeast & Coast</div>
+          <div class="metric-badge metric-blue">EXTREME DELUGE & FLOODS</div>
+          <p>Regional papers report intensifying monsoon cloudbursts, severe flash flooding in Sylhet haors, and coastal sea-level inundation.</p>
+        </div>
+      </div>
+      <div style="margin-top: 20px; text-align: center; font-family: 'Architects Daughter', cursive; font-size: 1.1rem; color: var(--ink-red);">
+        ★ The Challenge: Cut through the noise and verify true long-term trends using NASA Earth observations.
+      </div>
+    </section>
+
+    <!-- SLIDE 2 -->
+    <section class="slide" data-time="0:30 – 1:00">
+      <div>
+        <span class="case-tag">Core Hypothesis</span>
+        <h1 class="sketch-title">Where is Bangladesh's Water Going?[cite: 1]</h1>
+        <div class="sketch-subtitle">Do rainfall and water-storage trends differ across divisions, and are those differences statistically significant?[cite: 1]</div>
+      </div>
+      <div class="grid-2">
+        <div class="sketch-box">
+          <h3 style="margin-bottom: 12px;">The Spatial Granularity Rule</h3>
+          <ul class="sketch-list">
+            <li>National averages hide regional catastrophe by cancelling out opposite dynamics.</li>
+            <li>Dividing analysis across all <strong>8 Administrative Divisions</strong> balances physical precision with sensor limits[cite: 1].</li>
+            <li>Northwest vs Northeast divergence under the same monsoon system.</li>
+          </ul>
+        </div>
+        <div class="sketch-box" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-style: dashed;">
+          <div style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; margin-bottom: 12px;">8 Divisions Analyzed[cite: 1]</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 320px;">
+            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Rajshahi</span>
+            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Rangpur</span>
+            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Dhaka</span>
+            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Mymensingh</span>
+            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Sylhet</span>
+            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Chattogram</span>
+            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Khulna</span>
+            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Barishal</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3 -->
+    <section class="slide" data-time="1:00 – 1:40">
+      <div>
+        <span class="case-tag">Evidence Sources</span>
+        <h1 class="sketch-title">Interrogating the Satellite Data[cite: 1]</h1>
+        <div class="sketch-subtitle">Selecting two distinct NASA observational platforms[cite: 1]</div>
+      </div>
+      <div class="grid-2">
+        <div class="sketch-box">
+          <div style="color: var(--ink-blue); font-weight: 700; text-transform: uppercase;">1. GPM IMERG[cite: 1]</div>
+          <div style="font-size: 1.1rem; font-weight: 600; margin: 6px 0;">Precipitation Trends (2000–Present)[cite: 1]</div>
+          <ul class="sketch-list">
+            <li><strong>Resolution:</strong> Fine spatial grid (~0.1°), ideal for regional maps[cite: 1].</li>
+            <li><strong>Role:</strong> Measures incoming atmospheric water volume and extreme precipitation frequency[cite: 1].</li>
+          </ul>
+        </div>
+        <div class="sketch-box">
+          <div style="color: var(--ink-amber); font-weight: 700; text-transform: uppercase;">2. GRACE / GRACE-FO[cite: 1]</div>
+          <div style="font-size: 1.1rem; font-weight: 600; margin: 6px 0;">Terrestrial Water Storage (TWS) (2002–Present)[cite: 1]</div>
+          <ul class="sketch-list">
+            <li><strong>Resolution:</strong> Coarse spatial footprint (~300 km)[cite: 1].</li>
+            <li><strong>Methodological Rigor:</strong> Aggregated strictly to division-level boundaries to prevent false localized claims[cite: 1].</li>
+            <li><strong>Role:</strong> Directly measures sub-surface aquifer mass and total basin moisture change[cite: 1].</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 -->
+    <section class="slide" data-time="1:40 – 2:20">
+      <div>
+        <span class="case-tag">Statistical Engine</span>
+        <h1 class="sketch-title">Filtering Noise from Climate Signal</h1>
+        <div class="sketch-subtitle">Answering NASA's core challenge: proving statistical significance</div>
+      </div>
+      <div class="grid-3">
+        <div class="sketch-box">
+          <div style="font-weight: 700; color: #64748b;">STEP 1</div>
+          <h4 style="margin: 8px 0;">STL Decomposition</h4>
+          <p style="font-size: 0.9rem;">Strips out the overwhelming annual monsoon waveform to uncover underlying secular trends.</p>
+        </div>
+        <div class="sketch-box">
+          <div style="font-weight: 700; color: #64748b;">STEP 2</div>
+          <h4 style="margin: 8px 0;">Sen's Slope Estimator</h4>
+          <p style="font-size: 0.9rem;">Calculates robust, non-parametric physical rate of change (mm/yr for rain, cm/yr for water storage).</p>
+        </div>
+        <div class="sketch-box">
+          <div style="font-weight: 700; color: #64748b;">STEP 3</div>
+          <h4 style="margin: 8px 0;">Mann-Kendall Test</h4>
+          <p style="font-size: 0.9rem;">Mathematically evaluates whether the trajectory is a real trend or a random anomaly (target: p &lt; 0.05).</p>
+        </div>
+      </div>
+      <div style="margin-top: 24px; text-align: center;">
+        <span class="stamp">Verified: p &lt; 0.05 Required for Policy Action</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 -->
+    <section class="slide" data-time="2:20 – 3:00">
+      <div>
+        <span class="case-tag">The Verdict</span>
+        <h1 class="sketch-title">The Detective's Findings</h1>
+        <div class="sketch-subtitle">The contradiction is resolved: Groundwater pumping vs. Rainfall volatility</div>
+      </div>
+      <div class="grid-2">
+        <div class="sketch-box" style="border-left: 6px solid var(--ink-amber);">
+          <h3 style="color: var(--ink-amber);">Northwest (Rajshahi & Rangpur)</h3>
+          <div class="metric-badge metric-amber">Δ Storage: -0.88 to -1.2 cm/yr</div>
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--ink-green); margin-bottom: 8px;">SIGNIFICANT: p &lt; 0.01</div>
+          <p style="font-size: 0.9rem;">Rainfall has remained relatively stable, but terrestrial storage is in continuous monotonic decline. <strong>Verdict:</strong> An irrigation-driven groundwater extraction crisis.</p>
+        </div>
+        <div class="sketch-box" style="border-left: 6px solid var(--ink-blue);">
+          <h3 style="color: var(--ink-blue);">Northeast & Coast (Sylhet, Chattogram)</h3>
+          <div class="metric-badge metric-blue">Rain Anomaly Spikes</div>
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--ink-green); margin-bottom: 8px;">SIGNIFICANT: p &lt; 0.05</div>
+          <p style="font-size: 0.9rem;">Precipitation is concentrating into higher-intensity bursts. <strong>Verdict:</strong> Flash flood exposure is surging despite fluctuating annual storage.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6 -->
+    <section class="slide" data-time="3:00 – 3:35">
+      <div>
+        <span class="case-tag">Interactive Product</span>
+        <h1 class="sketch-title">HydroDetective: Bangladesh</h1>
+        <div class="sketch-subtitle">A decision-support tool for water planners and agricultural authorities</div>
+      </div>
+      <div class="sketch-box" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 2px dashed #94a3b8; padding-bottom: 12px; margin-bottom: 16px;">
+          <div><strong>Feature 1:</strong> Division-Level Query (Toggle GPM vs GRACE layers)[cite: 1]</div>
+          <div><strong>Feature 2:</strong> Significance Mask (Hide divisions where p ≥ 0.05)</div>
+          <div><strong>Feature 3:</strong> Bangla / English Policy Summaries</div>
+        </div>
+        <div style="background: #f1f5f9; border-radius: 8px; padding: 20px; text-align: center; border: 2px dashed #64748b;">
+          <div style="font-family: 'Architects Daughter', cursive; font-size: 1.2rem; color: #334155;">
+            [ Interactive Dashboard Mockup: Dual-Axis Graph & Division Map Preview ]
+          </div>
+          <p style="font-size: 0.85rem; color: #64748b; margin-top: 6px;">
+            Allows BWDB planners to pinpoint exactly where Boro rice irrigation must shift to drought-resilient crops.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7 -->
+    <section class="slide" data-time="3:35 – 4:00">
+      <div>
+        <span class="case-tag">Global Horizon</span>
+        <h1 class="sketch-title">Scalable Across Every River Basin</h1>
+        <div class="sketch-subtitle">Turning raw satellite data into verified environmental truth</div>
+      </div>
+      <div class="grid-2">
+        <div class="sketch-box">
+          <h3>Universal Architecture</h3>
+          <p style="margin-top: 8px; font-size: 0.9rem;">While tested on the Bengal Basin, the analytical pipeline runs identically on any global watershed (e.g., Indus Basin, California Central Valley, Mekong Delta).</p>
+        </div>
+        <div class="sketch-box" style="text-align: center; display: flex; flex-direction: column; justify-content: center;">
+          <div style="font-family: 'Permanent Marker', cursive; font-size: 1.6rem; color: var(--ink-dark);">TEAM TREND DETECTIVES</div>
+          <div style="color: #64748b; font-size: 0.9rem; margin-top: 6px;">AI Research • Data Analytics • Visual UI Design</div>
+          <div style="margin-top: 16px;">
+            <span class="stamp" style="font-size: 0.9rem; padding: 4px 10px;">NASA Space Apps 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Controls -->
+  <footer class="controls-bar">
+    <button class="btn btn-secondary" id="prevBtn" onclick="changeSlide(-1)">◀ Previous</button>
+    <div class="slide-pills" id="pillsContainer"></div>
+    <button class="btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+  </footer>
+
+  <!-- Script Rehearsal Box -->
+  <aside class="script-drawer">
+    <div class="script-label" id="scriptTimeLabel">VOICEOVER SCRIPT (0:00 – 0:30)</div>
+    <div id="scriptContent">...</div>
+  </aside>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const pillsContainer = document.getElementById('pillsContainer');
+    const scriptTimeLabel = document.getElementById('scriptTimeLabel');
+    const scriptContent = document.getElementById('scriptContent');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentSlide = 0;
+
+    const scripts = [
+      "Published literature and ground reports in Bangladesh contradict each other. Some claim our country is rapidly drying, while others report increasing rainfall and flooding. As NASA Trend Detectives, we built an analytical platform to settle this dispute using 20+ years of satellite observations.",
+      "We are not looking at a single national average. We are investigating whether rainfall and water-storage trends diverge across administrative divisions, and whether those regional shifts are genuine long-term changes or mere seasonal noise[cite: 1].",
+      "To investigate, we pair two independent NASA datasets[cite: 1]. For precipitation, we use GPM IMERG at fine spatial resolution[cite: 1]. For overall water storage—including underground aquifers—we turn to GRACE and GRACE-FO gravity anomalies[cite: 1]. Because GRACE data is spatially coarse, we rigorously aggregate our analysis to division levels rather than making inaccurate district-level claims[cite: 1].",
+      "In Bangladesh, the heavy annual monsoon blinds standard trend lines. We apply Seasonal-Trend Decomposition to peel back cyclical monsoon swings. Then, we execute the Mann-Kendall non-parametric test and compute Sen's Slope. This answers NASA's core mandate: proving what is changing, where, by how much, and whether it is statistically significant.",
+      "The results resolve the contradiction: in the Northwest, terrestrial water storage is in statistically significant decline at roughly one centimeter per year, despite rainfall remaining relatively stable. It is an aquifer depletion crisis driven by agricultural pumping. Meanwhile, the eastern divisions face intensifying rainfall spikes that heighten flash-flood risk.",
+      "We translated this analytical framework into an interactive dashboard. Planners can select any division, inspect deseasonalized trends, and toggle on our significance filter so only scientifically validated shifts guide policy—such as reallocating Boro rice irrigation zones.",
+      "While calibrated on the Bengal Basin, our architecture is universally scalable to any river basin facing competing water demands. By anchoring decisions in statistical rigor rather than surface assumptions, we empower communities to protect their water futures. Thank you."
+    ];
+
+    // Build navigation pills
+    slides.forEach((_, idx) => {
+      const pill = document.createElement('button');
+      pill.className = `pill ${idx === 0 ? 'active' : ''}`;
+      pill.innerText = idx + 1;
+      pill.onclick = () => goToSlide(idx);
+      pillsContainer.appendChild(pill);
+    });
+
+    function updateDeck() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+
+      document.querySelectorAll('.pill').forEach((p, idx) => {
+        p.classList.toggle('active', idx === currentSlide);
+      });
+
+      const activeSlide = slides[currentSlide];
+      scriptTimeLabel.innerText = `VOICEOVER SCRIPT (${activeSlide.getAttribute('data-time')})`;
+      scriptContent.innerText = scripts[currentSlide];
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish ↺' : 'Next ▶';
+    }
+
+    function changeSlide(direction) {
+      if (currentSlide === slides.length - 1 && direction === 1) {
+        currentSlide = 0;
+      } else {
+        currentSlide = Math.max(0, Math.min(slides.length - 1, currentSlide + direction));
+      }
+      updateDeck();
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateDeck();
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        changeSlide(1);
+      } else if (e.key === 'ArrowLeft') {
+        changeSlide(-1);
+      }
+    });
+
+    // Initialize
+    updateDeck();
+  </script>
+</body>
+</html>

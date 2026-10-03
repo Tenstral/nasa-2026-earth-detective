@@ -1,0 +1,8 @@
+name,area_km2,cell_count,mean_precip_mm,daily_rate_mm_day,min_precip_mm,max_precip_mm,std_precip_mm,water_volume_km3,condition,yoy_delta_mm,prev_year_precip_mm
+Chattogram,29223.2,8,1175.4,39.18,589.3,2052.2,404.3,34.35,Extreme Deluge / Flood Risk,163.0,1012.4
+Sylhet,11968.9,4,954.6,31.82,803.5,1121.6,150.6,11.425,Extreme Deluge / Flood Risk,340.4,614.2
+Dhaka,30548.7,8,602.4,20.08,512.1,725.1,67.2,18.402,Extreme Deluge / Flood Risk,38.5,563.9
+Rangpur,15392.7,4,399.8,13.33,358.0,427.5,25.8,6.154,Heavy Monsoon,88.0,311.8
+Rajshahi,18843.7,6,402.2,13.41,308.8,484.8,58.8,7.579,Heavy Monsoon,-20.6,422.8
+Khulna,21822.4,6,568.4,18.95,387.5,744.6,129.9,12.403,Heavy Monsoon,-79.1,647.5
+Barishal,9104.1,2,887.7,29.59,766.9,1008.1,120.6,8.082,Extreme Deluge / Flood Risk,-137.5,1025.2

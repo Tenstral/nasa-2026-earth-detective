@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Earth Detective — Divisional Precipitation Influx Report (March 2026)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Inter:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #ffffff;
+            --ink-dark: #1e293b;
+            --ink-blue: #0284c7;
+            --ink-green: #16a34a;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            color: #f8fafc;
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        h1 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2rem;
+            margin: 0;
+            color: #38bdf8;
+        }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .kpi-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 16px 20px;
+        }
+        .kpi-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+        }
+        .kpi-val {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.8rem;
+            margin-top: 6px;
+            color: #38bdf8;
+        }
+        .card {
+            background: var(--card-bg);
+            color: var(--ink-dark);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        .section-title {
+            font-family: 'Architects Daughter', cursive;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: #1e293b;
+            border-bottom: 2px dashed #cbd5e1;
+            padding-bottom: 8px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        img.report-img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            padding: 12px 14px;
+            font-weight: 700;
+            color: #475569;
+            border-bottom: 2px solid #cbd5e1;
+        }
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .nav-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .nav-pill {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: #1e293b;
+            color: #94a3b8;
+            border: 1px solid #334155;
+        }
+        .nav-pill:hover {
+            background: #334155;
+            color: #f8fafc;
+        }
+        .nav-pill.active {
+            background: #0284c7;
+            color: #ffffff;
+            border-color: #38bdf8;
+        }
+        footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <div style="font-family: 'Architects Daughter', cursive; color: #94a3b8; font-size: 1rem;">Case File #026-BD // Atmospheric Precipitation Audit</div>
+                <h1>The Bengal Water Paradox</h1>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 0.85rem; color: #94a3b8;">Observation Month</div>
+                <div style="font-size: 1.25rem; font-weight: 700; color: #38bdf8;">March 2026</div>
+            </div>
+        </header>
+
+        <div class="nav-bar">
+            <span style="font-size: 0.85rem; color: #94a3b8; font-weight: 600;">Explore Key Seasons:</span>
+            <a href="divisional_precip_report_2025-12.html" class="nav-pill ">❄️ Dec 2025 (Dry Winter)</a>
+            <a href="divisional_precip_report_2026-03.html" class="nav-pill active">🌱 Mar 2026 (Boro Irrigation)</a>
+            <a href="divisional_precip_report_2026-07.html" class="nav-pill ">🌊 Jul 2026 (Monsoon Peak)</a>
+        </div>
+
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">National Mean Precipitation</div>
+                <div class="kpi-val">114.4 mm</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Total Water Influx from Rain</div>
+                <div class="kpi-val">15.67 km³</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Highest Rainfall Division</div>
+                <div class="kpi-val" style="color: #0284c7;">Sylhet (291 mm)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Driest Division</div>
+                <div class="kpi-val" style="color: #ea580c;">Chattogram (59 mm)</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">Visual Evidence: Spatial Precipitation & Divisional Ranking</div>
+            <div class="grid-2">
+                <div>
+                    <h4 style="margin: 0 0 10px 0; color: #475569;">Spatial Precipitation Choropleth</h4>
+                    <img class="report-img" src="divisional_precip_choropleth_2026-03.png" alt="Divisional Precipitation Map">
+                </div>
+                <div>
+                    <h4 style="margin: 0 0 10px 0; color: #475569;">Precipitation Influx Ranking</h4>
+                    <img class="report-img" src="divisional_precip_ranking_2026-03.png" alt="Divisional Precipitation Ranking">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">Divisional Atmospheric Influx Audit Table</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Division</th>
+                        <th>Land Area</th>
+                        <th>Mean Rainfall</th>
+                        <th>Daily Rate</th>
+                        <th>Spread [Min, Max]</th>
+                        <th>Total Rain Influx</th>
+                        <th>YoY Change (March 2025)</th>
+                        <th>Condition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td style="font-weight: 700; color: #0f172a;">Sylhet</td>
+            <td>11,968.9 km²</td>
+            <td style="font-weight: 700; color: #0284c7;">290.6 mm</td>
+            <td>9.69 mm/day</td>
+            <td>[267, 314] mm</td>
+            <td><strong>3.478 km³</strong></td>
+            <td style="font-weight: 600; color: #0284c7;">+251.9 mm</td>
+            <td><span class="badge" style="background: #16a34a20; color: #16a34a; border: 1px solid #16a34a;">Moderate Monsoonal</span></td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 700; color: #0f172a;">Rangpur</td>
+            <td>15,392.7 km²</td>
+            <td style="font-weight: 700; color: #0284c7;">167.8 mm</td>
+            <td>5.59 mm/day</td>
+            <td>[105, 211] mm</td>
+            <td><strong>2.583 km³</strong></td>
+            <td style="font-weight: 600; color: #0284c7;">+156.8 mm</td>
+            <td><span class="badge" style="background: #16a34a20; color: #16a34a; border: 1px solid #16a34a;">Moderate Monsoonal</span></td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 700; color: #0f172a;">Dhaka</td>
+            <td>30,548.7 km²</td>
+            <td style="font-weight: 700; color: #0284c7;">138.1 mm</td>
+            <td>4.60 mm/day</td>
+            <td>[75, 219] mm</td>
+            <td><strong>4.219 km³</strong></td>
+            <td style="font-weight: 600; color: #0284c7;">+132.8 mm</td>
+            <td><span class="badge" style="background: #16a34a20; color: #16a34a; border: 1px solid #16a34a;">Moderate Monsoonal</span></td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 700; color: #0f172a;">Rajshahi</td>
+            <td>18,843.7 km²</td>
+            <td style="font-weight: 700; color: #0284c7;">91.1 mm</td>
+            <td>3.04 mm/day</td>
+            <td>[64, 130] mm</td>
+            <td><strong>1.717 km³</strong></td>
+            <td style="font-weight: 600; color: #0284c7;">+85.8 mm</td>
+            <td><span class="badge" style="background: #16a34a20; color: #16a34a; border: 1px solid #16a34a;">Below Normal</span></td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 700; color: #0f172a;">Barishal</td>
+            <td>9,104.1 km²</td>
+            <td style="font-weight: 700; color: #0284c7;">65.4 mm</td>
+            <td>2.18 mm/day</td>
+            <td>[65, 66] mm</td>
+            <td><strong>0.596 km³</strong></td>
+            <td style="font-weight: 600; color: #0284c7;">+51.1 mm</td>
+            <td><span class="badge" style="background: #16a34a20; color: #16a34a; border: 1px solid #16a34a;">Below Normal</span></td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 700; color: #0f172a;">Khulna</td>
+            <td>21,822.4 km²</td>
+            <td style="font-weight: 700; color: #0284c7;">62.1 mm</td>
+            <td>2.07 mm/day</td>
+            <td>[51, 69] mm</td>
+            <td><strong>1.354 km³</strong></td>
+            <td style="font-weight: 600; color: #0284c7;">+55.4 mm</td>
+            <td><span class="badge" style="background: #16a34a20; color: #16a34a; border: 1px solid #16a34a;">Below Normal</span></td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 700; color: #0f172a;">Chattogram</td>
+            <td>29,223.2 km²</td>
+            <td style="font-weight: 700; color: #0284c7;">58.8 mm</td>
+            <td>1.96 mm/day</td>
+            <td>[23, 179] mm</td>
+            <td><strong>1.718 km³</strong></td>
+            <td style="font-weight: 600; color: #0284c7;">+32.8 mm</td>
+            <td><span class="badge" style="background: #16a34a20; color: #16a34a; border: 1px solid #16a34a;">Below Normal</span></td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            NASA Space Apps Challenge 2026 // Trend Detective • Data: NASA GPM IMERG & GMAO Satellite Precipitation
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+name,area_km2,cell_count,mean_anomaly_cm,min_anomaly_cm,max_anomaly_cm,std_anomaly_cm,volume_km3,status,yoy_delta_cm,prev_year_mean_cm
+Chattogram,29223.2,42,-3.45,-13.17,7.18,4.78,-1.008,Normal / Balanced,-1.88,-1.57
+Sylhet,11968.9,17,-11.9,-18.86,-8.71,2.99,-1.425,Moderate Deficit,1.08,-12.98
+Dhaka,30548.7,45,-15.78,-23.19,-6.67,5.08,-4.821,Severe Deficit,4.16,-19.94
+Rangpur,15392.7,22,-36.99,-46.94,-34.57,4.7,-5.694,Severe Deficit,10.06,-47.05
+Rajshahi,18843.7,27,-22.84,-34.57,-14.49,5.31,-4.303,Severe Deficit,8.49,-31.33
+Khulna,21822.4,30,-7.31,-20.68,5.04,4.89,-1.595,Moderate Deficit,1.06,-8.37
+Barishal,9104.1,10,-2.51,-6.67,6.63,4.59,-0.229,Normal / Balanced,-3.72,1.21
