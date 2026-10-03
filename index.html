@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NASA Earth Detective // Unified Project Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Inter:wght@400;500;600;700;800&family=Permanent+Marker&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: #111827;
+      --bg-card-hover: #1e293b;
+      --border-subtle: #1f2937;
+      --border-accent: #38bdf8;
+      --ink-primary: #f8fafc;
+      --ink-muted: #94a3b8;
+      --accent-blue: #0284c7;
+      --accent-sky: #38bdf8;
+      --accent-red: #ef4444;
+      --accent-amber: #f59e0b;
+      --accent-emerald: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-dark);
+      color: var(--ink-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    /* Ambient background grid */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+      background-size: 36px 36px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* Hero Header */
+    header.hero {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 28px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+    }
+
+    .case-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .case-badge span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+    }
+
+    h1.project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .project-subtitle {
+      font-family: 'Architects Daughter', cursive;
+      color: var(--accent-sky);
+      font-size: 1.25rem;
+      margin-top: 6px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0369a1, #075985);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--ink-primary);
+      border-color: var(--border-subtle);
+    }
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--ink-muted);
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Controls Bar */
+    .controls-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      background: #0b1120;
+      padding: 14px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 24px;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .control-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--ink-muted);
+      font-weight: 700;
+    }
+
+    .pill-switch {
+      display: inline-flex;
+      background: #1e293b;
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+    }
+
+    .pill-btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: var(--ink-muted);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .pill-btn:hover {
+      color: #ffffff;
+    }
+
+    .pill-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+    }
+
+    /* Key Performance Indicators */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-box {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 16px 20px;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .kpi-box:hover {
+      border-color: #334155;
+      transform: translateY(-2px);
+    }
+
+    .kpi-meta {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--ink-muted);
+      font-weight: 600;
+    }
+
+    .kpi-number {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1.8rem;
+      margin-top: 4px;
+    }
+
+    /* Visual Dual Canvas */
+    .visual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 900px) {
+      .visual-grid { grid-template-columns: 1fr; }
+    }
+
+    .visual-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .visual-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent-sky);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .visual-img-container {
+      background: #020617;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #1e293b;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .visual-img-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    /* Data Table */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid #1e293b;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: #0f172a;
+      padding: 12px 16px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      border-bottom: 2px solid #1e293b;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #1e293b;
+      background: #0b1120;
+    }
+
+    tr:hover td {
+      background: #111c33;
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* File Registry Hub */
+    .file-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    .file-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 18px;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .file-card:hover {
+      border-color: var(--accent-sky);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .file-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .file-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .file-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .file-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: auto;
+    }
+
+    .badge-html { background: #3b82f620; color: #60a5fa; border: 1px solid #3b82f640; }
+    .badge-py { background: #10b98120; color: #34d399; border: 1px solid #10b98140; }
+    .badge-nc { background: #f59e0b20; color: #fbbf24; border: 1px solid #f59e0b40; }
+    .badge-data { background: #8b5cf620; color: #a78bfa; border: 1px solid #8b5cf640; }
+
+    .file-desc {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .file-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .file-link {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-sky);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .file-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Terminal Code Block */
+    .code-box {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      overflow-x: auto;
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+    .code-comment { color: #64748b; }
+
+    footer.app-footer {
+      text-align: center;
+      color: #64748b;
+      font-size: 0.85rem;
+      margin-top: 48px;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HERO HEADER -->
+    <header class="hero">
+      <div>
+        <div class="case-badge">
+          <span class="dot"></span> Case File #026-BD • NASA Space Apps Challenge 2026
+        </div>
+        <h1 class="project-title">Trend Detective: The Bengal Water Paradox</h1>
+        <div class="project-subtitle">Unified Analysis Pipeline & Divisional Observation Hub</div>
+      </div>
+      <div class="header-actions">
+        <a href="demo.html" class="btn btn-primary" target="_blank">
+          ▶ Launch Pitch Deck (demo.html)
+        </a>
+        <a href="#registry" class="btn btn-secondary">
+          📁 File Registry
+        </a>
+      </div>
+    </header>
+
+    <!-- SECTION 1: INTERACTIVE DETECTIVE CONSOLE -->
+    <section class="section-card">
+      <div class="section-header">
+        <div class="section-title">
+          🔍 Divisional Observation & Anomaly Console
+        </div>
+        <div id="activeReportLinkContainer">
+          <!-- Dynamically populated link to standalone HTML report -->
+        </div>
+      </div>
+
+      <!-- INTERACTIVE TOGGLE CONTROLS -->
+      <div class="controls-container">
+        <!-- Dataset Selector -->
+        <div class="control-group">
+          <span class="control-label">Satellite Dataset:</span>
+          <div class="pill-switch">
+            <button class="pill-btn active" id="btnDsGrace" onclick="switchDataset('grace')">
+              🌊 GRACE Mascon (Water Storage)
+            </button>
+            <button class="pill-btn" id="btnDsPrecip" onclick="switchDataset('precip')">
+              🌧️ GPM IMERG (Precipitation)
+            </button>
+          </div>
+        </div>
+
+        <!-- Season Selector -->
+        <div class="control-group">
+          <span class="control-label">Milestone Season:</span>
+          <div class="pill-switch">
+            <button class="pill-btn active" id="btnSeasonJul" onclick="switchSeason('2026-07')">
+              🌊 Jul 2026 (Monsoon Peak)
+            </button>
+            <button class="pill-btn" id="btnSeasonMar" onclick="switchSeason('2026-03')">
+              🌱 Mar 2026 (Boro Irrigation)
+            </button>
+            <button class="pill-btn" id="btnSeasonDec" onclick="switchSeason('2025-12')">
+              ❄️ Dec 2025 (Dry Winter)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DYNAMIC KPIS -->
+      <div class="kpi-row" id="kpiContainer">
+        <!-- Rendered by JavaScript -->
+      </div>
+
+      <!-- VISUAL CANVAS: CHOROPLETH & RANKING -->
+      <div class="visual-grid">
+        <div class="visual-card">
+          <div class="visual-card-title">
+            <span id="choroplethTitle">Spatial Choropleth Map</span>
+            <a id="choroplethDownload" href="#" class="file-link" download>Download PNG ↓</a>
+          </div>
+          <div class="visual-img-container">
+            <img id="choroplethImg" src="" alt="Choropleth Map">
+          </div>
+        </div>
+
+        <div class="visual-card">
+          <div class="visual-card-title">
+            <span id="rankingTitle">Divisional Comparative Ranking</span>
+            <a id="rankingDownload" href="#" class="file-link" download>Download PNG ↓</a>
+          </div>
+          <div class="visual-img-container">
+            <img id="rankingImg" src="" alt="Ranking Chart">
+          </div>
+        </div>
+      </div>
+
+      <!-- DIVISIONAL QUANTITATIVE AUDIT TABLE -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10px;">
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #cbd5e1;">Divisional Quantitative Breakdown</h3>
+        <div style="display: flex; gap: 12px;">
+          <a id="downloadJsonBtn" href="#" class="file-link" download>Export JSON ↗</a>
+          <a id="downloadCsvBtn" href="#" class="file-link" download>Export CSV ↗</a>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table id="divisionTable">
+          <thead>
+            <tr id="tableHeaderRow"></tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 2: THE PARADOX RESOLUTION -->
+    <section class="section-card">
+      <div class="section-header">
+        <div class="section-title">
+          ⚖️ The Detective's Synthesis: Resolving The Bengal Paradox
+        </div>
+        <span class="badge-status" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid #10b981;">
+          Verified: NASA Satellite Cross-Validation
+        </span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div style="background: #0f172a; border-left: 4px solid var(--accent-amber); padding: 18px; border-radius: 8px;">
+          <div style="font-weight: 700; color: var(--accent-amber); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+            The Northwest Crisis (Rajshahi & Rangpur)
+          </div>
+          <h4 style="margin: 8px 0 6px 0; font-size: 1.1rem;">Groundwater Aquifer Depletion</h4>
+          <p style="font-size: 0.9rem; color: var(--ink-muted); line-height: 1.5;">
+            Even during peak monsoon (July 2026), Rangpur storage remains negative (<strong style="color: #ef4444;">-14.3 cm</strong>) while March drops to <strong style="color: #ef4444;">-51.0 cm</strong> (-7.84 km³).
+            Rainfall remains consistent with historical norms, but massive irrigation extraction for dry-season Boro rice exceeds recharge capacity.
+          </p>
+        </div>
+
+        <div style="background: #0f172a; border-left: 4px solid var(--accent-sky); padding: 18px; border-radius: 8px;">
+          <div style="font-weight: 700; color: var(--accent-sky); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+            The Northeast & Coastal Deluge (Sylhet, Chattogram, Barishal)
+          </div>
+          <h4 style="margin: 8px 0 6px 0; font-size: 1.1rem;">Atmospheric Rainfall Volatility & Flash Floods</h4>
+          <p style="font-size: 0.9rem; color: var(--ink-muted); line-height: 1.5;">
+            July monsoon rainfall surges past <strong style="color: #38bdf8;">1,175 mm</strong> in Chattogram and <strong style="color: #38bdf8;">955 mm</strong> in Sylhet (+340 mm YoY jump).
+            Terrestrial water storage spikes into massive surplus (<strong style="color: #38bdf8;">+22 to +23 cm</strong>), generating sudden haor flash floods despite zero rainfall in winter.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: FILE REGISTRY & ARCHITECTURE -->
+    <section class="section-card" id="registry">
+      <div class="section-header">
+        <div class="section-title">
+          📁 Project Architecture & File Registry
+        </div>
+        <span style="font-size: 0.85rem; color: var(--ink-muted);">All components indexed and linked</span>
+      </div>
+
+      <div class="file-grid">
+
+        <!-- demo.html -->
+        <div class="file-card">
+          <div class="file-header">
+            <span class="file-icon">📽️</span>
+            <div>
+              <div class="file-title">demo.html</div>
+              <span class="file-badge badge-html">Presentation</span>
+            </div>
+          </div>
+          <p class="file-desc">
+            Interactive 7-slide NASA pitch deck preview ("Trend Detective: The Bengal Water Paradox") with rehearsal voiceover drawer.
+          </p>
+          <div class="file-actions">
+            <a href="demo.html" class="file-link" target="_blank">Open Slide Deck ↗</a>
+          </div>
+        </div>
+
+        <!-- analyze_divisions.py -->
+        <div class="file-card">
+          <div class="file-header">
+            <span class="file-icon">🐍</span>
+            <div>
+              <div class="file-title">analyze_divisions.py</div>
+              <span class="file-badge badge-py">Pipeline</span>
+            </div>
+          </div>
+          <p class="file-desc">
+            Core CLI pipeline for GRACE Mascon analysis across Bangladesh divisions. Exports JSON, CSV, choropleth maps, ranking plots, and HTML reports.
+          </p>
+          <div class="file-actions">
+            <span style="font-size: 0.75rem; color: #64748b;">CLI Tool</span>
+          </div>
+        </div>
+
+        <!-- analyze_precipitation.py -->
+        <div class="file-card">
+          <div class="file-header">
+            <span class="file-icon">🌧️</span>
+            <div>
+              <div class="file-title">analyze_precipitation.py</div>
+              <span class="file-badge badge-py">Pipeline</span>
+            </div>
+          </div>
+          <p class="file-desc">
+            Divisional precipitation influx pipeline. Automatically loads NASA satellite precipitation or GPM IMERG files and audits division rainfall.
+          </p>
+          <div class="file-actions">
+            <span style="font-size: 0.75rem; color: #64748b;">CLI Tool</span>
+          </div>
+        </div>
+
+        <!-- download_nasa_precipitation.py -->
+        <div class="file-card">
+          <div class="file-header">
+            <span class="file-icon">🛰️</span>
+            <div>
+              <div class="file-title">download_nasa_precipitation.py</div>
+              <span class="file-badge badge-py">Downloader</span>
+            </div>
+          </div>
+          <p class="file-desc">
+            Zero-auth automated fetcher for NASA POWER monthly precipitation (GPM IMERG + GMAO MERRA-2) covering Bangladesh (2002–2026, 296 months).
+          </p>
+          <div class="file-actions">
+            <span style="font-size: 0.75rem; color: #64748b;">Automated Ingestion</span>
+          </div>
+        </div>
+
+        <!-- download_imerg_earthdata.py -->
+        <div class="file-card">
+          <div class="file-header">
+            <span class="file-icon">📥</span>
+            <div>
+              <div class="file-title">download_imerg_earthdata.py</div>
+              <span class="file-badge badge-py">Downloader</span>
+            </div>
+          </div>
+          <p class="file-desc">
+            Official NASA Earthdata downloader using <code>earthaccess</code> for GPM IMERG Monthly Final Run (GPM_3IMERGM v07B) HDF5/NetCDF files.
+          </p>
+          <div class="file-actions">
+            <span style="font-size: 0.75rem; color: #64748b;">GES DISC Client</span>
+          </div>
+        </div>
+
+        <!-- plot_bangladesh.py -->
+        <div class="file-card">
+          <div class="file-header">
+            <span class="file-icon">🗺️</span>
+            <div>
+              <div class="file-title">plot_bangladesh.py</div>
+              <span class="file-badge badge-py">Script</span>
+            </div>
+          </div>
+          <p class="file-desc">
+            Extracts and clips GRACE Mascon grid strictly to Bangladesh's national polygon boundary with Cartopy river networks and coastlines.
+          </p>
+          <div class="file-actions">
+            <a href="bangladesh_plot.png" class="file-link" target="_blank">View Plot (PNG) ↗</a>
+          </div>
+        </div>
+
+        <!-- CSR GRACE NetCDF Dataset -->
+        <div class="file-card">
+          <div class="file-header">
+            <span class="file-icon">📦</span>
+            <div>
+              <div class="file-title">CSR_GRACE_...nc</div>
+              <span class="file-badge badge-nc">Dataset (113 MB)</span>
+            </div>
+          </div>
+          <p class="file-desc">
+            CSR GRACE/GRACE-FO Mascon RL06.3 global NetCDF (2002–July 2026). Variable: <code>lwe_thickness</code> (liquid water equivalent in cm).
+          </p>
+          <div class="file-actions">
+            <span style="font-size: 0.75rem; color: #64748b;">Global Terrestrial Storage</span>
+          </div>
+        </div>
+
+        <!-- NASA Precipitation NetCDF Dataset -->
+        <div class="file-card">
+          <div class="file-header">
+            <span class="file-icon">📦</span>
+            <div>
+              <div class="file-title">nasa_precipitation_...nc</div>
+              <span class="file-badge badge-nc">Dataset (265 KB)</span>
+            </div>
+          </div>
+          <p class="file-desc">
+            Compiled CF-compliant NetCDF grid covering Bangladesh across 296 months (2002–2026). Variables: <code>precipitation</code> (mm/month) & <code>rate</code> (mm/day).
+          </p>
+          <div class="file-actions">
+            <span style="font-size: 0.75rem; color: #64748b;">Bangladesh Atmospheric Influx</span>
+          </div>
+        </div>
+
+        <!-- Executive Reports -->
+        <div class="file-card">
+          <div class="file-header">
+            <span class="file-icon">📑</span>
+            <div>
+              <div class="file-title">Executive HTML Reports</div>
+              <span class="file-badge badge-html">6 Reports</span>
+            </div>
+          </div>
+          <p class="file-desc">
+            Standalone, fully styled executive reports with KPI cards, choropleth maps, ranking graphs, and season navigation pills.
+          </p>
+          <div class="file-actions">
+            <a href="outputs/divisional_report_2026-07.html" class="file-link" target="_blank">GRACE Jul '26 ↗</a>
+            <span style="color: #475569;">•</span>
+            <a href="outputs/divisional_precip_report_2026-07.html" class="file-link" target="_blank">Precip Jul '26 ↗</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Run CLI Cheatsheet -->
+      <div style="margin-top: 28px;">
+        <h4 style="font-size: 1rem; color: #cbd5e1; margin-bottom: 8px;">Pipeline Quick-Run CLI Cheatsheet</h4>
+        <div class="code-box">
+<span class="code-comment"># 1. Run GRACE Water Storage analysis for any month (outputs JSON, CSV, PNGs, HTML)</span>
+python analyze_divisions.py --month 2026-07
+python analyze_divisions.py --month 2026-03
+python analyze_divisions.py --month 2025-12
+
+<span class="code-comment"># 2. Run GPM IMERG Precipitation analysis for any month (auto-downloads if needed)</span>
+python analyze_precipitation.py --month 2026-07
+python analyze_precipitation.py --month 2026-03
+python analyze_precipitation.py --month 2025-12
+
+<span class="code-comment"># 3. Download/refresh full NASA Satellite precipitation dataset (2002-2026)</span>
+python download_nasa_precipitation.py
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+      NASA Space Apps Challenge 2026 // Trend Detective • NASA GRACE/GRACE-FO Mascons & GPM IMERG Precipitation • Bangladesh Regional Analysis
+    </footer>
+
+  </div>
+
+  <!-- CLIENT-SIDE EMBEDDED DATA & INTERACTIVE LOGIC -->
+  <script>
+    // Embedded observation database generated from our verified pipeline outputs
+    const DATABASE = {
+      grace: {
+        unit: 'cm',
+        unitLabel: 'Water Storage Anomaly (cm)',
+        volLabel: 'Net Volume Anomaly (km³)',
+        seasons: {
+          '2026-07': {
+            label: 'July 2026 (Monsoon Peak)',
+            reportFile: 'outputs/divisional_report_2026-07.html',
+            choropleth: 'outputs/divisional_choropleth_2026-07.png',
+            ranking: 'outputs/divisional_ranking_2026-07.png',
+            jsonFile: 'outputs/divisional_analysis_2026-07.json',
+            csvFile: 'outputs/divisional_analysis_2026-07.csv',
+            kpis: {
+              metric1: { label: 'National Mean Anomaly', val: '+12.6 cm', color: '#38bdf8' },
+              metric2: { label: 'Total Volume Balance', val: '+17.4 km³', color: '#38bdf8' },
+              metric3: { label: 'Most Depleted Division', val: 'Rangpur (-14.3 cm)', color: '#ef4444' },
+              metric4: { label: 'Highest Surplus Division', val: 'Chattogram (+23.5 cm)', color: '#0284c7' }
+            },
+            divisions: [
+              { name: 'Rangpur', area: 15392.7, val: -14.32, range: '[-23.7, +3.9]', vol: -2.204, yoy: '+8.99 cm', status: 'Moderate Deficit' },
+              { name: 'Rajshahi', area: 18843.7, val: -7.78, range: '[-16.1, +0.7]', vol: -1.466, yoy: '-2.33 cm', status: 'Moderate Deficit' },
+              { name: 'Khulna', area: 21822.4, val: 9.69, range: '[+0.8, +17.2]', vol: 2.114, yoy: '+1.27 cm', status: 'Moderate Surplus' },
+              { name: 'Dhaka', area: 30548.7, val: 15.47, range: '[+7.7, +23.7]', vol: 4.726, yoy: '+12.56 cm', status: 'High Surplus' },
+              { name: 'Barishal', area: 9104.1, val: 20.35, range: '[+14.5, +24.9]', vol: 1.852, yoy: '+1.41 cm', status: 'High Surplus' },
+              { name: 'Sylhet', area: 11968.9, val: 22.43, range: '[+19.3, +24.9]', vol: 2.685, yoy: '+13.77 cm', status: 'High Surplus' },
+              { name: 'Chattogram', area: 29223.2, val: 23.46, range: '[+10.3, +30.1]', vol: 6.856, yoy: '+3.48 cm', status: 'High Surplus' }
+            ]
+          },
+          '2026-03': {
+            label: 'March 2026 (Boro Irrigation)',
+            reportFile: 'outputs/divisional_report_2026-03.html',
+            choropleth: 'outputs/divisional_choropleth_2026-03.png',
+            ranking: 'outputs/divisional_ranking_2026-03.png',
+            jsonFile: 'outputs/divisional_analysis_2026-03.json',
+            csvFile: 'outputs/divisional_analysis_2026-03.csv',
+            kpis: {
+              metric1: { label: 'National Mean Anomaly', val: '-30.3 cm', color: '#ef4444' },
+              metric2: { label: 'Total Volume Balance', val: '-41.5 km³', color: '#ef4444' },
+              metric3: { label: 'Most Depleted Division', val: 'Rangpur (-51.0 cm)', color: '#ef4444' },
+              metric4: { label: 'Least Depleted Division', val: 'Barishal (-19.7 cm)', color: '#f59e0b' }
+            },
+            divisions: [
+              { name: 'Rangpur', area: 15392.7, val: -50.95, range: '[-60.2, -38.4]', vol: -7.843, yoy: '+9.78 cm', status: 'Severe Deficit' },
+              { name: 'Rajshahi', area: 18843.7, val: -36.28, range: '[-46.8, -25.7]', vol: -6.837, yoy: '+13.01 cm', status: 'Severe Deficit' },
+              { name: 'Dhaka', area: 30548.7, val: -33.03, range: '[-42.1, -21.4]', vol: -10.091, yoy: '+8.55 cm', status: 'Severe Deficit' },
+              { name: 'Sylhet', area: 11968.9, val: -28.68, range: '[-33.9, -22.3]', vol: -3.433, yoy: '+9.20 cm', status: 'Severe Deficit' },
+              { name: 'Chattogram', area: 29223.2, val: -21.88, range: '[-30.1, -12.4]', vol: -6.393, yoy: '+2.88 cm', status: 'Severe Deficit' },
+              { name: 'Khulna', area: 21822.4, val: -21.14, range: '[-29.8, -11.9]', vol: -4.614, yoy: '+5.07 cm', status: 'Severe Deficit' },
+              { name: 'Barishal', area: 9104.1, val: -19.71, range: '[-26.4, -12.0]', vol: -1.795, yoy: '+2.11 cm', status: 'Severe Deficit' }
+            ]
+          },
+          '2025-12': {
+            label: 'December 2025 (Dry Winter)',
+            reportFile: 'outputs/divisional_report_2025-12.html',
+            choropleth: 'outputs/divisional_choropleth_2025-12.png',
+            ranking: 'outputs/divisional_ranking_2025-12.png',
+            jsonFile: 'outputs/divisional_analysis_2025-12.json',
+            csvFile: 'outputs/divisional_analysis_2025-12.csv',
+            kpis: {
+              metric1: { label: 'National Mean Anomaly', val: '-14.3 cm', color: '#ef4444' },
+              metric2: { label: 'Total Volume Balance', val: '-19.6 km³', color: '#ef4444' },
+              metric3: { label: 'Most Depleted Division', val: 'Rangpur (-37.0 cm)', color: '#ef4444' },
+              metric4: { label: 'Most Balanced Division', val: 'Barishal (-2.5 cm)', color: '#10b981' }
+            },
+            divisions: [
+              { name: 'Rangpur', area: 15392.7, val: -36.99, range: '[-46.1, -24.8]', vol: -5.694, yoy: '+10.06 cm', status: 'Severe Deficit' },
+              { name: 'Rajshahi', area: 18843.7, val: -22.84, range: '[-33.2, -12.4]', vol: -4.303, yoy: '+8.49 cm', status: 'Severe Deficit' },
+              { name: 'Dhaka', area: 30548.7, val: -15.78, range: '[-24.9, -4.8]', vol: -4.821, yoy: '+4.16 cm', status: 'Severe Deficit' },
+              { name: 'Sylhet', area: 11968.9, val: -11.90, range: '[-17.3, -5.2]', vol: -1.425, yoy: '+1.08 cm', status: 'Moderate Deficit' },
+              { name: 'Khulna', area: 21822.4, val: -7.31, range: '[-16.1, +1.8]', vol: -1.595, yoy: '+1.06 cm', status: 'Moderate Deficit' },
+              { name: 'Chattogram', area: 29223.2, val: -3.45, range: '[-11.2, +4.9]', vol: -1.008, yoy: '-1.88 cm', status: 'Normal / Balanced' },
+              { name: 'Barishal', area: 9104.1, val: -2.51, range: '[-8.4, +3.6]', vol: -0.229, yoy: '-3.72 cm', status: 'Normal / Balanced' }
+            ]
+          }
+        }
+      },
+      precip: {
+        unit: 'mm',
+        unitLabel: 'Mean Monthly Rainfall (mm)',
+        volLabel: 'Total Rain Influx (km³)',
+        seasons: {
+          '2026-07': {
+            label: 'July 2026 (Monsoon Peak)',
+            reportFile: 'outputs/divisional_precip_report_2026-07.html',
+            choropleth: 'outputs/divisional_precip_choropleth_2026-07.png',
+            ranking: 'outputs/divisional_precip_ranking_2026-07.png',
+            jsonFile: 'outputs/divisional_precip_2026-07.json',
+            csvFile: 'outputs/divisional_precip_2026-07.csv',
+            kpis: {
+              metric1: { label: 'National Mean Rainfall', val: '722 mm', color: '#0284c7' },
+              metric2: { label: 'Total Atmospheric Influx', val: '98.8 km³', color: '#38bdf8' },
+              metric3: { label: 'Highest Rainfall Division', val: 'Chattogram (1,175 mm)', color: '#0284c7' },
+              metric4: { label: 'Driest Division', val: 'Rangpur (400 mm)', color: '#f59e0b' }
+            },
+            divisions: [
+              { name: 'Chattogram', area: 29223.2, val: 1175.4, rate: 39.18, vol: 34.350, yoy: '+163 mm', status: 'Extreme Deluge' },
+              { name: 'Sylhet', area: 11968.9, val: 954.6, rate: 31.82, vol: 11.425, yoy: '+340 mm', status: 'Extreme Deluge' },
+              { name: 'Barishal', area: 9104.1, val: 887.7, rate: 29.59, vol: 8.082, yoy: '-138 mm', status: 'Extreme Deluge' },
+              { name: 'Dhaka', area: 30548.7, val: 602.4, rate: 20.08, vol: 18.402, yoy: '+38 mm', status: 'Extreme Deluge' },
+              { name: 'Khulna', area: 21822.4, val: 568.4, rate: 18.95, vol: 12.403, yoy: '-79 mm', status: 'Heavy Monsoon' },
+              { name: 'Rajshahi', area: 18843.7, val: 402.2, rate: 13.41, vol: 7.579, yoy: '-21 mm', status: 'Heavy Monsoon' },
+              { name: 'Rangpur', area: 15392.7, val: 399.8, rate: 13.33, vol: 6.154, yoy: '+88 mm', status: 'Heavy Monsoon' }
+            ]
+          },
+          '2026-03': {
+            label: 'March 2026 (Boro Irrigation)',
+            reportFile: 'outputs/divisional_precip_report_2026-03.html',
+            choropleth: 'outputs/divisional_precip_choropleth_2026-03.png',
+            ranking: 'outputs/divisional_precip_ranking_2026-03.png',
+            jsonFile: 'outputs/divisional_precip_2026-03.json',
+            csvFile: 'outputs/divisional_precip_2026-03.csv',
+            kpis: {
+              metric1: { label: 'National Mean Rainfall', val: '124 mm', color: '#38bdf8' },
+              metric2: { label: 'Total Atmospheric Influx', val: '17.0 km³', color: '#38bdf8' },
+              metric3: { label: 'Highest Rainfall Division', val: 'Sylhet (291 mm)', color: '#0284c7' },
+              metric4: { label: 'Driest Division', val: 'Chattogram (59 mm)', color: '#f59e0b' }
+            },
+            divisions: [
+              { name: 'Sylhet', area: 11968.9, val: 290.6, rate: 9.69, vol: 3.478, yoy: '+178 mm', status: 'Moderate Monsoonal' },
+              { name: 'Rangpur', area: 15392.7, val: 167.8, rate: 5.59, vol: 2.583, yoy: '+102 mm', status: 'Moderate Monsoonal' },
+              { name: 'Dhaka', area: 30548.7, val: 138.1, rate: 4.60, vol: 4.219, yoy: '+74 mm', status: 'Moderate Monsoonal' },
+              { name: 'Rajshahi', area: 18843.7, val: 91.1, rate: 3.04, vol: 1.717, yoy: '+44 mm', status: 'Below Normal' },
+              { name: 'Barishal', area: 9104.1, val: 65.4, rate: 2.18, vol: 0.596, yoy: '+22 mm', status: 'Below Normal' },
+              { name: 'Khulna', area: 21822.4, val: 62.1, rate: 2.07, vol: 1.354, yoy: '+19 mm', status: 'Below Normal' },
+              { name: 'Chattogram', area: 29223.2, val: 58.8, rate: 1.96, vol: 1.718, yoy: '+15 mm', status: 'Below Normal' }
+            ]
+          },
+          '2025-12': {
+            label: 'December 2025 (Dry Winter)',
+            reportFile: 'outputs/divisional_precip_report_2025-12.html',
+            choropleth: 'outputs/divisional_precip_choropleth_2025-12.png',
+            ranking: 'outputs/divisional_precip_ranking_2025-12.png',
+            jsonFile: 'outputs/divisional_precip_2025-12.json',
+            csvFile: 'outputs/divisional_precip_2025-12.csv',
+            kpis: {
+              metric1: { label: 'National Mean Rainfall', val: '3.5 mm', color: '#ef4444' },
+              metric2: { label: 'Total Atmospheric Influx', val: '0.48 km³', color: '#ef4444' },
+              metric3: { label: 'Highest Rainfall Division', val: 'Chattogram (16 mm)', color: '#f59e0b' },
+              metric4: { label: 'Driest Division', val: 'Rangpur / Sylhet (0 mm)', color: '#ef4444' }
+            },
+            divisions: [
+              { name: 'Chattogram', area: 29223.2, val: 15.8, rate: 0.53, vol: 0.463, yoy: '+12 mm', status: 'Scanty / Drought' },
+              { name: 'Dhaka', area: 30548.7, val: 0.3, rate: 0.01, vol: 0.009, yoy: '-1 mm', status: 'Scanty / Drought' },
+              { name: 'Rajshahi', area: 18843.7, val: 0.2, rate: 0.01, vol: 0.004, yoy: '0 mm', status: 'Scanty / Drought' },
+              { name: 'Barishal', area: 9104.1, val: 0.2, rate: 0.01, vol: 0.001, yoy: '0 mm', status: 'Scanty / Drought' },
+              { name: 'Khulna', area: 21822.4, val: 0.1, rate: 0.00, vol: 0.002, yoy: '0 mm', status: 'Scanty / Drought' },
+              { name: 'Sylhet', area: 11968.9, val: 0.0, rate: 0.00, vol: 0.000, yoy: '0 mm', status: 'Scanty / Drought' },
+              { name: 'Rangpur', area: 15392.7, val: 0.0, rate: 0.00, vol: 0.000, yoy: '0 mm', status: 'Scanty / Drought' }
+            ]
+          }
+        }
+      }
+    };
+
+    let currentDataset = 'grace';
+    let currentSeason = '2026-07';
+
+    function switchDataset(ds) {
+      currentDataset = ds;
+      document.getElementById('btnDsGrace').classList.toggle('active', ds === 'grace');
+      document.getElementById('btnDsPrecip').classList.toggle('active', ds === 'precip');
+      renderDashboard();
+    }
+
+    function switchSeason(season) {
+      currentSeason = season;
+      document.getElementById('btnSeasonJul').classList.toggle('active', season === '2026-07');
+      document.getElementById('btnSeasonMar').classList.toggle('active', season === '2026-03');
+      document.getElementById('btnSeasonDec').classList.toggle('active', season === '2025-12');
+      renderDashboard();
+    }
+
+    function renderDashboard() {
+      const data = DATABASE[currentDataset];
+      const seasonData = data.seasons[currentSeason];
+
+      // Update Standalone HTML Report Link
+      document.getElementById('activeReportLinkContainer').innerHTML = `
+        <a href="${seasonData.reportFile}" target="_blank" class="btn btn-primary" style="font-size: 0.85rem; padding: 8px 16px;">
+          Open Full Executive Report (${seasonData.label}) ↗
+        </a>
+      `;
+
+      // Update KPIs
+      const kpis = seasonData.kpis;
+      document.getElementById('kpiContainer').innerHTML = `
+        <div class="kpi-box">
+          <div class="kpi-meta">${kpis.metric1.label}</div>
+          <div class="kpi-number" style="color: ${kpis.metric1.color};">${kpis.metric1.val}</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-meta">${kpis.metric2.label}</div>
+          <div class="kpi-number" style="color: ${kpis.metric2.color};">${kpis.metric2.val}</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-meta">${kpis.metric3.label}</div>
+          <div class="kpi-number" style="color: ${kpis.metric3.color}; font-size: 1.45rem;">${kpis.metric3.val}</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-meta">${kpis.metric4.label}</div>
+          <div class="kpi-number" style="color: ${kpis.metric4.color}; font-size: 1.45rem;">${kpis.metric4.val}</div>
+        </div>
+      `;
+
+      // Update Visuals
+      document.getElementById('choroplethImg').src = seasonData.choropleth;
+      document.getElementById('choroplethDownload').href = seasonData.choropleth;
+      document.getElementById('rankingImg').src = seasonData.ranking;
+      document.getElementById('rankingDownload').href = seasonData.ranking;
+
+      document.getElementById('choroplethTitle').innerText = currentDataset === 'grace' 
+        ? `Spatial Water Storage Choropleth (${seasonData.label})`
+        : `Spatial Precipitation Choropleth (${seasonData.label})`;
+
+      document.getElementById('rankingTitle').innerText = currentDataset === 'grace'
+        ? `Water Storage Anomaly Ranking (${seasonData.label})`
+        : `Atmospheric Rainfall Influx Ranking (${seasonData.label})`;
+
+      // Update Downloads
+      document.getElementById('downloadJsonBtn').href = seasonData.jsonFile;
+      document.getElementById('downloadCsvBtn').href = seasonData.csvFile;
+
+      // Update Table Headers
+      const theadRow = document.getElementById('tableHeaderRow');
+      if (currentDataset === 'grace') {
+        theadRow.innerHTML = `
+          <th>Division</th>
+          <th>Area (km²)</th>
+          <th>Mean Storage Anomaly</th>
+          <th>Spread [Min, Max]</th>
+          <th>Net Volume Anomaly</th>
+          <th>YoY Delta</th>
+          <th>Condition</th>
+        `;
+      } else {
+        theadRow.innerHTML = `
+          <th>Division</th>
+          <th>Area (km²)</th>
+          <th>Monthly Rainfall</th>
+          <th>Daily Rate</th>
+          <th>Total Rain Influx</th>
+          <th>YoY Delta</th>
+          <th>Condition</th>
+        `;
+      }
+
+      // Update Table Rows
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = seasonData.divisions.map(d => {
+        let badgeBg = '#334155';
+        let badgeColor = '#94a3b8';
+        if (d.status.includes('Deficit') || d.status.includes('Drought')) {
+          badgeBg = 'rgba(239, 68, 68, 0.15)'; badgeColor = '#ef4444';
+        } else if (d.status.includes('Surplus') || d.status.includes('Deluge')) {
+          badgeBg = 'rgba(2, 132, 199, 0.15)'; badgeColor = '#38bdf8';
+        } else if (d.status.includes('Normal') || d.status.includes('Monsoonal')) {
+          badgeBg = 'rgba(16, 185, 129, 0.15)'; badgeColor = '#34d399';
+        }
+
+        if (currentDataset === 'grace') {
+          const valColor = d.val < 0 ? '#ef4444' : '#38bdf8';
+          return `
+            <tr>
+              <td style="font-weight: 700;">${d.name}</td>
+              <td>${d.area.toLocaleString()} km²</td>
+              <td style="font-weight: 700; color: ${valColor};">${d.val > 0 ? '+' : ''}${d.val.toFixed(2)} cm</td>
+              <td>${d.range} cm</td>
+              <td>${d.vol > 0 ? '+' : ''}${d.vol.toFixed(3)} km³</td>
+              <td style="color: ${d.yoy.startsWith('-') ? '#ef4444' : '#34d399'}; font-weight: 600;">${d.yoy}</td>
+              <td><span class="badge-status" style="background: ${badgeBg}; color: ${badgeColor}; border: 1px solid ${badgeColor};">${d.status}</span></td>
+            </tr>
+          `;
+        } else {
+          return `
+            <tr>
+              <td style="font-weight: 700;">${d.name}</td>
+              <td>${d.area.toLocaleString()} km²</td>
+              <td style="font-weight: 700; color: #38bdf8;">${d.val.toFixed(1)} mm</td>
+              <td>${d.rate.toFixed(2)} mm/day</td>
+              <td><strong>${d.vol.toFixed(3)} km³</strong></td>
+              <td style="color: ${d.yoy.startsWith('-') ? '#ef4444' : '#34d399'}; font-weight: 600;">${d.yoy}</td>
+              <td><span class="badge-status" style="background: ${badgeBg}; color: ${badgeColor}; border: 1px solid ${badgeColor};">${d.status}</span></td>
+            </tr>
+          `;
+        }
+      }).join('');
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderDashboard();
+    });
+  </script>
+</body>
+</html>
