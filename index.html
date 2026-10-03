@@ -481,8 +481,11 @@
         <div class="project-subtitle">Unified Analysis Pipeline & Divisional Observation Hub</div>
       </div>
       <div class="header-actions">
-        <a href="demo.html" class="btn btn-primary" target="_blank">
-          ▶ Launch Pitch Deck (demo.html)
+        <a href="bangladesh_water_analysis_detailed.xlsx" class="btn btn-primary" download>
+          📊 Detailed Excel (.xlsx)
+        </a>
+        <a href="demo.html" class="btn btn-secondary" target="_blank">
+          ▶ Launch Pitch Deck
         </a>
         <a href="#registry" class="btn btn-secondary">
           📁 File Registry
@@ -562,9 +565,10 @@
       </div>
 
       <!-- DIVISIONAL QUANTITATIVE AUDIT TABLE -->
-      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10px; flex-wrap: wrap; gap: 10px;">
         <h3 style="font-size: 1.05rem; font-weight: 700; color: #cbd5e1;">Divisional Quantitative Breakdown</h3>
-        <div style="display: flex; gap: 12px;">
+        <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+          <a href="bangladesh_water_analysis_detailed.xlsx" class="file-link" download style="color: #34d399; font-weight: 700;">📊 Full Excel Workbook (.xlsx) ↗</a>
           <a id="downloadJsonBtn" href="#" class="file-link" download>Export JSON ↗</a>
           <a id="downloadCsvBtn" href="#" class="file-link" download>Export CSV ↗</a>
         </div>
@@ -626,6 +630,23 @@
       </div>
 
       <div class="file-grid">
+
+        <!-- bangladesh_water_analysis_detailed.xlsx -->
+        <div class="file-card" style="border-color: #0284c7; background: linear-gradient(180deg, #0f172a 0%, #0b1329 100%);">
+          <div class="file-header">
+            <span class="file-icon">📊</span>
+            <div>
+              <div class="file-title">Detailed Excel Numbers</div>
+              <span class="file-badge badge-data" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4);">5 Tabs • .xlsx</span>
+            </div>
+          </div>
+          <p class="file-desc">
+            Multi-tab audit workbook: Executive Cross-Comparison, GRACE Water Storage, GPM IMERG Influx, 2020–2026 Historical Monthly Time Series, and Data Dictionary.
+          </p>
+          <div class="file-actions">
+            <a href="bangladesh_water_analysis_detailed.xlsx" class="file-link" download style="color: #34d399; font-weight: 700;">Download Workbook (.xlsx) ↓</a>
+          </div>
+        </div>
 
         <!-- demo.html -->
         <div class="file-card">
@@ -800,6 +821,9 @@ python analyze_precipitation.py --month 2025-12
 
 <span class="code-comment"># 3. Download/refresh full NASA Satellite precipitation dataset (2002-2026)</span>
 python download_nasa_precipitation.py
+
+<span class="code-comment"># 4. Generate comprehensive 5-tab formatted Excel workbook (.xlsx)</span>
+python create_excel_report.py
         </div>
       </div>
     </section>
