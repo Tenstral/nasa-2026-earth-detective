@@ -665,6 +665,24 @@
           </div>
         </div>
 
+        <!-- analyze_trends.py -->
+        <div class="file-card" style="border-color: #8b5cf6;">
+          <div class="file-header">
+            <span class="file-icon">📈</span>
+            <div>
+              <div class="file-title">Statistical Engine (Trends)</div>
+              <span class="file-badge badge-py" style="background: rgba(139, 92, 246, 0.2); color: #a78bfa; border-color: rgba(139, 92, 246, 0.4);">Theil-Sen & MK</span>
+            </div>
+          </div>
+          <p class="file-desc">
+            Executes Mann-Kendall tests and Theil-Sen slope estimation (2002–2026) across all 8 divisions, including isolated Mymensingh analysis and 95% confidence intervals.
+          </p>
+          <div class="file-actions">
+            <a href="outputs/divisional_trends.png" class="file-link" target="_blank" style="color: #a78bfa;">View Trend Chart ↗</a>
+            <a href="outputs/divisional_trends.csv" class="file-link" download style="color: #94a3b8; font-size: 0.75rem;">CSV</a>
+          </div>
+        </div>
+
         <!-- analyze_divisions.py -->
         <div class="file-card">
           <div class="file-header">
@@ -852,19 +870,20 @@ python create_excel_report.py
             jsonFile: 'outputs/divisional_analysis_2026-07.json',
             csvFile: 'outputs/divisional_analysis_2026-07.csv',
             kpis: {
-              metric1: { label: 'National Mean Anomaly', val: '+12.6 cm', color: '#38bdf8' },
-              metric2: { label: 'Total Volume Balance', val: '+17.4 km³', color: '#38bdf8' },
-              metric3: { label: 'Most Depleted Division', val: 'Rangpur (-14.3 cm)', color: '#ef4444' },
-              metric4: { label: 'Highest Surplus Division', val: 'Chattogram (+23.5 cm)', color: '#0284c7' }
+              metric1: { label: 'National Mean Anomaly', val: '+11.8 cm', color: '#38bdf8' },
+              metric2: { label: 'Total Volume Balance', val: '+16.7 km³', color: '#38bdf8' },
+              metric3: { label: 'Most Depleted Division', val: 'Rangpur (-14.4 cm)', color: '#ef4444' },
+              metric4: { label: 'Highest Surplus Division', val: 'Chattogram (+23.3 cm)', color: '#0284c7' }
             },
             divisions: [
-              { name: 'Rangpur', area: 15392.7, val: -14.32, range: '[-23.7, +3.9]', vol: -2.204, yoy: '+8.99 cm', status: 'Moderate Deficit' },
-              { name: 'Rajshahi', area: 18843.7, val: -7.78, range: '[-16.1, +0.7]', vol: -1.466, yoy: '-2.33 cm', status: 'Moderate Deficit' },
-              { name: 'Khulna', area: 21822.4, val: 9.69, range: '[+0.8, +17.2]', vol: 2.114, yoy: '+1.27 cm', status: 'Moderate Surplus' },
-              { name: 'Dhaka', area: 30548.7, val: 15.47, range: '[+7.7, +23.7]', vol: 4.726, yoy: '+12.56 cm', status: 'High Surplus' },
-              { name: 'Barishal', area: 9104.1, val: 20.35, range: '[+14.5, +24.9]', vol: 1.852, yoy: '+1.41 cm', status: 'High Surplus' },
-              { name: 'Sylhet', area: 11968.9, val: 22.43, range: '[+19.3, +24.9]', vol: 2.685, yoy: '+13.77 cm', status: 'High Surplus' },
-              { name: 'Chattogram', area: 29223.2, val: 23.46, range: '[+10.3, +30.1]', vol: 6.856, yoy: '+3.48 cm', status: 'High Surplus' }
+              { name: 'Rangpur', area: 15168.1, val: -14.35, range: '[-23.7, +7.7]', vol: -2.176, yoy: '+8.11 cm', status: 'Moderate Deficit' },
+              { name: 'Rajshahi', area: 15816.3, val: -7.32, range: '[-28.1, +14.2]', vol: -1.158, yoy: '-3.19 cm', status: 'Moderate Deficit' },
+              { name: 'Khulna', area: 18265.6, val: 11.70, range: '[+5.5, +20.6]', vol: 2.137, yoy: '+1.68 cm', status: 'Moderate Surplus' },
+              { name: 'Dhaka', area: 17130.7, val: 14.64, range: '[+5.5, +23.7]', vol: 2.507, yoy: '+9.78 cm', status: 'Moderate Surplus' },
+              { name: 'Mymensingh', area: 10001.8, val: 14.90, range: '[+7.7, +21.8]', vol: 1.490, yoy: '+16.70 cm', status: 'Moderate Surplus' },
+              { name: 'Barishal', area: 9887.4, val: 21.80, range: '[+11.4, +30.1]', vol: 2.155, yoy: '+0.59 cm', status: 'High Surplus' },
+              { name: 'Sylhet', area: 11196.6, val: 22.57, range: '[+19.3, +24.9]', vol: 2.527, yoy: '+13.49 cm', status: 'High Surplus' },
+              { name: 'Chattogram', area: 24886.5, val: 23.29, range: '[+10.3, +30.1]', vol: 5.795, yoy: '+3.55 cm', status: 'High Surplus' }
             ]
           },
           '2026-03': {
@@ -875,19 +894,20 @@ python create_excel_report.py
             jsonFile: 'outputs/divisional_analysis_2026-03.json',
             csvFile: 'outputs/divisional_analysis_2026-03.csv',
             kpis: {
-              metric1: { label: 'National Mean Anomaly', val: '-30.3 cm', color: '#ef4444' },
-              metric2: { label: 'Total Volume Balance', val: '-41.5 km³', color: '#ef4444' },
-              metric3: { label: 'Most Depleted Division', val: 'Rangpur (-51.0 cm)', color: '#ef4444' },
-              metric4: { label: 'Least Depleted Division', val: 'Barishal (-19.7 cm)', color: '#f59e0b' }
+              metric1: { label: 'National Mean Anomaly', val: '-30.0 cm', color: '#ef4444' },
+              metric2: { label: 'Total Volume Balance', val: '-40.5 km³', color: '#ef4444' },
+              metric3: { label: 'Most Depleted Division', val: 'Rangpur (-50.2 cm)', color: '#ef4444' },
+              metric4: { label: 'Least Depleted Division', val: 'Barishal (-19.2 cm)', color: '#f59e0b' }
             },
             divisions: [
-              { name: 'Rangpur', area: 15392.7, val: -50.95, range: '[-60.2, -38.4]', vol: -7.843, yoy: '+9.78 cm', status: 'Severe Deficit' },
-              { name: 'Rajshahi', area: 18843.7, val: -36.28, range: '[-46.8, -25.7]', vol: -6.837, yoy: '+13.01 cm', status: 'Severe Deficit' },
-              { name: 'Dhaka', area: 30548.7, val: -33.03, range: '[-42.1, -21.4]', vol: -10.091, yoy: '+8.55 cm', status: 'Severe Deficit' },
-              { name: 'Sylhet', area: 11968.9, val: -28.68, range: '[-33.9, -22.3]', vol: -3.433, yoy: '+9.20 cm', status: 'Severe Deficit' },
-              { name: 'Chattogram', area: 29223.2, val: -21.88, range: '[-30.1, -12.4]', vol: -6.393, yoy: '+2.88 cm', status: 'Severe Deficit' },
-              { name: 'Khulna', area: 21822.4, val: -21.14, range: '[-29.8, -11.9]', vol: -4.614, yoy: '+5.07 cm', status: 'Severe Deficit' },
-              { name: 'Barishal', area: 9104.1, val: -19.71, range: '[-26.4, -12.0]', vol: -1.795, yoy: '+2.11 cm', status: 'Severe Deficit' }
+              { name: 'Rangpur', area: 15168.1, val: -50.19, range: '[-60.7, -41.7]', vol: -7.613, yoy: '+10.14 cm', status: 'Severe Deficit' },
+              { name: 'Mymensingh', area: 10001.8, val: -37.06, range: '[-41.7, -31.6]', vol: -3.707, yoy: '+10.26 cm', status: 'Severe Deficit' },
+              { name: 'Rajshahi', area: 15816.3, val: -34.81, range: '[-47.4, -21.9]', vol: -5.506, yoy: '+12.97 cm', status: 'Severe Deficit' },
+              { name: 'Dhaka', area: 17130.7, val: -30.71, range: '[-41.7, -22.1]', vol: -5.261, yoy: '+7.72 cm', status: 'Severe Deficit' },
+              { name: 'Sylhet', area: 11196.6, val: -28.61, range: '[-37.1, -24.7]', vol: -3.204, yoy: '+9.02 cm', status: 'Severe Deficit' },
+              { name: 'Chattogram', area: 24886.5, val: -21.87, range: '[-31.6, +1.9]', vol: -5.444, yoy: '+3.05 cm', status: 'Severe Deficit' },
+              { name: 'Khulna', area: 18265.6, val: -20.17, range: '[-23.1, -5.9]', vol: -3.685, yoy: '+4.09 cm', status: 'Severe Deficit' },
+              { name: 'Barishal', area: 9887.4, val: -19.24, range: '[-22.9, -3.7]', vol: -1.903, yoy: '+1.82 cm', status: 'Severe Deficit' }
             ]
           },
           '2025-12': {
@@ -898,19 +918,20 @@ python create_excel_report.py
             jsonFile: 'outputs/divisional_analysis_2025-12.json',
             csvFile: 'outputs/divisional_analysis_2025-12.csv',
             kpis: {
-              metric1: { label: 'National Mean Anomaly', val: '-14.3 cm', color: '#ef4444' },
-              metric2: { label: 'Total Volume Balance', val: '-19.6 km³', color: '#ef4444' },
-              metric3: { label: 'Most Depleted Division', val: 'Rangpur (-37.0 cm)', color: '#ef4444' },
-              metric4: { label: 'Most Balanced Division', val: 'Barishal (-2.5 cm)', color: '#10b981' }
+              metric1: { label: 'National Mean Anomaly', val: '-13.7 cm', color: '#ef4444' },
+              metric2: { label: 'Total Volume Balance', val: '-18.7 km³', color: '#ef4444' },
+              metric3: { label: 'Most Depleted Division', val: 'Rangpur (-36.4 cm)', color: '#ef4444' },
+              metric4: { label: 'Most Balanced Division', val: 'Barishal (-1.5 cm)', color: '#10b981' }
             },
             divisions: [
-              { name: 'Rangpur', area: 15392.7, val: -36.99, range: '[-46.1, -24.8]', vol: -5.694, yoy: '+10.06 cm', status: 'Severe Deficit' },
-              { name: 'Rajshahi', area: 18843.7, val: -22.84, range: '[-33.2, -12.4]', vol: -4.303, yoy: '+8.49 cm', status: 'Severe Deficit' },
-              { name: 'Dhaka', area: 30548.7, val: -15.78, range: '[-24.9, -4.8]', vol: -4.821, yoy: '+4.16 cm', status: 'Severe Deficit' },
-              { name: 'Sylhet', area: 11968.9, val: -11.90, range: '[-17.3, -5.2]', vol: -1.425, yoy: '+1.08 cm', status: 'Moderate Deficit' },
-              { name: 'Khulna', area: 21822.4, val: -7.31, range: '[-16.1, +1.8]', vol: -1.595, yoy: '+1.06 cm', status: 'Moderate Deficit' },
-              { name: 'Chattogram', area: 29223.2, val: -3.45, range: '[-11.2, +4.9]', vol: -1.008, yoy: '-1.88 cm', status: 'Normal / Balanced' },
-              { name: 'Barishal', area: 9104.1, val: -2.51, range: '[-8.4, +3.6]', vol: -0.229, yoy: '-3.72 cm', status: 'Normal / Balanced' }
+              { name: 'Rangpur', area: 15168.1, val: -36.37, range: '[-46.9, -23.2]', vol: -5.517, yoy: '+10.06 cm', status: 'Severe Deficit' },
+              { name: 'Rajshahi', area: 15816.3, val: -21.61, range: '[-34.6, -12.2]', vol: -3.418, yoy: '+8.18 cm', status: 'Severe Deficit' },
+              { name: 'Mymensingh', area: 10001.8, val: -18.60, range: '[-23.2, -13.2]', vol: -1.860, yoy: '+5.04 cm', status: 'Severe Deficit' },
+              { name: 'Dhaka', area: 17130.7, val: -14.41, range: '[-23.2, -6.7]', vol: -2.469, yoy: '+3.89 cm', status: 'Moderate Deficit' },
+              { name: 'Sylhet', area: 11196.6, val: -11.72, range: '[-18.9, -8.7]', vol: -1.313, yoy: '+1.05 cm', status: 'Moderate Deficit' },
+              { name: 'Khulna', area: 18265.6, val: -5.67, range: '[-11.1, +5.0]', vol: -1.035, yoy: '-0.11 cm', status: 'Moderate Deficit' },
+              { name: 'Chattogram', area: 24886.5, val: -3.01, range: '[-13.2, +7.2]', vol: -0.749, yoy: '-1.66 cm', status: 'Normal / Balanced' },
+              { name: 'Barishal', area: 9887.4, val: -1.52, range: '[-6.7, +6.6]', vol: -0.151, yoy: '-4.62 cm', status: 'Normal / Balanced' }
             ]
           }
         }
@@ -928,19 +949,20 @@ python create_excel_report.py
             jsonFile: 'outputs/divisional_precip_2026-07.json',
             csvFile: 'outputs/divisional_precip_2026-07.csv',
             kpis: {
-              metric1: { label: 'National Mean Rainfall', val: '722 mm', color: '#0284c7' },
-              metric2: { label: 'Total Atmospheric Influx', val: '98.8 km³', color: '#38bdf8' },
-              metric3: { label: 'Highest Rainfall Division', val: 'Chattogram (1,175 mm)', color: '#0284c7' },
-              metric4: { label: 'Driest Division', val: 'Rangpur (400 mm)', color: '#f59e0b' }
+              metric1: { label: 'National Mean Rainfall', val: '783 mm', color: '#0284c7' },
+              metric2: { label: 'Total Atmospheric Influx', val: '95.7 km³', color: '#38bdf8' },
+              metric3: { label: 'Highest Rainfall Division', val: 'Chattogram (1,303 mm)', color: '#0284c7' },
+              metric4: { label: 'Driest Division', val: 'Rangpur (405 mm)', color: '#f59e0b' }
             },
             divisions: [
-              { name: 'Chattogram', area: 29223.2, val: 1175.4, rate: 39.18, vol: 34.350, yoy: '+163 mm', status: 'Extreme Deluge' },
-              { name: 'Sylhet', area: 11968.9, val: 954.6, rate: 31.82, vol: 11.425, yoy: '+340 mm', status: 'Extreme Deluge' },
-              { name: 'Barishal', area: 9104.1, val: 887.7, rate: 29.59, vol: 8.082, yoy: '-138 mm', status: 'Extreme Deluge' },
-              { name: 'Dhaka', area: 30548.7, val: 602.4, rate: 20.08, vol: 18.402, yoy: '+38 mm', status: 'Extreme Deluge' },
-              { name: 'Khulna', area: 21822.4, val: 568.4, rate: 18.95, vol: 12.403, yoy: '-79 mm', status: 'Heavy Monsoon' },
-              { name: 'Rajshahi', area: 18843.7, val: 402.2, rate: 13.41, vol: 7.579, yoy: '-21 mm', status: 'Heavy Monsoon' },
-              { name: 'Rangpur', area: 15392.7, val: 399.8, rate: 13.33, vol: 6.154, yoy: '+88 mm', status: 'Heavy Monsoon' }
+              { name: 'Chattogram', area: 24886.5, val: 1303.1, rate: 43.44, vol: 32.430, yoy: '+168.8 mm', status: 'Extreme Deluge / Flood Risk' },
+              { name: 'Barishal', area: 9887.4, val: 1099.5, rate: 36.65, vol: 10.871, yoy: '-90.5 mm', status: 'Extreme Deluge / Flood Risk' },
+              { name: 'Sylhet', area: 11196.6, val: 954.6, rate: 31.82, vol: 10.688, yoy: '+340.4 mm', status: 'Extreme Deluge / Flood Risk' },
+              { name: 'Mymensingh', area: 10001.8, val: 635.2, rate: 21.17, vol: 6.353, yoy: '+112.6 mm', status: 'Extreme Deluge / Flood Risk' },
+              { name: 'Khulna', area: 18265.6, val: 604.3, rate: 20.14, vol: 11.037, yoy: '-82.8 mm', status: 'Extreme Deluge / Flood Risk' },
+              { name: 'Dhaka', area: 17130.7, val: 587.4, rate: 19.58, vol: 10.063, yoy: '-11.6 mm', status: 'Heavy Monsoon' },
+              { name: 'Rajshahi', area: 15816.3, val: 420.9, rate: 14.03, vol: 6.657, yoy: '-13.5 mm', status: 'Heavy Monsoon' },
+              { name: 'Rangpur', area: 15168.1, val: 405.3, rate: 13.51, vol: 6.148, yoy: '+81.7 mm', status: 'Heavy Monsoon' }
             ]
           },
           '2026-03': {
@@ -951,19 +973,20 @@ python create_excel_report.py
             jsonFile: 'outputs/divisional_precip_2026-03.json',
             csvFile: 'outputs/divisional_precip_2026-03.csv',
             kpis: {
-              metric1: { label: 'National Mean Rainfall', val: '124 mm', color: '#38bdf8' },
-              metric2: { label: 'Total Atmospheric Influx', val: '17.0 km³', color: '#38bdf8' },
+              metric1: { label: 'National Mean Rainfall', val: '126 mm', color: '#38bdf8' },
+              metric2: { label: 'Total Atmospheric Influx', val: '15.0 km³', color: '#38bdf8' },
               metric3: { label: 'Highest Rainfall Division', val: 'Sylhet (291 mm)', color: '#0284c7' },
-              metric4: { label: 'Driest Division', val: 'Chattogram (59 mm)', color: '#f59e0b' }
+              metric4: { label: 'Driest Division', val: 'Chattogram (61 mm)', color: '#f59e0b' }
             },
             divisions: [
-              { name: 'Sylhet', area: 11968.9, val: 290.6, rate: 9.69, vol: 3.478, yoy: '+178 mm', status: 'Moderate Monsoonal' },
-              { name: 'Rangpur', area: 15392.7, val: 167.8, rate: 5.59, vol: 2.583, yoy: '+102 mm', status: 'Moderate Monsoonal' },
-              { name: 'Dhaka', area: 30548.7, val: 138.1, rate: 4.60, vol: 4.219, yoy: '+74 mm', status: 'Moderate Monsoonal' },
-              { name: 'Rajshahi', area: 18843.7, val: 91.1, rate: 3.04, vol: 1.717, yoy: '+44 mm', status: 'Below Normal' },
-              { name: 'Barishal', area: 9104.1, val: 65.4, rate: 2.18, vol: 0.596, yoy: '+22 mm', status: 'Below Normal' },
-              { name: 'Khulna', area: 21822.4, val: 62.1, rate: 2.07, vol: 1.354, yoy: '+19 mm', status: 'Below Normal' },
-              { name: 'Chattogram', area: 29223.2, val: 58.8, rate: 1.96, vol: 1.718, yoy: '+15 mm', status: 'Below Normal' }
+              { name: 'Sylhet', area: 11196.6, val: 290.6, rate: 9.69, vol: 3.254, yoy: '+251.9 mm', status: 'Moderate Monsoonal' },
+              { name: 'Mymensingh', area: 10001.8, val: 188.4, rate: 6.28, vol: 1.884, yoy: '+178.8 mm', status: 'Moderate Monsoonal' },
+              { name: 'Rangpur', area: 15168.1, val: 177.8, rate: 5.93, vol: 2.696, yoy: '+168.7 mm', status: 'Moderate Monsoonal' },
+              { name: 'Dhaka', area: 17130.7, val: 107.1, rate: 3.57, vol: 1.835, yoy: '+104.5 mm', status: 'Moderate Monsoonal' },
+              { name: 'Rajshahi', area: 15816.3, val: 96.5, rate: 3.22, vol: 1.526, yoy: '+91.8 mm', status: 'Below Normal' },
+              { name: 'Barishal', area: 9887.4, val: 65.6, rate: 2.19, vol: 0.648, yoy: '+50.1 mm', status: 'Below Normal' },
+              { name: 'Khulna', area: 18265.6, val: 62.9, rate: 2.10, vol: 1.148, yoy: '+56.3 mm', status: 'Below Normal' },
+              { name: 'Chattogram', area: 24886.5, val: 61.0, rate: 2.03, vol: 1.518, yoy: '+33.0 mm', status: 'Below Normal' }
             ]
           },
           '2025-12': {
@@ -975,18 +998,19 @@ python create_excel_report.py
             csvFile: 'outputs/divisional_precip_2025-12.csv',
             kpis: {
               metric1: { label: 'National Mean Rainfall', val: '3.5 mm', color: '#ef4444' },
-              metric2: { label: 'Total Atmospheric Influx', val: '0.48 km³', color: '#ef4444' },
-              metric3: { label: 'Highest Rainfall Division', val: 'Chattogram (16 mm)', color: '#f59e0b' },
-              metric4: { label: 'Driest Division', val: 'Rangpur / Sylhet (0 mm)', color: '#ef4444' }
+              metric2: { label: 'Total Atmospheric Influx', val: '0.42 km³', color: '#ef4444' },
+              metric3: { label: 'Highest Rainfall Division', val: 'Chattogram (15.7 mm)', color: '#f59e0b' },
+              metric4: { label: 'Driest Division', val: 'Rangpur / Sylhet (0.0 mm)', color: '#ef4444' }
             },
             divisions: [
-              { name: 'Chattogram', area: 29223.2, val: 15.8, rate: 0.53, vol: 0.463, yoy: '+12 mm', status: 'Scanty / Drought' },
-              { name: 'Dhaka', area: 30548.7, val: 0.3, rate: 0.01, vol: 0.009, yoy: '-1 mm', status: 'Scanty / Drought' },
-              { name: 'Rajshahi', area: 18843.7, val: 0.2, rate: 0.01, vol: 0.004, yoy: '0 mm', status: 'Scanty / Drought' },
-              { name: 'Barishal', area: 9104.1, val: 0.2, rate: 0.01, vol: 0.001, yoy: '0 mm', status: 'Scanty / Drought' },
-              { name: 'Khulna', area: 21822.4, val: 0.1, rate: 0.00, vol: 0.002, yoy: '0 mm', status: 'Scanty / Drought' },
-              { name: 'Sylhet', area: 11968.9, val: 0.0, rate: 0.00, vol: 0.000, yoy: '0 mm', status: 'Scanty / Drought' },
-              { name: 'Rangpur', area: 15392.7, val: 0.0, rate: 0.00, vol: 0.000, yoy: '0 mm', status: 'Scanty / Drought' }
+              { name: 'Chattogram', area: 24886.5, val: 15.7, rate: 0.52, vol: 0.391, yoy: '+14.3 mm', status: 'Scanty / Drought' },
+              { name: 'Barishal', area: 9887.4, val: 1.6, rate: 0.05, vol: 0.016, yoy: '-1.7 mm', status: 'Scanty / Drought' },
+              { name: 'Dhaka', area: 17130.7, val: 0.4, rate: 0.01, vol: 0.007, yoy: '-2.4 mm', status: 'Scanty / Drought' },
+              { name: 'Rajshahi', area: 15816.3, val: 0.2, rate: 0.01, vol: 0.004, yoy: '-0.2 mm', status: 'Scanty / Drought' },
+              { name: 'Khulna', area: 18265.6, val: 0.1, rate: 0.00, vol: 0.001, yoy: '-4.6 mm', status: 'Scanty / Drought' },
+              { name: 'Mymensingh', area: 10001.8, val: 0.1, rate: 0.00, vol: 0.001, yoy: '+0.0 mm', status: 'Scanty / Drought' },
+              { name: 'Rangpur', area: 15168.1, val: 0.0, rate: 0.00, vol: 0.000, yoy: '+0.0 mm', status: 'Scanty / Drought' },
+              { name: 'Sylhet', area: 11196.6, val: 0.0, rate: 0.00, vol: 0.000, yoy: '-0.2 mm', status: 'Scanty / Drought' }
             ]
           }
         }

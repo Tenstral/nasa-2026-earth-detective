@@ -1,8 +1,9 @@
 name,area_km2,cell_count,mean_anomaly_cm,min_anomaly_cm,max_anomaly_cm,std_anomaly_cm,volume_km3,status,yoy_delta_cm,prev_year_mean_cm
-Chattogram,29223.2,42,23.46,10.3,30.1,4.22,6.856,High Surplus,3.48,19.98
-Sylhet,11968.9,17,22.43,19.32,24.9,1.54,2.685,High Surplus,13.77,8.66
-Dhaka,30548.7,45,15.47,7.74,23.69,5.64,4.726,High Surplus,12.56,2.91
-Rangpur,15392.7,22,-14.32,-23.66,3.9,9.14,-2.204,Moderate Deficit,8.99,-23.31
-Rajshahi,18843.7,27,-7.78,-28.08,14.24,11.03,-1.466,Moderate Deficit,-2.33,-5.45
-Khulna,21822.4,30,9.69,-9.18,20.56,6.28,2.114,Moderate Surplus,1.27,8.42
-Barishal,9104.1,10,20.35,11.43,30.1,5.42,1.852,High Surplus,1.41,18.94
+Barishal,9887.4,14,21.8,11.43,30.1,6.7,2.155,High Surplus,0.59,21.21
+Chattogram,24886.5,36,23.29,10.3,30.1,3.96,5.795,High Surplus,3.55,19.74
+Dhaka,17130.7,23,14.64,5.54,23.69,4.88,2.507,Moderate Surplus,9.78,4.86
+Khulna,18265.6,25,11.7,5.54,20.56,5.51,2.137,Moderate Surplus,1.68,10.02
+Mymensingh,10001.8,15,14.9,7.74,21.77,6.74,1.49,Moderate Surplus,16.7,-1.8
+Rajshahi,15816.3,21,-7.32,-28.08,14.24,11.53,-1.158,Moderate Deficit,-3.19,-4.13
+Rangpur,15168.1,23,-14.35,-23.66,7.74,9.36,-2.176,Moderate Deficit,8.11,-22.46
+Sylhet,11196.6,18,22.57,19.32,24.9,1.6,2.527,High Surplus,13.49,9.08

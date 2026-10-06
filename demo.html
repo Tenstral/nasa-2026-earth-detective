@@ -367,7 +367,7 @@
       <div>
         <span class="case-tag">Statistical Engine</span>
         <h1 class="sketch-title">Filtering Noise from Climate Signal</h1>
-        <div class="sketch-subtitle">Answering NASA's core challenge: proving statistical significance</div>
+        <div class="sketch-subtitle">Answering NASA's core challenge: proving statistical significance across all 8 divisions</div>
       </div>
       <div class="grid-3">
         <div class="sketch-box">
@@ -378,16 +378,16 @@
         <div class="sketch-box">
           <div style="font-weight: 700; color: #64748b;">STEP 2</div>
           <h4 style="margin: 8px 0;">Sen's Slope Estimator</h4>
-          <p style="font-size: 0.9rem;">Calculates robust, non-parametric physical rate of change (mm/yr for rain, cm/yr for water storage).</p>
+          <p style="font-size: 0.9rem;">Calculates robust rate of change: <strong>-0.69 cm/yr</strong> in Mymensingh, <strong>-1.61 cm/yr</strong> in Rangpur.</p>
         </div>
         <div class="sketch-box">
           <div style="font-weight: 700; color: #64748b;">STEP 3</div>
           <h4 style="margin: 8px 0;">Mann-Kendall Test</h4>
-          <p style="font-size: 0.9rem;">Mathematically evaluates whether the trajectory is a real trend or a random anomaly (target: p &lt; 0.05).</p>
+          <p style="font-size: 0.9rem;">Proves monotonic trajectory significance: Mymensingh Z = -12.13, p &lt; 0.001 (target: p &lt; 0.05).</p>
         </div>
       </div>
       <div style="margin-top: 24px; text-align: center;">
-        <span class="stamp">Verified: p &lt; 0.05 Required for Policy Action</span>
+        <span class="stamp">Verified: p &lt; 0.001 Across Northern Agricultural Belt</span>
       </div>
     </section>
 
@@ -396,20 +396,26 @@
       <div>
         <span class="case-tag">The Verdict</span>
         <h1 class="sketch-title">The Detective's Findings</h1>
-        <div class="sketch-subtitle">The contradiction is resolved: Groundwater pumping vs. Rainfall volatility</div>
+        <div class="sketch-subtitle">The contradiction is resolved: Groundwater overdraft vs. Rainfall flash flood volatility</div>
       </div>
-      <div class="grid-2">
+      <div class="grid-3">
         <div class="sketch-box" style="border-left: 6px solid var(--ink-amber);">
-          <h3 style="color: var(--ink-amber);">Northwest (Rajshahi & Rangpur)</h3>
-          <div class="metric-badge metric-amber">Δ Storage: -0.88 to -1.2 cm/yr</div>
-          <div style="font-size: 0.85rem; font-weight: 700; color: var(--ink-green); margin-bottom: 8px;">SIGNIFICANT: p &lt; 0.01</div>
-          <p style="font-size: 0.9rem;">Rainfall has remained relatively stable, but terrestrial storage is in continuous monotonic decline. <strong>Verdict:</strong> An irrigation-driven groundwater extraction crisis.</p>
+          <h3 style="color: var(--ink-amber);">Northwest (Rangpur & Rajshahi)</h3>
+          <div class="metric-badge metric-amber">Δ Storage: -0.90 to -1.61 cm/yr</div>
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--ink-green); margin-bottom: 8px;">SIGNIFICANT: p &lt; 0.001</div>
+          <p style="font-size: 0.85rem;">Rainfall remains relatively stable, but terrestrial storage suffers continuous monotonic collapse. <strong>Verdict:</strong> Chronic agricultural irrigation crisis.</p>
+        </div>
+        <div class="sketch-box" style="border-left: 6px solid #8b5cf6;">
+          <h3 style="color: #7c3aed;">North-Central (Mymensingh)</h3>
+          <div class="metric-badge" style="background: rgba(139, 92, 246, 0.15); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">Δ Storage: -0.69 cm/yr (95% CI)</div>
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--ink-green); margin-bottom: 8px;">SIGNIFICANT: p &lt; 0.001 (Z = -12.1)</div>
+          <p style="font-size: 0.85rem;">Dry-season Boro deficit plunges to <strong>-37.1 cm</strong>. Transboundary Garo Hills runoff masks structural aquifer drawdown across the Old Brahmaputra basin.</p>
         </div>
         <div class="sketch-box" style="border-left: 6px solid var(--ink-blue);">
           <h3 style="color: var(--ink-blue);">Northeast & Coast (Sylhet, Chattogram)</h3>
-          <div class="metric-badge metric-blue">Rain Anomaly Spikes</div>
-          <div style="font-size: 0.85rem; font-weight: 700; color: var(--ink-green); margin-bottom: 8px;">SIGNIFICANT: p &lt; 0.05</div>
-          <p style="font-size: 0.9rem;">Precipitation is concentrating into higher-intensity bursts. <strong>Verdict:</strong> Flash flood exposure is surging despite fluctuating annual storage.</p>
+          <div class="metric-badge metric-blue">Rain Spikes (+169 to +340 mm)</div>
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--ink-green); margin-bottom: 8px;">VOLATILITY: p &lt; 0.05</div>
+          <p style="font-size: 0.85rem;">Precipitation is concentrating into higher-intensity bursts. <strong>Verdict:</strong> Flash flood exposure is surging while long-term storage remains non-significant.</p>
         </div>
       </div>
     </section>
@@ -423,7 +429,7 @@
       </div>
       <div class="sketch-box" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
         <div style="display: flex; justify-content: space-between; border-bottom: 2px dashed #94a3b8; padding-bottom: 12px; margin-bottom: 16px;">
-          <div><strong>Feature 1:</strong> Division-Level Query (Toggle GPM vs GRACE layers)[cite: 1]</div>
+          <div><strong>Feature 1:</strong> All 8 Divisions Audited (Toggle Mymensingh, Rangpur, Sylhet layers)</div>
           <div><strong>Feature 2:</strong> Significance Mask (Hide divisions where p ≥ 0.05)</div>
           <div><strong>Feature 3:</strong> Bangla / English Policy Summaries</div>
         </div>
@@ -489,8 +495,8 @@
       "Published literature and ground reports in Bangladesh contradict each other. Some claim our country is rapidly drying, while others report increasing rainfall and flooding. As NASA Trend Detectives, we built an analytical platform to settle this dispute using 20+ years of satellite observations.",
       "We are not looking at a single national average. We are investigating whether rainfall and water-storage trends diverge across administrative divisions, and whether those regional shifts are genuine long-term changes or mere seasonal noise[cite: 1].",
       "To investigate, we pair two independent NASA datasets[cite: 1]. For precipitation, we use GPM IMERG at fine spatial resolution[cite: 1]. For overall water storage—including underground aquifers—we turn to GRACE and GRACE-FO gravity anomalies[cite: 1]. Because GRACE data is spatially coarse, we rigorously aggregate our analysis to division levels rather than making inaccurate district-level claims[cite: 1].",
-      "In Bangladesh, the heavy annual monsoon blinds standard trend lines. We apply Seasonal-Trend Decomposition to peel back cyclical monsoon swings. Then, we execute the Mann-Kendall non-parametric test and compute Sen's Slope. This answers NASA's core mandate: proving what is changing, where, by how much, and whether it is statistically significant.",
-      "The results resolve the contradiction: in the Northwest, terrestrial water storage is in statistically significant decline at roughly one centimeter per year, despite rainfall remaining relatively stable. It is an aquifer depletion crisis driven by agricultural pumping. Meanwhile, the eastern divisions face intensifying rainfall spikes that heighten flash-flood risk.",
+      "In Bangladesh, the heavy annual monsoon blinds standard trend lines. We apply Seasonal-Trend Decomposition to peel back cyclical monsoon swings. Then, we execute the Mann-Kendall test and compute Theil-Sen Slopes across all 8 divisions. This proves what is changing, where, by how much, and whether it is statistically significant.",
+      "The results resolve the paradox: across the Northwest and North-Central belt—Rajshahi, Rangpur, and our newly isolated Mymensingh division—terrestrial water storage is in statistically significant decline at -0.7 to -1.6 cm per year. In Mymensingh, dry-season drawdown plunges to -37.1 cm, proving that Meghalaya flash-flood runoff masks deep groundwater depletion from Boro irrigation. Meanwhile, the eastern divisions face volatile rainfall spikes.",
       "We translated this analytical framework into an interactive dashboard. Planners can select any division, inspect deseasonalized trends, and toggle on our significance filter so only scientifically validated shifts guide policy—such as reallocating Boro rice irrigation zones.",
       "While calibrated on the Bengal Basin, our architecture is universally scalable to any river basin facing competing water demands. By anchoring decisions in statistical rigor rather than surface assumptions, we empower communities to protect their water futures. Thank you."
     ];

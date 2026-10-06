@@ -1,8 +1,9 @@
 name,area_km2,cell_count,mean_precip_mm,daily_rate_mm_day,min_precip_mm,max_precip_mm,std_precip_mm,water_volume_km3,condition,yoy_delta_mm,prev_year_precip_mm
-Chattogram,29223.2,8,58.8,1.96,22.6,178.6,47.8,1.718,Below Normal,32.8,26.0
-Sylhet,11968.9,4,290.6,9.69,266.9,314.3,19.3,3.478,Moderate Monsoonal,251.9,38.7
-Dhaka,30548.7,8,138.1,4.6,75.3,218.6,45.5,4.219,Moderate Monsoonal,132.8,5.3
-Rangpur,15392.7,4,167.8,5.59,105.1,211.4,39.1,2.583,Moderate Monsoonal,156.8,11.0
-Rajshahi,18843.7,6,91.1,3.04,64.2,130.2,21.8,1.717,Below Normal,85.8,5.3
-Khulna,21822.4,6,62.1,2.07,51.2,69.4,5.9,1.354,Below Normal,55.4,6.7
-Barishal,9104.1,2,65.4,2.18,64.8,66.0,0.6,0.596,Below Normal,51.1,14.3
+Barishal,9887.4,4,65.6,2.19,58.6,72.8,5.1,0.648,Below Normal,50.1,15.5
+Chattogram,24886.5,8,61.0,2.03,22.6,178.6,48.2,1.518,Below Normal,33.0,28.0
+Dhaka,17130.7,6,107.1,3.57,75.3,142.0,22.0,1.835,Moderate Monsoonal,104.5,2.6
+Khulna,18265.6,5,62.9,2.1,51.2,69.4,6.2,1.148,Below Normal,56.3,6.6
+Mymensingh,10001.8,3,188.4,6.28,161.2,218.6,23.5,1.884,Moderate Monsoonal,178.8,9.6
+Rajshahi,15816.3,5,96.5,3.22,75.3,130.2,19.9,1.526,Below Normal,91.8,4.7
+Rangpur,15168.1,4,177.8,5.93,145.1,211.4,23.9,2.696,Moderate Monsoonal,168.7,9.1
+Sylhet,11196.6,4,290.6,9.69,266.9,314.3,19.3,3.254,Moderate Monsoonal,251.9,38.7

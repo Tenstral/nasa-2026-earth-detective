@@ -1,0 +1,65 @@
+﻿Intro Video Script: NASA Space Apps 2026, "Be An Earth System Trend Detective!"
+Target length: about 4 minutes. Trim the middle sections first if the limit is shorter. Key: [brackets] are placeholders to fill in. Italics are visual cues.
+________________
+
+
+1. Hook (0:00 to 0:30)
+Visual: Sylhet flood footage. On-screen news flash with outlet name and date.
+Narrator (Speaker 1): "[Month, year]. Sylhet goes under. Rivers overflow, homes disappear, and [number] people are stranded."
+Cut to cracked, dry fields in the northwest. Second news flash, again with outlet and date.
+Narrator: "Meanwhile, in the northwest, wells run dry and harvests fail. Reports describe farmers pushed to despair by the pressure of water scarcity."
+Black screen. One line of text.
+Narrator: "Same country. Same monsoon. Opposite crises. Why does water behave so differently across Bangladesh, across space and across time? To answer that, we built [Project Name]."
+________________
+
+
+2. Team Intro (0:30 to 0:50)
+Speaker 1: "Hi, I'm [Name], and I work on [role]."
+Speaker 2: "I'm [Name], handling [role]."
+Speaker 3: "I'm [Name], [role]."
+Speaker 4: "And I'm [Name], [role]."
+All: "We're a team of undergraduate students from East West University."
+________________
+
+
+3. What We Will Do, Why It Matters, Impact (0:50 to 1:30)
+Speaker 1: "Our question: do rainfall and stored water change in the same way across Bangladesh, and are those differences statistically real?"
+Speaker 2: "Using NASA's rainfall and gravity-based water storage data from 2002 onward, we answer five things for each region: what is changing, where, how much, whether it's significant, and what it means."
+Speaker 3: "It matters because national averages hide regional stories. Seeing where rain and stored water disagree can help farmers, planners and flood managers look in the right place."
+________________
+
+
+4. Execution Strategy (1:30 to 2:10)
+Speaker 4: "First, we group Bangladesh into regions that match the resolution of the satellite data. Second, we remove seasonal cycles so we see long-term change, not summer versus winter. Third, we measure trends with robust methods, Theil-Sen slopes and Mann-Kendall tests, corrected for autocorrelation, with confidence intervals. Finally, we test whether regions truly differ and check that results survive changes in start and end years."
+________________
+
+
+5. Dataset Justification (2:10 to 2:40)
+Speaker 2: "We chose NASA's GPM IMERG for rainfall because it covers every part of the country at fine resolution. We chose GRACE and GRACE-FO because they are the only missions that sense total stored water, including underground. Rainfall shows what arrives. Storage shows what stays. And to separate groundwater from soil moisture, we're adding NASA land-model data."
+________________
+
+
+6. Innovation (2:40 to 3:05)
+Speaker 3: "We're studying published Bangladesh research to build on it, not repeat it. Directions we're pursuing: showing uncertainty across multiple satellite products instead of one line; measuring how much monsoon rain actually becomes stored water; and linking local storage to rainfall upstream in the river basins."
+________________
+
+
+7. Real-World Application (3:05 to 3:30)
+Speaker 1: "Our results could help water and agriculture agencies decide where to monitor groundwater, help local planners prepare for floods and dry spells, and give researchers and journalists a clear, honest picture of regional change, in Bangla and English."
+________________
+
+
+8. Prototype (3:30 to 4:00)
+Screen recording: click a region, then the time series, then slope, confidence interval, p-value and verdict, then the "What it says" panel. Toggle the significance mask.
+Speaker 4: "Pick a region. See the trend, how big it is, whether it's significant, and a plain-language reading with its limits."
+All: "We're [Team Name]. Thank you."
+________________
+
+
+Checklist Before Recording
+* [ ] Verify the hook. Use real news clips with outlet, date and year on screen, and don't state a cause you haven't sourced. "Reports describe" only works if a credible report exists. Keep the farmer segment dignified, with no graphic imagery.
+* [ ] Don't show numbers you haven't computed. Label any prototype values as "illustrative".
+* [ ] Match the dataset to your pipeline. Confirm your rainfall really comes from IMERG (your downloader used NASA POWER).
+* [ ] Check media rights. News footage needs permission or short, credited use. NASA imagery is usually reusable, but check its guidelines.
+* [ ] Innovation section. After reading the papers, keep only the one or two directions you will actually pursue.
+* [ ] Confirm the official length limit, file format and submission method.

@@ -56,16 +56,37 @@ def get_available_months(ds):
 
 
 def get_division_geometries():
-    """Extract official administrative division boundaries for Bangladesh from Natural Earth."""
+    """Extract official administrative division boundaries for all 8 Bangladesh divisions."""
+    geojson_path = Path(__file__).parent / "bangladesh_divisions.geojson"
+    geod = pyproj.Geod(ellps="WGS84")
+    if geojson_path.exists():
+        with open(geojson_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        divisions = {}
+        for feat in data["features"]:
+            name = feat["properties"]["name"]
+            geom = shapely.geometry.shape(feat["geometry"])
+            area_m2 = feat["properties"].get("area_m2")
+            if not area_m2:
+                area_m2 = abs(geod.geometry_area_perimeter(geom)[0])
+            area_km2 = feat["properties"].get("area_km2", area_m2 / 1e6)
+            divisions[name] = {
+                "name": name,
+                "raw_name": name,
+                "geometry": geom,
+                "area_km2": area_km2,
+                "area_m2": area_m2
+            }
+        return divisions
+
+    # Fallback to Natural Earth if GeoJSON is not available
     shp_path = shpreader.natural_earth("10m", "cultural", "admin_1_states_provinces")
     reader = shpreader.Reader(shp_path)
     divisions = {}
-    geod = pyproj.Geod(ellps="WGS84")
 
     for rec in reader.records():
         if rec.attributes.get("admin") == "Bangladesh":
             raw_name = rec.attributes.get("name")
-            # Standardize names
             name_map = {
                 "Chittagong": "Chattogram",
                 "Barisal": "Barishal"
@@ -171,8 +192,10 @@ def plot_choropleth(divisions: dict, results: dict, date_str: str, output_path: 
         if name == "Barishal":
             cy -= 0.1
         elif name == "Dhaka":
-            cx -= 0.1
-            cy += 0.05
+            cx -= 0.05
+            cy -= 0.08
+        elif name == "Mymensingh":
+            cy += 0.08
         elif name == "Sylhet":
             cy += 0.1
 
