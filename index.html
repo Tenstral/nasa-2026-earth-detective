@@ -457,6 +457,225 @@
     }
     .code-comment { color: #64748b; }
 
+    /* Scientific Remarks & Key Findings */
+    .remarks-hero {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.75));
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 12px;
+      padding: 24px 26px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .remarks-hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 5px; height: 100%;
+      background: linear-gradient(180deg, #ef4444, #f59e0b);
+    }
+
+    .remarks-badge-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .badge-finding {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .badge-topic {
+      background: rgba(56, 189, 248, 0.12);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .remarks-finding-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .remarks-finding-desc {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .remarks-contrast-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .remarks-contrast-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contrast-card {
+      background: rgba(11, 17, 32, 0.85);
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .contrast-card.precip {
+      border-left: 3px solid #38bdf8;
+    }
+
+    .contrast-card.storage {
+      border-left: 3px solid #ef4444;
+    }
+
+    .contrast-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .contrast-stat {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1.35rem;
+      margin-bottom: 4px;
+    }
+
+    .contrast-detail {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.45;
+    }
+
+    .significance-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 860px) {
+      .significance-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .significance-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .significance-card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .sig-field-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .sig-tag-blue { background: rgba(2, 132, 199, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+    .sig-tag-amber { background: rgba(245, 158, 11, 0.18); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .sig-tag-purple { background: rgba(139, 92, 246, 0.2); color: #c084fc; border: 1px solid rgba(139, 92, 246, 0.4); }
+    .sig-tag-emerald { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+    .sig-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .sig-body {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .sig-takeaway {
+      background: #090e1c;
+      border: 1px dashed #334155;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .sig-takeaway strong {
+      color: #e2e8f0;
+    }
+
+    .remarks-quote-box {
+      margin-top: 24px;
+      background: linear-gradient(90deg, rgba(2, 132, 199, 0.12), rgba(16, 185, 129, 0.08));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 10px;
+      padding: 18px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .remarks-quote-icon {
+      font-size: 2rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .remarks-quote-text {
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .remarks-quote-text em {
+      color: #38bdf8;
+      font-style: normal;
+      font-weight: 700;
+    }
+
     footer.app-footer {
       text-align: center;
       color: #64748b;
@@ -486,6 +705,9 @@
         </a>
         <a href="demo.html" class="btn btn-secondary" target="_blank">
           ▶ Launch Pitch Deck
+        </a>
+        <a href="#remarks" class="btn btn-secondary">
+          🔬 Scientific Remarks
         </a>
         <a href="#registry" class="btn btn-secondary">
           📁 File Registry
@@ -620,7 +842,132 @@
       </div>
     </section>
 
-    <!-- SECTION 3: FILE REGISTRY & ARCHITECTURE -->
+    <!-- SECTION 3: SCIENTIFIC REMARKS & RESEARCH SIGNIFICANCE -->
+    <section class="section-card" id="remarks">
+      <div class="section-header">
+        <div class="section-title">
+          🔬 Scientific Remarks: Why Our Findings Matter to Researchers & Earth Scientists
+        </div>
+        <span class="badge-status" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid #38bdf8;">
+          Verified Empirical Discovery • Multi-Mission EO
+        </span>
+      </div>
+
+      <!-- Core Finding 1 Banner -->
+      <div class="remarks-hero">
+        <div class="remarks-badge-strip">
+          <span class="badge-finding">Finding #01 • Primary Empirical Anomaly</span>
+          <span class="badge-topic">Northwestern Region (Rangpur &amp; Rajshahi)</span>
+          <span class="badge-topic" style="border-color: rgba(239, 68, 68, 0.5); color: #fca5a5;">Hydro-Climatic Decoupling</span>
+        </div>
+
+        <h3 class="remarks-finding-title">
+          Precipitation Increases Fail to Satisfy Water Harvesting Needs: The Northwestern Groundwater Paradox
+        </h3>
+
+        <p class="remarks-finding-desc">
+          Over the past decade, satellite precipitation records indicate that atmospheric rainfall influx across northwestern Bangladesh has exhibited an upward trend with intensified episodic monsoon bursts. Yet, gravitational satellite observations (CSR GRACE/GRACE-FO mascons) prove that total terrestrial water reserves and deep aquifer storage continue their relentless secular depletion. Surface precipitation gains do <strong style="color: #ffffff;">not</strong> satisfy the water harvesting crisis or offset the severe dry-season aquifer deficit across the Barind agricultural corridor.
+        </p>
+
+        <!-- Side-by-Side Dual-Satellite Evidence -->
+        <div class="remarks-contrast-grid">
+          <div class="contrast-card precip">
+            <div class="contrast-label" style="color: #38bdf8;">Atmospheric Influx (NASA GPM IMERG / POWER)</div>
+            <div class="contrast-stat" style="color: #38bdf8;">Precipitation ↗ Trending Upward</div>
+            <div class="contrast-detail">
+              Decadal records reveal increasing annual precipitation volumes and high-intensity rainfall spikes (e.g., Rangpur monsoon +81.7 mm YoY; March pre-monsoon +168.7 mm YoY), yet rainwater rapidly drains away as surface runoff.
+            </div>
+          </div>
+
+          <div class="contrast-card storage">
+            <div class="contrast-label" style="color: #ef4444;">Subsurface Reserve (CSR GRACE/GRACE-FO Mascons)</div>
+            <div class="contrast-stat" style="color: #ef4444;">TWS Storage ↘ -1.61 cm / yr</div>
+            <div class="contrast-detail">
+              Statistically validated secular depletion (Rangpur: -1.61 cm/yr, p &lt; 0.001, MK Z = -15.65; Rajshahi: -0.90 cm/yr, p &lt; 0.001). March storage plunges to -50.19 cm (-7.61 km³ deficit), and stays negative even during peak monsoon.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Core Pillars of Scientific Significance -->
+      <h4 style="font-size: 1.1rem; font-weight: 700; color: #f8fafc; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+        <span>🧪</span> Why This Finding Is Significantly Important for Scientists &amp; Hydrologists
+      </h4>
+      <p style="font-size: 0.88rem; color: var(--ink-muted); margin-bottom: 16px;">
+        This empirical contradiction challenges conventional hydrological assumptions and provides critical breakthroughs across four major scientific disciplines:
+      </p>
+
+      <div class="significance-grid">
+
+        <!-- Pillar 1: Climate Modeling & Earth System Science -->
+        <div class="significance-card">
+          <div>
+            <span class="sig-field-tag sig-tag-blue">Climate Modeling &amp; Earth System Science</span>
+            <h5 class="sig-title">1. Disproving the "Precipitation = Water Security" Linear Assumption</h5>
+            <p class="sig-body">
+              Global Earth System Models (ESMs) and regional climate assessments (CMIP6/CORDEX) frequently equate projected increases in precipitation with enhanced freshwater availability and natural drought alleviation. Our findings provide direct empirical proof of <em>hydro-climatic decoupling</em>: rising rainfall does not automatically increase terrestrial water storage. When rain falls in erratic, high-intensity bursts, water residence time drops and overland runoff rushes into transboundary river systems rather than recharging aquifers.
+            </p>
+          </div>
+          <div class="sig-takeaway">
+            <strong>Impact on Scientists:</strong> Climate modellers cannot use precipitation anomalies as a standalone proxy for water security. Future regional risk assessments must integrate surface runoff velocity, infiltration thresholds, and anthropogenic pumping into climate projections.
+          </div>
+        </div>
+
+        <!-- Pillar 2: Hydrogeology & Infiltration Physics -->
+        <div class="significance-card">
+          <div>
+            <span class="sig-field-tag sig-tag-amber">Hydrogeology &amp; Infiltration Physics</span>
+            <h5 class="sig-title">2. Unmasking the Barind Clay Infiltration Bottleneck</h5>
+            <p class="sig-body">
+              The northwestern region (Barind Tract) is underlain by dense, weathered Pleistocene clay formations (Madhupur Clay) characterized by exceptionally low vertical hydraulic conductivity. Because precipitation increases are concentrated in intense downpours rather than prolonged gentle soaking, topsoil saturation limits are instantly reached. The surplus water is shed as rapid sheetwash rather than percolating through the tight clay layer into deep semi-confined aquifers.
+            </p>
+          </div>
+          <div class="sig-takeaway">
+            <strong>Impact on Scientists:</strong> Hydrogeologists must prioritize precipitation <em>intensity-duration-frequency (IDF) curves</em> and vertical soil matrix permeability rather than cumulative monthly totals when evaluating natural recharge capacities.
+          </div>
+        </div>
+
+        <!-- Pillar 3: Remote Sensing & Drought Monitoring -->
+        <div class="significance-card">
+          <div>
+            <span class="sig-field-tag sig-tag-purple">Remote Sensing &amp; Hazard Monitoring</span>
+            <h5 class="sig-title">3. Exposing the Flaws of Conventional Drought Indices (SPI vs. Gravimetry)</h5>
+            <p class="sig-body">
+              Standard meteorological drought indices—such as the Standardized Precipitation Index (SPI) or Palmer Drought Severity Index (PDSI) driven primarily by rainfall gauges—misclassify northwestern Bangladesh as "normal" or "wetting" because decadal rainfall is increasing. This generates a dangerous false sense of security, masking an acute multi-year groundwater collapse. Gravimetric satellite observation (GRACE/GRACE-FO) is essential to detect this <em>"invisible hydrological drought"</em>.
+            </p>
+          </div>
+          <div class="sig-takeaway">
+            <strong>Impact on Scientists:</strong> Demonstrates the absolute necessity of multi-sensor satellite fusion. Atmospheric missions (GPM IMERG) detect what arrives from the sky; gravimetry missions (GRACE-FO) determine what actually remains stored underground.
+          </div>
+        </div>
+
+        <!-- Pillar 4: Socio-Hydrology & Applied Engineering -->
+        <div class="significance-card">
+          <div>
+            <span class="sig-field-tag sig-tag-emerald">Socio-Hydrology &amp; Water Harvesting Engineering</span>
+            <h5 class="sig-title">4. Reframing Water Harvesting: Overcoming Anthropogenic Overdraft</h5>
+            <p class="sig-body">
+              The northwest is Bangladesh's primary agricultural breadbasket, responsible for massive dry-season Boro rice production. Over 75% of irrigation is extracted from deep aquifers through hundreds of thousands of mechanized tube wells. Conventional rainwater harvesting (surface ponds, shallow re-excavated canals) is rendered futile by high evapotranspiration, siltation, and the immense seasonal deficit (-7.61 km³ in Rangpur in March). Passive surface retention cannot bridge this human extraction volume.
+            </p>
+          </div>
+          <div class="sig-takeaway">
+            <strong>Impact on Scientists:</strong> Directs water resources scientists toward <strong>Managed Aquifer Recharge (MAR)</strong> with direct subsurface injection wells, and agronomic crop modeling to transition from water-thirsty Boro rice to low-water cereals, mustard, and maize.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Synthesis Banner for Scientists -->
+      <div class="remarks-quote-box">
+        <div class="remarks-quote-icon">💡</div>
+        <div class="remarks-quote-text">
+          <strong>The Core Scientific Imperative:</strong> <em>"More rain does not mean more water when the subsurface cannot absorb it and human extraction outpaces recharge."</em> By exposing this disconnect through NASA satellite data, our work provides researchers with the empirical groundwork to re-calibrate regional hydrologic models, redesign aquifer recharge infrastructure, and safeguard the food bowl of 170+ million people.
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SECTION 4: FILE REGISTRY & ARCHITECTURE -->
     <section class="section-card" id="registry">
       <div class="section-header">
         <div class="section-title">
