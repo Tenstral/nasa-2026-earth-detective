@@ -21,7 +21,7 @@ import pandas as pd
 import xarray as xr
 
 
-def download_nasa_precipitation(output_file: str = "nasa_precipitation_bangladesh.nc", start_year: int = 2002, end_year: int = 2026):
+def download_nasa_precipitation(output_file: str = "nasa_precipitation_bangladesh.nc", start_year: int = 2020, end_year: int = 2026):
     print(f"Fetching NASA Satellite Precipitation for Bangladesh ({start_year}–{end_year})...")
     
     # NASA POWER API regional bounding box for Bangladesh
