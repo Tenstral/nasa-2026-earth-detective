@@ -113,6 +113,21 @@ def main():
         elapsed = run_task(task_num, task_name, script_path, env)
         timings[task_name] = elapsed
 
+    # Run optional context rolling slopes if GRACE NetCDF is available
+    context_script = V2_DIR / "context_rolling_slopes.py"
+    if grace_path and context_script.exists():
+        t0 = time.time()
+        print("\n" + BANNER)
+        print("  RUNNING OPTIONAL CONTEXT TASK: LONG-TERM ROLLING 5-YEAR SLOPES (2002–2026)")
+        print(f"  Script: {context_script.relative_to(REPO_ROOT)}")
+        print(BANNER + "\n")
+        cmd = [sys.executable, "-X", "utf8", str(context_script)]
+        res_ctx = subprocess.run(cmd, cwd=str(REPO_ROOT), env=env)
+        el_ctx = time.time() - t0
+        if res_ctx.returncode == 0:
+            timings["Context Rolling Slopes (2002–2026)"] = el_ctx
+            print(f"\n[OK] Context rolling slopes completed in {el_ctx:.2f} seconds.")
+
     total_time = time.time() - t_start
 
     print("\n" + BANNER)

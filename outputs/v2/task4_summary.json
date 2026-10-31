@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-31T07:23:53.276828",
+  "generated_at": "2026-10-31T08:16:47.264802",
   "task": "Task 4 - Sensitivity Analysis",
-  "n_boundary_configs": 9,
+  "n_boundary_configs": 7,
   "boundary_configs": [
     {
       "name": "Base (2020-01 to 2026-07)",
@@ -14,14 +14,7 @@
       "name": "Start +1yr (2021-01 to 2026-07)",
       "start": "2021-01",
       "end": "2026-07",
-      "dt_start": 1,
-      "dt_end": 0
-    },
-    {
-      "name": "Start +2yr (2022-01 to 2026-07)",
-      "start": "2022-01",
-      "end": "2026-07",
-      "dt_start": 2,
+      "dt_start": 1.0,
       "dt_end": 0
     },
     {
@@ -29,78 +22,78 @@
       "start": "2020-01",
       "end": "2025-07",
       "dt_start": 0,
-      "dt_end": -1
+      "dt_end": -1.0
     },
     {
-      "name": "End -2yr (2020-01 to 2024-07)",
+      "name": "Start +6mo (2020-07 to 2026-07)",
+      "start": "2020-07",
+      "end": "2026-07",
+      "dt_start": 0.5,
+      "dt_end": 0
+    },
+    {
+      "name": "End -6mo (2020-01 to 2026-01)",
       "start": "2020-01",
-      "end": "2024-07",
+      "end": "2026-01",
       "dt_start": 0,
-      "dt_end": -2
+      "dt_end": -0.5
     },
     {
-      "name": "Start +1, End -1 (2021-01 to 2025-07)",
-      "start": "2021-01",
+      "name": "Start +6mo, End -1yr (2020-07 to 2025-07)",
+      "start": "2020-07",
       "end": "2025-07",
-      "dt_start": 1,
-      "dt_end": -1
+      "dt_start": 0.5,
+      "dt_end": -1.0
     },
     {
-      "name": "Start +1, End -2 (2021-01 to 2024-07)",
+      "name": "Start +1yr, End -6mo (2021-01 to 2026-01)",
       "start": "2021-01",
-      "end": "2024-07",
-      "dt_start": 1,
-      "dt_end": -2
-    },
-    {
-      "name": "Start +2, End -1 (2022-01 to 2025-07)",
-      "start": "2022-01",
-      "end": "2025-07",
-      "dt_start": 2,
-      "dt_end": -1
-    },
-    {
-      "name": "Start +2, End -2 (2022-01 to 2024-07)",
-      "start": "2022-01",
-      "end": "2024-07",
-      "dt_start": 2,
-      "dt_end": -2
+      "end": "2026-01",
+      "dt_start": 1.0,
+      "dt_end": -0.5
     }
   ],
   "region_tws_stability": {
     "NW": {
-      "min_slope_cm_yr": -9.5894,
-      "max_slope_cm_yr": -1.6282,
-      "mean_slope_cm_yr": -4.6332,
+      "min_slope_cm_yr": -4.711,
+      "max_slope_cm_yr": -2.1695,
+      "mean_slope_cm_yr": -3.3495,
       "always_negative": true,
       "always_significant": false
     },
     "NE": {
-      "min_slope_cm_yr": -3.6945,
-      "max_slope_cm_yr": 0.2723,
-      "mean_slope_cm_yr": -1.6913,
+      "min_slope_cm_yr": -2.2937,
+      "max_slope_cm_yr": 0.079,
+      "mean_slope_cm_yr": -1.2113,
       "always_negative": false,
       "always_significant": false
     },
     "Central": {
-      "min_slope_cm_yr": -4.0307,
-      "max_slope_cm_yr": 0.2278,
-      "mean_slope_cm_yr": -1.9674,
-      "always_negative": false,
+      "min_slope_cm_yr": -2.3232,
+      "max_slope_cm_yr": -0.2921,
+      "mean_slope_cm_yr": -1.3691,
+      "always_negative": true,
       "always_significant": false
     },
     "SW": {
-      "min_slope_cm_yr": -3.1024,
-      "max_slope_cm_yr": 0.9438,
-      "mean_slope_cm_yr": -0.8237,
+      "min_slope_cm_yr": -0.947,
+      "max_slope_cm_yr": 0.2203,
+      "mean_slope_cm_yr": -0.2909,
       "always_negative": false,
       "always_significant": false
     },
     "SE": {
-      "min_slope_cm_yr": -1.493,
-      "max_slope_cm_yr": 1.2581,
-      "mean_slope_cm_yr": -0.0415,
+      "min_slope_cm_yr": -0.246,
+      "max_slope_cm_yr": 0.6695,
+      "mean_slope_cm_yr": 0.2574,
       "always_negative": false,
+      "always_significant": false
+    },
+    "National": {
+      "min_slope_cm_yr": -2.1034,
+      "max_slope_cm_yr": -0.3428,
+      "mean_slope_cm_yr": -1.2328,
+      "always_negative": true,
       "always_significant": false
     }
   }

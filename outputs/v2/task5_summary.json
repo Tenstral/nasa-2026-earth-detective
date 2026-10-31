@@ -1,109 +1,109 @@
 {
-  "generated_at": "2026-10-31T07:24:03.511534",
+  "generated_at": "2026-10-31T08:17:02.034858",
   "task": "Task 5 - Region Comparison & FDR Control",
-  "n_total_tests": 98,
-  "n_raw_significant": 25,
+  "n_total_tests": 104,
+  "n_raw_significant": 29,
   "n_fdr_significant": 20,
   "fdr_surviving_tests": [
     {
       "test_name": "Rangpur | dry | tws",
       "raw_p_value": 3.1e-05,
-      "bh_q_value": 0.00122
+      "bh_q_value": 0.00173
     },
     {
       "test_name": "NW | dry | tws",
       "raw_p_value": 7.5e-05,
-      "bh_q_value": 0.00122
+      "bh_q_value": 0.00173
+    },
+    {
+      "test_name": "NE vs SE | annual | tws",
+      "raw_p_value": 0.0001,
+      "bh_q_value": 0.00173
     },
     {
       "test_name": "Central vs SE | annual | tws",
       "raw_p_value": 0.0001,
-      "bh_q_value": 0.00122
-    },
-    {
-      "test_name": "NW vs SE | annual | tws",
-      "raw_p_value": 0.0001,
-      "bh_q_value": 0.00122
+      "bh_q_value": 0.00173
     },
     {
       "test_name": "NW vs SW | annual | tws",
       "raw_p_value": 0.0001,
-      "bh_q_value": 0.00122
+      "bh_q_value": 0.00173
     },
     {
-      "test_name": "NW vs Central | annual | tws",
+      "test_name": "Central vs SW | annual | tws",
       "raw_p_value": 0.0001,
-      "bh_q_value": 0.00122
-    },
-    {
-      "test_name": "NW vs NE | annual | tws",
-      "raw_p_value": 0.0001,
-      "bh_q_value": 0.00122
-    },
-    {
-      "test_name": "SW vs SE | annual | tws",
-      "raw_p_value": 0.0001,
-      "bh_q_value": 0.00122
+      "bh_q_value": 0.00173
     },
     {
       "test_name": "Rangpur | monsoon | tws",
       "raw_p_value": 0.000179,
-      "bh_q_value": 0.00177
+      "bh_q_value": 0.00208
     },
     {
       "test_name": "NW | annual | tws",
       "raw_p_value": 0.000181,
-      "bh_q_value": 0.00177
+      "bh_q_value": 0.00208
+    },
+    {
+      "test_name": "NE vs SW | annual | tws",
+      "raw_p_value": 0.0002,
+      "bh_q_value": 0.00208
+    },
+    {
+      "test_name": "NW vs SE | annual | tws",
+      "raw_p_value": 0.0002,
+      "bh_q_value": 0.00208
     },
     {
       "test_name": "Rangpur | annual | tws",
-      "raw_p_value": 0.000225,
-      "bh_q_value": 0.002
+      "raw_p_value": 0.000224,
+      "bh_q_value": 0.00212
     },
     {
       "test_name": "Rajshahi | dry | tws",
       "raw_p_value": 0.000286,
-      "bh_q_value": 0.00234
+      "bh_q_value": 0.00248
     },
     {
       "test_name": "Mymensingh | dry | tws",
       "raw_p_value": 0.000732,
-      "bh_q_value": 0.00552
+      "bh_q_value": 0.00586
     },
     {
       "test_name": "NW | monsoon | tws",
       "raw_p_value": 0.000946,
-      "bh_q_value": 0.00662
+      "bh_q_value": 0.00703
     },
     {
       "test_name": "Rajshahi | annual | tws",
-      "raw_p_value": 0.001333,
-      "bh_q_value": 0.00857
-    },
-    {
-      "test_name": "NE vs SE | annual | tws",
-      "raw_p_value": 0.0014,
-      "bh_q_value": 0.00857
+      "raw_p_value": 0.001343,
+      "bh_q_value": 0.00931
     },
     {
       "test_name": "Central | dry | tws",
       "raw_p_value": 0.002337,
-      "bh_q_value": 0.01272
+      "bh_q_value": 0.0143
     },
     {
       "test_name": "Dhaka | dry | tws",
       "raw_p_value": 0.002337,
-      "bh_q_value": 0.01272
-    },
-    {
-      "test_name": "Central vs SW | annual | tws",
-      "raw_p_value": 0.0027,
-      "bh_q_value": 0.01393
+      "bh_q_value": 0.0143
     },
     {
       "test_name": "NE | dry | tws",
       "raw_p_value": 0.003516,
-      "bh_q_value": 0.01723
+      "bh_q_value": 0.02031
+    },
+    {
+      "test_name": "National | dry | tws",
+      "raw_p_value": 0.005214,
+      "bh_q_value": 0.02854
+    },
+    {
+      "test_name": "Central vs SE | annual | precip",
+      "raw_p_value": 0.0057,
+      "bh_q_value": 0.02964
     }
   ],
   "transition_note": "GRACE-to-GRACE-FO step test removed as all study analysis is post-June-2018 single instrument."

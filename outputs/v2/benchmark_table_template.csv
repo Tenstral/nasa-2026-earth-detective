@@ -1,7 +1,7 @@
-region,our_tws_slope_2020_2026_cm_yr,our_tws_95ci_cm_yr,our_tws_p_value,published_rate_cm_yr,published_95ci_cm_yr,variable_analyzed,published_period,published_region_definition,paper_source_citation
-NW,-2.93,[-4.61 to -1.13],0.0002,,,,,,
-NE,-0.99,[-2.28 to +0.31],0.1002,,,,,,
-Central,-1.19,[-2.43 to +0.09],0.0314,,,,,,
-SW,-0.12,[-1.08 to +0.90],0.7691,,,,,,
-SE,+0.39,[-0.39 to +1.25],0.3111,,,,,,
-National (Bangladesh),-1.03,[-1.84 to -0.22],0.0150,,,,,,
+region,our_tws_slope_2020_2026_cm_yr,our_tws_95ci_cm_yr,our_tws_p_value,our_verdict,published_rate_cm_yr,published_95ci_cm_yr,variable_analyzed,published_period,published_region_definition,paper_source_citation
+NW,-2.93,[-4.61 to -1.13],0.0002,Significant decrease,,,,,,
+NE,-0.99,[-2.28 to +0.31],0.1003,No detectable trend,,,,,,
+Central,-1.19,[-2.43 to +0.09],0.0309,Suggestive decrease,,,,,,
+SW,-0.12,[-1.08 to +0.90],0.7725,No detectable trend,,,,,,
+SE,+0.39,[-0.39 to +1.25],0.3106,No detectable trend,,,,,,
+National (Bangladesh),-1.02,[-2.17 to +0.26],0.1168,No detectable trend,,,,,,

@@ -35,6 +35,11 @@ import pyproj
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+try:
+    from v2.config_loader import get_grace_netcdf_path, load_config
+except ImportError:
+    from config_loader import get_grace_netcdf_path, load_config
+
 # ---------------------------------------------------------------------------
 # Paths & constants
 # ---------------------------------------------------------------------------
@@ -52,6 +57,8 @@ REGIONS = {
     "Central": ["Dhaka"],
     "SW":      ["Khulna", "Barishal"],
     "SE":      ["Chattogram"],
+    "National": ["Barishal", "Chattogram", "Dhaka", "Khulna",
+                 "Mymensingh", "Rajshahi", "Rangpur", "Sylhet"],
 }
 
 DIVISIONS = ["Barishal", "Chattogram", "Dhaka", "Khulna",
@@ -149,12 +156,67 @@ def extract_precip_from_nc(divs: dict) -> pd.DataFrame:
             else:
                 wmean = float("nan")
             rows.append({
-                "date": dt,
+                "date": pd.to_datetime(dt.strftime("%Y-%m") + "-01"),
                 "ym": dt.strftime("%Y-%m"),
                 "Division": div,
                 "nc_precip_mm": round(wmean, 3),
             })
 
+    return pd.DataFrame(rows)
+
+
+# ---------------------------------------------------------------------------
+# Step 3b – extract divisional GRACE TWS from NetCDF (2018-06 to 2026-07)
+# ---------------------------------------------------------------------------
+def extract_tws_from_nc(nc_path: Path, divs: dict) -> pd.DataFrame:
+    """Extract divisional GRACE TWS anomalies directly from CSR NetCDF (2018-06 to 2026-07)."""
+    ds = xr.open_dataset(str(nc_path), decode_times=False)
+    base = pd.Timestamp("2002-01-01")
+    dates = [base + pd.Timedelta(days=float(d)) for d in ds["time"].values]
+    yms = [d.strftime("%Y-%m") for d in dates]
+
+    lons = ds["lon"].values
+    lats = ds["lat"].values
+    if np.any(lons > 180):
+        lons_wgs = np.where(lons > 180, lons - 360, lons)
+    else:
+        lons_wgs = lons
+
+    lon_idx = (lons_wgs >= 87.0) & (lons_wgs <= 93.5)
+    lat_idx = (lats >= 20.0) & (lats <= 27.5)
+
+    sub_lons = lons_wgs[lon_idx]
+    sub_lats = lats[lat_idx]
+    sub_lwe = ds["lwe_thickness"].values[:, lat_idx, :][:, :, lon_idx]
+
+    lat2d, lon2d = np.meshgrid(sub_lats, sub_lons, indexing="ij")
+    cos_lat = np.cos(np.radians(lat2d))
+
+    rows = []
+    for t_idx, (dt, ym) in enumerate(zip(dates, yms)):
+        if ym < "2018-06" or ym > "2026-07":
+            continue
+        grid_t = sub_lwe[t_idx, :, :]
+        for div_name, info in divs.items():
+            mask = shapely.contains_xy(info["geometry"], lon2d, lat2d)
+            if mask.sum() == 0:
+                c = info["geometry"].centroid
+                dist = (lat2d - c.y)**2 + (lon2d - c.x)**2
+                min_idx = np.unravel_index(np.argmin(dist), dist.shape)
+                mask[min_idx] = True
+            wts = cos_lat[mask]
+            vals = grid_t[mask]
+            valid = ~np.isnan(vals)
+            if valid.sum() > 0:
+                wmean = float(np.sum(vals[valid] * wts[valid]) / np.sum(wts[valid]))
+            else:
+                wmean = float("nan")
+            rows.append({
+                "date": pd.to_datetime(ym + "-01"),
+                "ym": ym,
+                "Division": div_name,
+                "grace_tws_cm": round(wmean, 4),
+            })
     return pd.DataFrame(rows)
 
 
@@ -222,8 +284,8 @@ def build_region_series(div_df: pd.DataFrame, divs: dict) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 def cross_validate(div_df: pd.DataFrame, nc_df: pd.DataFrame) -> pd.DataFrame:
     merged = div_df.merge(
-        nc_df[["date", "Division", "nc_precip_mm"]],
-        on=["date", "Division"], how="left"
+        nc_df[["ym", "Division", "nc_precip_mm"]],
+        on=["ym", "Division"], how="left"
     )
     merged["precip_diff_mm"] = (
         merged["nasa_power_precip_mm"] - merged["nc_precip_mm"]
@@ -336,28 +398,54 @@ def main():
         print(f"  {d:<14}  {a:>10,.1f} km²")
     print()
 
-    # ── Load Excel series
-    _sep("Loading Excel pre-extracted series ...")
-    div_df = load_excel_series()
-    print(f"  Loaded {len(div_df)} rows  ({div_df['date'].min().strftime('%Y-%m')} "
-          f"to {div_df['date'].max().strftime('%Y-%m')})")
-    print(f"  Variables: grace_tws_cm (GRACE TWS anomaly), "
-          f"nasa_power_precip_mm (corrected label)")
-    print()
+    # ── Check for GRACE NetCDF vs Excel fallback
+    grace_nc_path = get_grace_netcdf_path()
+    use_nc_grace = grace_nc_path is not None and grace_nc_path.exists()
 
-    # ── Extract precip from NC for cross-validation
-    _sep("Extracting precipitation from NetCDF (cross-validation) ...")
+    # ── Extract precip from NC
+    _sep("Extracting precipitation from NetCDF (NASA POWER) ...")
     nc_df = extract_precip_from_nc(divs)
     print(f"  Extracted {len(nc_df)} rows  "
           f"({nc_df['date'].min().strftime('%Y-%m')} to "
           f"{nc_df['date'].max().strftime('%Y-%m')})")
     print()
 
-    # ── Merge NC precip into div_df for cross-val
-    div_df_merged = div_df.merge(
-        nc_df[["date", "Division", "nc_precip_mm"]],
-        on=["date", "Division"], how="left"
-    )
+    # ── Load or extract GRACE series
+    if use_nc_grace:
+        _sep(f"Extracting GRACE TWS from NetCDF: {grace_nc_path.name} ...")
+        tws_nc_df = extract_tws_from_nc(grace_nc_path, divs)
+        print(f"  Extracted {len(tws_nc_df)} TWS rows  "
+              f"({tws_nc_df['date'].min().strftime('%Y-%m')} to "
+              f"{tws_nc_df['date'].max().strftime('%Y-%m')})")
+        print()
+
+        # Merge NetCDF TWS and NetCDF Precip
+        div_df_merged = tws_nc_df.merge(
+            nc_df[["ym", "Division", "nc_precip_mm"]],
+            on=["ym", "Division"], how="inner"
+        )
+        div_df_merged["nasa_power_precip_mm"] = div_df_merged["nc_precip_mm"]
+        div_df = div_df_merged.copy()
+        tws_source_desc = f"CSR GRACE/GRACE-FO RL06.3 Mascons NetCDF ({grace_nc_path.name})"
+    else:
+        _sep("Loading Excel pre-extracted series (GRACE fallback) ...")
+        div_df = load_excel_series()
+        print(f"  Loaded {len(div_df)} rows  ({div_df['date'].min().strftime('%Y-%m')} "
+              f"to {div_df['date'].max().strftime('%Y-%m')})")
+        print(f"  Variables: grace_tws_cm (GRACE TWS anomaly), "
+              f"nasa_power_precip_mm (corrected label)")
+        print()
+
+        # Merge NC precip into div_df for cross-val
+        div_df_merged = div_df.merge(
+            nc_df[["ym", "Division", "nc_precip_mm"]],
+            on=["ym", "Division"], how="left"
+        )
+        tws_source_desc = "Excel / GRACE_Water_Storage sheet (pre-extracted)"
+
+    # ── Cross-validation check with Excel (for 2020-01 to 2026-07)
+    excel_df = load_excel_series()
+    cv_df = cross_validate(excel_df, nc_df)
 
     # ── Build region series
     _sep("Building region series (area-weighted) ...")
@@ -366,8 +454,8 @@ def main():
           f"({len(REGIONS)} regions × {div_df['date'].nunique()} months)")
     print()
 
-    # ── Cross-validation check
-    cv_df = cross_validate(div_df, nc_df)
+    # ── Cross-validation check (Excel vs NetCDF for 2020-01 to 2026-07)
+    cv_df = cross_validate(excel_df, nc_df)
 
     # ── Print summaries
     print_division_summary(div_df)
@@ -382,7 +470,7 @@ def main():
     div_out_cols = ["date", "ym", "Division", "grace_tws_cm",
                     "nasa_power_precip_mm", "nc_precip_mm"]
     div_out = div_df_merged[div_out_cols].copy()
-    div_out["source_tws"]    = "Excel / GRACE_Water_Storage sheet (pre-extracted)"
+    div_out["source_tws"]    = tws_source_desc
     div_out["source_precip"] = "nasa_precipitation_bangladesh.nc (NASA POWER PRECTOTCORR)"
     div_out["label_note"]    = "PRELIMINARY"
     div_path = OUTPUT_DIR / "task2_division_series.csv"
@@ -401,15 +489,17 @@ def main():
     print(f"  Saved: {cv_path}")
 
     # Summary JSON
+    tws_start_ym = div_df["ym"].min()
+    tws_end_ym = div_df["ym"].max()
     summary = {
         "generated_at": datetime.now().isoformat(),
         "n_divisions": 8,
         "n_regions": len(REGIONS),
         "n_months_tws": int(div_df["date"].nunique()),
         "n_months_precip_nc": int(nc_df["date"].nunique()),
-        "tws_coverage": "2020-01 to 2026-07",
-        "precip_nc_coverage": "2020-01 to 2026-09",
-        "overlap": "2020-01 to 2026-07 (79 months)",
+        "tws_coverage": f"{tws_start_ym} to {tws_end_ym}",
+        "precip_nc_coverage": f"{nc_df['ym'].min()} to {nc_df['ym'].max()}",
+        "overlap": f"{tws_start_ym} to {tws_end_ym} ({div_df['date'].nunique()} months)",
         "rainfall_only_months": ["2026-08", "2026-09"],
         "region_definitions": REGIONS,
         "division_stats": {},

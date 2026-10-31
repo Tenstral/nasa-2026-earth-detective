@@ -51,15 +51,17 @@ FDR_CSV      = OUTPUT_DIR / "task5_fdr_table.csv"
 CLASS_CSV    = OUTPUT_DIR / "task6_rain_vs_storage_classification.csv"
 
 REGIONS = ["NW", "NE", "Central", "SW", "SE"]
+REGIONS_ALL = ["NW", "NE", "Central", "SW", "SE", "National"]
 DIVISIONS = ["Barishal", "Chattogram", "Dhaka", "Khulna",
              "Mymensingh", "Rajshahi", "Rangpur", "Sylhet"]
 
 REG_COLORS = {
-    "NW": "#dc2626",      # Crimson red
-    "NE": "#8b5cf6",      # Vivid purple
-    "Central": "#0284c7", # Sky blue
-    "SW": "#059669",      # Emerald green
-    "SE": "#ea580c",      # Amber orange
+    "NW": "#dc2626",        # Crimson red
+    "NE": "#8b5cf6",        # Vivid purple
+    "Central": "#0284c7",   # Sky blue
+    "SW": "#059669",        # Emerald green
+    "SE": "#ea580c",        # Amber orange
+    "National": "#475569",  # Charcoal / Slate
 }
 
 SEP = "─" * 84
@@ -270,7 +272,7 @@ def plot_regional_timeseries(reg_df: pd.DataFrame, trends_df: pd.DataFrame):
     print(f"  Saved: {all_fig_path}")
 
     # 2. Individual Region Figures
-    for reg in REGIONS:
+    for reg in REGIONS_ALL:
         fig, (ax_top, ax_bot) = plt.subplots(2, 1, figsize=(11, 8.5), gridspec_kw={"height_ratios": [1.4, 1.0]})
         sub = reg_df[reg_df["region"] == reg].sort_values("date").reset_index(drop=True)
         dates = pd.to_datetime(sub["date"])
@@ -288,6 +290,7 @@ def plot_regional_timeseries(reg_df: pd.DataFrame, trends_df: pd.DataFrame):
         p_val = float(t_row["p_value"])
         alt_s = t_row["slope_alt"]
         sig   = t_row["significance"]
+        verdict = t_row["verdict"]
 
         res_ts = stats.theilslopes(y_des, t_yrs)
         y_fit = res_ts.intercept + slope * t_yrs
@@ -304,10 +307,12 @@ def plot_regional_timeseries(reg_df: pd.DataFrame, trends_df: pd.DataFrame):
         ax_top.plot(dates, y_des, color=color, linewidth=1.6, alpha=0.6, label="Deseasonalized TWS Anomaly")
         ax_top.fill_between(dates, y_ci_low, y_ci_high, color=color, alpha=0.2, label=f"95% Block-Bootstrap CI [{ci_l:+.2f}, {ci_h:+.2f}]")
         ax_top.plot(dates, y_fit, color="#0f172a", linewidth=2.2, linestyle="--",
-                    label=f"Theil-Sen Trend: {slope:+.2f} cm/yr ({alt_s:+.2f} km³/yr, p={p_val:.4f} {sig})")
+                    label=f"Theil-Sen Trend: {slope:+.2f} cm/yr ({alt_s:+.2f} km³/yr, p={p_val:.4f}) — {verdict}")
         ax_top.axhline(0, color="#64748b", linestyle="-", linewidth=0.8)
         ax_top.set_ylabel("TWS Anomaly (cm)", fontsize=10.5, fontweight="bold")
-        ax_top.set_title(f"Region: {reg} — Total Water Storage Trajectory & Trend (2020–2026)", fontsize=12, fontweight="bold")
+        title_name = f"National (All Bangladesh)" if reg == "National" else f"Region: {reg}"
+        ax_top.set_title(f"{title_name} — Total Water Storage Trajectory & Trend (2020–2026)\n"
+                         f"Status: {verdict} [PRELIMINARY]", fontsize=11.5, fontweight="bold")
         ax_top.grid(True, linestyle=":", alpha=0.5)
         ax_top.legend(loc="lower left", fontsize=9, framealpha=0.92)
 
@@ -330,7 +335,8 @@ def plot_slope_choropleth(trends_df: pd.DataFrame, out_path: Path):
     """
     Renders high-resolution Bangladesh administrative division choropleth map.
     Colormap displays annual Theil-Sen TWS slope (cm/yr).
-    Divisions with p >= 0.05 (or non-significant FDR) are hatched with '//'.
+    Divisions failing FDR (q >= 0.05 or CI containing 0, including Suggestive) are hatched with '////'.
+    Only divisions meeting the full Significant standard (Rangpur, Rajshahi) remain unhatched.
     """
     div_geoms = load_division_geometries()
     prim_div = trends_df[(trends_df["window"] == "primary") &
@@ -351,10 +357,15 @@ def plot_slope_choropleth(trends_df: pd.DataFrame, out_path: Path):
             row = prim_div.loc[name]
             slope = float(row["slope"])
             p_val = float(row["p_value"])
-            is_sig = p_val < 0.05
+            verdict = str(row["verdict"])
+            is_sig = (verdict in ["Significant decrease", "Significant increase"])
+            is_sugg = (verdict in ["Suggestive decrease", "Suggestive increase"])
         else:
             slope = 0.0
+            p_val = 1.0
+            verdict = "No detectable trend"
             is_sig = False
+            is_sugg = False
 
         color = cmap(norm(slope))
         hatch = None if is_sig else "////"
@@ -382,7 +393,12 @@ def plot_slope_choropleth(trends_df: pd.DataFrame, out_path: Path):
         elif name == "Sylhet":
             cy += 0.1
 
-        sig_txt = "***" if p_val < 0.001 else ("**" if p_val < 0.01 else ("*" if p_val < 0.05 else "(ns)"))
+        if is_sig:
+            sig_txt = f"{p_val:.3f} (Significant)"
+        elif is_sugg:
+            sig_txt = f"{p_val:.3f} (Suggestive)"
+        else:
+            sig_txt = f"p={p_val:.2f} (ns)"
         label_text = f"{name}\n{slope:+.2f} cm/yr\n{sig_txt}"
 
         text_color = "white" if slope < -2.2 else "#0f172a"
@@ -423,14 +439,14 @@ def plot_slope_choropleth(trends_df: pd.DataFrame, out_path: Path):
     # Legend patch for hatching
     from matplotlib.patches import Patch
     legend_elements = [
-        Patch(facecolor="#cbd5e1", edgecolor="#1e293b", label="Statistically Significant Trend (p < 0.05)"),
-        Patch(facecolor="#cbd5e1", edgecolor="#1e293b", hatch="////", label="No Detectable Trend / Not Significant (Hatched)"),
+        Patch(facecolor="#cbd5e1", edgecolor="#1e293b", label="Significant Trend (passes FDR q < 0.05 & 95% CI excludes 0)"),
+        Patch(facecolor="#cbd5e1", edgecolor="#1e293b", hatch="////", label="Suggestive / Inconclusive / No Trend (Hatched: fails FDR or CI includes 0)"),
     ]
-    ax.legend(handles=legend_elements, loc="lower left", fontsize=8.5, framealpha=0.92)
+    ax.legend(handles=legend_elements, loc="lower left", fontsize=8.2, framealpha=0.92)
 
     plt.title(
         "Bangladesh Total Water Storage Rate of Change by Division (2020–2026)\n"
-        "CSR GRACE/GRACE-FO RL06.3 Mascons • Hatched Divisions: Not Significant (p ≥ 0.05)",
+        "CSR GRACE/GRACE-FO RL06.3 Mascons • Hatched Divisions: Suggestive or Inconclusive (Fails FDR)",
         fontsize=11.5, fontweight="bold", pad=14
     )
 
@@ -442,8 +458,8 @@ def plot_slope_choropleth(trends_df: pd.DataFrame, out_path: Path):
 # ── 4. Publication Summary Table Figure ────────────────────────────────────
 def plot_summary_table_figure(results_df: pd.DataFrame, out_path: Path):
     """
-    Renders a crisp graphical summary table comparing all 5 regions across
-    the 3 analytical windows.
+    Renders a crisp graphical summary table comparing all 5 regions and National composite
+    across the primary analytical window.
     """
     prim_reg = results_df[(results_df["window"] == "primary") &
                           (results_df["season"] == "annual") &
@@ -452,26 +468,27 @@ def plot_summary_table_figure(results_df: pd.DataFrame, out_path: Path):
     table_data = []
     col_labels = [
         "Region", "TWS Slope\n(cm/yr)", "95% Bootstrap CI\n(cm/yr)", "Volume Rate\n(km³/yr)",
-        "Precip Slope\n(mm/yr)", "Hamed-Rao\np-value", "FDR q-value\n(BH)", "Status / Verdict"
+        "Precip Slope\n(mm/yr & %/dec)", "Hamed-Rao\np-value", "FDR q-value\n(BH)", "Status / Verdict"
     ]
 
-    for reg in REGIONS:
+    for reg in REGIONS_ALL:
         sub_tws = prim_reg[(prim_reg["entity"] == reg) & (prim_reg["variable"] == "tws")].iloc[0]
         sub_pre = prim_reg[(prim_reg["entity"] == reg) & (prim_reg["variable"] == "precip")].iloc[0]
 
         ci_str = f"[{sub_tws['slope_95ci_low']:+.2f}, {sub_tws['slope_95ci_high']:+.2f}]"
+        precip_str = f"{sub_pre['theil_sen_slope']:+.1f} mm/yr\n({sub_pre['theil_sen_slope_alt']:+.1f}%/dec)"
         table_data.append([
             reg,
             f"{sub_tws['theil_sen_slope']:+.2f}",
             ci_str,
             f"{sub_tws['theil_sen_slope_alt']:+.2f}",
-            f"{sub_pre['theil_sen_slope']:+.2f}",
+            precip_str,
             f"{sub_tws['p_value']:.4f}",
             f"{sub_tws['bh_fdr_q_value']:.4f}",
             sub_tws["verdict"],
         ])
 
-    fig, ax = plt.subplots(figsize=(13.5, 4.5))
+    fig, ax = plt.subplots(figsize=(14.0, 5.2))
     ax.axis("off")
 
     tab = ax.table(
@@ -482,8 +499,8 @@ def plot_summary_table_figure(results_df: pd.DataFrame, out_path: Path):
     )
 
     tab.auto_set_font_size(False)
-    tab.set_fontsize(9.5)
-    tab.scale(1.0, 1.8)
+    tab.set_fontsize(9.0)
+    tab.scale(1.0, 1.85)
 
     # Style header and rows
     for (r, c), cell in tab.get_celld().items():
@@ -493,16 +510,19 @@ def plot_summary_table_figure(results_df: pd.DataFrame, out_path: Path):
         else:
             reg_name = table_data[r - 1][0]
             if reg_name == "NW":
-                cell.set_facecolor("#fecaca")  # light red highlight
+                cell.set_facecolor("#fee2e2")  # light red highlight
                 cell.set_text_props(fontweight="bold")
             elif reg_name == "Central":
-                cell.set_facecolor("#e0f2fe")  # light blue highlight
+                cell.set_facecolor("#fef3c7")  # light amber highlight
+            elif reg_name == "National":
+                cell.set_facecolor("#e2e8f0")  # light slate highlight
+                cell.set_text_props(fontweight="bold")
             else:
                 cell.set_facecolor("#f8fafc" if r % 2 == 0 else "#ffffff")
 
     plt.title(
         "NASA Earth Detective // Statistical Engine v2: Executive Summary Table\n"
-        "Primary Window (2020-01 to 2026-07) • Hamed-Rao Mann-Kendall, Block Bootstrap, & FDR Control",
+        "Primary Window (2020-01 to 2026-07) • Hamed-Rao Mann-Kendall, Block Bootstrap, & FDR Control [PRELIMINARY]",
         fontsize=12, fontweight="bold", pad=14
     )
 
@@ -561,12 +581,13 @@ def main():
     print("""
   Q: Why is hatching used on the Bangladesh slope map?
   A: Scientific cartography standards require clearly distinguishing real,
-     statistically proven trends from random fluctuations. Divisions where the
-     Theil-Sen slope is not statistically significant (p ≥ 0.05, such as Sylhet,
-     Khulna, Barishal, and Chattogram) are hatched with diagonal lines ('////').
-     This immediately directs the viewer's eye to the unhatched northern
-     hotspots (Rangpur, Rajshahi, Mymensingh, and Dhaka), where water loss is
-     statistically verified.
+     statistically proven trends from random fluctuations or exploratory findings.
+     Divisions that do not meet the full significance threshold (passing BH-FDR q < 0.05
+     AND bootstrap 95% CI excluding zero) are hatched with diagonal lines ('////').
+     Dhaka and Mymensingh show suggestive decreases (p < 0.05), but fail FDR control
+     (q = 0.128 and q = 0.071), so they are hatched. Sylhet, Khulna, Barishal, and
+     Chattogram exhibit no detectable trend. Only Rangpur and Rajshahi (forming the
+     Northwest region) remain unhatched as confirmed significant depletion hotspots.
 
   Q: How are the time series confidence bands constructed?
   A: Classical regression confidence intervals assume data points are independent.

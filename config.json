@@ -1,5 +1,5 @@
 {
-  "grace_netcdf_path": null,
+  "grace_netcdf_path": "CSR_GRACE_GRACE-FO_RL0603_Mascons_all-corrections.nc",
   "nasa_precipitation_netcdf_path": "nasa_precipitation_bangladesh.nc",
   "excel_fallback_path": "bangladesh_water_analysis_detailed.xlsx",
   "primary_window": {

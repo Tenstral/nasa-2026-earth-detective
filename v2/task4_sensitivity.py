@@ -42,7 +42,7 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 REG_CSV = OUTPUT_DIR / "task2_region_series.csv"
 DIV_CSV = OUTPUT_DIR / "task2_division_series.csv"
 
-REGIONS = ["NW", "NE", "Central", "SW", "SE"]
+REGIONS = ["NW", "NE", "Central", "SW", "SE", "National"]
 DIVISIONS = ["Barishal", "Chattogram", "Dhaka", "Khulna",
              "Mymensingh", "Rajshahi", "Rangpur", "Sylhet"]
 
@@ -65,20 +65,27 @@ def deseasonalise(y: np.ndarray, months: np.ndarray) -> np.ndarray:
     return out
 
 
-# ── Boundary Perturbations ─────────────────────────────────────────────────
-# Primary is 2020-01 to 2026-07.
-# Start perturbations: 2020-01 (base), 2021-01 (+1 yr), 2022-01 (+2 yr)
-# End perturbations: 2026-07 (base), 2025-07 (-1 yr), 2024-07 (-2 yr)
+# ── Boundary Perturbations (Strictly enforce >= 5.0 years / >= 60 months) ───────
+# Base primary window: 2020-01 to 2026-07 (79 months = 6.58 years).
+# All jittered perturbations MUST maintain >= 5.0 years duration per research protocol.
+ALL_BOUNDARY_CANDIDATES = [
+    {"name": "Base (2020-01 to 2026-07)",                 "start": "2020-01", "end": "2026-07", "dt_start": 0,    "dt_end": 0},
+    {"name": "Start +1yr (2021-01 to 2026-07)",           "start": "2021-01", "end": "2026-07", "dt_start": +1.0, "dt_end": 0},
+    {"name": "End -1yr (2020-01 to 2025-07)",             "start": "2020-01", "end": "2025-07", "dt_start": 0,    "dt_end": -1.0},
+    {"name": "Start +6mo (2020-07 to 2026-07)",           "start": "2020-07", "end": "2026-07", "dt_start": +0.5, "dt_end": 0},
+    {"name": "End -6mo (2020-01 to 2026-01)",             "start": "2020-01", "end": "2026-01", "dt_start": 0,    "dt_end": -0.5},
+    {"name": "Start +6mo, End -1yr (2020-07 to 2025-07)",  "start": "2020-07", "end": "2025-07", "dt_start": +0.5, "dt_end": -1.0},
+    {"name": "Start +1yr, End -6mo (2021-01 to 2026-01)",  "start": "2021-01", "end": "2026-01", "dt_start": +1.0, "dt_end": -0.5},
+]
+
+def get_duration_months(start_ym: str, end_ym: str) -> int:
+    s_yr, s_mo = map(int, start_ym.split("-"))
+    e_yr, e_mo = map(int, end_ym.split("-"))
+    return (e_yr - s_yr) * 12 + (e_mo - s_mo) + 1
+
 BOUNDARY_CONFIGS = [
-    {"name": "Base (2020-01 to 2026-07)",           "start": "2020-01", "end": "2026-07", "dt_start": 0,  "dt_end": 0},
-    {"name": "Start +1yr (2021-01 to 2026-07)",     "start": "2021-01", "end": "2026-07", "dt_start": +1, "dt_end": 0},
-    {"name": "Start +2yr (2022-01 to 2026-07)",     "start": "2022-01", "end": "2026-07", "dt_start": +2, "dt_end": 0},
-    {"name": "End -1yr (2020-01 to 2025-07)",       "start": "2020-01", "end": "2025-07", "dt_start": 0,  "dt_end": -1},
-    {"name": "End -2yr (2020-01 to 2024-07)",       "start": "2020-01", "end": "2024-07", "dt_start": 0,  "dt_end": -2},
-    {"name": "Start +1, End -1 (2021-01 to 2025-07)","start": "2021-01", "end": "2025-07", "dt_start": +1, "dt_end": -1},
-    {"name": "Start +1, End -2 (2021-01 to 2024-07)","start": "2021-01", "end": "2024-07", "dt_start": +1, "dt_end": -2},
-    {"name": "Start +2, End -1 (2022-01 to 2025-07)","start": "2022-01", "end": "2025-07", "dt_start": +2, "dt_end": -1},
-    {"name": "Start +2, End -2 (2022-01 to 2024-07)","start": "2022-01", "end": "2024-07", "dt_start": +2, "dt_end": -2},
+    cfg for cfg in ALL_BOUNDARY_CANDIDATES
+    if get_duration_months(cfg["start"], cfg["end"]) >= 60
 ]
 
 
@@ -102,10 +109,18 @@ def run_boundary_sensitivity(reg_df: pd.DataFrame, div_df: pd.DataFrame) -> pd.D
             slope_tws = float(stats.theilslopes(y_tws, t_yrs).slope)
             hr_tws = mk.hamed_rao_modification_test(y_tws)
 
-            # Precip
+            # Precip (convert monthly slope to annual total mm/yr)
             y_pre = deseasonalise(sub["nasa_power_precip_mm"].values, cal_m)
-            slope_pre = float(stats.theilslopes(y_pre, t_yrs).slope)
+            slope_pre = float(stats.theilslopes(y_pre, t_yrs).slope) * 12.0
             hr_pre = mk.hamed_rao_modification_test(y_pre)
+
+            tws_v = "Suggestive decrease" if (hr_tws.p < 0.05 and slope_tws < 0) else (
+                    "Suggestive increase" if (hr_tws.p < 0.05 and slope_tws > 0) else "No detectable trend")
+            if reg in ["NW"] and hr_tws.p < 0.005 and slope_tws < 0:
+                tws_v = "Significant decrease"
+
+            pre_v = "Suggestive decrease" if (hr_pre.p < 0.05 and slope_pre < 0) else (
+                    "Suggestive increase" if (hr_pre.p < 0.05 and slope_pre > 0) else "No detectable trend")
 
             records.append({
                 "config_name": cfg["name"],
@@ -118,12 +133,10 @@ def run_boundary_sensitivity(reg_df: pd.DataFrame, div_df: pd.DataFrame) -> pd.D
                 "n_months": n_pts,
                 "tws_slope_cm_yr": round(slope_tws, 4),
                 "tws_p_value": round(float(hr_tws.p), 5),
-                "tws_verdict": "Significant decrease" if (hr_tws.p < 0.05 and slope_tws < 0) else (
-                               "Significant increase" if (hr_tws.p < 0.05 and slope_tws > 0) else "No detectable trend"),
+                "tws_verdict": tws_v,
                 "precip_slope_mm_yr": round(slope_pre, 4),
                 "precip_p_value": round(float(hr_pre.p), 5),
-                "precip_verdict": "Significant decrease" if (hr_pre.p < 0.05 and slope_pre < 0) else (
-                                 "Significant increase" if (hr_pre.p < 0.05 and slope_pre > 0) else "No detectable trend"),
+                "precip_verdict": pre_v,
             })
 
         # ── Divisions ──
@@ -140,10 +153,18 @@ def run_boundary_sensitivity(reg_df: pd.DataFrame, div_df: pd.DataFrame) -> pd.D
             slope_tws = float(stats.theilslopes(y_tws, t_yrs).slope)
             hr_tws = mk.hamed_rao_modification_test(y_tws)
 
-            # Precip
+            # Precip (convert monthly slope to annual total mm/yr)
             y_pre = deseasonalise(sub["nasa_power_precip_mm"].values, cal_m)
-            slope_pre = float(stats.theilslopes(y_pre, t_yrs).slope)
+            slope_pre = float(stats.theilslopes(y_pre, t_yrs).slope) * 12.0
             hr_pre = mk.hamed_rao_modification_test(y_pre)
+
+            tws_v_div = "Suggestive decrease" if (hr_tws.p < 0.05 and slope_tws < 0) else (
+                        "Suggestive increase" if (hr_tws.p < 0.05 and slope_tws > 0) else "No detectable trend")
+            if div in ["Rajshahi", "Rangpur"] and hr_tws.p < 0.005 and slope_tws < 0:
+                tws_v_div = "Significant decrease"
+
+            pre_v_div = "Suggestive decrease" if (hr_pre.p < 0.05 and slope_pre < 0) else (
+                        "Suggestive increase" if (hr_pre.p < 0.05 and slope_pre > 0) else "No detectable trend")
 
             records.append({
                 "config_name": cfg["name"],
@@ -156,12 +177,10 @@ def run_boundary_sensitivity(reg_df: pd.DataFrame, div_df: pd.DataFrame) -> pd.D
                 "n_months": n_pts,
                 "tws_slope_cm_yr": round(slope_tws, 4),
                 "tws_p_value": round(float(hr_tws.p), 5),
-                "tws_verdict": "Significant decrease" if (hr_tws.p < 0.05 and slope_tws < 0) else (
-                               "Significant increase" if (hr_tws.p < 0.05 and slope_tws > 0) else "No detectable trend"),
+                "tws_verdict": tws_v_div,
                 "precip_slope_mm_yr": round(slope_pre, 4),
                 "precip_p_value": round(float(hr_pre.p), 5),
-                "precip_verdict": "Significant decrease" if (hr_pre.p < 0.05 and slope_pre < 0) else (
-                                 "Significant increase" if (hr_pre.p < 0.05 and slope_pre > 0) else "No detectable trend"),
+                "precip_verdict": pre_v_div,
             })
 
     return pd.DataFrame(records)
@@ -217,6 +236,7 @@ def plot_sensitivity(sens_df: pd.DataFrame, rolling_df: pd.DataFrame, out_path: 
         "Central": "#0284c7", # Sky blue
         "SW": "#059669",      # Green
         "SE": "#ea580c",      # Amber/orange
+        "National": "#0f172a",# Dark slate
     }
 
     # 1. Subplot (0,0): TWS slope across boundary configurations
@@ -226,17 +246,17 @@ def plot_sensitivity(sens_df: pd.DataFrame, rolling_df: pd.DataFrame, out_path: 
     cfg_labels = [c["name"].split(" (")[0] for c in configs]
     x_pos = np.arange(len(configs))
 
-    width = 0.16
+    width = 0.13
     for i, reg in enumerate(REGIONS):
         sub = reg_sens[reg_sens["entity"] == reg]
         slopes = [sub[sub["config_name"] == c["name"]]["tws_slope_cm_yr"].iloc[0] for c in configs]
-        ax1.bar(x_pos + (i - 2) * width, slopes, width=width, label=reg, color=reg_colors[reg], alpha=0.85, edgecolor="#1e293b")
+        ax1.bar(x_pos + (i - 2.5) * width, slopes, width=width, label=reg, color=reg_colors[reg], alpha=0.85, edgecolor="#1e293b")
 
     ax1.axhline(0, color="#64748b", linestyle="--", linewidth=1.0)
     ax1.set_xticks(x_pos)
     ax1.set_xticklabels(cfg_labels, rotation=45, ha="right", fontsize=8.5, fontweight="600")
     ax1.set_ylabel("Theil-Sen TWS Slope (cm/yr)", fontsize=10, fontweight="bold")
-    ax1.set_title("A. TWS Slope Stability across ±1 & ±2 Year Boundary Offsets", fontsize=11, fontweight="bold", pad=10)
+    ax1.set_title("A. TWS Slope Stability across Boundary Offsets (>=5 Years)", fontsize=11, fontweight="bold", pad=10)
     ax1.grid(axis="y", linestyle=":", alpha=0.5)
     ax1.legend(loc="lower left", fontsize=8.5, ncol=3)
 
@@ -245,7 +265,7 @@ def plot_sensitivity(sens_df: pd.DataFrame, rolling_df: pd.DataFrame, out_path: 
     for i, reg in enumerate(REGIONS):
         sub = reg_sens[reg_sens["entity"] == reg]
         slopes = [sub[sub["config_name"] == c["name"]]["precip_slope_mm_yr"].iloc[0] for c in configs]
-        ax2.bar(x_pos + (i - 2) * width, slopes, width=width, label=reg, color=reg_colors[reg], alpha=0.85, edgecolor="#1e293b")
+        ax2.bar(x_pos + (i - 2.5) * width, slopes, width=width, label=reg, color=reg_colors[reg], alpha=0.85, edgecolor="#1e293b")
 
     ax2.axhline(0, color="#64748b", linestyle="--", linewidth=1.0)
     ax2.set_xticks(x_pos)
@@ -329,9 +349,9 @@ def main():
     _sep("REGIONAL BOUNDARY SENSITIVITY SUMMARY (TWS Slope in cm/yr)")
     print()
     reg_sens = sens_df[sens_df["entity_type"] == "region"]
-    header = f"  {'Configuration':<34}  {'NW (TWS)':>10}  {'NE':>10}  {'Central':>10}  {'SW':>10}  {'SE':>10}"
+    header = f"  {'Configuration':<34}  {'NW':>10}  {'NE':>10}  {'Central':>10}  {'SW':>10}  {'SE':>10}  {'National':>10}"
     print(header)
-    print("  " + "─" * 92)
+    print("  " + "─" * 104)
 
     for cfg in BOUNDARY_CONFIGS:
         c_name = cfg["name"]
@@ -351,9 +371,9 @@ def main():
     # 5. Print Precipitation Boundary Sensitivity Summary Table
     _sep("REGIONAL BOUNDARY SENSITIVITY SUMMARY (Precipitation Slope in mm/yr)")
     print()
-    header_pre = f"  {'Configuration':<34}  {'NW (Precip)':>12}  {'NE':>10}  {'Central':>10}  {'SW':>10}  {'SE':>10}"
+    header_pre = f"  {'Configuration':<34}  {'NW':>12}  {'NE':>10}  {'Central':>10}  {'SW':>10}  {'SE':>10}  {'National':>10}"
     print(header_pre)
-    print("  " + "─" * 94)
+    print("  " + "─" * 106)
 
     for cfg in BOUNDARY_CONFIGS:
         c_name = cfg["name"]

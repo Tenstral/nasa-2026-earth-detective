@@ -1,22 +1,27 @@
 {
-  "generated_at": "2026-10-31T07:24:17.714231",
+  "generated_at": "2026-10-31T08:17:17.197969",
   "task": "Task 8 - Rule-Based Narrative Synthesis",
-  "core_hypothesis_verdict": "PROVEN: Regional divergence in water storage is statistically significant while rainfall trends remain uniform.",
-  "paradox_identification": "Bengal Water Paradox: Decoupled depletion in Northwest and Central Bangladesh.",
+  "core_hypothesis_verdict": "PROVEN: Regional divergence in water storage is statistically significant while rainfall trends show no detectable regional divergence.",
+  "paradox_identification": "Bengal Water Paradox: Confirmed decoupled depletion in Northwest Bangladesh (Central & Mymensingh classified as suggestive/inconclusive).",
   "key_metrics": {
-    "NW_tws_theil_sen_slope_cm_yr": -2.92733,
-    "NW_tws_volumetric_rate_km3_yr": -0.907,
+    "NW_tws_theil_sen_slope_cm_yr": -2.92759,
+    "NW_tws_volumetric_rate_km3_yr": -0.9071,
     "NW_tws_hamed_rao_p_value": 0.000181,
-    "NW_tws_fdr_q_value": 0.00177,
-    "NW_precip_slope_mm_yr": 0.09703,
-    "NW_precip_p_value": 0.959779,
-    "NW_storage_retention_ratio_pct": 21.4
+    "NW_tws_fdr_q_value": 0.00208,
+    "NW_precip_slope_mm_yr": 1.23193,
+    "NW_precip_slope_alt_pct_decade": 0.5311,
+    "NW_precip_p_value": 0.967818,
+    "NW_storage_retention_ratio_pct": 20.4,
+    "monsoon_seasons_count": 6
   },
   "limits_line_included": true,
   "language_rules_verified": {
     "no_groundwater_usage": true,
     "no_causation_claims": true,
-    "preliminary_label_included": true
+    "preliminary_label_included": true,
+    "no_flat_or_uniform_claims": true,
+    "no_balanced_surplus_claims": true,
+    "three_tiered_verdict_rule_enforced": true
   },
   "output_files": [
     "C:\\Users\\LEON\\OneDrive\\Documents\\GitHub\\nasa-2026-earth-detective\\outputs\\v2\\task8_narrative_en.txt",

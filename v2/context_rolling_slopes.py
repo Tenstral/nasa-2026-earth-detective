@@ -145,14 +145,21 @@ def run_context_analysis():
     lats = ds["lat"].values
     lons = ds["lon"].values
 
-    # Convert lons to 0-360 if needed
+    # Convert lons to -180..180 if needed
     if np.any(lons > 180):
         lons_180 = np.where(lons > 180, lons - 360, lons)
     else:
         lons_180 = lons
 
-    # Grid cell area weights
-    lat_mesh, lon_mesh = np.meshgrid(lats, lons_180, indexing="ij")
+    # Crop to Bangladesh bounding box (+ buffer) for fast vectorized extraction
+    lon_idx = (lons_180 >= 87.0) & (lons_180 <= 93.5)
+    lat_idx = (lats >= 20.0) & (lats <= 27.5)
+
+    sub_lons = lons_180[lon_idx]
+    sub_lats = lats[lat_idx]
+    sub_lwe = lwe[:, lat_idx, :][:, :, lon_idx]  # (time, sub_lat, sub_lon)
+
+    lat_mesh, lon_mesh = np.meshgrid(sub_lats, sub_lons, indexing="ij")
     cos_lat = np.cos(np.deg2rad(lat_mesh))
 
     # Regional series extraction
@@ -162,13 +169,8 @@ def run_context_analysis():
         from shapely.ops import unary_union
         reg_poly = unary_union(polys)
 
-        # Build mask
-        mask = np.zeros(lat_mesh.shape, dtype=bool)
-        for i in range(len(lats)):
-            for j in range(len(lons_180)):
-                pt = shapely.geometry.Point(lon_mesh[i, j], lat_mesh[i, j])
-                if reg_poly.contains(pt) or reg_poly.touches(pt):
-                    mask[i, j] = True
+        # Build mask using vectorized contains_xy
+        mask = shapely.contains_xy(reg_poly, lon_mesh, lat_mesh)
 
         if not np.any(mask):
             # Fallback centroid nearest
@@ -182,7 +184,7 @@ def run_context_analysis():
 
         ts = []
         for t_idx in range(len(times)):
-            grid_t = lwe[t_idx, :, :]
+            grid_t = sub_lwe[t_idx, :, :]
             val = np.sum(grid_t * weights) / w_sum
             ts.append(val)
         reg_series[r_name] = np.array(ts)
@@ -221,16 +223,26 @@ def run_context_analysis():
         y_rec = y_deseas[mask_recent]
         recent_slope = compute_theil_sen_slope_fast(t_rec, y_rec)
 
-        # Bootstrap CI for recent slope
+        # Residual circular block-bootstrap CI for recent slope
         n_rec = len(t_rec)
+        res_rec = stats.theilslopes(y_rec, t_rec)
+        recent_slope = float(res_rec.slope)
+        recent_intercept = float(res_rec.intercept)
+        rec_residuals = y_rec - (recent_intercept + recent_slope * t_rec)
+        rec_residuals -= np.mean(rec_residuals)
+
         boot_slopes = []
         rng = np.random.default_rng(42)
         b_len = 12
+        res_circ = np.concatenate([rec_residuals, rec_residuals[: b_len - 1]])
         n_blocks = int(np.ceil(n_rec / b_len))
         for _ in range(2000):
-            starts = rng.integers(0, n_rec - b_len + 1, size=n_blocks)
-            boot_idx = np.concatenate([np.arange(s, s + b_len) for s in starts])[:n_rec]
-            boot_sl = compute_theil_sen_slope_fast(t_rec, y_rec[boot_idx])
+            starts = rng.integers(0, n_rec, size=n_blocks)
+            block_offsets = np.arange(b_len)
+            boot_idx = (starts[:, None] + block_offsets[None, :]).reshape(-1)[:n_rec]
+            boot_e = res_circ[boot_idx]
+            boot_y = (recent_intercept + recent_slope * t_rec) + boot_e
+            boot_sl = compute_theil_sen_slope_fast(t_rec, boot_y)
             boot_slopes.append(boot_sl)
         ci_low = float(np.percentile(boot_slopes, 2.5))
         ci_high = float(np.percentile(boot_slopes, 97.5))

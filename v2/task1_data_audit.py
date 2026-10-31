@@ -139,7 +139,8 @@ def audit_grace_netcdf(report: dict) -> dict:
         print(f"  Missing months: {len(missing)} {'(none)' if not missing else missing}")
         print(f"  Spatial     : lat {float(ds.lat.min()):.2f}°N–{float(ds.lat.max()):.2f}°N, "
               f"lon {float(ds.lon.min()):.2f}°E–{float(ds.lon.max()):.2f}°E")
-        print(f"  Variable    : lwe_thickness  units={lwe_var.attrs.get('units','?')}  "
+        units_str = lwe_var.attrs.get('units') or lwe_var.attrs.get('Units', '?')
+        print(f"  Variable    : lwe_thickness  units={units_str}  "
               f"long_name={lwe_var.attrs.get('long_name','?')}")
         grace_report.update({
             "status": "PRESENT",

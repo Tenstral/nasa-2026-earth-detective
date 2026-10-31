@@ -1,118 +1,99 @@
 config_name,start,end,dt_start_yr,dt_end_yr,entity_type,entity,n_months,tws_slope_cm_yr,tws_p_value,tws_verdict,precip_slope_mm_yr,precip_p_value,precip_verdict
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,region,NW,79,-2.9273,0.00018,Significant decrease,0.097,0.95978,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,region,NE,79,-0.9938,0.10021,No detectable trend,-0.1059,0.96749,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,region,Central,79,-1.1868,0.03136,Significant decrease,0.9926,0.79296,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,region,SW,79,-0.1207,0.76905,No detectable trend,-1.7044,0.70006,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,region,SE,79,0.3878,0.31109,No detectable trend,-0.4197,0.9468,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,division,Barishal,79,0.2997,0.63061,No detectable trend,-4.5909,0.54805,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,division,Chattogram,79,0.3878,0.31109,No detectable trend,-0.4197,0.9468,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,division,Dhaka,79,-1.1868,0.03136,Significant decrease,0.9926,0.79296,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,division,Khulna,79,-0.3823,0.3075,No detectable trend,0.6186,0.86685,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,division,Mymensingh,79,-1.6882,0.01937,Significant decrease,1.2923,0.75086,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,division,Rajshahi,79,-2.3995,0.00133,Significant decrease,0.7071,0.80604,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,division,Rangpur,79,-3.4167,0.00022,Significant decrease,-0.5,0.77272,No detectable trend
-Base (2020-01 to 2026-07),2020-01,2026-07,0,0,division,Sylhet,79,-0.4448,0.39468,No detectable trend,-0.2269,0.9609,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,region,NW,67,-2.1694,0.09295,No detectable trend,7.3173,0.0514,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,region,NE,67,0.078,0.88552,No detectable trend,8.4383,0.19034,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,region,Central,67,-0.2942,0.69049,No detectable trend,9.0612,0.05271,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,region,SW,67,0.2213,0.74798,No detectable trend,5.6867,0.10599,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,region,SE,67,0.6746,0.15162,No detectable trend,7.0333,0.13965,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,division,Barishal,67,0.33,0.65907,No detectable trend,5.9489,0.32753,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,division,Chattogram,67,0.6746,0.15162,No detectable trend,7.0333,0.13965,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,division,Dhaka,67,-0.2942,0.69049,No detectable trend,9.0612,0.05271,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,division,Khulna,67,0.1217,0.81025,No detectable trend,6.8744,0.06575,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,division,Mymensingh,67,-0.6203,0.47431,No detectable trend,10.0818,0.05337,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,division,Rajshahi,67,-1.5254,0.18372,No detectable trend,8.0465,0.00666,Significant increase
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,division,Rangpur,67,-2.83,0.04064,Significant decrease,5.5999,0.13527,No detectable trend
-Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1,0,division,Sylhet,67,0.5723,0.37473,No detectable trend,8.8538,0.13141,No detectable trend
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,region,NW,55,-1.6282,0.27265,No detectable trend,9.3796,0.03655,Significant increase
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,region,NE,55,0.2723,0.78325,No detectable trend,-2.1345,0.50743,No detectable trend
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,region,Central,55,0.2278,0.83537,No detectable trend,9.5875,0.13862,No detectable trend
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,region,SW,55,0.9438,0.15794,No detectable trend,9.6438,0.23247,No detectable trend
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,region,SE,55,1.2581,0.00846,Significant increase,7.0333,0.44552,No detectable trend
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,division,Barishal,55,1.2513,0.19838,No detectable trend,4.3468,0.74397,No detectable trend
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,division,Chattogram,55,1.2581,0.00846,Significant increase,7.0333,0.44552,No detectable trend
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,division,Dhaka,55,0.2278,0.83537,No detectable trend,9.5875,0.13862,No detectable trend
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,division,Khulna,55,0.6929,0.20622,No detectable trend,14.3727,0.04624,Significant increase
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,division,Mymensingh,55,-0.2012,0.90607,No detectable trend,4.9708,0.5365,No detectable trend
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,division,Rajshahi,55,-0.8617,0.55489,No detectable trend,14.3137,0.00787,Significant increase
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,division,Rangpur,55,-2.6424,0.18022,No detectable trend,7.0836,0.26981,No detectable trend
-Start +2yr (2022-01 to 2026-07),2022-01,2026-07,2,0,division,Sylhet,55,0.7727,0.36192,No detectable trend,-6.3601,0.29045,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,region,NW,67,-4.4525,0.0,Significant decrease,-3.0795,0.35881,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,region,NE,67,-2.2931,2e-05,Significant decrease,0.1595,0.95481,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,region,Central,67,-2.3219,6e-05,Significant decrease,0.2573,0.94822,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,region,SW,67,-0.7333,0.13404,No detectable trend,1.3751,0.75811,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,region,SE,67,-0.0168,0.98131,No detectable trend,2.6564,0.69246,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,division,Barishal,67,-0.1827,0.8407,No detectable trend,1.155,0.91791,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,division,Chattogram,67,-0.0168,0.98131,No detectable trend,2.6564,0.69246,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,division,Dhaka,67,-2.3219,6e-05,Significant decrease,0.2573,0.94822,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,division,Khulna,67,-0.9415,0.00264,Significant decrease,2.5206,0.71427,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,division,Mymensingh,67,-3.1774,0.0,Significant decrease,0.5776,0.90833,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,division,Rajshahi,67,-3.8289,0.0,Significant decrease,-2.0819,0.71944,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,division,Rangpur,67,-4.888,0.0,Significant decrease,-5.1434,0.12122,No detectable trend
-End -1yr (2020-01 to 2025-07),2020-01,2025-07,0,-1,division,Sylhet,67,-1.4843,0.00098,Significant decrease,-0.7826,0.75767,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,region,NW,55,-5.5166,3e-05,Significant decrease,-5.326,0.4396,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,region,NE,55,-2.7683,0.00018,Significant decrease,3.8328,0.57402,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,region,Central,55,-3.2413,0.00032,Significant decrease,-4.4241,0.30376,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,region,SW,55,-1.9372,0.00022,Significant decrease,-13.8583,0.1238,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,region,SE,55,-0.9949,0.01598,Significant decrease,-14.0703,0.19708,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,division,Barishal,55,-1.6806,0.02995,Significant decrease,-18.0358,0.15477,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,division,Chattogram,55,-0.9949,0.01598,Significant decrease,-14.0703,0.19708,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,division,Dhaka,55,-3.2413,0.00032,Significant decrease,-4.4241,0.30376,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,division,Khulna,55,-1.8704,6e-05,Significant decrease,-9.1703,0.11537,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,division,Mymensingh,55,-3.9424,0.0001,Significant decrease,0.5,0.91579,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,division,Rajshahi,55,-5.2476,4e-05,Significant decrease,-7.5,0.33566,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,division,Rangpur,55,-5.7341,8e-05,Significant decrease,-4.1577,0.42455,No detectable trend
-End -2yr (2020-01 to 2024-07),2020-01,2024-07,0,-2,division,Sylhet,55,-1.8494,0.00208,Significant decrease,5.0825,0.3356,No detectable trend
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,region,NW,55,-4.113,1e-05,Significant decrease,4.2418,0.18753,No detectable trend
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,region,NE,55,-1.5616,0.00104,Significant decrease,13.4637,0.03473,Significant increase
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,region,Central,55,-1.8089,0.00911,Significant decrease,12.0503,0.05171,No detectable trend
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,region,SW,55,-0.5249,0.43451,No detectable trend,15.0518,0.04589,Significant increase
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,region,SE,55,0.1698,0.67653,No detectable trend,15.905,0.03062,Significant increase
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,division,Barishal,55,-0.2757,0.81686,No detectable trend,22.4833,0.07045,No detectable trend
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,division,Chattogram,55,0.1698,0.67653,No detectable trend,15.905,0.03062,Significant increase
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,division,Dhaka,55,-1.8089,0.00911,Significant decrease,12.0503,0.05171,No detectable trend
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,division,Khulna,55,-0.6779,0.22764,No detectable trend,12.3181,0.01235,Significant increase
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,division,Mymensingh,55,-2.6446,0.00136,Significant decrease,12.3236,0.01178,Significant increase
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,division,Rajshahi,55,-3.4281,0.00018,Significant decrease,7.102,0.11043,No detectable trend
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,division,Rangpur,55,-4.9391,0.0,Significant decrease,1.1341,0.8128,No detectable trend
-"Start +1, End -1 (2021-01 to 2025-07)",2021-01,2025-07,1,-1,division,Sylhet,55,-0.6427,0.13688,No detectable trend,10.3723,0.01613,Significant increase
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,region,NW,43,-6.454,0.00041,Significant decrease,7.7811,0.31505,No detectable trend
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,region,NE,43,-1.9405,0.01085,Significant decrease,24.3651,0.00011,Significant increase
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,region,Central,43,-2.832,0.00027,Significant decrease,12.5943,0.0,Significant increase
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,region,SW,43,-2.5335,0.0028,Significant decrease,7.0388,0.3002,No detectable trend
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,region,SE,43,-1.2906,0.04666,Significant decrease,9.0648,0.01371,Significant increase
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,division,Barishal,43,-3.1286,0.0,Significant decrease,9.497,0.25091,No detectable trend
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,division,Chattogram,43,-1.2906,0.04666,Significant decrease,9.0648,0.01371,Significant increase
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,division,Dhaka,43,-2.832,0.00027,Significant decrease,12.5943,0.0,Significant increase
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,division,Khulna,43,-2.062,0.0087,Significant decrease,3.6774,0.43169,No detectable trend
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,division,Mymensingh,43,-3.4356,0.00055,Significant decrease,16.9652,1e-05,Significant increase
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,division,Rajshahi,43,-5.8069,0.00119,Significant decrease,5.4039,0.31883,No detectable trend
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,division,Rangpur,43,-6.542,0.00298,Significant decrease,6.9821,0.31505,No detectable trend
-"Start +1, End -2 (2021-01 to 2024-07)",2021-01,2024-07,1,-2,division,Sylhet,43,-0.739,0.26421,No detectable trend,26.8646,0.0,Significant increase
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,region,NW,43,-4.848,0.00095,Significant decrease,8.1844,0.25836,No detectable trend
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,region,NE,43,-2.3205,0.00283,Significant decrease,0.7589,0.94993,No detectable trend
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,region,Central,43,-2.2183,0.069,No detectable trend,18.546,0.03451,Significant increase
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,region,SW,43,0.3738,0.77189,No detectable trend,33.7889,0.00126,Significant increase
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,region,SE,43,0.9318,0.33141,No detectable trend,30.4375,0.01631,Significant increase
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,division,Barishal,43,1.04,0.60895,No detectable trend,35.2526,0.00724,Significant increase
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,division,Chattogram,43,0.9318,0.33141,No detectable trend,30.4375,0.01631,Significant increase
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,division,Dhaka,43,-2.2183,0.069,No detectable trend,18.546,0.03451,Significant increase
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,division,Khulna,43,-0.0697,0.94019,No detectable trend,26.7634,0.00042,Significant increase
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,division,Mymensingh,43,-3.518,0.00314,Significant decrease,7.2667,0.50299,No detectable trend
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,division,Rajshahi,43,-3.9012,0.00959,Significant decrease,15.7726,0.02379,Significant increase
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,division,Rangpur,43,-5.9497,0.00018,Significant decrease,-1.6877,0.76962,No detectable trend
-"Start +2, End -1 (2022-01 to 2025-07)",2022-01,2025-07,2,-1,division,Sylhet,43,-1.4191,0.10094,No detectable trend,-5.4631,0.63766,No detectable trend
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,region,NW,31,-9.5894,0.0,Significant decrease,19.834,0.15164,No detectable trend
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,region,NE,31,-3.6945,0.01211,Significant decrease,22.247,0.3103,No detectable trend
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,region,Central,31,-4.0307,0.00086,Significant decrease,22.4441,2e-05,Significant increase
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,region,SW,31,-3.1024,0.02203,Significant decrease,17.0203,0.27793,No detectable trend
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,region,SE,31,-1.493,0.19045,No detectable trend,18.5715,0.21827,No detectable trend
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,division,Barishal,31,-3.92,0.03661,Significant decrease,14.421,0.5772,No detectable trend
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,division,Chattogram,31,-1.493,0.19045,No detectable trend,18.5715,0.21827,No detectable trend
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,division,Dhaka,31,-4.0307,0.00086,Significant decrease,22.4441,2e-05,Significant increase
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,division,Khulna,31,-2.3823,0.02321,Significant decrease,17.8208,0.11439,No detectable trend
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,division,Mymensingh,31,-5.5729,0.00087,Significant decrease,26.3403,0.18493,No detectable trend
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,division,Rajshahi,31,-8.9287,1e-05,Significant decrease,22.8925,0.04866,Significant increase
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,division,Rangpur,31,-10.4552,0.0,Significant decrease,12.6709,0.4395,No detectable trend
-"Start +2, End -2 (2022-01 to 2024-07)",2022-01,2024-07,2,-2,division,Sylhet,31,-1.8902,0.08974,No detectable trend,17.2253,0.10137,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,region,NW,79,-2.9276,0.00018,Significant decrease,1.2319,0.96782,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,region,NE,79,-0.9945,0.10029,No detectable trend,-0.9843,0.96749,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,region,Central,79,-1.1875,0.03088,Suggestive decrease,11.8362,0.79296,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,region,SW,79,-0.1227,0.7725,No detectable trend,-20.5022,0.69693,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,region,SE,79,0.3898,0.31064,No detectable trend,-5.2009,0.9468,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,region,National,79,-1.0158,0.11677,No detectable trend,-21.4373,0.52146,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,division,Barishal,79,0.299,0.632,No detectable trend,-55.1071,0.55043,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,division,Chattogram,79,0.3898,0.31064,No detectable trend,-5.2009,0.9468,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,division,Dhaka,79,-1.1875,0.03088,Suggestive decrease,11.8362,0.79296,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,division,Khulna,79,-0.3801,0.3123,No detectable trend,7.4691,0.87963,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,division,Mymensingh,79,-1.6908,0.01937,Suggestive decrease,15.0207,0.75086,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,division,Rajshahi,79,-2.3971,0.00134,Significant decrease,8.5568,0.80604,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,division,Rangpur,79,-3.4177,0.00022,Significant decrease,-6.036,0.78093,No detectable trend
+Base (2020-01 to 2026-07),2020-01,2026-07,0.0,0.0,division,Sylhet,79,-0.4447,0.39753,No detectable trend,-2.564,0.95765,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,region,NW,67,-2.1695,0.09295,No detectable trend,87.8192,0.0514,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,region,NE,67,0.079,0.88197,No detectable trend,101.4965,0.19034,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,region,Central,67,-0.2921,0.69049,No detectable trend,108.9566,0.05271,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,region,SW,67,0.2203,0.75249,No detectable trend,68.0646,0.10448,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,region,SE,67,0.6695,0.15106,No detectable trend,84.32,0.13965,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,region,National,67,-0.3428,0.66729,No detectable trend,80.0852,0.08996,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,division,Barishal,67,0.3297,0.65951,No detectable trend,70.9435,0.33098,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,division,Chattogram,67,0.6695,0.15106,No detectable trend,84.32,0.13965,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,division,Dhaka,67,-0.2921,0.69049,No detectable trend,108.9566,0.05271,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,division,Khulna,67,0.1236,0.81657,No detectable trend,82.7845,0.06682,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,division,Mymensingh,67,-0.6194,0.47431,No detectable trend,121.2181,0.05337,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,division,Rajshahi,67,-1.527,0.18383,No detectable trend,96.6827,0.00653,Suggestive increase
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,division,Rangpur,67,-2.8274,0.04065,Suggestive decrease,67.1863,0.13813,No detectable trend
+Start +1yr (2021-01 to 2026-07),2021-01,2026-07,1.0,0.0,division,Sylhet,67,0.5733,0.37473,No detectable trend,106.645,0.13345,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,region,NW,67,-4.4531,0.0,Significant decrease,-36.8357,0.35857,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,region,NE,67,-2.2937,2e-05,Suggestive decrease,1.9266,0.95481,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,region,Central,67,-2.3232,6e-05,Suggestive decrease,2.5747,0.95684,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,region,SW,67,-0.7329,0.13404,No detectable trend,16.5788,0.76151,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,region,SE,67,-0.017,0.9813,No detectable trend,32.0228,0.69246,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,region,National,67,-1.9904,0.00017,Suggestive decrease,-18.2523,0.70796,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,division,Barishal,67,-0.1823,0.83843,No detectable trend,13.652,0.92147,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,division,Chattogram,67,-0.017,0.9813,No detectable trend,32.0228,0.69246,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,division,Dhaka,67,-2.3232,6e-05,Suggestive decrease,2.5747,0.95684,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,division,Khulna,67,-0.9414,0.00264,Suggestive decrease,30.2568,0.71777,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,division,Mymensingh,67,-3.1803,0.0,Suggestive decrease,7.0034,0.90832,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,division,Rajshahi,67,-3.8287,0.0,Significant decrease,-24.8561,0.71944,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,division,Rangpur,67,-4.8898,0.0,Significant decrease,-61.6165,0.12122,No detectable trend
+End -1yr (2020-01 to 2025-07),2020-01,2025-07,0.0,-1.0,division,Sylhet,67,-1.4883,0.00098,Suggestive decrease,-9.4278,0.74959,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,region,NW,73,-2.7979,0.00169,Significant decrease,41.2876,0.26716,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,region,NE,73,-0.7349,0.36247,No detectable trend,32.5765,0.59627,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,region,Central,73,-0.8799,0.10699,No detectable trend,74.9552,0.13606,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,region,SW,73,-0.1332,0.75916,No detectable trend,53.9708,0.1777,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,region,SE,73,0.3505,0.45184,No detectable trend,61.3889,0.25551,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,region,National,73,-0.9081,0.25035,No detectable trend,31.4896,0.47337,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,division,Barishal,73,0.0453,0.96038,No detectable trend,34.7968,0.71711,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,division,Chattogram,73,0.3505,0.45184,No detectable trend,61.3889,0.25551,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,division,Dhaka,73,-0.8799,0.10699,No detectable trend,74.9552,0.13606,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,division,Khulna,73,-0.2567,0.59549,No detectable trend,76.3057,0.00243,Suggestive increase
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,division,Mymensingh,73,-1.4427,0.08424,No detectable trend,70.4314,0.27756,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,division,Rajshahi,73,-2.2879,0.01444,Suggestive decrease,58.0069,0.11277,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,division,Rangpur,73,-3.5112,0.00211,Significant decrease,30.9483,0.38869,No detectable trend
+Start +6mo (2020-07 to 2026-07),2020-07,2026-07,0.5,0.0,division,Sylhet,73,-0.0847,0.92738,No detectable trend,31.6679,0.58842,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,region,NW,73,-3.4817,0.00016,Significant decrease,-20.651,0.33348,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,region,NE,73,-1.5971,0.00706,Suggestive decrease,-4.2436,0.84058,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,region,Central,73,-1.7574,0.00147,Suggestive decrease,-26.2262,0.48294,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,region,SW,73,-0.2988,0.55455,No detectable trend,-38.3158,0.56061,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,region,SE,73,0.1931,0.6443,No detectable trend,-27.4212,0.56403,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,region,National,73,-1.405,0.03615,Suggestive decrease,-50.3236,0.198,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,division,Barishal,73,0.2225,0.76449,No detectable trend,-79.7166,0.4307,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,division,Chattogram,73,0.1931,0.6443,No detectable trend,-27.4212,0.56403,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,division,Dhaka,73,-1.7574,0.00147,Suggestive decrease,-26.2262,0.48294,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,division,Khulna,73,-0.6052,0.12572,No detectable trend,-17.6181,0.41812,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,division,Mymensingh,73,-2.4267,0.00058,Suggestive decrease,-1.3216,0.96998,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,division,Rajshahi,73,-2.9397,0.00053,Significant decrease,-20.3476,0.58721,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,division,Rangpur,73,-4.0393,3e-05,Significant decrease,-21.4161,0.43535,No detectable trend
+End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,division,Sylhet,73,-0.9445,0.03979,Suggestive decrease,-20.4466,0.62993,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,region,NW,61,-4.711,2e-05,Significant decrease,16.8556,0.66331,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,region,NE,61,-2.1556,0.00431,Suggestive decrease,49.2235,0.46069,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,region,Central,61,-2.2118,0.00038,Suggestive decrease,85.4096,0.11564,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,region,SW,61,-0.947,0.12867,No detectable trend,132.766,0.05936,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,region,SE,61,-0.246,0.71047,No detectable trend,125.8725,0.18917,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,region,National,61,-2.1034,0.00836,Suggestive decrease,62.3446,0.3537,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,division,Barishal,61,-0.7443,0.45899,No detectable trend,171.165,0.14708,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,division,Chattogram,61,-0.246,0.71047,No detectable trend,125.8725,0.18917,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,division,Dhaka,61,-2.2118,0.00038,Suggestive decrease,85.4096,0.11564,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,division,Khulna,61,-0.9762,0.01931,Suggestive decrease,125.7171,7e-05,Suggestive increase
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,division,Mymensingh,61,-3.1784,7e-05,Suggestive decrease,40.4459,0.42842,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,division,Rajshahi,61,-3.9763,1e-05,Significant decrease,39.723,0.3917,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,division,Rangpur,61,-5.2971,0.0,Significant decrease,-5.9022,0.82559,No detectable trend
+"Start +6mo, End -1yr (2020-07 to 2025-07)",2020-07,2025-07,0.5,-1.0,division,Sylhet,61,-1.3175,0.01572,Suggestive decrease,18.8984,0.76408,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,region,NW,61,-2.9057,0.02428,Suggestive decrease,31.9137,0.21394,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,region,NE,61,-0.7826,0.30551,No detectable trend,77.5294,0.12251,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,region,Central,61,-0.9315,0.13375,No detectable trend,54.1962,0.268,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,region,SW,61,-0.0217,0.98007,No detectable trend,58.4327,0.23344,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,region,SE,61,0.4618,0.38754,No detectable trend,59.8868,0.47337,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,region,National,61,-0.8643,0.33116,No detectable trend,53.9133,0.30613,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,division,Barishal,61,0.264,0.78675,No detectable trend,66.7738,0.59439,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,division,Chattogram,61,0.4618,0.38754,No detectable trend,59.8868,0.47337,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,division,Dhaka,61,-0.9315,0.13375,No detectable trend,54.1962,0.268,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,division,Khulna,61,-0.1961,0.69985,No detectable trend,43.6115,0.05972,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,division,Mymensingh,61,-1.6185,0.06567,No detectable trend,74.0952,0.08504,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,division,Rajshahi,61,-2.2267,0.05102,No detectable trend,43.4624,0.25173,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,division,Rangpur,61,-3.6545,0.00606,Suggestive decrease,26.532,0.46649,No detectable trend
+"Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,division,Sylhet,61,-0.1789,0.7298,No detectable trend,70.9578,0.32683,No detectable trend

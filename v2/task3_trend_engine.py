@@ -59,6 +59,9 @@ REGIONS = {
     "Central": {"divisions": ["Dhaka"],                  "area_km2": 17130.7},
     "SW":      {"divisions": ["Khulna", "Barishal"],     "area_km2": 28153.0},
     "SE":      {"divisions": ["Chattogram"],             "area_km2": 24886.5},
+    "National": {"divisions": ["Barishal", "Chattogram", "Dhaka", "Khulna",
+                              "Mymensingh", "Rajshahi", "Rangpur", "Sylhet"],
+                 "area_km2": 122353.0},
 }
 
 DIV_AREAS = {
@@ -260,6 +263,11 @@ def run_trend(
 
     # ── Convert slope units
     if variable == "tws":
+        slope_primary  = slope
+        ci_low_primary = ci_low
+        ci_high_primary= ci_high
+        unit_primary   = "cm/yr"
+
         # cm/yr → km³/yr:  area_km2 * slope_cm * 0.01 * 1e-6 * 1e9  = area * slope * 0.01 / 1e6 * 1e9
         # 1 cm over area_km2: volume = area_km2 * 1e6 m² * 0.01 m = area_km2 * 1e4 m³
         #                             = area_km2 * 1e4 / 1e9 km³ = area_km2 * 1e-5 km³
@@ -269,28 +277,34 @@ def run_trend(
         slope_alt      = round(slope_km3_yr, 4)
         ci_low_alt     = round(ci_low_km3,   4)
         ci_high_alt    = round(ci_high_km3,  4)
-        unit_primary   = "cm/yr"
         unit_alt       = "km³/yr"
     else:
-        # mm/yr → %/decade:  (slope * 10 / period_mean) * 100
+        # Precipitation:
+        # Theil-Sen slope from monthly data is in (mm/month) per year.
+        # Report annual-total mm/yr (x12) as primary unit per guidelines:
+        slope_primary  = slope * 12.0
+        ci_low_primary = ci_low * 12.0
+        ci_high_primary= ci_high * 12.0
+        unit_primary   = "mm/yr"
+
+        # %/decade: (slope_annual * 10 / annual_mean) * 100 = (slope * 10 / period_mean) * 100
         if period_mean and period_mean != 0:
-            slope_pct_dec  = slope   * 10 / period_mean * 100
-            ci_low_pct     = ci_low  * 10 / period_mean * 100
-            ci_high_pct    = ci_high * 10 / period_mean * 100
+            slope_pct_dec  = slope   * 10.0 / period_mean * 100.0
+            ci_low_pct     = ci_low  * 10.0 / period_mean * 100.0
+            ci_high_pct    = ci_high * 10.0 / period_mean * 100.0
         else:
             slope_pct_dec = ci_low_pct = ci_high_pct = float("nan")
         slope_alt      = round(slope_pct_dec, 4)
         ci_low_alt     = round(ci_low_pct,    4)
         ci_high_alt    = round(ci_high_pct,   4)
-        unit_primary   = "mm/yr"
         unit_alt       = "%/decade"
 
-    # ── Verdict
+    # ── Initial Raw Verdict
     p = float(hr.p)
-    if p < 0.05 and slope < 0:
-        verdict = "Significant decrease"
-    elif p < 0.05 and slope > 0:
-        verdict = "Significant increase"
+    if p < 0.05 and slope_primary < 0:
+        verdict = "Suggestive decrease"
+    elif p < 0.05 and slope_primary > 0:
+        verdict = "Suggestive increase"
     else:
         verdict = "No detectable trend"
 
@@ -310,9 +324,9 @@ def run_trend(
         "n_star":          round(nstar, 1),
         "block_len":       block_len,
         "block_justification": block_just,
-        "slope":           round(slope, 5),
-        "slope_ci_low":    round(ci_low, 5),
-        "slope_ci_high":   round(ci_high, 5),
+        "slope":           round(slope_primary, 5),
+        "slope_ci_low":    round(ci_low_primary, 5),
+        "slope_ci_high":   round(ci_high_primary, 5),
         "slope_alt":       slope_alt,
         "slope_alt_ci_low":  ci_low_alt,
         "slope_alt_ci_high": ci_high_alt,
@@ -388,6 +402,54 @@ def analyse_entity(
                 "window_collapsed": window_cfg["collapsed"],
             })
             results.append(res)
+
+    return results
+
+
+def apply_fdr_and_verdicts(results: list[dict]) -> list[dict]:
+    """
+    Applies Benjamini-Hochberg False Discovery Rate (FDR) control and enforces the 3-tiered verdict:
+    - 'Significant decrease' / 'Significant increase': passes BH-FDR (q < 0.05) AND bootstrap 95% CI excludes zero.
+    - 'Suggestive decrease' / 'Suggestive increase': raw p < 0.05 only (fails BH-FDR q < 0.05 or CI includes zero).
+    - 'No detectable trend': otherwise (raw p >= 0.05).
+    """
+    windows = sorted(list({r["window"] for r in results if "window" in r}))
+    for win in windows:
+        win_indices = [i for i, r in enumerate(results) if r.get("window") == win and "p_value" in r and "error" not in r]
+        m = len(win_indices)
+        if m == 0:
+            continue
+
+        p_vals = [(i, results[i]["p_value"]) for i in win_indices]
+        p_vals.sort(key=lambda x: x[1])
+
+        # Step-up BH-FDR
+        q_vals = [0.0] * m
+        cum_min = 1.0
+        for rank in range(m, 0, -1):
+            idx, p = p_vals[rank - 1]
+            q_raw = (m / rank) * p
+            cum_min = min(cum_min, q_raw)
+            q_vals[rank - 1] = min(1.0, cum_min)
+
+        for rank, (idx, _) in enumerate(p_vals):
+            q = q_vals[rank]
+            r = results[idx]
+            r["bh_fdr_q_value"] = round(q, 6)
+            r["passes_fdr"] = bool(q < 0.05)
+
+            p = r["p_value"]
+            slope = r["slope"]
+            ci_l = r["slope_ci_low"]
+            ci_h = r["slope_ci_high"]
+            excludes_zero = (ci_l > 0 and ci_h > 0) or (ci_l < 0 and ci_h < 0)
+
+            if p < 0.05 and q < 0.05 and excludes_zero:
+                r["verdict"] = "Significant decrease" if slope < 0 else "Significant increase"
+            elif p < 0.05:
+                r["verdict"] = "Suggestive decrease" if slope < 0 else "Suggestive increase"
+            else:
+                r["verdict"] = "No detectable trend"
 
     return results
 
@@ -509,7 +571,37 @@ def main():
             continue
         _sep(f"Window: {window_name} ({window_cfg['start']} to {window_cfg['end']})")
         print(f"  Note: {window_cfg['note']}")
-        # When NetCDF is absent, WINDOWS contains only 'primary', preventing duplicate rows.
+        print(f"  Running regions for {window_name} ...")
+        for reg_name, reg_info in REGIONS.items():
+            res_list = analyse_entity(
+                df=reg_df,
+                entity=reg_name,
+                col_id="region",
+                tws_col="grace_tws_cm",
+                pre_col="nasa_power_precip_mm",
+                area_km2=reg_info["area_km2"],
+                window_name=window_name,
+                window_cfg=window_cfg,
+            )
+            all_results.extend(res_list)
+
+        print(f"  Running divisions for {window_name} ...")
+        for div_name, area in DIV_AREAS.items():
+            res_list = analyse_entity(
+                df=div_df,
+                entity=div_name,
+                col_id="Division",
+                tws_col="grace_tws_cm",
+                pre_col="nasa_power_precip_mm",
+                area_km2=area,
+                window_name=window_name,
+                window_cfg=window_cfg,
+            )
+            all_results.extend(res_list)
+
+    # ── Apply BH-FDR and 3-tiered verdict rule across all results
+    _sep("Applying Benjamini-Hochberg FDR control and 3-tiered verdicts ...")
+    all_results = apply_fdr_and_verdicts(all_results)
 
     # ── Print primary-window results ────────────────────────────────────────
     print_results_table(all_results, entity_type="region",   window="primary")

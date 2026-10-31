@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-10-31T08:17:25.102012",
+  "status": "CONTEXT ONLY \u2014 NOT USED FOR HEADLINE CLAIMS",
+  "regional_pace_comparison": {
+    "NW": {
+      "recent_slope_2018_2026_cm_yr": -1.6609581311543782,
+      "recent_95ci_cm_yr": [
+        -3.0337679322544107,
+        -0.15372247292480382
+      ],
+      "earlier_rolling_5yr_median_cm_yr": -1.3789692499829376,
+      "earlier_rolling_5yr_range_cm_yr": [
+        -3.653842579234881,
+        0.6513502120971384
+      ],
+      "pace_verdict": "FASTER DEPLETION",
+      "context_pettitt_change_point_month": "2011-09",
+      "context_pettitt_p_value": 1.0466086732427238e-30
+    },
+    "NE": {
+      "recent_slope_2018_2026_cm_yr": -0.7393244229830436,
+      "recent_95ci_cm_yr": [
+        -1.4959981261016724,
+        0.02588207896060449
+      ],
+      "earlier_rolling_5yr_median_cm_yr": -0.6705677477162171,
+      "earlier_rolling_5yr_range_cm_yr": [
+        -1.827787817978237,
+        0.8189603706885772
+      ],
+      "pace_verdict": "FASTER DEPLETION",
+      "context_pettitt_change_point_month": "2011-09",
+      "context_pettitt_p_value": 4.2199828998322523e-23
+    },
+    "Central": {
+      "recent_slope_2018_2026_cm_yr": -0.8352478323755935,
+      "recent_95ci_cm_yr": [
+        -1.5963487324177084,
+        -0.04446599376780003
+      ],
+      "earlier_rolling_5yr_median_cm_yr": -0.5275559152875656,
+      "earlier_rolling_5yr_range_cm_yr": [
+        -1.875597855140364,
+        0.8607915659419569
+      ],
+      "pace_verdict": "FASTER DEPLETION",
+      "context_pettitt_change_point_month": "2011-09",
+      "context_pettitt_p_value": 7.605286640118414e-22
+    },
+    "SW": {
+      "recent_slope_2018_2026_cm_yr": 0.3120761250340727,
+      "recent_95ci_cm_yr": [
+        -0.4419814814782281,
+        1.1267174359785388
+      ],
+      "earlier_rolling_5yr_median_cm_yr": -0.2286500428173966,
+      "earlier_rolling_5yr_range_cm_yr": [
+        -1.0783037359064453,
+        0.35484809721047095
+      ],
+      "pace_verdict": "SLOWER / SIMILAR DEPLETION",
+      "context_pettitt_change_point_month": "2009-05",
+      "context_pettitt_p_value": 5.176714831876565e-05
+    },
+    "SE": {
+      "recent_slope_2018_2026_cm_yr": 0.44177347300002345,
+      "recent_95ci_cm_yr": [
+        -0.20662456826287423,
+        1.0619058427244292
+      ],
+      "earlier_rolling_5yr_median_cm_yr": -0.14096767525923198,
+      "earlier_rolling_5yr_range_cm_yr": [
+        -0.7604845061195706,
+        0.38524668557303915
+      ],
+      "pace_verdict": "SLOWER / SIMILAR DEPLETION",
+      "context_pettitt_change_point_month": "2014-01",
+      "context_pettitt_p_value": 0.006730629190558613
+    }
+  }
+}

@@ -1,99 +1,105 @@
 test_category,test_name,raw_p_value,original_verdict,rank_k,bh_critical_value_0.05,bh_q_value,significant_at_0.05_fdr,fdr_status
-Division_trend,Rangpur | dry | tws,3.1e-05,Significant decrease,1,0.000510204081632653,0.00122,True,Remains Significant (Passed FDR)
-region_trend,NW | dry | tws,7.5e-05,Significant decrease,2,0.001020408163265306,0.00122,True,Remains Significant (Passed FDR)
-pairwise_slope_diff,Central vs SE | annual | tws,0.0001,Central trend significantly lower than SE,3,0.0015306122448979593,0.00122,True,Remains Significant (Passed FDR)
-pairwise_slope_diff,NW vs SE | annual | tws,0.0001,NW trend significantly lower than SE,4,0.002040816326530612,0.00122,True,Remains Significant (Passed FDR)
-pairwise_slope_diff,NW vs SW | annual | tws,0.0001,NW trend significantly lower than SW,5,0.0025510204081632655,0.00122,True,Remains Significant (Passed FDR)
-pairwise_slope_diff,NW vs Central | annual | tws,0.0001,NW trend significantly lower than Central,6,0.0030612244897959186,0.00122,True,Remains Significant (Passed FDR)
-pairwise_slope_diff,NW vs NE | annual | tws,0.0001,NW trend significantly lower than NE,7,0.0035714285714285713,0.00122,True,Remains Significant (Passed FDR)
-pairwise_slope_diff,SW vs SE | annual | tws,0.0001,SW trend significantly lower than SE,8,0.004081632653061224,0.00122,True,Remains Significant (Passed FDR)
-Division_trend,Rangpur | monsoon | tws,0.000179,Significant decrease,9,0.004591836734693878,0.00177,True,Remains Significant (Passed FDR)
-region_trend,NW | annual | tws,0.000181,Significant decrease,10,0.005102040816326531,0.00177,True,Remains Significant (Passed FDR)
-Division_trend,Rangpur | annual | tws,0.000225,Significant decrease,11,0.005612244897959184,0.002,True,Remains Significant (Passed FDR)
-Division_trend,Rajshahi | dry | tws,0.000286,Significant decrease,12,0.006122448979591837,0.00234,True,Remains Significant (Passed FDR)
-Division_trend,Mymensingh | dry | tws,0.000732,Significant decrease,13,0.00663265306122449,0.00552,True,Remains Significant (Passed FDR)
-region_trend,NW | monsoon | tws,0.000946,Significant decrease,14,0.007142857142857143,0.00662,True,Remains Significant (Passed FDR)
-Division_trend,Rajshahi | annual | tws,0.001333,Significant decrease,15,0.007653061224489797,0.00857,True,Remains Significant (Passed FDR)
-pairwise_slope_diff,NE vs SE | annual | tws,0.0014,NE trend significantly lower than SE,16,0.008163265306122448,0.00857,True,Remains Significant (Passed FDR)
-region_trend,Central | dry | tws,0.002337,Significant decrease,17,0.008673469387755102,0.01272,True,Remains Significant (Passed FDR)
-Division_trend,Dhaka | dry | tws,0.002337,Significant decrease,18,0.009183673469387756,0.01272,True,Remains Significant (Passed FDR)
-pairwise_slope_diff,Central vs SW | annual | tws,0.0027,Central trend significantly lower than SW,19,0.009693877551020408,0.01393,True,Remains Significant (Passed FDR)
-region_trend,NE | dry | tws,0.003516,Significant decrease,20,0.010204081632653062,0.01723,True,Remains Significant (Passed FDR)
-Division_trend,Mymensingh | annual | tws,0.019368,Significant decrease,21,0.010714285714285714,0.08709,False,Rejected by FDR (False Discovery Risk)
-Division_trend,Sylhet | dry | tws,0.019551,Significant decrease,22,0.011224489795918368,0.08709,False,Rejected by FDR (False Discovery Risk)
-Division_trend,Dhaka | annual | tws,0.031361,Significant decrease,23,0.011734693877551022,0.12806,False,Rejected by FDR (False Discovery Risk)
-region_trend,Central | annual | tws,0.031361,Significant decrease,24,0.012244897959183675,0.12806,False,Rejected by FDR (False Discovery Risk)
-pairwise_slope_diff,NE vs SW | annual | tws,0.0386,NE trend significantly lower than SW,25,0.012755102040816327,0.15131,False,Rejected by FDR (False Discovery Risk)
-pairwise_slope_diff,NE vs Central | annual | tws,0.05931,No significant difference,26,0.01326530612244898,0.22355,False,Not Significant
-Division_trend,Rajshahi | monsoon | tws,0.067274,No detectable trend,27,0.013775510204081631,0.22755,False,Not Significant
-region_trend,SE | dry | tws,0.067337,No detectable trend,28,0.014285714285714285,0.22755,False,Not Significant
-Division_trend,Chattogram | dry | tws,0.067337,No detectable trend,29,0.01479591836734694,0.22755,False,Not Significant
-Division_trend,Dhaka | monsoon | tws,0.085571,No detectable trend,30,0.015306122448979593,0.27051,False,Not Significant
-region_trend,Central | monsoon | tws,0.085571,No detectable trend,31,0.015816326530612247,0.27051,False,Not Significant
-Division_trend,Mymensingh | monsoon | tws,0.093903,No detectable trend,32,0.016326530612244896,0.28758,False,Not Significant
-region_trend,NE | annual | tws,0.100211,No detectable trend,33,0.01683673469387755,0.2976,False,Not Significant
-pairwise_slope_diff,Central vs SW | annual | precip,0.10411,No significant difference,34,0.017346938775510204,0.30008,False,Not Significant
-Division_trend,Barishal | dry | tws,0.143108,No detectable trend,35,0.01785714285714286,0.39333,False,Not Significant
-Division_trend,Khulna | dry | tws,0.144487,No detectable trend,36,0.018367346938775512,0.39333,False,Not Significant
-region_trend,NE | monsoon | tws,0.233951,No detectable trend,37,0.018877551020408164,0.61965,False,Not Significant
-Division_trend,Khulna | annual | tws,0.307505,No detectable trend,38,0.019387755102040816,0.76218,False,Not Significant
-region_trend,SE | annual | tws,0.311094,No detectable trend,39,0.019897959183673472,0.76218,False,Not Significant
-Division_trend,Chattogram | annual | tws,0.311094,No detectable trend,40,0.020408163265306124,0.76218,False,Not Significant
-Division_trend,Rangpur | dry | precip,0.33229,No detectable trend,41,0.020918367346938777,0.79425,False,Not Significant
-Division_trend,Khulna | monsoon | tws,0.341006,No detectable trend,42,0.02142857142857143,0.79568,False,Not Significant
-Division_trend,Sylhet | annual | tws,0.39468,No detectable trend,43,0.02193877551020408,0.8995,False,Not Significant
-region_trend,SW | monsoon | tws,0.423,No detectable trend,44,0.022448979591836737,0.93614,False,Not Significant
-region_trend,SW | dry | precip,0.429862,No detectable trend,45,0.02295918367346939,0.93614,False,Not Significant
-Division_trend,Barishal | dry | precip,0.465512,No detectable trend,46,0.023469387755102045,0.96437,False,Not Significant
-Division_trend,Khulna | monsoon | precip,0.480605,No detectable trend,47,0.023979591836734693,0.96437,False,Not Significant
-Division_trend,Khulna | dry | precip,0.488355,No detectable trend,48,0.02448979591836735,0.96437,False,Not Significant
-pairwise_slope_diff,NW vs SW | annual | precip,0.49435,No significant difference,49,0.025,0.96437,False,Not Significant
-Division_trend,Chattogram | monsoon | tws,0.501868,No detectable trend,50,0.025510204081632654,0.96437,False,Not Significant
-region_trend,SE | monsoon | tws,0.501868,No detectable trend,51,0.02602040816326531,0.96437,False,Not Significant
-region_trend,NW | dry | precip,0.528863,No detectable trend,52,0.02653061224489796,0.96749,False,Not Significant
-Division_trend,Barishal | annual | precip,0.548054,No detectable trend,53,0.027040816326530617,0.96749,False,Not Significant
-region_trend,SW | monsoon | precip,0.56659,No detectable trend,54,0.027551020408163263,0.96749,False,Not Significant
-Division_trend,Rajshahi | monsoon | precip,0.583195,No detectable trend,55,0.02806122448979592,0.96749,False,Not Significant
-Division_trend,Rangpur | monsoon | precip,0.584201,No detectable trend,56,0.02857142857142857,0.96749,False,Not Significant
-pairwise_slope_diff,SW vs SE | annual | precip,0.60796,No significant difference,57,0.029081632653061226,0.96749,False,Not Significant
-pairwise_slope_diff,Central vs SE | annual | precip,0.60866,No significant difference,58,0.02959183673469388,0.96749,False,Not Significant
-pairwise_slope_diff,NW vs Central | annual | precip,0.62186,No significant difference,59,0.03010204081632653,0.96749,False,Not Significant
-Division_trend,Sylhet | monsoon | tws,0.627737,No detectable trend,60,0.030612244897959186,0.96749,False,Not Significant
-region_trend,SE | monsoon | precip,0.627737,No detectable trend,61,0.03112244897959184,0.96749,False,Not Significant
-Division_trend,Chattogram | monsoon | precip,0.627737,No detectable trend,62,0.031632653061224494,0.96749,False,Not Significant
-Division_trend,Barishal | annual | tws,0.630605,No detectable trend,63,0.03214285714285715,0.96749,False,Not Significant
-Division_trend,Sylhet | monsoon | precip,0.659335,No detectable trend,64,0.03265306122448979,0.96749,False,Not Significant
-pairwise_slope_diff,NE vs SW | annual | precip,0.66447,No significant difference,65,0.03316326530612245,0.96749,False,Not Significant
-pairwise_slope_diff,NE vs Central | annual | precip,0.69607,No significant difference,66,0.0336734693877551,0.96749,False,Not Significant
-region_trend,SW | annual | precip,0.700063,No detectable trend,67,0.034183673469387756,0.96749,False,Not Significant
-Division_trend,Mymensingh | dry | precip,0.722983,No detectable trend,68,0.03469387755102041,0.96749,False,Not Significant
-Division_trend,Mymensingh | annual | precip,0.750863,No detectable trend,69,0.03520408163265306,0.96749,False,Not Significant
-region_trend,NE | monsoon | precip,0.75764,No detectable trend,70,0.03571428571428572,0.96749,False,Not Significant
-region_trend,SW | annual | tws,0.76905,No detectable trend,71,0.03622448979591837,0.96749,False,Not Significant
-Division_trend,Sylhet | dry | precip,0.770299,No detectable trend,72,0.036734693877551024,0.96749,False,Not Significant
-Division_trend,Rangpur | annual | precip,0.772716,No detectable trend,73,0.037244897959183676,0.96749,False,Not Significant
-Division_trend,Dhaka | annual | precip,0.792962,No detectable trend,74,0.03775510204081633,0.96749,False,Not Significant
-region_trend,Central | annual | precip,0.792962,No detectable trend,75,0.03826530612244898,0.96749,False,Not Significant
-Division_trend,Barishal | monsoon | tws,0.795534,No detectable trend,76,0.03877551020408163,0.96749,False,Not Significant
-region_trend,Central | dry | precip,0.802461,No detectable trend,77,0.039285714285714285,0.96749,False,Not Significant
-Division_trend,Dhaka | dry | precip,0.802461,No detectable trend,78,0.039795918367346944,0.96749,False,Not Significant
-Division_trend,Rajshahi | annual | precip,0.806044,No detectable trend,79,0.040306122448979596,0.96749,False,Not Significant
-region_trend,SW | dry | tws,0.806788,No detectable trend,80,0.04081632653061225,0.96749,False,Not Significant
-Division_trend,Dhaka | monsoon | precip,0.825548,No detectable trend,81,0.0413265306122449,0.96749,False,Not Significant
-region_trend,Central | monsoon | precip,0.825548,No detectable trend,82,0.04183673469387755,0.96749,False,Not Significant
-pairwise_slope_diff,NW vs SE | annual | precip,0.86439,No significant difference,83,0.04234693877551021,0.96749,False,Not Significant
-Division_trend,Khulna | annual | precip,0.866847,No detectable trend,84,0.04285714285714286,0.96749,False,Not Significant
-region_trend,NW | monsoon | precip,0.894787,No detectable trend,85,0.04336734693877551,0.96749,False,Not Significant
-pairwise_slope_diff,NW vs NE | annual | precip,0.91549,No significant difference,86,0.04387755102040816,0.96749,False,Not Significant
-pairwise_slope_diff,NE vs SE | annual | precip,0.91819,No significant difference,87,0.04438775510204082,0.96749,False,Not Significant
-Division_trend,Barishal | monsoon | precip,0.929745,No detectable trend,88,0.04489795918367347,0.96749,False,Not Significant
-Division_trend,Chattogram | dry | precip,0.933543,No detectable trend,89,0.045408163265306126,0.96749,False,Not Significant
-region_trend,SE | dry | precip,0.933543,No detectable trend,90,0.04591836734693878,0.96749,False,Not Significant
-Division_trend,Mymensingh | monsoon | precip,0.93725,No detectable trend,91,0.04642857142857143,0.96749,False,Not Significant
-region_trend,SE | annual | precip,0.946805,No detectable trend,92,0.04693877551020409,0.96749,False,Not Significant
-Division_trend,Chattogram | annual | precip,0.946805,No detectable trend,93,0.04744897959183674,0.96749,False,Not Significant
-Division_trend,Rajshahi | dry | precip,0.954323,No detectable trend,94,0.04795918367346939,0.96749,False,Not Significant
-region_trend,NW | annual | precip,0.959779,No detectable trend,95,0.04846938775510204,0.96749,False,Not Significant
-Division_trend,Sylhet | annual | precip,0.960896,No detectable trend,96,0.0489795918367347,0.96749,False,Not Significant
-region_trend,NE | dry | precip,0.966743,No detectable trend,97,0.04948979591836735,0.96749,False,Not Significant
-region_trend,NE | annual | precip,0.967493,No detectable trend,98,0.05,0.96749,False,Not Significant
+Division_trend,Rangpur | dry | tws,3.1e-05,Significant decrease,1,0.0004807692307692308,0.00173,True,Remains Significant (Passed FDR)
+region_trend,NW | dry | tws,7.5e-05,Significant decrease,2,0.0009615384615384616,0.00173,True,Remains Significant (Passed FDR)
+pairwise_slope_diff,NE vs SE | annual | tws,0.0001,NE trend significantly lower than SE,3,0.0014423076923076924,0.00173,True,Remains Significant (Passed FDR)
+pairwise_slope_diff,Central vs SE | annual | tws,0.0001,Central trend significantly lower than SE,4,0.0019230769230769232,0.00173,True,Remains Significant (Passed FDR)
+pairwise_slope_diff,NW vs SW | annual | tws,0.0001,NW trend significantly lower than SW,5,0.002403846153846154,0.00173,True,Remains Significant (Passed FDR)
+pairwise_slope_diff,Central vs SW | annual | tws,0.0001,Central trend significantly lower than SW,6,0.0028846153846153848,0.00173,True,Remains Significant (Passed FDR)
+Division_trend,Rangpur | monsoon | tws,0.000179,Significant decrease,7,0.0033653846153846156,0.00208,True,Remains Significant (Passed FDR)
+region_trend,NW | annual | tws,0.000181,Significant decrease,8,0.0038461538461538464,0.00208,True,Remains Significant (Passed FDR)
+pairwise_slope_diff,NE vs SW | annual | tws,0.0002,NE trend significantly lower than SW,9,0.004326923076923077,0.00208,True,Remains Significant (Passed FDR)
+pairwise_slope_diff,NW vs SE | annual | tws,0.0002,NW trend significantly lower than SE,10,0.004807692307692308,0.00208,True,Remains Significant (Passed FDR)
+Division_trend,Rangpur | annual | tws,0.000224,Significant decrease,11,0.005288461538461539,0.00212,True,Remains Significant (Passed FDR)
+Division_trend,Rajshahi | dry | tws,0.000286,Significant decrease,12,0.0057692307692307696,0.00248,True,Remains Significant (Passed FDR)
+Division_trend,Mymensingh | dry | tws,0.000732,Significant decrease,13,0.00625,0.00586,True,Remains Significant (Passed FDR)
+region_trend,NW | monsoon | tws,0.000946,Significant decrease,14,0.006730769230769231,0.00703,True,Remains Significant (Passed FDR)
+Division_trend,Rajshahi | annual | tws,0.001343,Significant decrease,15,0.007211538461538461,0.00931,True,Remains Significant (Passed FDR)
+region_trend,Central | dry | tws,0.002337,Significant decrease,16,0.007692307692307693,0.0143,True,Remains Significant (Passed FDR)
+Division_trend,Dhaka | dry | tws,0.002337,Significant decrease,17,0.008173076923076924,0.0143,True,Remains Significant (Passed FDR)
+region_trend,NE | dry | tws,0.003516,Significant decrease,18,0.008653846153846154,0.02031,True,Remains Significant (Passed FDR)
+region_trend,National | dry | tws,0.005214,Significant decrease,19,0.009134615384615385,0.02854,True,Remains Significant (Passed FDR)
+pairwise_slope_diff,Central vs SE | annual | precip,0.0057,Central trend significantly higher than SE,20,0.009615384615384616,0.02964,True,Remains Significant (Passed FDR)
+pairwise_slope_diff,Central vs SW | annual | precip,0.0106,Central trend significantly higher than SW,21,0.010096153846153847,0.0525,False,Rejected by FDR (False Discovery Risk)
+Division_trend,Mymensingh | annual | tws,0.019368,Suggestive decrease,22,0.010576923076923078,0.0884,False,Rejected by FDR (False Discovery Risk)
+Division_trend,Sylhet | dry | tws,0.019551,Suggestive decrease,23,0.011057692307692308,0.0884,False,Rejected by FDR (False Discovery Risk)
+pairwise_slope_diff,NW vs SE | annual | precip,0.0254,NW trend significantly higher than SE,24,0.011538461538461539,0.11007,False,Rejected by FDR (False Discovery Risk)
+Division_trend,Dhaka | annual | tws,0.030879,Suggestive decrease,25,0.01201923076923077,0.12352,False,Rejected by FDR (False Discovery Risk)
+region_trend,Central | annual | tws,0.030879,Suggestive decrease,26,0.0125,0.12352,False,Rejected by FDR (False Discovery Risk)
+pairwise_slope_diff,NW vs SW | annual | precip,0.038,NW trend significantly higher than SW,27,0.012980769230769233,0.14637,False,Rejected by FDR (False Discovery Risk)
+pairwise_slope_diff,NE vs SE | annual | precip,0.0454,NE trend significantly higher than SE,28,0.013461538461538462,0.16863,False,Rejected by FDR (False Discovery Risk)
+region_trend,National | monsoon | tws,0.047285,Suggestive decrease,29,0.013942307692307693,0.16957,False,Rejected by FDR (False Discovery Risk)
+pairwise_slope_diff,NW vs Central | annual | tws,0.0502,No significant difference,30,0.014423076923076922,0.17403,False,Not Significant
+region_trend,SE | dry | tws,0.06709,No detectable trend,31,0.014903846153846155,0.20861,False,Not Significant
+Division_trend,Chattogram | dry | tws,0.06709,No detectable trend,32,0.015384615384615385,0.20861,False,Not Significant
+Division_trend,Rajshahi | monsoon | tws,0.067274,No detectable trend,33,0.015865384615384615,0.20861,False,Not Significant
+pairwise_slope_diff,NW vs NE | annual | tws,0.0682,No significant difference,34,0.016346153846153847,0.20861,False,Not Significant
+region_trend,Central | monsoon | tws,0.085571,No detectable trend,35,0.01682692307692308,0.24721,False,Not Significant
+Division_trend,Dhaka | monsoon | tws,0.085571,No detectable trend,36,0.01730769230769231,0.24721,False,Not Significant
+Division_trend,Mymensingh | monsoon | tws,0.093903,No detectable trend,37,0.01778846153846154,0.26394,False,Not Significant
+region_trend,NE | annual | tws,0.100291,No detectable trend,38,0.01826923076923077,0.27448,False,Not Significant
+pairwise_slope_diff,NE vs SW | annual | precip,0.1086,No significant difference,39,0.018750000000000003,0.2896,False,Not Significant
+region_trend,National | annual | tws,0.116772,No detectable trend,40,0.019230769230769232,0.30361,False,Not Significant
+Division_trend,Barishal | dry | tws,0.143108,No detectable trend,41,0.01971153846153846,0.35778,False,Not Significant
+Division_trend,Khulna | dry | tws,0.144487,No detectable trend,42,0.020192307692307693,0.35778,False,Not Significant
+pairwise_slope_diff,SW vs SE | annual | precip,0.1776,No significant difference,43,0.020673076923076922,0.42954,False,Not Significant
+region_trend,NE | monsoon | tws,0.233951,No detectable trend,44,0.021153846153846155,0.55298,False,Not Significant
+pairwise_slope_diff,SW vs SE | annual | tws,0.2675,No significant difference,45,0.021634615384615388,0.61822,False,Not Significant
+Division_trend,Chattogram | annual | tws,0.310644,No detectable trend,46,0.022115384615384617,0.67664,False,Not Significant
+region_trend,SE | annual | tws,0.310644,No detectable trend,47,0.02259615384615385,0.67664,False,Not Significant
+Division_trend,Khulna | annual | tws,0.312295,No detectable trend,48,0.023076923076923078,0.67664,False,Not Significant
+Division_trend,Rangpur | dry | precip,0.331995,No detectable trend,49,0.023557692307692307,0.70464,False,Not Significant
+Division_trend,Sylhet | annual | tws,0.397525,No detectable trend,50,0.02403846153846154,0.82616,False,Not Significant
+Division_trend,Khulna | monsoon | tws,0.405335,No detectable trend,51,0.02451923076923077,0.82616,False,Not Significant
+region_trend,SW | dry | precip,0.413079,No detectable trend,52,0.025,0.82616,False,Not Significant
+region_trend,SW | monsoon | tws,0.423,No detectable trend,53,0.02548076923076923,0.83004,False,Not Significant
+pairwise_slope_diff,NW vs Central | annual | precip,0.4321,No significant difference,54,0.025961538461538466,0.83219,False,Not Significant
+Division_trend,Khulna | dry | precip,0.469743,No detectable trend,55,0.026442307692307696,0.86177,False,Not Significant
+pairwise_slope_diff,NE vs Central | annual | tws,0.4755,No significant difference,56,0.026923076923076925,0.86177,False,Not Significant
+Division_trend,Barishal | dry | precip,0.478452,No detectable trend,57,0.027403846153846157,0.86177,False,Not Significant
+Division_trend,Khulna | monsoon | precip,0.480605,No detectable trend,58,0.027884615384615386,0.86177,False,Not Significant
+region_trend,SE | monsoon | tws,0.503715,No detectable trend,59,0.028365384615384615,0.87311,False,Not Significant
+Division_trend,Chattogram | monsoon | tws,0.503715,No detectable trend,60,0.028846153846153844,0.87311,False,Not Significant
+region_trend,National | annual | precip,0.521458,No detectable trend,61,0.02932692307692308,0.88713,False,Not Significant
+region_trend,NW | dry | precip,0.528863,No detectable trend,62,0.02980769230769231,0.88713,False,Not Significant
+Division_trend,Barishal | annual | precip,0.550427,No detectable trend,63,0.03028846153846154,0.90864,False,Not Significant
+region_trend,SW | monsoon | precip,0.56659,No detectable trend,64,0.03076923076923077,0.92056,False,Not Significant
+Division_trend,Rajshahi | monsoon | precip,0.583195,No detectable trend,65,0.03125,0.92056,False,Not Significant
+Division_trend,Rangpur | monsoon | precip,0.584201,No detectable trend,66,0.03173076923076923,0.92056,False,Not Significant
+region_trend,SE | monsoon | precip,0.627737,No detectable trend,67,0.032211538461538465,0.93497,False,Not Significant
+Division_trend,Chattogram | monsoon | precip,0.627737,No detectable trend,68,0.032692307692307694,0.93497,False,Not Significant
+Division_trend,Sylhet | monsoon | tws,0.627737,No detectable trend,69,0.03317307692307692,0.93497,False,Not Significant
+Division_trend,Barishal | annual | tws,0.631996,No detectable trend,70,0.03365384615384616,0.93497,False,Not Significant
+pairwise_slope_diff,NW vs NE | annual | precip,0.6383,No significant difference,71,0.03413461538461539,0.93497,False,Not Significant
+Division_trend,Sylhet | monsoon | precip,0.659335,No detectable trend,72,0.03461538461538462,0.95237,False,Not Significant
+region_trend,SW | annual | precip,0.696932,No detectable trend,73,0.035096153846153846,0.96782,False,Not Significant
+Division_trend,Mymensingh | dry | precip,0.722983,No detectable trend,74,0.03557692307692308,0.96782,False,Not Significant
+pairwise_slope_diff,NE vs Central | annual | precip,0.7389,No significant difference,75,0.03605769230769231,0.96782,False,Not Significant
+Division_trend,Mymensingh | annual | precip,0.750863,No detectable trend,76,0.03653846153846154,0.96782,False,Not Significant
+Division_trend,Sylhet | dry | precip,0.754454,No detectable trend,77,0.03701923076923077,0.96782,False,Not Significant
+region_trend,NE | monsoon | precip,0.75764,No detectable trend,78,0.037500000000000006,0.96782,False,Not Significant
+region_trend,SW | annual | tws,0.772505,No detectable trend,79,0.037980769230769235,0.96782,False,Not Significant
+Division_trend,Rangpur | annual | precip,0.78093,No detectable trend,80,0.038461538461538464,0.96782,False,Not Significant
+region_trend,Central | annual | precip,0.792962,No detectable trend,81,0.03894230769230769,0.96782,False,Not Significant
+Division_trend,Dhaka | annual | precip,0.792962,No detectable trend,82,0.03942307692307692,0.96782,False,Not Significant
+Division_trend,Barishal | monsoon | tws,0.795534,No detectable trend,83,0.03990384615384616,0.96782,False,Not Significant
+region_trend,Central | dry | precip,0.802461,No detectable trend,84,0.04038461538461539,0.96782,False,Not Significant
+Division_trend,Dhaka | dry | precip,0.802461,No detectable trend,85,0.040865384615384616,0.96782,False,Not Significant
+Division_trend,Rajshahi | annual | precip,0.806044,No detectable trend,86,0.041346153846153845,0.96782,False,Not Significant
+region_trend,Central | monsoon | precip,0.825548,No detectable trend,87,0.04182692307692308,0.96782,False,Not Significant
+Division_trend,Dhaka | monsoon | precip,0.825548,No detectable trend,88,0.04230769230769231,0.96782,False,Not Significant
+region_trend,SW | dry | tws,0.844806,No detectable trend,89,0.04278846153846154,0.96782,False,Not Significant
+region_trend,National | dry | precip,0.867547,No detectable trend,90,0.043269230769230775,0.96782,False,Not Significant
+Division_trend,Khulna | annual | precip,0.87963,No detectable trend,91,0.043750000000000004,0.96782,False,Not Significant
+region_trend,NW | monsoon | precip,0.894787,No detectable trend,92,0.04423076923076923,0.96782,False,Not Significant
+region_trend,National | monsoon | precip,0.894787,No detectable trend,93,0.04471153846153847,0.96782,False,Not Significant
+Division_trend,Barishal | monsoon | precip,0.929745,No detectable trend,94,0.0451923076923077,0.96782,False,Not Significant
+Division_trend,Chattogram | dry | precip,0.933543,No detectable trend,95,0.04567307692307693,0.96782,False,Not Significant
+region_trend,SE | dry | precip,0.933543,No detectable trend,96,0.046153846153846156,0.96782,False,Not Significant
+Division_trend,Mymensingh | monsoon | precip,0.93725,No detectable trend,97,0.046634615384615385,0.96782,False,Not Significant
+region_trend,SE | annual | precip,0.946805,No detectable trend,98,0.047115384615384615,0.96782,False,Not Significant
+Division_trend,Chattogram | annual | precip,0.946805,No detectable trend,99,0.047596153846153844,0.96782,False,Not Significant
+Division_trend,Rajshahi | dry | precip,0.954323,No detectable trend,100,0.04807692307692308,0.96782,False,Not Significant
+Division_trend,Sylhet | annual | precip,0.957651,No detectable trend,101,0.04855769230769231,0.96782,False,Not Significant
+region_trend,NE | dry | precip,0.966743,No detectable trend,102,0.04903846153846154,0.96782,False,Not Significant
+region_trend,NE | annual | precip,0.967493,No detectable trend,103,0.049519230769230774,0.96782,False,Not Significant
+region_trend,NW | annual | precip,0.967818,No detectable trend,104,0.05,0.96782,False,Not Significant

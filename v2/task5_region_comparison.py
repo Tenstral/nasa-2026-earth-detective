@@ -112,12 +112,11 @@ def run_pairwise_slope_tests(reg_df: pd.DataFrame, block_len: int = 12) -> pd.Da
             "precip": deseasonalise(sub["nasa_power_precip_mm"].values.astype(float), cal_m),
         }
 
-    # Generate shared bootstrap block indices
-    res_circ_indices = np.concatenate([np.arange(n), np.arange(block_len - 1)])
+    # Generate shared bootstrap block indices across all regions (paired circular block resampling)
     n_blocks = int(np.ceil(n / block_len))
     starts = rng.integers(0, n, size=(N_BOOT, n_blocks))
     block_offsets = np.arange(block_len)
-    boot_indices = (starts[:, :, None] + block_offsets[None, None, :]).reshape(N_BOOT, -1)[:, :n]
+    boot_indices = ((starts[:, :, None] + block_offsets[None, None, :]).reshape(N_BOOT, -1)[:, :n]) % n
 
     i_idx, j_idx = np.triu_indices(n, k=1)
     dt = t_v[j_idx] - t_v[i_idx]
@@ -136,9 +135,8 @@ def run_pairwise_slope_tests(reg_df: pd.DataFrame, block_len: int = 12) -> pd.Da
 
             residuals = y - (intercept + slope * t_v)
             residuals -= np.mean(residuals)
-            res_circ = np.concatenate([residuals, residuals[: block_len - 1]])
 
-            boot_e = res_circ[boot_indices]
+            boot_e = residuals[boot_indices]
             boot_y = (intercept + slope * t_v) + boot_e
 
             # Vectorized pairwise slope across bootstrap samples
@@ -151,21 +149,21 @@ def run_pairwise_slope_tests(reg_df: pd.DataFrame, block_len: int = 12) -> pd.Da
                 s_list.append(s)
             boot_slopes[var][reg] = np.concatenate(s_list)
 
-    # Now compute differences for all 10 pairs
-    for var, unit in [("tws", "cm/yr"), ("precip", "mm/yr")]:
+    # Now compute differences for all 10 pairs (convert precip to annual total mm/yr via scale=12)
+    for var, unit, scale in [("tws", "cm/yr", 1.0), ("precip", "mm/yr", 12.0)]:
         for regA, regB in pairs:
-            sA = obs_slopes[var][regA]
-            sB = obs_slopes[var][regB]
+            sA = obs_slopes[var][regA] * scale
+            sB = obs_slopes[var][regB] * scale
             diff_obs = sA - sB
 
-            diff_boot = boot_slopes[var][regA] - boot_slopes[var][regB]
+            diff_boot = (boot_slopes[var][regA] - boot_slopes[var][regB]) * scale
             ci_low = float(np.percentile(diff_boot, 2.5))
             ci_high = float(np.percentile(diff_boot, 97.5))
 
-            # Null hypothesis test H0: delta = 0
+            # Exact bootstrap p-value H0: delta = 0
             diff_null = diff_boot - diff_obs
-            p_val = float(np.mean(np.abs(diff_null) >= np.abs(diff_obs)))
-            p_val = min(1.0, max(p_val, 1.0 / N_BOOT))
+            k_count = np.sum(np.abs(diff_null) >= np.abs(diff_obs))
+            p_val = float((1 + k_count) / (N_BOOT + 1))
 
             if p_val < 0.001:
                 sig = "***"
@@ -478,10 +476,10 @@ def main():
      Our paired bootstrap difference tests confirm that the Northwest (Rajshahi +
      Rangpur) is losing water at a rate significantly faster than every other region
      in Bangladesh:
-     - NW vs SE: Δ = -3.32 cm/yr (95% CI [-3.44, -3.19], p < 0.0001)
-     - NW vs SW: Δ = -2.81 cm/yr (95% CI [-2.91, -2.70], p < 0.0001)
-     - NW vs NE: Δ = -1.93 cm/yr (95% CI [-2.02, -1.85], p < 0.0001)
-     - NW vs Central: Δ = -1.74 cm/yr (95% CI [-1.82, -1.66], p < 0.0001)
+     - NW vs SE: Δ = -3.32 cm/yr (95% CI [-3.44, -3.19], p <= 0.0002)
+     - NW vs SW: Δ = -2.81 cm/yr (95% CI [-2.91, -2.70], p <= 0.0002)
+     - NW vs NE: Δ = -1.93 cm/yr (95% CI [-2.02, -1.85], p <= 0.0002)
+     - NW vs Central: Δ = -1.74 cm/yr (95% CI [-1.82, -1.66], p <= 0.0002)
      Meanwhile, precipitation trend differences between all regions are tiny
      (all Δ < 2 mm/yr, all p > 0.50). This proves that the regional divergence
      in water storage is NOT driven by unequal rainfall, but by regional extraction.

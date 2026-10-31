@@ -49,7 +49,7 @@ REG_CSV    = OUTPUT_DIR / "task2_region_series.csv"
 DIV_CSV    = OUTPUT_DIR / "task2_division_series.csv"
 TRENDS_CSV = OUTPUT_DIR / "task3_trends.csv"
 
-REGIONS = ["NW", "NE", "Central", "SW", "SE"]
+REGIONS = ["NW", "NE", "Central", "SW", "SE", "National"]
 DIVISIONS = ["Barishal", "Chattogram", "Dhaka", "Khulna",
              "Mymensingh", "Rajshahi", "Rangpur", "Sylhet"]
 
@@ -59,6 +59,7 @@ REG_AREAS = {
     "Central": 17130.7,
     "SW": 28153.0,
     "SE": 24886.5,
+    "National": 122353.0,
 }
 
 DIV_AREAS = {
@@ -92,31 +93,36 @@ def deseasonalise(y: np.ndarray, months: np.ndarray) -> np.ndarray:
 
 
 # ── 1. 2×2 Classification Engine ──────────────────────────────────────────
-def classify_quadrant(tws_verdict: str, precip_verdict: str) -> tuple[str, str]:
+def classify_quadrant(tws_verdict: str, precip_verdict: str) -> tuple[str, str, str]:
     """
-    Classify region or division into one of 4 hydrological quadrants based on trend verdicts:
-    Q1: Storage Decreasing + Rain Stable/Increasing -> "Decoupled Depletion (Bengal Water Paradox)"
-    Q2: Storage Decreasing + Rain Decreasing        -> "Drought-Driven Depletion"
-    Q3: Storage Stable/Increasing + Rain Stable/Inc -> "Hydrologically Balanced / Surplus"
+    Classify region or division into hydrological quadrants based on trend verdicts:
+    Q1: Confirmed Significant Storage Decrease + Rain Stable/Increasing -> "Decoupled Depletion (Bengal Water Paradox)"
+    Suggestive: Suggestive Storage Decrease + Rain Stable/Increasing -> "Suggestive Depletion / Inconclusive (Fails FDR)"
+    Q2: Storage Decreasing + Rain Decreasing -> "Drought-Driven Depletion"
+    Q3: Storage Stable/Increasing + Rain Stable/Increasing -> "No detectable trend (Hydrologically steady or inconclusive)"
     Q4: Storage Stable/Increasing + Rain Decreasing -> "Resilient Buffering"
     """
-    tws_down = "decrease" in tws_verdict.lower()
-    tws_up   = "increase" in tws_verdict.lower()
+    is_sig_tws_down = tws_verdict.strip() == "Significant decrease"
+    is_sug_tws_down = tws_verdict.strip() == "Suggestive decrease"
     pre_down = "decrease" in precip_verdict.lower()
     pre_up   = "increase" in precip_verdict.lower()
 
-    if tws_down and not pre_down:
+    if is_sig_tws_down and not pre_down:
         q_id = "Q1"
         q_name = "Decoupled Depletion (Bengal Water Paradox)"
-        q_desc = "Storage is depleting significantly despite stable or normal rainfall influx (consistent with extraction exceeding recharge)."
-    elif tws_down and pre_down:
+        q_desc = "Storage is depleting significantly (passes BH-FDR & 95% CI excludes zero) despite stable or normal rainfall influx (consistent with extraction exceeding recharge)."
+    elif is_sug_tws_down and not pre_down:
+        q_id = "Suggestive"
+        q_name = "Suggestive Depletion / Inconclusive (Fails FDR)"
+        q_desc = "Storage decline is suggestive at raw p<0.05 but does not pass stringent BH-FDR or CI criteria; rainfall shows no detectable trend."
+    elif (is_sig_tws_down or is_sug_tws_down) and pre_down:
         q_id = "Q2"
         q_name = "Drought-Driven Depletion"
         q_desc = "Storage depletion is accompanied by significant precipitation decline."
-    elif not tws_down and not pre_down:
+    elif not is_sig_tws_down and not is_sug_tws_down and not pre_down:
         q_id = "Q3"
-        q_name = "Hydrologically Balanced / Surplus"
-        q_desc = "Storage is stable or accumulating alongside normal rainfall influx."
+        q_name = "No detectable trend (Hydrologically steady or inconclusive)"
+        q_desc = "Neither storage nor rainfall exhibits a detectable trend (consistent with hydrologic steady-state or inconclusive signal)."
     else:
         q_id = "Q4"
         q_name = "Resilient Buffering"
@@ -326,7 +332,7 @@ def compute_year_by_year_recharge(reg_df: pd.DataFrame) -> pd.DataFrame:
                 "seasonal_tws_swing_cm": round(swing_cm, 2),
                 "seasonal_tws_swing_km3": round(swing_km3, 2),
                 "storage_retention_ratio_pct": round(retention_ratio, 1),
-                "reporting_status": "DESCRIPTIVE ONLY (No trend test or change-point claimed due to N=7)"
+                "reporting_status": "DESCRIPTIVE ONLY (No trend test or change-point claimed; primary N=6 monsoon years [2020-2025])"
             })
 
     return pd.DataFrame(records)
@@ -334,7 +340,7 @@ def compute_year_by_year_recharge(reg_df: pd.DataFrame) -> pd.DataFrame:
 
 # ── 4. Plotting ────────────────────────────────────────────────────────────
 def plot_2x2_matrix(class_df: pd.DataFrame, out_path: Path):
-    fig, ax = plt.subplots(figsize=(10, 8))
+    fig, ax = plt.subplots(figsize=(11, 8.5))
 
     ann_df = class_df[(class_df["season"] == "annual") & (class_df["entity_type"] == "region")]
     div_ann = class_df[(class_df["season"] == "annual") & (class_df["entity_type"] == "Division")]
@@ -343,41 +349,58 @@ def plot_2x2_matrix(class_df: pd.DataFrame, out_path: Path):
     ax.axvline(0, color="#64748b", linestyle="--", linewidth=1.2)
     ax.axhline(0, color="#64748b", linestyle="--", linewidth=1.2)
 
-    # Shading
-    # Q1: Left (TWS < 0), Right (Precip >= 0)
-    ax.fill_between([-10, 0], 0, 15, color="#fecaca", alpha=0.35, label="Q1: Bengal Water Paradox (TWS ↓, Rain Stable/↑)")
-    # Q3: Right (TWS >= 0), Right (Precip >= 0)
-    ax.fill_between([0, 5], 0, 15, color="#bae6fd", alpha=0.35, label="Q3: Hydrologically Balanced (TWS Stable/↑, Rain Stable/↑)")
-    # Bottom Left: (TWS < 0), (Precip < 0)
-    ax.fill_between([-10, 0], -15, 0, color="#fef08a", alpha=0.35, label="Q2: Drought-Driven Depletion (TWS ↓, Rain ↓)")
-    # Bottom Right: (TWS >= 0), (Precip < 0)
-    ax.fill_between([0, 5], -15, 0, color="#bbf7d0", alpha=0.35, label="Q4: Resilient Buffering (TWS Stable/↑, Rain ↓)")
+    # Shading (using annual total mm/yr scale: -35 to +35 mm/yr)
+    ax.fill_between([-10, 0], 0, 50, color="#fecaca", alpha=0.32, label="Q1: Decoupled Depletion (TWS ↓, Rain No Trend)")
+    ax.fill_between([0, 10], 0, 50, color="#bae6fd", alpha=0.32, label="Q3: No Detectable Trend (Steady / Inconclusive)")
+    ax.fill_between([-10, 0], -50, 0, color="#fef08a", alpha=0.32, label="Q2: Drought-Driven Depletion (TWS ↓, Rain ↓)")
+    ax.fill_between([0, 10], -50, 0, color="#bbf7d0", alpha=0.32, label="Q4: Resilient Buffering (TWS Steady/↑, Rain ↓)")
 
-    # Plot divisions as smaller gray dots
-    ax.scatter(div_ann["tws_slope_cm_yr"], div_ann["precip_slope_mm_yr"],
-               color="#475569", s=60, alpha=0.7, zorder=4, label="Administrative Divisions")
+    # Plot divisions as smaller dots
     for _, row in div_ann.iterrows():
-        ax.annotate(f" {row['entity']}", (row["tws_slope_cm_yr"], row["precip_slope_mm_yr"]),
-                    fontsize=8.5, color="#334155", alpha=0.8)
+        is_sug = "Suggestive" in row["quadrant_name"]
+        color = "#e11d48" if is_sug else "#475569"
+        marker = "s" if is_sug else "o"
+        ax.scatter(row["tws_slope_cm_yr"], row["precip_slope_mm_yr"],
+                   color=color, marker=marker, s=55, alpha=0.75, zorder=4)
+        tag = f" {row['entity']}*" if is_sug else f" {row['entity']}"
+        ax.annotate(tag, (row["tws_slope_cm_yr"], row["precip_slope_mm_yr"]),
+                    fontsize=8.5, color="#1e293b", alpha=0.85)
 
     # Plot regions as prominent colored markers
-    reg_colors = {"NW": "#dc2626", "NE": "#8b5cf6", "Central": "#0284c7", "SW": "#059669", "SE": "#ea580c"}
+    reg_colors = {
+        "NW": "#dc2626",
+        "NE": "#8b5cf6",
+        "Central": "#0284c7",
+        "SW": "#059669",
+        "SE": "#ea580c",
+        "National": "#0f172a",
+    }
     for _, row in ann_df.iterrows():
         reg = row["entity"]
+        is_sig = row["quadrant_id"] == "Q1"
+        is_sug = row["quadrant_id"] == "Suggestive"
+
+        m_symbol = "*" if is_sig else ("D" if reg == "National" else ("^" if is_sug else "o"))
+
         ax.scatter(row["tws_slope_cm_yr"], row["precip_slope_mm_yr"],
-                   color=reg_colors[reg], s=180, edgecolor="#0f172a", linewidth=1.8, zorder=5)
-        ax.annotate(f"  ★ {reg} ({row['tws_slope_cm_yr']:+.2f} cm/yr)",
+                   color=reg_colors.get(reg, "#0f172a"), marker=m_symbol, s=220 if is_sig else 160,
+                   edgecolor="#0f172a", linewidth=1.8, zorder=6)
+
+        status_tag = " (Significant Q1)" if is_sig else (" (Suggestive, fails FDR)" if is_sug else "")
+        lbl = f"  {reg}: {row['tws_slope_cm_yr']:+.2f} cm/yr{status_tag}"
+
+        ax.annotate(lbl,
                     (row["tws_slope_cm_yr"], row["precip_slope_mm_yr"]),
-                    fontsize=10.5, fontweight="bold", color=reg_colors[reg],
-                    bbox=dict(boxstyle="round,pad=0.25", facecolor="#ffffff", alpha=0.85, edgecolor=reg_colors[reg]))
+                    fontsize=9.5, fontweight="bold", color=reg_colors.get(reg, "#0f172a"),
+                    bbox=dict(boxstyle="round,pad=0.25", facecolor="#ffffff", alpha=0.88, edgecolor=reg_colors.get(reg, "#0f172a")))
 
     ax.set_xlim(-4.2, 1.8)
-    ax.set_ylim(-6.0, 6.0)
+    ax.set_ylim(-35.0, 35.0)
     ax.set_xlabel("Total Water Storage Theil-Sen Slope (cm / year)", fontsize=11, fontweight="bold")
-    ax.set_ylabel("NASA POWER Precipitation Theil-Sen Slope (mm / year)", fontsize=11, fontweight="bold")
+    ax.set_ylabel("NASA POWER Precipitation Annual-Total Theil-Sen Slope (mm / year)", fontsize=11, fontweight="bold")
     ax.set_title("Rainfall vs Storage Coupling: 2×2 Regional Matrix (2020–2026)\n"
-                 "Diagnosing Meteorological Drivers vs Extraction-Driven Storage Trends",
-                 fontsize=12.5, fontweight="bold", pad=12)
+                 "Diagnosing Meteorological Drivers vs Extraction-Driven Storage Trends (3-Tiered Verdicts)",
+                 fontsize=12.0, fontweight="bold", pad=12)
     ax.grid(True, linestyle=":", alpha=0.6)
     ax.legend(loc="lower left", fontsize=8.5, framealpha=0.92)
 
@@ -388,12 +411,20 @@ def plot_2x2_matrix(class_df: pd.DataFrame, out_path: Path):
 
 
 def plot_cross_correlation(ccf_df: pd.DataFrame, out_path: Path):
-    fig, axes = plt.subplots(5, 1, figsize=(11, 13), sharex=True)
+    plot_regs = [r for r in REGIONS if r in ccf_df["region"].unique()]
+    fig, axes = plt.subplots(len(plot_regs), 1, figsize=(11, 2.4 * len(plot_regs)), sharex=True)
     plt.subplots_adjust(hspace=0.28)
 
-    reg_colors = {"NW": "#dc2626", "NE": "#8b5cf6", "Central": "#0284c7", "SW": "#059669", "SE": "#ea580c"}
+    reg_colors = {
+        "NW": "#dc2626",
+        "NE": "#8b5cf6",
+        "Central": "#0284c7",
+        "SW": "#059669",
+        "SE": "#ea580c",
+        "National": "#0f172a",
+    }
 
-    for i, reg in enumerate(REGIONS):
+    for i, reg in enumerate(plot_regs):
         ax = axes[i]
         sub = ccf_df[ccf_df["region"] == reg].sort_values("lag_months")
         lags = sub["lag_months"].values
@@ -547,18 +578,17 @@ def main():
     print("═" * 84)
     print("""
   Q: What does the 2×2 classification reveal about Bangladesh?
-  A: It provides conclusive diagnostic proof of the 'Bengal Water Paradox':
-     - Northwest (Rajshahi + Rangpur) and Central (Dhaka) fall into Quadrant 1:
-       'Decoupled Depletion'. Storage drops significantly (-2.93 and -1.19 cm/yr)
-       despite atmospheric precipitation remaining completely normal and stable.
-       This decoupling indicates that groundwater extraction (intensive irrigation
-       in the Barind tract and megacity industrial/municipal pumping in Dhaka)
-       exceeds net annual recharge.
-     - Southwest (Khulna + Barishal) and Southeast (Chattogram) fall into Quadrant 3:
-       'Hydrologically Balanced'. Storage is stable (-0.12 and +0.39 cm/yr) with
-       normal rainfall.
-     - No region falls into Quadrant 2 ('Drought-Driven Depletion'). The water crisis
-       is not a rain deficit — it is an extraction-to-recharge imbalance.
+  A: It provides diagnostic evidence regarding the 'Bengal Water Paradox':
+     - Northwest (Rajshahi + Rangpur) is the sole confirmed region falling into Quadrant 1:
+       'Decoupled Depletion'. Storage drops significantly (-2.93 cm/yr, p=0.00018, surviving
+       BH-FDR at q=0.0018 with 95% bootstrap CI excluding zero) despite atmospheric precipitation
+       showing no detectable trend. This decoupling is consistent with extraction exceeding net annual recharge.
+     - Central (Dhaka) and Mymensingh show 'Suggestive Depletion / Inconclusive' (raw p < 0.05,
+       but fail BH-FDR q < 0.05 or CI includes zero).
+     - Northeast, Southwest, Southeast, and National exhibit Quadrant 3:
+       'No detectable trend (Hydrologically steady or inconclusive)'.
+     - No region falls into Quadrant 2 ('Drought-Driven Depletion'). The observed depletion
+       is not driven by rainfall deficits.
 
   Q: What does the lag cross-correlation show?
   A: Across all 5 regions, the peak raw correlation between precipitation and TWS
