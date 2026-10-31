@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T06:22:34.227278",
+  "generated_at": "2026-10-31T07:13:22.951482",
   "task": "Task 5 - Region Comparison & FDR Control",
   "n_total_tests": 98,
   "n_raw_significant": 25,
@@ -106,12 +106,5 @@
       "bh_q_value": 0.01723
     }
   ],
-  "transition_gap_audit": {
-    "historical_transition_status": "DATA_ABSENT_LOCALLY",
-    "grace_classic_end": "2017-06",
-    "grace_fo_start": "2018-06",
-    "transition_gap_months": 11,
-    "explanation": "The CSR GRACE RL06.3 Mascon mission has an 11-month data gap between the conclusion of GRACE-1 (June 2017) and initial science measurements from GRACE-FO (June 2018). Because the local dataset (bangladesh_water_analysis_detailed.xlsx) covers 2020-01 to 2026-07, the 2017-2018 transition gap cannot be tested with currently available local files. Testing for an instrumental calibration offset across the gap requires downloading the full CSR NetCDF solution ('CSR_GRACE_GRACE-FO_RL0603_Mascons_all-corrections.nc').",
-    "test_protocol_when_file_available": "Welch's two-sample t-test and Wilcoxon rank-sum test comparing the distribution of deseasonalized TWS anomalies in the 24 months preceding the gap (2015-06 to 2017-06) versus the 24 months following the gap (2018-06 to 2020-06), controlling for linear baseline trend."
-  }
+  "transition_note": "GRACE-to-GRACE-FO step test removed as all study analysis is post-June-2018 single instrument."
 }

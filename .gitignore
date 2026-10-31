@@ -1,1 +1,7 @@
 CSR_GRACE_GRACE-FO_RL0603_Mascons_all-corrections.nc
+CSR_GRACE_GRACE-FO_RL0602_Mascons_all-corrections.nc
+__pycache__/
+*.pyc
+data_imerg/
+.env
+

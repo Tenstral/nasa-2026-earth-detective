@@ -78,26 +78,41 @@ SEASONS = {
     "dry":     [12, 1, 2, 3],
 }
 
-# Three windows; with Excel data all collapse to the same actual range.
-WINDOWS = {
-    "primary": {
-        "start": "2020-01", "end": "2026-07",
-        "note": "Primary analysis window.",
-        "collapsed": False,
-    },
-    "grace_fo_era": {
-        "start": "2020-01", "end": "2026-07",
-        "note": "GRACE-FO era (2018-06+) collapses to 2020-01 → 2026-07 "
-                "because Excel data starts 2020-01. Flagged.",
-        "collapsed": True,
-    },
-    "full_record": {
-        "start": "2020-01", "end": "2026-07",
-        "note": "Full GRACE record (2002-04+) collapses to 2020-01 → 2026-07 "
-                "because Excel data starts 2020-01. Flagged.",
-        "collapsed": True,
-    },
-}
+try:
+    from v2.config_loader import get_grace_netcdf_path, load_config, require_grace_netcdf
+except ImportError:
+    from config_loader import get_grace_netcdf_path, load_config, require_grace_netcdf
+
+cfg = load_config()
+_grace_nc_path = get_grace_netcdf_path()
+
+# Determine active headline windows:
+# If NetCDF is absent: ONLY primary window (2020-01 to 2026-07). Never write duplicate-window rows!
+# If NetCDF is present: primary + grace_fo (2018-06 to 2026-07). Earlier years (2002-2018) reserved for context only.
+if _grace_nc_path is not None and _grace_nc_path.exists():
+    WINDOWS = {
+        "primary": {
+            "start": cfg.get("primary_window", {}).get("start", "2020-01"),
+            "end": cfg.get("primary_window", {}).get("end", "2026-07"),
+            "note": "Primary analysis window (79 months).",
+            "collapsed": False,
+        },
+        "grace_fo": {
+            "start": cfg.get("grace_fo_window", {}).get("start", "2018-06"),
+            "end": cfg.get("grace_fo_window", {}).get("end", "2026-07"),
+            "note": "GRACE-FO single-instrument mission era (98 months), robustness window.",
+            "collapsed": False,
+        },
+    }
+else:
+    WINDOWS = {
+        "primary": {
+            "start": cfg.get("primary_window", {}).get("start", "2020-01"),
+            "end": cfg.get("primary_window", {}).get("end", "2026-07"),
+            "note": "Primary analysis window (79 months). Single window active; duplicate-window rows prevented.",
+            "collapsed": False,
+        }
+    }
 
 SEP = "─" * 72
 
@@ -488,26 +503,26 @@ def main():
     all_results.extend(primary_results)
     print(f"  Done — {len(primary_results)} results computed for primary window.\n")
 
-    # ── Comparison windows (grace_fo_era, full_record) ──────────────────────
-    import copy
-    for window_name in ["grace_fo_era", "full_record"]:
-        window_cfg = WINDOWS[window_name]
-        _sep(f"Window: {window_name}  [COLLAPSED — see note]")
-        print(f"  NOTE: {window_cfg['note']}")
-        print(f"  Results are reported side-by-side (identical to 'primary' window).\n")
-        for r in primary_results:
-            c = copy.deepcopy(r)
-            c["window"] = window_name
-            c["window_note"] = window_cfg["note"]
-            c["window_collapsed"] = window_cfg["collapsed"]
-            all_results.append(c)
+    # ── Additional active windows (e.g. grace_fo when NetCDF is present) ──
+    for window_name, window_cfg in WINDOWS.items():
+        if window_name == "primary":
+            continue
+        _sep(f"Window: {window_name} ({window_cfg['start']} to {window_cfg['end']})")
+        print(f"  Note: {window_cfg['note']}")
+        # When NetCDF is absent, WINDOWS contains only 'primary', preventing duplicate rows.
+
     # ── Print primary-window results ────────────────────────────────────────
     print_results_table(all_results, entity_type="region",   window="primary")
     print_results_table(all_results, entity_type="Division", window="primary")
 
-    # ── Side-by-side window comparison for regions (annual only) ────────────
-    _sep("WINDOW COMPARISON — Regions, annual, both variables")
-    print()
+    # ── Side-by-side window comparison (if multiple windows active) ─────────
+    if len(WINDOWS) > 1:
+        _sep("WINDOW COMPARISON — Regions, annual, both variables")
+        print()
+    else:
+        _sep("WINDOW STATUS: Single Window Active (Duplicate-window rows prevented)")
+        print("  GRACE NetCDF is not configured; only Primary Window (2020-01 to 2026-07) computed.")
+        print("  Configure 'grace_netcdf_path' in config.json to activate the GRACE-FO (2018-06+) robustness window.\n")
     for var in ["tws", "precip"]:
         unit = "cm/yr" if var == "tws" else "mm/yr"
         print(f"  Variable: {'TWS' if var=='tws' else 'Precipitation'}  ({unit})")

@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-31T06:21:46.842862",
+  "generated_at": "2026-10-31T07:12:38.508933",
   "n_divisions": 8,
   "n_regions": 5,
   "n_months_tws": 79,
-  "n_months_precip_nc": 81,
+  "n_months_precip_nc": 105,
   "tws_coverage": "2020-01 to 2026-07",
   "precip_nc_coverage": "2020-01 to 2026-09",
   "overlap": "2020-01 to 2026-07 (79 months)",

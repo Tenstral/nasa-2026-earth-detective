@@ -1,0 +1,16 @@
+{
+  "grace_netcdf_path": null,
+  "nasa_precipitation_netcdf_path": "nasa_precipitation_bangladesh.nc",
+  "excel_fallback_path": "bangladesh_water_analysis_detailed.xlsx",
+  "primary_window": {
+    "start": "2020-01",
+    "end": "2026-07",
+    "description": "Primary study period (79 months) with verified complete satellite overlap"
+  },
+  "grace_fo_window": {
+    "start": "2018-06",
+    "end": "2026-07",
+    "description": "GRACE-FO single-instrument mission era (98 months), robustness window"
+  },
+  "random_seed": 42
+}

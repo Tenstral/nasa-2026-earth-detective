@@ -284,6 +284,54 @@ def run_seasonal_budget(reg_df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(records)
 
 
+def compute_year_by_year_recharge(reg_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Year-by-year monsoon recharge efficiency table (descriptive only).
+    Per guidelines: reported descriptively with NO trend test or change-point claim.
+    """
+    records = []
+    df = reg_df.copy()
+    df["year"] = df["date"].dt.year
+    df["month"] = df["date"].dt.month
+    years = sorted(df["year"].unique())
+
+    for reg in REGIONS:
+        sub = df[df["region"] == reg]
+        area = REG_AREAS[reg]
+        for yr in years:
+            dry_m = sub[((sub["year"] == yr - 1) & (sub["month"] == 12)) |
+                        ((sub["year"] == yr) & (sub["month"].isin([1, 2, 3])))]
+            mon_m = sub[(sub["year"] == yr) & (sub["month"].isin([6, 7, 8, 9]))]
+
+            if len(dry_m) < 3 or len(mon_m) < 3:
+                continue
+
+            p_mon_total_mm = float(mon_m["nasa_power_precip_mm"].sum())
+            mon_rain_vol_km3 = p_mon_total_mm * area * 1e-6
+
+            trough_tws = float(dry_m["grace_tws_cm"].mean())
+            crest_tws = float(mon_m["grace_tws_cm"].mean())
+            swing_cm = crest_tws - trough_tws
+            swing_km3 = swing_cm * area * 1e-5
+
+            retention_ratio = (swing_km3 / mon_rain_vol_km3) * 100.0 if mon_rain_vol_km3 > 0 else 0.0
+
+            records.append({
+                "region": reg,
+                "monsoon_year": yr,
+                "monsoon_rain_total_mm": round(p_mon_total_mm, 1),
+                "monsoon_rain_vol_km3": round(mon_rain_vol_km3, 2),
+                "dry_season_trough_tws_cm": round(trough_tws, 2),
+                "monsoon_crest_tws_cm": round(crest_tws, 2),
+                "seasonal_tws_swing_cm": round(swing_cm, 2),
+                "seasonal_tws_swing_km3": round(swing_km3, 2),
+                "storage_retention_ratio_pct": round(retention_ratio, 1),
+                "reporting_status": "DESCRIPTIVE ONLY (No trend test or change-point claimed due to N=7)"
+            })
+
+    return pd.DataFrame(records)
+
+
 # ── 4. Plotting ────────────────────────────────────────────────────────────
 def plot_2x2_matrix(class_df: pd.DataFrame, out_path: Path):
     fig, ax = plt.subplots(figsize=(10, 8))
@@ -416,12 +464,17 @@ def main():
     ccf_df.to_csv(ccf_csv, index=False)
     print(f"  Saved: {ccf_csv} ({len(ccf_df)} lag steps)")
 
-    # 3. Seasonal Budget Split
+    # 3. Seasonal Budget Split & Year-by-Year Recharge (Descriptive)
     _sep("Calculating Seasonal Hydrological Budget & Storage Retention Efficiency ...")
     budget_df = run_seasonal_budget(reg_df)
     budget_csv = OUTPUT_DIR / "task6_seasonal_budget.csv"
     budget_df.to_csv(budget_csv, index=False)
     print(f"  Saved: {budget_csv}")
+
+    yby_df = compute_year_by_year_recharge(reg_df)
+    yby_csv = OUTPUT_DIR / "task6_year_by_year_monsoon_recharge.csv"
+    yby_df.to_csv(yby_csv, index=False)
+    print(f"  Saved: {yby_csv} (Descriptive year-by-year monsoon recharge)")
 
     # 4. Generate Figures
     _sep("Rendering Diagnostic Visualizations ...")

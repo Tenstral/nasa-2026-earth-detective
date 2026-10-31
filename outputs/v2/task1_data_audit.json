@@ -1,8 +1,8 @@
 {
   "grace_netcdf": {
-    "file": "C:\\Users\\LEON\\OneDrive\\Documents\\GitHub\\nasa-2026-earth-detective\\CSR_GRACE_GRACE-FO_RL0603_Mascons_all-corrections.nc",
-    "status": "MISSING – Excel fallback will be used",
-    "impact": "Cannot test GRACE vs GRACE-FO step change. Full-record and GRACE-FO windows collapse to primary window (2020-01 to 2026-07). Division-level signals are from pre-extracted Excel series, not live mascon grid."
+    "file": "None",
+    "status": "ABSENT – Processing restricted to Primary Window (2020-01 to 2026-07)",
+    "impact": "GRACE-FO window (2018-06 to 2026-07) requires NetCDF. Pipeline will process ONLY Primary Window and will NOT write duplicate-window rows."
   },
   "precip_netcdf": {
     "file": "C:\\Users\\LEON\\OneDrive\\Documents\\GitHub\\nasa-2026-earth-detective\\nasa_precipitation_bangladesh.nc",
@@ -11,9 +11,9 @@
     "spatial_resolution_deg": "0.5 lat × 0.625 lon",
     "n_lat": 13,
     "n_lon": 8,
-    "start_ym": "2020-01",
+    "start_ym": "2018-01",
     "end_ym": "2026-09",
-    "n_months": 81,
+    "n_months": 105,
     "missing_months": [],
     "nan_cells": 0,
     "nan_fraction_pct": 0.0
@@ -96,22 +96,15 @@
       "start": "2020-01",
       "end": "2026-07",
       "n_months": 79,
-      "note": "Intentional analysis window for competition submission."
+      "status": "ACTIVE",
+      "note": "Primary analysis window (79 months) with verified complete satellite overlap."
     },
     "grace_fo_era": {
       "start": "2018-06",
       "end": "2026-07",
       "n_months_nominal": 98,
-      "actual_start": "2020-01",
-      "actual_n_months": 79,
-      "note": "GRACE-FO began 2018-06 but Excel data starts 2020-01. Window collapses to 2020-01 → 2026-07 with available data. Flag in all outputs. Full separation requires the GRACE NetCDF."
-    },
-    "full_record": {
-      "start_nominal": "2002-04",
-      "end": "2026-07",
-      "actual_start": "2020-01",
-      "actual_n_months": 79,
-      "note": "GRACE classic began 2002-04 but Excel starts 2020-01. Window collapses to 2020-01 → 2026-07. Flag in all outputs. Requires the GRACE NetCDF for the full record."
+      "status": "INACTIVE (NetCDF absent)",
+      "note": "GRACE-FO single-instrument mission era (2018-06 to 2026-07). Active when GRACE NetCDF path is configured; duplicate-window rows prevented when absent."
     }
   },
   "regions": {
@@ -149,6 +142,6 @@
       "total_area_km2": 24886.5
     }
   },
-  "generated_at": "2026-10-31T06:21:44.610697",
+  "generated_at": "2026-10-31T07:12:36.419605",
   "python_version": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]"
 }

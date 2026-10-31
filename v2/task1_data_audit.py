@@ -32,15 +32,20 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = REPO_ROOT / "outputs" / "v2"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-GRACE_NC = REPO_ROOT / "CSR_GRACE_GRACE-FO_RL0603_Mascons_all-corrections.nc"
-PRECIP_NC = REPO_ROOT / "nasa_precipitation_bangladesh.nc"
-EXCEL_FILE = REPO_ROOT / "bangladesh_water_analysis_detailed.xlsx"
+try:
+    from v2.config_loader import get_grace_netcdf_path, load_config
+except ImportError:
+    from config_loader import get_grace_netcdf_path, load_config
 
-# Analysis windows (parameterised – same defaults as run_all.py)
-PRIMARY_START = "2020-01"
-PRIMARY_END   = "2026-07"
-GRACE_FO_START = "2018-06"   # GRACE-FO era start
-FULL_START     = "2002-04"   # GRACE classic start (nominal)
+cfg = load_config()
+GRACE_NC = get_grace_netcdf_path()
+PRECIP_NC = REPO_ROOT / cfg.get("nasa_precipitation_netcdf_path", "nasa_precipitation_bangladesh.nc")
+EXCEL_FILE = REPO_ROOT / cfg.get("excel_fallback_path", "bangladesh_water_analysis_detailed.xlsx")
+
+# Analysis windows
+PRIMARY_START = cfg.get("primary_window", {}).get("start", "2020-01")
+PRIMARY_END   = cfg.get("primary_window", {}).get("end", "2026-07")
+GRACE_FO_START = cfg.get("grace_fo_window", {}).get("start", "2018-06")
 
 # Approved 5-region groupings
 REGIONS = {
@@ -97,27 +102,25 @@ def audit_grace_netcdf(report: dict) -> dict:
     print("  SECTION 1 — GRACE/GRACE-FO NetCDF")
     _sep()
 
-    grace_report = {"file": str(GRACE_NC), "status": None}
+    grace_report = {"file": str(GRACE_NC) if GRACE_NC else "None", "status": None}
 
-    if not GRACE_NC.exists():
+    if GRACE_NC is None or not GRACE_NC.exists():
         msg = (
-            f"\n[MISSING] GRACE NetCDF not found:\n"
-            f"  Expected: {GRACE_NC}\n\n"
-            "  The pipeline will fall back to the Excel pre-extracted series.\n"
-            "  To obtain the file:\n"
-            "    1. Visit https://www2.csr.utexas.edu/grace/RL0603_mascons.html\n"
-            "       or NASA PO.DAAC: https://podaac.jpl.nasa.gov/\n"
-            "    2. Download: CSR_GRACE_GRACE-FO_RL0603_Mascons_all-corrections.nc\n"
-            "    3. Place it in the repo root directory.\n"
-            "  NOTE: download_grace_data.py has a bug (RL0602 URL vs RL0603 target);\n"
-            "        download manually until that is fixed.\n"
+            f"\n[LOUD AUDIT ALERT] GRACE / GRACE-FO NetCDF not found.\n"
+            f"  Lookup checked: CLI (--grace-nc), env (GRACE_NETCDF_PATH), config.json, and repo root.\n"
+            f"  IMPACT & POLICY:\n"
+            f"    1. Multi-window duplicate rows are strictly prohibited (no artificial window collapse).\n"
+            f"    2. Only the Primary Window (2020-01 to 2026-07) will be processed from verified Excel series.\n"
+            f"    3. The GRACE-FO robustness window (2018-06 to 2026-07) requires configuring the NetCDF path.\n"
+            f"  To configure the path without hardcoding:\n"
+            f"    - Set 'grace_netcdf_path' in config.json, OR\n"
+            f"    - Export GRACE_NETCDF_PATH=/path/to/CSR_GRACE_GRACE-FO_RL0603_Mascons_all-corrections.nc\n"
         )
         print(msg)
-        grace_report["status"] = "MISSING – Excel fallback will be used"
+        grace_report["status"] = "ABSENT – Processing restricted to Primary Window (2020-01 to 2026-07)"
         grace_report["impact"] = (
-            "Cannot test GRACE vs GRACE-FO step change. "
-            "Full-record and GRACE-FO windows collapse to primary window (2020-01 to 2026-07). "
-            "Division-level signals are from pre-extracted Excel series, not live mascon grid."
+            "GRACE-FO window (2018-06 to 2026-07) requires NetCDF. "
+            "Pipeline will process ONLY Primary Window and will NOT write duplicate-window rows."
         )
     else:
         print(f"  Found: {GRACE_NC.name}  ({GRACE_NC.stat().st_size / 1e6:.1f} MB)")
@@ -310,29 +313,17 @@ def audit_overlap(report: dict) -> dict:
             "start": PRIMARY_START,
             "end":   PRIMARY_END,
             "n_months": _months_between(PRIMARY_START, PRIMARY_END),
-            "note": "Intentional analysis window for competition submission.",
+            "status": "ACTIVE",
+            "note": "Primary analysis window (79 months) with verified complete satellite overlap.",
         },
         "grace_fo_era": {
             "start": GRACE_FO_START,
             "end":   PRIMARY_END,
             "n_months_nominal": _months_between(GRACE_FO_START, PRIMARY_END),
-            "actual_start": grace_start,
-            "actual_n_months": _months_between(grace_start, PRIMARY_END),
+            "status": "ACTIVE (via NetCDF)" if GRACE_NC and GRACE_NC.exists() else "INACTIVE (NetCDF absent)",
             "note": (
-                "GRACE-FO began 2018-06 but Excel data starts 2020-01. "
-                "Window collapses to 2020-01 → 2026-07 with available data. "
-                "Flag in all outputs. Full separation requires the GRACE NetCDF."
-            ),
-        },
-        "full_record": {
-            "start_nominal": FULL_START,
-            "end":   PRIMARY_END,
-            "actual_start": grace_start,
-            "actual_n_months": _months_between(grace_start, PRIMARY_END),
-            "note": (
-                "GRACE classic began 2002-04 but Excel starts 2020-01. "
-                "Window collapses to 2020-01 → 2026-07. "
-                "Flag in all outputs. Requires the GRACE NetCDF for the full record."
+                "GRACE-FO single-instrument mission era (2018-06 to 2026-07). "
+                "Active when GRACE NetCDF path is configured; duplicate-window rows prevented when absent."
             ),
         },
     }
@@ -401,7 +392,7 @@ def audit_provenance(report: dict) -> dict:
     print(f"  ┌─────────────────────────────────────────────────────────────────┐")
 
     grace_status = report["grace_netcdf"]["status"]
-    if "MISSING" in grace_status:
+    if GRACE_NC is None or not GRACE_NC.exists():
         print(f"  │ GRACE TWS  : Excel fallback  ({EXCEL_FILE.name})")
         print(f"  │             Sheets: Historical_Trends_2020_2026")
         print(f"  │             Coverage: 2020-01 → 2026-07 (79 months × 8 divisions)")

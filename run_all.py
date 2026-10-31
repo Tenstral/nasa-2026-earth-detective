@@ -73,7 +73,15 @@ def main():
     parser.add_argument("--start", type=str, default="2020-01", help="Primary start month (YYYY-MM)")
     parser.add_argument("--end", type=str, default="2026-07", help="Primary end month (YYYY-MM)")
     parser.add_argument("--seed", type=int, default=42, help="Fixed random seed for bootstrap replicability")
+    parser.add_argument("--grace-nc", type=str, default=None, help="Path to CSR GRACE/GRACE-FO Mascon NetCDF")
     args = parser.parse_args()
+
+    try:
+        from v2.config_loader import get_grace_netcdf_path
+    except ImportError:
+        from config_loader import get_grace_netcdf_path
+
+    grace_path = get_grace_netcdf_path(args.grace_nc)
 
     print(BANNER)
     print("  NASA SPACE APPS CHALLENGE 2026 — TEAM TENSTRAL")
@@ -81,6 +89,7 @@ def main():
     print("  Bengal Hydro Detective v2 Pipeline Execution")
     print(f"  Primary Window : {args.start} to {args.end}")
     print(f"  Random Seed    : {args.seed} (deterministic bootstrap)")
+    print(f"  GRACE NetCDF   : {grace_path if grace_path else '[ABSENT — Single Window (Primary) Active; No Duplicate Rows]'}")
     print(f"  Timestamp      : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"  Output Dir     : {OUTPUTS_V2}")
     print(BANNER)
@@ -94,6 +103,8 @@ def main():
     env["ANALYSIS_START_DATE"] = args.start
     env["ANALYSIS_END_DATE"] = args.end
     env["ANALYSIS_RANDOM_SEED"] = str(args.seed)
+    if grace_path:
+        env["GRACE_NETCDF_PATH"] = str(grace_path)
 
     timings = {}
     t_start = time.time()

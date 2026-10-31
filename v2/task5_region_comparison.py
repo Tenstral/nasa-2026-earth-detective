@@ -405,19 +405,12 @@ def main():
     fdr_df.to_csv(fdr_csv, index=False)
     print(f"  Saved: {fdr_csv} ({len(fdr_df)} evaluated tests)")
 
-    # 3. Run structural break / change point tests
-    _sep("Evaluating Structural Breaks & Change-Point Tests ...")
-    step_df, transition_doc = run_step_change_tests(reg_df)
-    step_csv = OUTPUT_DIR / "task5_change_point_tests.csv"
-    step_df.to_csv(step_csv, index=False)
-    print(f"  Saved: {step_csv}")
-
-    # 4. Generate visualization
+    # 3. Generate visualization
     _sep("Rendering Pairwise Slope Difference Figure ...")
     fig_path = OUTPUT_DIR / "fig_pairwise_slope_differences.png"
     plot_pairwise_differences(pair_df, fig_path)
 
-    # 5. Print Pairwise TWS Differences Table
+    # 4. Print Pairwise TWS Differences Table
     _sep("PAIRWISE REGIONAL TWS SLOPE DIFFERENCES (annual)")
     print()
     header_pair = (f"  {'Pair Comparison':<22}  {'Slope A':>10}  {'Slope B':>10}  "
@@ -460,21 +453,6 @@ def main():
         print(f"  ✓ {r['test_name']:<48}  p = {r['raw_p_value']:.5f}  q = {r['bh_q_value']:.5f}")
     print()
 
-    # 8. Print Step Change / Transition Summary
-    _sep("STRUCTURAL BREAKS & GRACE TRANSITION STATUS")
-    print()
-    print("  Pettitt's Change-Point Test on 2020-2026 Series:")
-    print("  " + "─" * 78)
-    for _, r in step_df.iterrows():
-        sig_mark = "★" if r["has_significant_step"] else " "
-        print(f"  {sig_mark} {r['region']:<10} {r['variable']:<14} Break: {r['change_point_month']}  "
-              f"K={r['pettitt_K']:<6.1f}  p={r['p_value']:.4f}  ({r['verdict']})")
-    print()
-    print(f"  GRACE to GRACE-FO Transition Gap (2017-06 to 2018-06):")
-    print(f"  Status: {transition_doc['historical_transition_status']}")
-    print(f"  Note  : {transition_doc['explanation']}")
-    print()
-
     # Save summary JSON
     summary = {
         "generated_at": datetime.now().isoformat(),
@@ -483,7 +461,7 @@ def main():
         "n_raw_significant": n_raw_sig,
         "n_fdr_significant": n_fdr_sig,
         "fdr_surviving_tests": fdr_df[fdr_df["significant_at_0.05_fdr"]][["test_name", "raw_p_value", "bh_q_value"]].to_dict(orient="records"),
-        "transition_gap_audit": transition_doc,
+        "transition_note": "GRACE-to-GRACE-FO step test removed as all study analysis is post-June-2018 single instrument.",
     }
     summary_path = OUTPUT_DIR / "task5_summary.json"
     with open(summary_path, "w", encoding="utf-8") as f:
