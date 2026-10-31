@@ -1,0 +1,116 @@
+{
+  "generated_at": "2026-10-31T06:21:46.842862",
+  "n_divisions": 8,
+  "n_regions": 5,
+  "n_months_tws": 79,
+  "n_months_precip_nc": 81,
+  "tws_coverage": "2020-01 to 2026-07",
+  "precip_nc_coverage": "2020-01 to 2026-09",
+  "overlap": "2020-01 to 2026-07 (79 months)",
+  "rainfall_only_months": [
+    "2026-08",
+    "2026-09"
+  ],
+  "region_definitions": {
+    "NW": [
+      "Rajshahi",
+      "Rangpur"
+    ],
+    "NE": [
+      "Sylhet",
+      "Mymensingh"
+    ],
+    "Central": [
+      "Dhaka"
+    ],
+    "SW": [
+      "Khulna",
+      "Barishal"
+    ],
+    "SE": [
+      "Chattogram"
+    ]
+  },
+  "division_stats": {
+    "Barishal": {
+      "tws_mean_cm": -0.4476,
+      "tws_std_cm": 18.9136,
+      "precip_mean_mm": 326.8063,
+      "precip_std_mm": 332.5227
+    },
+    "Chattogram": {
+      "tws_mean_cm": -2.2476,
+      "tws_std_cm": 18.9574,
+      "precip_mean_mm": 341.8253,
+      "precip_std_mm": 360.2129
+    },
+    "Dhaka": {
+      "tws_mean_cm": -9.9466,
+      "tws_std_cm": 21.4176,
+      "precip_mean_mm": 216.1025,
+      "precip_std_mm": 186.927
+    },
+    "Khulna": {
+      "tws_mean_cm": -4.0291,
+      "tws_std_cm": 17.4511,
+      "precip_mean_mm": 188.3608,
+      "precip_std_mm": 177.8514
+    },
+    "Mymensingh": {
+      "tws_mean_cm": -13.3571,
+      "tws_std_cm": 22.7904,
+      "precip_mean_mm": 270.2253,
+      "precip_std_mm": 253.3828
+    },
+    "Rajshahi": {
+      "tws_mean_cm": -15.3953,
+      "tws_std_cm": 21.0225,
+      "precip_mean_mm": 172.7177,
+      "precip_std_mm": 154.6353
+    },
+    "Rangpur": {
+      "tws_mean_cm": -25.398,
+      "tws_std_cm": 21.7596,
+      "precip_mean_mm": 214.7405,
+      "precip_std_mm": 209.4587
+    },
+    "Sylhet": {
+      "tws_mean_cm": -8.5458,
+      "tws_std_cm": 20.8473,
+      "precip_mean_mm": 375.9684,
+      "precip_std_mm": 359.8433
+    }
+  },
+  "region_stats": {
+    "NW": {
+      "tws_mean_cm": -20.292,
+      "tws_std_cm": 21.249,
+      "precip_mean_mm": 193.2896,
+      "precip_std_mm": 176.961
+    },
+    "NE": {
+      "tws_mean_cm": -10.8159,
+      "tws_std_cm": 21.6934,
+      "precip_mean_mm": 326.0768,
+      "precip_std_mm": 307.7594
+    },
+    "Central": {
+      "tws_mean_cm": -9.9466,
+      "tws_std_cm": 21.4176,
+      "precip_mean_mm": 216.1025,
+      "precip_std_mm": 186.927
+    },
+    "SW": {
+      "tws_mean_cm": -2.7713,
+      "tws_std_cm": 17.7674,
+      "precip_mean_mm": 236.9832,
+      "precip_std_mm": 230.0032
+    },
+    "SE": {
+      "tws_mean_cm": -2.2476,
+      "tws_std_cm": 18.9574,
+      "precip_mean_mm": 341.8253,
+      "precip_std_mm": 360.2129
+    }
+  }
+}

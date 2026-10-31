@@ -1,0 +1,154 @@
+{
+  "grace_netcdf": {
+    "file": "C:\\Users\\LEON\\OneDrive\\Documents\\GitHub\\nasa-2026-earth-detective\\CSR_GRACE_GRACE-FO_RL0603_Mascons_all-corrections.nc",
+    "status": "MISSING – Excel fallback will be used",
+    "impact": "Cannot test GRACE vs GRACE-FO step change. Full-record and GRACE-FO windows collapse to primary window (2020-01 to 2026-07). Division-level signals are from pre-extracted Excel series, not live mascon grid."
+  },
+  "precip_netcdf": {
+    "file": "C:\\Users\\LEON\\OneDrive\\Documents\\GitHub\\nasa-2026-earth-detective\\nasa_precipitation_bangladesh.nc",
+    "source_attr": "NASA POWER (GPM IMERG & GMAO MERRA-2 Agroclimatology)",
+    "corrected_label": "NASA POWER Precipitation (PRECTOTCORR) [mm/month]",
+    "spatial_resolution_deg": "0.5 lat × 0.625 lon",
+    "n_lat": 13,
+    "n_lon": 8,
+    "start_ym": "2020-01",
+    "end_ym": "2026-09",
+    "n_months": 81,
+    "missing_months": [],
+    "nan_cells": 0,
+    "nan_fraction_pct": 0.0
+  },
+  "excel_fallback": {
+    "divisions": {
+      "Barishal": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Chattogram": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Dhaka": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Khulna": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Mymensingh": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Rajshahi": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Rangpur": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Sylhet": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      }
+    },
+    "start_ym": "2020-01",
+    "end_ym": "2026-07",
+    "n_months": 79,
+    "missing_months": []
+  },
+  "overlap": {
+    "overlap_start": "2020-01",
+    "overlap_end": "2026-07",
+    "n_overlap_months": 79,
+    "rainfall_only_months": [
+      "2026-08",
+      "2026-09"
+    ]
+  },
+  "analysis_windows": {
+    "primary": {
+      "start": "2020-01",
+      "end": "2026-07",
+      "n_months": 79,
+      "note": "Intentional analysis window for competition submission."
+    },
+    "grace_fo_era": {
+      "start": "2018-06",
+      "end": "2026-07",
+      "n_months_nominal": 98,
+      "actual_start": "2020-01",
+      "actual_n_months": 79,
+      "note": "GRACE-FO began 2018-06 but Excel data starts 2020-01. Window collapses to 2020-01 → 2026-07 with available data. Flag in all outputs. Full separation requires the GRACE NetCDF."
+    },
+    "full_record": {
+      "start_nominal": "2002-04",
+      "end": "2026-07",
+      "actual_start": "2020-01",
+      "actual_n_months": 79,
+      "note": "GRACE classic began 2002-04 but Excel starts 2020-01. Window collapses to 2020-01 → 2026-07. Flag in all outputs. Requires the GRACE NetCDF for the full record."
+    }
+  },
+  "regions": {
+    "NW": {
+      "divisions": [
+        "Rajshahi",
+        "Rangpur"
+      ],
+      "total_area_km2": 30984.4
+    },
+    "NE": {
+      "divisions": [
+        "Sylhet",
+        "Mymensingh"
+      ],
+      "total_area_km2": 21198.4
+    },
+    "Central": {
+      "divisions": [
+        "Dhaka"
+      ],
+      "total_area_km2": 17130.7
+    },
+    "SW": {
+      "divisions": [
+        "Khulna",
+        "Barishal"
+      ],
+      "total_area_km2": 28153.0
+    },
+    "SE": {
+      "divisions": [
+        "Chattogram"
+      ],
+      "total_area_km2": 24886.5
+    }
+  },
+  "generated_at": "2026-10-31T06:21:44.610697",
+  "python_version": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]"
+}

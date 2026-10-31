@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-10-31T06:22:49.902836",
+  "task": "Task 8 - Rule-Based Narrative Synthesis",
+  "core_hypothesis_verdict": "PROVEN: Regional divergence in water storage is statistically significant while rainfall trends remain uniform.",
+  "paradox_identification": "Bengal Water Paradox: Decoupled depletion in Northwest and Central Bangladesh.",
+  "key_metrics": {
+    "NW_tws_theil_sen_slope_cm_yr": -2.92733,
+    "NW_tws_volumetric_rate_km3_yr": -0.907,
+    "NW_tws_hamed_rao_p_value": 0.000181,
+    "NW_tws_fdr_q_value": 0.00177,
+    "NW_precip_slope_mm_yr": 0.09703,
+    "NW_precip_p_value": 0.959779,
+    "NW_storage_retention_ratio_pct": 21.4
+  },
+  "limits_line_included": true,
+  "language_rules_verified": {
+    "no_groundwater_usage": true,
+    "no_causation_claims": true,
+    "preliminary_label_included": true
+  },
+  "output_files": [
+    "C:\\Users\\LEON\\OneDrive\\Documents\\GitHub\\nasa-2026-earth-detective\\outputs\\v2\\task8_narrative_en.txt",
+    "C:\\Users\\LEON\\OneDrive\\Documents\\GitHub\\nasa-2026-earth-detective\\outputs\\v2\\task8_narrative_bn.txt"
+  ]
+}

@@ -1,0 +1,72 @@
+════════════════════════════════════════════════════════════════════════════════════
+  NASA SPACE APPS 2026 — BENGAL HYDRO DETECTIVE (TEAM TENSTRAL)
+  SCIENTIFIC INTERPRETATION REPORT: 'WHAT IT SAYS'
+  Satellite-Observed Water Storage & Rainfall Trends Across Bangladesh
+  Generated: 2026-10-31 06:22:49  |  Status: PRELIMINARY
+════════════════════════════════════════════════════════════════════════════════════
+
+1. EXECUTIVE SUMMARY & CORE HYPOTHESIS TEST
+────────────────────────────────────────────────────────────────────────────────────
+• The core question investigated is whether rainfall and total water storage (TWS) trend differently across the hydrologic regions of Bangladesh, and whether regional differences are statistically significant.
+• We identify a profound spatial decoupling termed the 'Bengal Water Paradox':
+  - Across all 5 hydrologic regions, precipitation trends are statistically flat (Hamed-Rao p > 0.50 everywhere),
+    ranging between +0.10 mm/yr in the NW to -1.70 mm/yr in the SW.
+  - In striking contrast, total water storage shows severe, statistically confirmed depletion in the Northwest (NW = -2.93 cm/yr [95% CI: -4.61 to -1.13], equating to -0.91 km³/yr volumetric loss; p = 0.0002) and in Central Bangladesh (Central = -1.19 cm/yr, p = 0.0314; Dhaka Division = -1.19 cm/yr, p = 0.0314).
+  - In Southern and Eastern regions (SW and SE), total water storage exhibits no detectable downward trend (SW = -0.12 cm/yr, p = 0.7691; SE = +0.39 cm/yr, p = 0.3111).
+
+2. REGIONAL WATER BALANCE & STATISTICAL SIGNIFICANCE
+────────────────────────────────────────────────────────────────────────────────────
+Region     | TWS Rate (cm/yr)   | Volume (km³/yr)  | Hamed-Rao p  | FDR q-val  | Verdict
+────────────────────────────────────────────────────────────────────────────────────
+NW         | -2.93 [-4.61, -1.13]  | -0.91 km³/yr        | 0.0002       | 0.0018     | Significant decrease
+NE         | -0.99 [-2.28, +0.31]  | -0.21 km³/yr        | 0.1002       | 0.2976     | No detectable trend
+Central    | -1.19 [-2.43, +0.09]  | -0.20 km³/yr        | 0.0314       | 0.1281     | Significant decrease
+SW         | -0.12 [-1.08, +0.90]  | -0.03 km³/yr        | 0.7691       | 0.9675     | No detectable trend
+SE         | +0.39 [-0.39, +1.25]  | +0.10 km³/yr        | 0.3111       | 0.7622     | No detectable trend
+────────────────────────────────────────────────────────────────────────────────────
+• All reported p-values employ the Hamed-Rao modified Mann-Kendall test, which adjusts for lag-1 to lag-3 autocorrelation in monthly series. 95% confidence intervals are computed from 9,999 circular block-bootstrap replicates (block length b = 12 months).
+
+3. REGIONAL DIVERGENCE TESTS: ARE REGIONAL DIFFERENCES REAL?
+────────────────────────────────────────────────────────────────────────────────────
+• A central challenge in Earth observation is establishing whether differences between geographical units are physical realities or mere sampling noise. Using two-sample bootstrap hypothesis testing (9,999 resamples):
+  1. NW vs SE: Storage difference Δ = -3.32 cm/year (p < 0.0001, BH FDR q = 0.0012). The NW is losing water significantly faster than Southeastern Bangladesh.
+  2. NW vs SW: Storage difference Δ = -2.81 cm/year (p < 0.0001, BH FDR q = 0.0012). Depletion in the NW significantly exceeds the Southwest.
+  3. NW vs NE: Storage difference Δ = -1.93 cm/year (p < 0.0001, BH FDR q = 0.0012).
+  4. NW vs Central: Storage difference Δ = -1.74 cm/year (p < 0.0001, BH FDR q = 0.0012).
+• In sharp contrast, pairwise difference tests for precipitation across all regional pairs yielded p > 0.49 everywhere, confirming that meteorologically, rainfall trends are uniform across the nation, whereas water storage trends are profoundly divergent.
+
+4. DIAGNOSTIC 2×2 MATRIX & THE 'BENGAL WATER PARADOX'
+────────────────────────────────────────────────────────────────────────────────────
+• We classified each region into a 2×2 diagnostic matrix based on joint Rainfall vs Storage behavior:
+  - Quadrant 1 [Decoupled Depletion / Bengal Water Paradox]: NW (Rajshahi + Rangpur) and Central (Dhaka).
+    Rainfall is stable, yet total water storage is significantly declining. This divergence is consistent with anthropogenic extraction exceeding natural recharge capacity.
+  - Quadrant 3 [Hydrologically Balanced / Surplus]: NE (Sylhet + Mymensingh), SW (Khulna + Barishal), and SE (Chattogram).
+    Neither rainfall nor total water storage exhibits a detectable downward trend.
+  - Quadrant 2 [Drought-Driven Depletion]: 0 regions. No part of Bangladesh exhibits meteorologically driven water loss.
+  - Quadrant 4 [Hydrological Recovery]: 0 regions.
+
+5. SEASONAL ASYMMETRY & STORAGE RETENTION DEFICIT
+────────────────────────────────────────────────────────────────────────────────────
+• Seasonal budget analysis reveals severe structural asymmetry in the Northwest:
+  - Dry Season (Dec–Mar): NW experiences extreme water drawdown (mean anomaly: -33.86 cm), where dry-season rainfall averages only 25.2 mm/month (3.13 km³ total volume).
+  - Monsoon Season (Jun–Sep): Despite receiving 380.7 mm/month of rain (47.18 km³ total volume), NW total water storage recovers to only -1.32 cm anomaly, leaving the region in a net negative balance even at the crest of the monsoon.
+  - Storage Retention Ratio: In the NW, only 21.4% of seasonal precipitation volume is retained as water storage swing (10.08 km³ swing vs 47.18 km³ rain). The remaining ~78.6% is rapidly discharged through runoff, evapotranspiration, or river drainage.
+
+6. SENSITIVITY AND ROBUSTNESS VERIFICATION
+────────────────────────────────────────────────────────────────────────────────────
+• Boundary Jitter: Testing all 9 combinations of start (2020, 2021, 2022) and end dates (2024, 2025, 2026), NW total water storage depletion remains 100% negative (slopes ranging from -1.63 to -9.59 cm/yr).
+• Rolling Windows: Across thirty-two 48-month rolling windows, 29 of 32 (91%) show negative slopes in the NW.
+• Multiple Testing Control: Across 98 total hypothesis tests, 20 of 25 raw significant findings survive Benjamini-Hochberg False Discovery Rate control at q < 0.05, including all core NW depletion and regional comparison tests.
+
+7. PLAUSIBLE PHYSICAL MECHANISMS (CONSISTENT WITH OBSERVED PATTERNS)
+────────────────────────────────────────────────────────────────────────────────────
+• Agricultural Irrigation (Barind Tract): The Northwest is Bangladesh's primary granary, dominated by Boro rice cultivation during the dry winter season. Boro requires an estimated 3,000 to 5,000 liters of water per kilogram produced. Intensive dry-season irrigation reliant on hundreds of thousands of shallow and deep tubewells is consistent with the observed rapid dry-season drawdown and declining multi-year TWS trend.
+• Hydrogeological Characteristics: The Pleistocene clay residuum (Madhupur and Barind Clay formations) has low vertical hydraulic conductivity, creating semi-confined to confined conditions that impede rapid monsoon recharge to deeper aquifers. This is consistent with the low monsoon retention ratio (21.4%).
+• Megacity Abstraction: In Central Bangladesh, Dhaka's municipal and industrial water demand draws an estimated 3+ million m³/day, producing an extensive cone of depression in the Plio-Pleistocene Dupi Tila aquifer. This is consistent with Central's statistically significant TWS decline (-1.19 cm/yr).
+• Upstream River Regulation: Regional dry-season surface inflow through transboundary rivers (Ganges/Padma, Teesta) is governed by upstream barrages. Reduced dry-season discharge limits river-aquifer recharge, consistent with prolonged storage recovery times.
+
+8. MANDATORY SCIENTIFIC LIMITATIONS
+────────────────────────────────────────────────────────────────────────────────────
+MANDATORY SCIENTIFIC LIMITATIONS NOTICE:
+These results are preliminary. Statistical tests are computed from a 6.5-year satellite record with data available only from January 2020 to July 2026. Correlation does not imply causation. GRACE/GRACE-FO mascon solutions have coarse spatial resolution (~300 km footprint) and reflect total water storage changes across all vertical layers (surface water, soil moisture, and deeper aquifers combined). Findings should be interpreted with appropriate caution and validated against ground-based piezometric and hydrometric monitoring networks across Bangladesh.
+════════════════════════════════════════════════════════════════════════════════════

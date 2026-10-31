@@ -1,0 +1,15 @@
+# NASA Space Apps Challenge 2026 – Team Tenstral
+# "Be An Earth System Trend Detective!" – Bengal Hydro Detective v2 Pipeline
+# Dependencies for rigorous statistical trend detection, spatial analysis, and visualization
+
+numpy>=2.0.0
+pandas>=2.2.0
+scipy>=1.14.0
+xarray>=2024.0.0
+netCDF4>=1.7.0
+shapely>=2.0.0
+pyproj>=3.6.0
+cartopy>=0.23.0
+matplotlib>=3.8.0
+openpyxl>=3.1.2
+pymannkendall>=1.4.3

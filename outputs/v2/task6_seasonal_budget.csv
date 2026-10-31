@@ -1,0 +1,6 @@
+region,area_km2,monsoon_mean_precip_mm_mo,monsoon_rain_volume_km3,monsoon_mean_tws_cm,dry_mean_precip_mm_mo,dry_rain_volume_km3,dry_mean_tws_cm,seasonal_tws_swing_cm,seasonal_tws_swing_km3,storage_retention_ratio_pct
+NW,30984.4,380.7,47.18,-1.32,25.2,3.13,-33.86,32.53,10.08,21.4
+NE,21198.4,616.5,52.27,10.82,39.6,3.35,-25.97,36.8,7.8,14.9
+Central,17130.7,392.2,26.87,10.03,32.2,2.21,-23.91,33.94,5.81,21.6
+SW,28153.0,481.7,54.24,13.37,30.7,3.46,-14.93,28.3,7.97,14.7
+SE,24886.5,736.6,73.32,16.56,27.1,2.7,-16.38,32.95,8.2,11.2

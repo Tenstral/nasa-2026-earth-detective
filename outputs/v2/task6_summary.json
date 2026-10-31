@@ -1,0 +1,118 @@
+{
+  "generated_at": "2026-10-31T06:22:38.251385",
+  "task": "Task 6 - Rain vs Storage Analysis",
+  "regional_2x2_classifications": [
+    {
+      "entity": "NW",
+      "quadrant_id": "Q1",
+      "quadrant_name": "Decoupled Depletion (Bengal Water Paradox)",
+      "tws_slope_cm_yr": -2.92733,
+      "tws_verdict": "Significant decrease",
+      "precip_slope_mm_yr": 0.09703,
+      "precip_verdict": "No detectable trend"
+    },
+    {
+      "entity": "NE",
+      "quadrant_id": "Q3",
+      "quadrant_name": "Hydrologically Balanced / Surplus",
+      "tws_slope_cm_yr": -0.99377,
+      "tws_verdict": "No detectable trend",
+      "precip_slope_mm_yr": -0.10589,
+      "precip_verdict": "No detectable trend"
+    },
+    {
+      "entity": "Central",
+      "quadrant_id": "Q1",
+      "quadrant_name": "Decoupled Depletion (Bengal Water Paradox)",
+      "tws_slope_cm_yr": -1.18684,
+      "tws_verdict": "Significant decrease",
+      "precip_slope_mm_yr": 0.99261,
+      "precip_verdict": "No detectable trend"
+    },
+    {
+      "entity": "SW",
+      "quadrant_id": "Q3",
+      "quadrant_name": "Hydrologically Balanced / Surplus",
+      "tws_slope_cm_yr": -0.1207,
+      "tws_verdict": "No detectable trend",
+      "precip_slope_mm_yr": -1.70445,
+      "precip_verdict": "No detectable trend"
+    },
+    {
+      "entity": "SE",
+      "quadrant_id": "Q3",
+      "quadrant_name": "Hydrologically Balanced / Surplus",
+      "tws_slope_cm_yr": 0.38775,
+      "tws_verdict": "No detectable trend",
+      "precip_slope_mm_yr": -0.41969,
+      "precip_verdict": "No detectable trend"
+    }
+  ],
+  "seasonal_budget": [
+    {
+      "region": "NW",
+      "area_km2": 30984.4,
+      "monsoon_mean_precip_mm_mo": 380.7,
+      "monsoon_rain_volume_km3": 47.18,
+      "monsoon_mean_tws_cm": -1.32,
+      "dry_mean_precip_mm_mo": 25.2,
+      "dry_rain_volume_km3": 3.13,
+      "dry_mean_tws_cm": -33.86,
+      "seasonal_tws_swing_cm": 32.53,
+      "seasonal_tws_swing_km3": 10.08,
+      "storage_retention_ratio_pct": 21.4
+    },
+    {
+      "region": "NE",
+      "area_km2": 21198.4,
+      "monsoon_mean_precip_mm_mo": 616.5,
+      "monsoon_rain_volume_km3": 52.27,
+      "monsoon_mean_tws_cm": 10.82,
+      "dry_mean_precip_mm_mo": 39.6,
+      "dry_rain_volume_km3": 3.35,
+      "dry_mean_tws_cm": -25.97,
+      "seasonal_tws_swing_cm": 36.8,
+      "seasonal_tws_swing_km3": 7.8,
+      "storage_retention_ratio_pct": 14.9
+    },
+    {
+      "region": "Central",
+      "area_km2": 17130.7,
+      "monsoon_mean_precip_mm_mo": 392.2,
+      "monsoon_rain_volume_km3": 26.87,
+      "monsoon_mean_tws_cm": 10.03,
+      "dry_mean_precip_mm_mo": 32.2,
+      "dry_rain_volume_km3": 2.21,
+      "dry_mean_tws_cm": -23.91,
+      "seasonal_tws_swing_cm": 33.94,
+      "seasonal_tws_swing_km3": 5.81,
+      "storage_retention_ratio_pct": 21.6
+    },
+    {
+      "region": "SW",
+      "area_km2": 28153.0,
+      "monsoon_mean_precip_mm_mo": 481.7,
+      "monsoon_rain_volume_km3": 54.24,
+      "monsoon_mean_tws_cm": 13.37,
+      "dry_mean_precip_mm_mo": 30.7,
+      "dry_rain_volume_km3": 3.46,
+      "dry_mean_tws_cm": -14.93,
+      "seasonal_tws_swing_cm": 28.3,
+      "seasonal_tws_swing_km3": 7.97,
+      "storage_retention_ratio_pct": 14.7
+    },
+    {
+      "region": "SE",
+      "area_km2": 24886.5,
+      "monsoon_mean_precip_mm_mo": 736.6,
+      "monsoon_rain_volume_km3": 73.32,
+      "monsoon_mean_tws_cm": 16.56,
+      "dry_mean_precip_mm_mo": 27.1,
+      "dry_rain_volume_km3": 2.7,
+      "dry_mean_tws_cm": -16.38,
+      "seasonal_tws_swing_cm": 32.95,
+      "seasonal_tws_swing_km3": 8.2,
+      "storage_retention_ratio_pct": 11.2
+    }
+  ]
+}
