@@ -142,13 +142,16 @@ def audit_grace_netcdf(report: dict) -> dict:
         units_str = lwe_var.attrs.get('units') or lwe_var.attrs.get('Units', '?')
         print(f"  Variable    : lwe_thickness  units={units_str}  "
               f"long_name={lwe_var.attrs.get('long_name','?')}")
+        assert str(units_str).lower() in ("cm", "centimeter", "centimeters"), (
+            f"ASSERTION FAILED: lwe_thickness units = '{units_str}', expected centimeters"
+        )
         grace_report.update({
             "status": "PRESENT",
             "start_ym": start_ym,
             "end_ym": end_ym,
             "n_months": len(months_present),
             "missing_months": missing,
-            "lwe_units": lwe_var.attrs.get("units", "?"),
+            "lwe_units": units_str,
         })
 
     report["grace_netcdf"] = grace_report

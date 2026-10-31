@@ -2,81 +2,105 @@
   NASA SPACE APPS 2026 — BENGAL HYDRO DETECTIVE (TEAM TENSTRAL)
   SCIENTIFIC INTERPRETATION REPORT: 'WHAT IT SAYS'
   Satellite-Observed Water Storage & Rainfall Trends Across Bangladesh
-  Generated: 2026-10-31 08:17:17  |  Status: PRELIMINARY
+  Generated: 2026-10-31 10:56:12  |  Status: PRELIMINARY
 ════════════════════════════════════════════════════════════════════════════════════
+
+0. FDR FAMILY & TESTING FRAMEWORK
+────────────────────────────────────────────────────────────────────────────────────
+• The BH-FDR family for the PRIMARY WINDOW contains m = 104 hypothesis tests (trend tests for regions, divisions, and pairwise slope-difference tests). Of these, 29 passed raw p < 0.05; 20 survive BH-FDR control at q < 0.05.
+• The GRACE-FO robustness window (2018-06 to 2026-07) is evaluated with a SEPARATE within-window BH-FDR family (task3_trends.csv). q-values from the two families are NEVER interchanged — each row's verdict uses only the q-value from its own family.
+• Verdict rule applied throughout: 'Significant' = BH-FDR q < 0.05 AND bootstrap 95% CI excludes zero; 'Suggestive' = raw p < 0.05 only; otherwise 'No detectable trend'.
 
 1. EXECUTIVE SUMMARY & CORE HYPOTHESIS TEST
 ────────────────────────────────────────────────────────────────────────────────────
-• The core question investigated is whether rainfall and total water storage (TWS) trend differently across the hydrologic regions of Bangladesh, and whether regional differences are statistically significant.
-• We identify a profound spatial decoupling termed the 'Bengal Water Paradox':
-  - Across all 5 hydrologic regions, precipitation trends exhibit no detectable trend (Hamed-Rao p > 0.50 everywhere),
-    ranging between -20.50 mm/yr (-7.21 %/decade, p = 0.6969) in the SW to +11.84 mm/yr (+4.56 %/decade, p = 0.7930) in Central Bangladesh (+1.23 mm/yr or +0.53 %/decade in the NW, p = 0.9678).
-  - In striking contrast, total water storage shows severe, statistically confirmed depletion in the Northwest (NW = -2.93 cm/yr [95% bootstrap CI: -4.61 to -1.13 cm/yr], equating to -0.91 km³/yr volumetric loss; Hamed-Rao p = 0.0002, Benjamini-Hochberg FDR q = 0.0021). The Northwest is the sole region meeting the rigorous two-part significance standard (passes BH-FDR q < 0.05 AND 95% CI excludes zero). This confirmed depletion is driven by both Rangpur (-3.42 cm/yr, p = 0.0002, Significant) and Rajshahi (-2.40 cm/yr, p = 0.0013, Significant).
-  - Central Bangladesh (Central = -1.19 cm/yr, p = 0.0309, q = 0.1235; Dhaka Division = -1.19 cm/yr, p = 0.0309) and Mymensingh Division (-1.69 cm/yr, p = 0.0194, q = 0.0884) exhibit suggestive downward tendencies based on raw p < 0.05. However, because their FDR q-values exceed 0.05 and Central's bootstrap 95% CI includes zero [-2.43, +0.09 cm/yr], their formal verdict is classified as 'Suggestive decrease' and they do not count as statistically confirmed depletion.
-  - In Southern and Eastern regions (SW and SE), as well as Northeast (NE), total water storage exhibits no detectable trend (SW = -0.12 cm/yr, p = 0.7725; SE = +0.39 cm/yr, p = 0.3106; NE = -0.99 cm/yr, p = 0.1003).
-  - Nationally (area-weighted across all 8 divisions, 122,353 km²), the composite total water storage rate is -1.02 cm/yr (volume rate -1.24 km³/yr; 95% CI [-2.17, +0.26] cm/yr; p = 0.1168, q = 0.3036), which represents no detectable trend nationally, demonstrating that national aggregation masks severe localized depletion in the Northwest.
+• Core research question: Do rainfall and total water storage (TWS) trend differently across Bangladesh's hydrologic regions, and are those differences statistically significant?
+• Satellite data reveal a pronounced north–south spatial gradient in TWS that has no counterpart in the precipitation record — termed here the 'Bengal Water Paradox'.
+• Rainfall (Primary window 2020–2026, 79 obs; GRACE-FO window 2018–2026, 96 obs reported alongside):
+  All 5 regions and the National composite show no detectable trend in annual precipitation (Hamed-Rao p > 0.05 everywhere across both observational windows).
+  - Northwest (NW): Primary = +1.2 mm/yr (+0.53 %/decade, p = 0.9678); 2018-window = +12.1 mm/yr (+5.19 %/decade, p = 0.5123).
+  - Southwest (SW): Primary = -20.5 mm/yr (-7.21 %/decade, p = 0.6969); 2018-window = -75.7 mm/yr (-24.68 %/decade, p = 0.2602).
+  - Central: Primary = +11.8 mm/yr (+4.56 %/decade, p = 0.7930); 2018-window = -8.2 mm/yr (-3.08 %/decade, p = 0.7879).
+  - Northeast (NE): Primary = -1.0 mm/yr (-0.25 %/decade, p = 0.9675); 2018-window = +1.0 mm/yr (+0.24 %/decade, p = 0.9752).
+  - Southeast (SE): Primary = -5.2 mm/yr (-1.27 %/decade, p = 0.9468); 2018-window = -109.8 mm/yr (-23.98 %/decade, p = 0.1814).
+  - National Composite: Primary = -21.4 mm/yr (-6.88 %/decade, p = 0.5215); 2018-window = -39.6 mm/yr (-12.05 %/decade, p = 0.2428).
+  All 95% bootstrap CIs are wide and include zero — the precipitation signal is inconclusive, not a confirmed stable value.
+• Total Water Storage (TWS):
+  The Northwest (NW) shows severe, statistically confirmed depletion (-2.93 cm/yr, N = 79 obs, 95% CI [-4.61, -1.13] cm/yr, -0.91 km³/yr; Hamed-Rao p = 0.0002, BH-FDR q = 0.0021; verdict: Significant decrease). This is the sole region meeting the rigorous two-part significance standard.
+  NW constituent divisions: Rangpur -3.42 cm/yr (p = 0.0002, q = 0.0021, Significant decrease); Rajshahi -2.40 cm/yr (p = 0.0013, q = 0.0093, Significant decrease).
+  Central: -1.19 cm/yr (N = 79, CI [-2.43, +0.09] cm/yr, p = 0.0309, q = 0.1235; CI includes zero → Suggestive decrease).
+  Mymensingh: -1.69 cm/yr (p = 0.0194, q = 0.0884; Suggestive decrease).
+  SW = -0.12 cm/yr (p = 0.7725, No detectable trend); SE = +0.39 cm/yr (p = 0.3106, No detectable trend); NE = -0.99 cm/yr (p = 0.1003, No detectable trend).
+  National composite (area-weighted, 79 obs): -1.02 cm/yr (CI [-2.17, +0.26] cm/yr, p = 0.1168, q = 0.3036; No detectable trend). National aggregation obscures the localized NW signal.
 
-2. REGIONAL WATER BALANCE & STATISTICAL SIGNIFICANCE (PRIMARY WINDOW: 2020-01 TO 2026-07)
-────────────────────────────────────────────────────────────────────────────────────
-Region     | TWS Rate (cm/yr)     | Volume (km³/yr)  | Precip (mm/yr & %/dec)   | Hamed-Rao p  | FDR q-val  | Verdict
-────────────────────────────────────────────────────────────────────────────────────
-NW         | -2.93 [-4.61, -1.13] | -0.91 km³/yr        | +1.2 (+0.5%/dec)         | 0.0002       | 0.0021     | Significant decrease
-NE         | -0.99 [-2.28, +0.31] | -0.21 km³/yr        | -1.0 (-0.3%/dec)         | 0.1003       | 0.2745     | No detectable trend
-Central    | -1.19 [-2.43, +0.09] | -0.20 km³/yr        | +11.8 (+4.6%/dec)        | 0.0309       | 0.1235     | Suggestive decrease
-SW         | -0.12 [-1.08, +0.90] | -0.03 km³/yr        | -20.5 (-7.2%/dec)        | 0.7725       | 0.9678     | No detectable trend
-SE         | +0.39 [-0.39, +1.25] | +0.10 km³/yr        | -5.2 (-1.3%/dec)         | 0.3106       | 0.6766     | No detectable trend
-National   | -1.02 [-2.17, +0.26] | -1.24 km³/yr        | -21.4 (-6.9%/dec)        | 0.1168       | 0.3036     | No detectable trend
-────────────────────────────────────────────────────────────────────────────────────
-• All reported p-values employ the Hamed-Rao modified Mann-Kendall test, which adjusts for autocorrelation in monthly series. 95% confidence intervals are computed from 9,999 circular block-bootstrap replicates (block length b = 12 months). Verdict standard: 'Significant' requires BH-FDR q < 0.05 AND 95% CI excluding zero; 'Suggestive' indicates raw p < 0.05 only; all others represent 'No detectable trend'.
+2. REGIONAL SUMMARY TABLE (PRIMARY 2020-01 TO 2026-07 & 2018-06 ROBUSTNESS)
+────────────────────────────────────────────────────────────────────────────────────────────────
+Region     | TWS cm/yr  | 95% CI               | N obs  | p        | q        | Rain 2020 mm/yr  | Rain 2018 mm/yr  | Verdict
+────────────────────────────────────────────────────────────────────────────────────────────────
+NW         |   -2.93    | [-4.61, -1.13]       | 79     | 0.0002   | 0.0021   |         +1.2     |        +12.1     | Significant decrease
+NE         |   -0.99    | [-2.28, +0.31]       | 79     | 0.1003   | 0.2745   |         -1.0     |         +1.0     | No detectable trend
+Central    |   -1.19    | [-2.43, +0.09]       | 79     | 0.0309   | 0.1235   |        +11.8     |         -8.2     | Suggestive decrease
+SW         |   -0.12    | [-1.08, +0.90]       | 79     | 0.7725   | 0.9678   |        -20.5     |        -75.7     | No detectable trend
+SE         |   +0.39    | [-0.39, +1.25]       | 79     | 0.3106   | 0.6766   |         -5.2     |       -109.8     | No detectable trend
+National   |   -1.02    | [-2.17, +0.26]       | 79     | 0.1168   | 0.3036   |        -21.4     |        -39.6     | No detectable trend
+────────────────────────────────────────────────────────────────────────────────────────────────
+• q-values for primary window from BH-FDR family (m = 104 tests).
+• Rain 2020 mm/yr: primary window (2020-01 to 2026-07, 79 obs). Rain 2018 mm/yr: GRACE-FO window (2018-06 to 2026-07, 96 obs).
+• All p-values: Hamed-Rao modified Mann-Kendall (accounts for serial autocorrelation).
+• 95% CIs: circular block bootstrap, b = 12 months, B = 9,999 resamples.
 
-3. REGIONAL DIVERGENCE TESTS: ARE REGIONAL DIFFERENCES REAL?
+3. REGIONAL DIVERGENCE TESTS (TWS SLOPE DIFFERENCES)
 ────────────────────────────────────────────────────────────────────────────────────
-• A central question in Earth observation is establishing whether differences between geographical units represent physical realities or mere sampling noise. Using paired circular block-bootstrap hypothesis testing (9,999 resamples with synchronized resample indexing across regions):
-  1. NW vs SE: Storage difference Δ = -2.12 cm/year (exact bootstrap p = 0.0002, BH-FDR q = 0.0021). The Northwest is losing water significantly faster than Southeastern Bangladesh.
-  2. NW vs SW: Storage difference Δ = -1.96 cm/year (exact bootstrap p = 0.0001, BH-FDR q = 0.0017). Northwest depletion significantly exceeds the Southwest.
-  3. Central vs SE: Storage difference Δ = -1.26 cm/year (exact bootstrap p = 0.0001, BH-FDR q = 0.0017).
-  4. Central vs SW: Storage difference Δ = -1.10 cm/year (exact bootstrap p = 0.0001, BH-FDR q = 0.0017).
-  5. NW vs Central: Storage difference Δ = -0.86 cm/year (p = 0.0502, not significant after FDR).
-  6. NW vs NE: Storage difference Δ = -0.92 cm/year (p = 0.0682, not significant after FDR).
-• In sharp contrast, while pairwise difference tests for precipitation showed nominal raw variations between some pairs, zero precipitation differences survive Benjamini-Hochberg FDR control (all FDR q >= 0.05 across all pairs). This confirms that meteorologically, rainfall trends show no detectable regional divergence across the nation, whereas total water storage trends are profoundly divergent.
+• Paired circular block-bootstrap tests (9,999 resamples, synchronized indexing across regions).
+• q-values from the primary-window BH-FDR family (same m above).
 
-4. DIAGNOSTIC 2×2 MATRIX & THE 'BENGAL WATER PARADOX'
-────────────────────────────────────────────────────────────────────────────────────
-• We classified each region into a 2×2 diagnostic matrix based on joint Rainfall vs Total Water Storage behavior:
-  - Quadrant 1 [Decoupled Depletion / Bengal Water Paradox]: NW (Rajshahi + Rangpur).
-    Rainfall shows no detectable trend, yet total water storage is significantly declining (meeting FDR q < 0.05 and CI criteria).
-    This divergence is consistent with intensive anthropogenic extraction exceeding natural recharge capacity.
-  - Suggestive Depletion / Inconclusive (Fails FDR): Central (Dhaka) and Mymensingh.
-    Nominal declines (raw p < 0.05) fail multiple-testing control (FDR q = 0.128 and 0.071), placing them in the inconclusive category.
-  - Quadrant 3 [No Detectable Trend / Hydrologically Steady or Inconclusive]: NE (Sylhet), SW (Khulna + Barishal), SE (Chattogram), and National composite.
-    Neither rainfall nor total water storage exhibits a detectable downward trend.
-  - Quadrant 2 [Drought-Driven Depletion]: 0 regions. No part of Bangladesh exhibits meteorologically driven water loss.
-  - Quadrant 4 [Hydrological Recovery]: 0 regions.
+  NW vs SE                 : Delta = -2.12 cm/yr  CI [-3.23, -0.96] cm/yr  exact-p = 0.0002  q = 0.0021  → NW trend significantly lower than SE
+  NW vs SW                 : Delta = -1.96 cm/yr  CI [-2.85, -1.03] cm/yr  exact-p = 0.0001  q = 0.0017  → NW trend significantly lower than SW
+  Central vs SE            : Delta = -1.26 cm/yr  CI [-1.75, -0.76] cm/yr  exact-p = 0.0001  q = 0.0017  → Central trend significantly lower than SE
+  Central vs SW            : Delta = -1.10 cm/yr  CI [-1.56, -0.63] cm/yr  exact-p = 0.0001  q = 0.0017  → Central trend significantly lower than SW
+  NW vs Central            : Delta = -0.86 cm/yr  CI [-1.69, +0.02] cm/yr  exact-p = 0.0502  q = 0.1740  → No significant difference
+  NW vs NE                 : Delta = -0.92 cm/yr  CI [-1.88, +0.08] cm/yr  exact-p = 0.0682  q = 0.2086  → No significant difference
 
-5. SEASONAL ASYMMETRY & EXPLORATORY STORAGE SWING PARTITIONING
-────────────────────────────────────────────────────────────────────────────────────
-• Seasonal budget analysis reveals substantial seasonal storage dynamics in the Northwest:
-  - Dry Season (Dec–Mar): NW experiences marked water drawdown (mean anomaly: -33.50 cm), where dry-season rainfall averages 23.3 mm/month (2.89 km³ total volume).
-  - Monsoon Season (Jun–Sep): NW receives 392.4 mm/month of rain (48.63 km³ total volume), and total water storage crests at -1.44 cm mean anomaly.
-  - Exploratory Storage Swing Partitioning: In the NW, the seasonal storage swing is 9.94 km³ (32.07 cm), which corresponds to 20.4% of the monsoon rainfall volume influx (48.63 km³). Exploratory seasonal swing analysis indicates that approximately ~20% of monsoon rainfall manifests as seasonal storage swing, with the remainder partitioned into unobserved hydrological components including surface runoff, evapotranspiration, and river drainage.
-  - Descriptive Year-by-Year Recharge (N = 6 complete monsoon seasons, 2020–2025): Reported descriptively with no trend test or change-point claimed due to the short sample size.
+• For precipitation pairwise tests: zero differences survive BH-FDR (all q >= 0.05). The data show a north–south TWS gradient with no counterpart in the precipitation record, consistent with demand-side drivers rather than rainfall variability.
 
-6. SENSITIVITY AND ROBUSTNESS VERIFICATION
+4. DIAGNOSTIC 2×2 CLASSIFICATION (RAINFALL vs TWS)
 ────────────────────────────────────────────────────────────────────────────────────
-• Boundary Jitter: Testing all 7 boundary configurations meeting the duration requirement (>= 5.0 years duration), NW total water storage rate remains 100% negative (mean slope: -3.35 cm/yr, ranging from -4.71 to -2.17 cm/yr).
-• Rolling Windows: Across 60-month rolling windows, 79 of 110 (72%) show negative slopes in the NW.
-• Multiple Testing Control: Across 104 total hypothesis tests, 20 of 29 raw significant findings survive Benjamini-Hochberg False Discovery Rate control at q < 0.05, confirming that NW depletion and key regional comparisons are statistically robust.
-• GRACE-FO Window (2018-06 to 2026-07, 98 months): Confirms NW depletion rate at -2.71 cm/yr (p = 0.0002, Significant decrease), demonstrating that the primary findings are robust across instruments and extended baselines.
+• Classification criterion: 'Significant' verdict required for confirmed Q1 assignment.
+  - Q1 [Decoupled Depletion]: TWS significant decrease AND rainfall no detectable trend → NW only.
+  - Suggestive Depletion (Fails FDR): Central and Mymensingh — raw p < 0.05 but q > 0.05 or CI includes zero; inconclusive.
+  - Q3 [No detectable trend / Hydrologically steady]: NE, SW, SE, National.
+  - Q2 [Drought-Driven Depletion]: 0 regions.
+  - Q4 [Hydrological Recovery]: 0 regions.
 
-7. PLAUSIBLE PHYSICAL MECHANISMS (CONSISTENT WITH OBSERVED PATTERNS)
+5. SEASONAL STORAGE DYNAMICS & EXPLORATORY PARTITIONING
 ────────────────────────────────────────────────────────────────────────────────────
-• Agricultural Irrigation (Barind Tract): The Northwest is Bangladesh's primary agricultural granary, dominated by Boro rice cultivation during the dry winter season. Boro requires an estimated 3,000 to 5,000 liters of water per kilogram produced. Intensive dry-season irrigation reliant on hundreds of thousands of shallow and deep tubewells is consistent with the observed rapid dry-season drawdown and declining multi-year TWS trend.
-• Hydrogeological Characteristics: The Pleistocene clay residuum (Madhupur and Barind Clay formations) has low vertical hydraulic conductivity, creating semi-confined to confined conditions that impede rapid monsoon recharge to deeper aquifers. This is consistent with the observed seasonal storage swing dynamics.
-• Megacity Abstraction: In Central Bangladesh, Dhaka's municipal and industrial water demand draws an estimated 3+ million m³/day, producing an extensive cone of depression in the Plio-Pleistocene Dupi Tila aquifer. This is consistent with Central's suggestive TWS decline (-1.19 cm/yr), though regional FDR control leaves this finding formally inconclusive.
-• Upstream River Regulation: Regional dry-season surface inflow through transboundary rivers (Ganges/Padma, Teesta) is governed by upstream barrages. Reduced dry-season discharge limits river-aquifer recharge, consistent with prolonged storage recovery times.
+• Dry season (Dec–Mar, N months per season drawn from data): NW mean TWS anomaly = -33.50 cm; rainfall = 23.3 mm/mo (2.89 km³ total).
+• Monsoon (Jun–Sep): NW receives 392.4 mm/mo (48.63 km³); TWS anomaly crests at -1.44 cm.
+• Seasonal storage swing: 9.94 km³ (32.07 cm). Exploratory ratio of swing to monsoon-rainfall volume: 20.4%. The remainder is partitioned among unobserved components (runoff, ET, river drainage). This ratio is indicative only — TWS includes all water layers and cannot be directly attributed to any single component.
+• Year-by-year monsoon recharge table: N = 6 complete monsoon seasons (2020–2025). Reported descriptively only; no trend test or change-point claimed.
+
+6. SENSITIVITY & ROBUSTNESS
+────────────────────────────────────────────────────────────────────────────────────
+• Boundary jitter: Across all 8 boundary configurations (all >= 60 months), NW TWS slope is negative in 8/8 and reaches 'Significant decrease' verdict in 5/8. Slope range: -4.71 to -1.67 cm/yr (mean -3.14 cm/yr).
+• Rolling windows (60-month): see task4_rolling_slopes.csv for full record.
+• GRACE-FO robustness window (2018-06 to 2026-07, N = 96 obs): NW TWS slope = -1.67 cm/yr (95% CI [-3.06, -0.16] cm/yr, p = 0.0283, grace_fo-window BH-FDR q = 0.1318; verdict: Suggestive decrease). This window starts earlier and includes the transition from GRACE to GRACE-FO; the longer record dilutes the recent signal. Comparing 2018-start to 2020-start windows tests whether findings depend on the choice of epoch.
+
+• Long-term rolling context (2002–2026, CONTEXT ONLY — not used for headline claims):
+    NW: mean diff (recent - earlier) = -0.55 cm/yr CI [-1.03, -0.01] → Recent slopes lower (more negative) than earlier period (bootstrap CI excludes zero)
+    NE: mean diff (recent - earlier) = -0.30 cm/yr CI [-0.54, -0.06] → Recent slopes lower (more negative) than earlier period (bootstrap CI excludes zero)
+    Central: mean diff (recent - earlier) = -0.36 cm/yr CI [-0.62, -0.09] → Recent slopes lower (more negative) than earlier period (bootstrap CI excludes zero)
+    SW: mean diff (recent - earlier) = +0.22 cm/yr CI [+0.04, +0.40] → Recent slopes higher (less negative) than earlier period (bootstrap CI excludes zero)
+    SE: mean diff (recent - earlier) = +0.28 cm/yr CI [+0.17, +0.40] → Recent slopes higher (less negative) than earlier period (bootstrap CI excludes zero)
+
+7. PLAUSIBLE PHYSICAL MECHANISMS (CONSISTENT WITH — NOT CAUSED BY — OBSERVATIONS)
+────────────────────────────────────────────────────────────────────────────────────
+Note: All numeric claims in this section must be verified against cited sources. Uncited quantities are deleted; only qualitative consistency is stated.
+• Agricultural abstraction (Barind Tract / Rajshahi-Rangpur): Intensive Boro rice cultivation in the dry season relies on shallow and deep tubewell irrigation. The spatial overlap of the confirmed TWS decline with the Boro cultivation belt is consistent with demand-side extraction exceeding natural recharge — a pattern previously documented using GRACE data by Shamsudduha et al. (2009, Hydrogeology Journal) and Biswas (2011). Specific water-use coefficients are not reproduced here as they require independent verification against the cited literature.
+• Hydrogeological setting: The Barind Clay (Pleistocene residual clay) has low vertical hydraulic conductivity, consistent with slow monsoon recharge of deeper aquifers. Supporting characterisation: BADC/BWDB monitoring reports (cited in national water plans).
+• Dhaka urban demand: Dhaka Metropolitan area abstracts from the Dupi Tila aquifer; reported declining groundwater levels are consistent with a suggestive TWS decline in Central Bangladesh. Specific extraction volumes require verification from DWASA annual reports.
+• Upstream river regulation: Transboundary river flows (Ganges/Padma, Teesta) are regulated by upstream infrastructure. Reduced dry-season discharge is consistent with limited river-aquifer recharge documented in FAO (2011) and IWM reports.
 
 8. MANDATORY SCIENTIFIC LIMITATIONS
 ────────────────────────────────────────────────────────────────────────────────────
 MANDATORY SCIENTIFIC LIMITATIONS NOTICE:
-These results are preliminary. Statistical tests are computed from a 6.5-year satellite record with data available from January 2020 to July 2026 (robustness GRACE-FO window spans June 2018 to July 2026). Correlation does not imply causation. GRACE/GRACE-FO mascon solutions have coarse spatial resolution (~300 km footprint) and reflect total water storage changes across all vertical layers (surface water, soil moisture, and deeper aquifers combined). Findings should be interpreted with appropriate caution and validated against ground-based piezometric and hydrometric monitoring networks across Bangladesh.
+These results are preliminary. Statistical tests are computed from satellite records available from January 2020 to July 2026 (primary analytical window; N observations drawn from that record). A robustness window spanning June 2018 to July 2026 uses the same GRACE-FO instrument only. Correlation does not imply causation. GRACE/GRACE-FO mascon solutions have coarse spatial resolution (~300 km footprint) and reflect total water storage changes across all vertical layers (surface water, soil moisture, and deeper aquifers combined). Findings should be interpreted with appropriate caution and validated against ground-based piezometric and hydrometric monitoring networks across Bangladesh.
 ════════════════════════════════════════════════════════════════════════════════════

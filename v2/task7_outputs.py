@@ -43,12 +43,13 @@ REPO_ROOT  = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = REPO_ROOT / "outputs" / "v2"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-GEOJSON_FILE = REPO_ROOT / "bangladesh_divisions.geojson"
-REG_CSV      = OUTPUT_DIR / "task2_region_series.csv"
-DIV_CSV      = OUTPUT_DIR / "task2_division_series.csv"
-TRENDS_CSV   = OUTPUT_DIR / "task3_trends.csv"
-FDR_CSV      = OUTPUT_DIR / "task5_fdr_table.csv"
-CLASS_CSV    = OUTPUT_DIR / "task6_rain_vs_storage_classification.csv"
+GEOJSON_FILE   = REPO_ROOT / "bangladesh_divisions.geojson"
+REG_CSV        = OUTPUT_DIR / "task2_region_series.csv"
+DIV_CSV        = OUTPUT_DIR / "task2_division_series.csv"
+TRENDS_CSV     = OUTPUT_DIR / "task3_trends.csv"
+FDR_CSV        = OUTPUT_DIR / "task5_fdr_table.csv"
+CLASS_CSV      = OUTPUT_DIR / "task6_rain_vs_storage_classification.csv"
+DATA_AUDIT_JSON = OUTPUT_DIR / "task1_data_audit.json"
 
 REGIONS = ["NW", "NE", "Central", "SW", "SE"]
 REGIONS_ALL = ["NW", "NE", "Central", "SW", "SE", "National"]
@@ -105,7 +106,16 @@ def compile_unified_results() -> tuple[pd.DataFrame, list[dict]]:
     fdr_df    = pd.read_csv(FDR_CSV)
     class_df  = pd.read_csv(CLASS_CSV)
 
-    # Build FDR lookup map
+    # Load task3 for per-window BH FDR values (used for non-primary windows)
+    t3_df = pd.read_csv(TRENDS_CSV)  # same file; alias for clarity
+    t3_map = {}
+    for _, r in t3_df.iterrows():
+        key = (str(r["entity"]), str(r["window"]), str(r["season"]), str(r["variable"]))
+        t3_map[key] = r
+
+    print(f"  FDR family (primary window, task5): m={len(fdr_df)} tests")
+
+    # Build FDR lookup map keyed by "ent | season | var" (primary-window only)
     fdr_map = {}
     for _, r in fdr_df.iterrows():
         fdr_map[r["test_name"]] = {
@@ -124,6 +134,21 @@ def compile_unified_results() -> tuple[pd.DataFrame, list[dict]]:
             "quadrant_description": r["quadrant_description"],
         }
 
+    # Print and assert lwe_thickness units from task1_data_audit.json
+    if DATA_AUDIT_JSON.exists():
+        with open(DATA_AUDIT_JSON, "r", encoding="utf-8") as _f:
+            _audit = json.load(_f)
+        lwe_units = _audit.get("grace_netcdf", {}).get("lwe_units", "unknown")
+        print(f"  lwe_thickness units (task1_data_audit): {lwe_units!r}")
+        # Accept "cm", "centimeters", "centimetre", or "?" (recorded as unknown when
+        # the NetCDF attribute is missing, which is common for CSR RL06.3 mascons
+        # that store the field in cm by convention without an explicit units attr)
+        if lwe_units not in ("cm", "centimeters", "centimetre", "centimeter", "?"):
+            raise AssertionError(
+                f"Expected lwe_units to be 'cm' (or blank/unknown), got {lwe_units!r}"
+            )
+        print("  lwe units assertion passed (cm or expected blank/unknown for CSR mascons).")
+
     rows = []
     for _, r in trends_df.iterrows():
         ent = r["entity"]
@@ -132,12 +157,40 @@ def compile_unified_results() -> tuple[pd.DataFrame, list[dict]]:
         var = r["variable"]
         win = r["window"]
 
-        test_key = f"{ent} | {season} | {var}"
-        fdr_info = fdr_map.get(test_key, {
-            "bh_q_value": r["p_value"],
-            "significant_at_0.05_fdr": bool(r["p_value"] < 0.05),
-            "fdr_status": "Not in FDR set",
-        })
+        if win == "primary":
+            # Use task5 FDR table (cross-test BH correction over full primary family)
+            test_key = f"{ent} | {season} | {var}"
+            fdr_info = fdr_map.get(test_key, None)
+            if fdr_info is None:
+                # Fall back to per-window q from task3 if not in FDR table
+                t3_row = t3_map.get((str(ent), str(win), str(season), str(var)))
+                if t3_row is not None:
+                    fdr_info = {
+                        "bh_q_value": float(t3_row["bh_fdr_q_value"]),
+                        "significant_at_0.05_fdr": bool(t3_row["passes_fdr"]),
+                        "fdr_status": "From task3 per-window BH (not in task5 family)",
+                    }
+                else:
+                    fdr_info = {
+                        "bh_q_value": float(r["p_value"]),
+                        "significant_at_0.05_fdr": bool(r["p_value"] < 0.05),
+                        "fdr_status": "Not in FDR set",
+                    }
+        else:
+            # For grace_fo and any other non-primary windows: use task3 per-window BH q
+            t3_row = t3_map.get((str(ent), str(win), str(season), str(var)))
+            if t3_row is not None:
+                fdr_info = {
+                    "bh_q_value": float(t3_row["bh_fdr_q_value"]),
+                    "significant_at_0.05_fdr": bool(t3_row["passes_fdr"]),
+                    "fdr_status": f"From task3 per-window BH ({win} window)",
+                }
+            else:
+                fdr_info = {
+                    "bh_q_value": float(r["p_value"]),
+                    "significant_at_0.05_fdr": bool(r["p_value"] < 0.05),
+                    "fdr_status": "Not in FDR set",
+                }
 
         class_key = f"{ent}|{season}"
         c_info = class_map.get(class_key, {
@@ -180,6 +233,15 @@ def compile_unified_results() -> tuple[pd.DataFrame, list[dict]]:
         rows.append(row)
 
     res_df = pd.DataFrame(rows)
+
+    # Sanity check: q must never be less than p (BH FDR q >= raw p by construction)
+    bad = res_df[res_df["bh_fdr_q_value"] < res_df["p_value"] - 1e-9]
+    if len(bad) > 0:
+        bad_summary = bad[["entity", "window", "season", "variable", "p_value", "bh_fdr_q_value"]].to_string()
+        raise AssertionError(
+            f"q < p detected in {len(bad)} row(s) — BH FDR q must be >= raw p:\n{bad_summary}"
+        )
+    print(f"  Assertion passed: bh_fdr_q_value >= p_value for all {len(res_df)} rows.")
     # Save CSV
     csv_path = OUTPUT_DIR / "results.csv"
     res_df.to_csv(csv_path, index=False)

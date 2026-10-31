@@ -97,3 +97,17 @@ End -6mo (2020-01 to 2026-01),2020-01,2026-01,0.0,-0.5,division,Sylhet,73,-0.944
 "Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,division,Rajshahi,61,-2.2267,0.05102,No detectable trend,43.4624,0.25173,No detectable trend
 "Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,division,Rangpur,61,-3.6545,0.00606,Suggestive decrease,26.532,0.46649,No detectable trend
 "Start +1yr, End -6mo (2021-01 to 2026-01)",2021-01,2026-01,1.0,-0.5,division,Sylhet,61,-0.1789,0.7298,No detectable trend,70.9578,0.32683,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,region,NW,96,-1.6697,0.02825,Suggestive decrease,12.0707,0.51234,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,region,NE,96,-0.7515,0.01922,Suggestive decrease,0.96,0.97517,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,region,Central,96,-0.8109,0.01409,Suggestive decrease,-8.1584,0.7879,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,region,SW,96,0.2875,0.39367,No detectable trend,-75.7228,0.26021,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,region,SE,96,0.4514,0.12703,No detectable trend,-109.7969,0.18137,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,region,National,96,-0.4706,0.21247,No detectable trend,-39.5557,0.24282,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,division,Barishal,96,0.7848,0.07078,No detectable trend,-165.5665,0.05698,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,division,Chattogram,96,0.4514,0.12703,No detectable trend,-109.7969,0.18137,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,division,Dhaka,96,-0.8109,0.01409,Suggestive decrease,-8.1584,0.7879,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,division,Khulna,96,-0.0138,0.96858,No detectable trend,-20.1012,0.63939,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,division,Mymensingh,96,-1.1461,0.00523,Suggestive decrease,-2.0796,0.96213,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,division,Rajshahi,96,-1.3167,0.06006,No detectable trend,5.591,0.80255,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,division,Rangpur,96,-1.999,0.01989,Suggestive decrease,12.5817,0.571,No detectable trend
+GRACE-FO era (2018-06 to 2026-07),2018-06,2026-07,-1.58,0.0,division,Sylhet,96,-0.3824,0.13093,No detectable trend,3.0148,0.88297,No detectable trend

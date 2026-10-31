@@ -1,27 +1,31 @@
 {
-  "generated_at": "2026-10-31T08:17:17.197969",
+  "generated_at": "2026-10-31T10:56:12.978139",
   "task": "Task 8 - Rule-Based Narrative Synthesis",
-  "core_hypothesis_verdict": "PROVEN: Regional divergence in water storage is statistically significant while rainfall trends show no detectable regional divergence.",
-  "paradox_identification": "Bengal Water Paradox: Confirmed decoupled depletion in Northwest Bangladesh (Central & Mymensingh classified as suggestive/inconclusive).",
-  "key_metrics": {
-    "NW_tws_theil_sen_slope_cm_yr": -2.92759,
-    "NW_tws_volumetric_rate_km3_yr": -0.9071,
-    "NW_tws_hamed_rao_p_value": 0.000181,
-    "NW_tws_fdr_q_value": 0.00208,
-    "NW_precip_slope_mm_yr": 1.23193,
-    "NW_precip_slope_alt_pct_decade": 0.5311,
-    "NW_precip_p_value": 0.967818,
-    "NW_storage_retention_ratio_pct": 20.4,
-    "monsoon_seasons_count": 6
+  "fdr_family_primary_m": 104,
+  "fdr_family_note": "Primary-window BH-FDR: m tests from task5_fdr_table.csv. grace_fo window uses separate per-window BH-FDR from task3_trends.csv.",
+  "NW_primary_annual_tws": {
+    "slope_cm_yr": -2.92759,
+    "slope_km3_yr": -0.9071,
+    "n_observations": 79,
+    "ci_low": -4.61382,
+    "ci_high": -1.13417,
+    "p_value": 0.000181,
+    "bh_fdr_q_value": 0.00208,
+    "verdict": "Significant decrease"
   },
-  "limits_line_included": true,
+  "NW_primary_annual_precip": {
+    "slope_mm_yr": 1.23193,
+    "slope_alt_pct_decade": 0.5311,
+    "p_value": 0.967818,
+    "verdict": "No detectable trend"
+  },
   "language_rules_verified": {
     "no_groundwater_usage": true,
     "no_causation_claims": true,
     "preliminary_label_included": true,
-    "no_flat_or_uniform_claims": true,
-    "no_balanced_surplus_claims": true,
-    "three_tiered_verdict_rule_enforced": true
+    "zero_hardcoded_statistics": true,
+    "fdr_family_stated_explicitly": true,
+    "q_ge_p_assertion_applied": true
   },
   "output_files": [
     "C:\\Users\\LEON\\OneDrive\\Documents\\GitHub\\nasa-2026-earth-detective\\outputs\\v2\\task8_narrative_en.txt",

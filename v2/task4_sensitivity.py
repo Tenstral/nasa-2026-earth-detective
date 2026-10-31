@@ -69,13 +69,14 @@ def deseasonalise(y: np.ndarray, months: np.ndarray) -> np.ndarray:
 # Base primary window: 2020-01 to 2026-07 (79 months = 6.58 years).
 # All jittered perturbations MUST maintain >= 5.0 years duration per research protocol.
 ALL_BOUNDARY_CANDIDATES = [
-    {"name": "Base (2020-01 to 2026-07)",                 "start": "2020-01", "end": "2026-07", "dt_start": 0,    "dt_end": 0},
-    {"name": "Start +1yr (2021-01 to 2026-07)",           "start": "2021-01", "end": "2026-07", "dt_start": +1.0, "dt_end": 0},
-    {"name": "End -1yr (2020-01 to 2025-07)",             "start": "2020-01", "end": "2025-07", "dt_start": 0,    "dt_end": -1.0},
-    {"name": "Start +6mo (2020-07 to 2026-07)",           "start": "2020-07", "end": "2026-07", "dt_start": +0.5, "dt_end": 0},
-    {"name": "End -6mo (2020-01 to 2026-01)",             "start": "2020-01", "end": "2026-01", "dt_start": 0,    "dt_end": -0.5},
-    {"name": "Start +6mo, End -1yr (2020-07 to 2025-07)",  "start": "2020-07", "end": "2025-07", "dt_start": +0.5, "dt_end": -1.0},
-    {"name": "Start +1yr, End -6mo (2021-01 to 2026-01)",  "start": "2021-01", "end": "2026-01", "dt_start": +1.0, "dt_end": -0.5},
+    {"name": "Base (2020-01 to 2026-07)",                 "start": "2020-01", "end": "2026-07", "dt_start": 0,     "dt_end": 0},
+    {"name": "Start +1yr (2021-01 to 2026-07)",           "start": "2021-01", "end": "2026-07", "dt_start": +1.0,  "dt_end": 0},
+    {"name": "End -1yr (2020-01 to 2025-07)",             "start": "2020-01", "end": "2025-07", "dt_start": 0,     "dt_end": -1.0},
+    {"name": "Start +6mo (2020-07 to 2026-07)",           "start": "2020-07", "end": "2026-07", "dt_start": +0.5,  "dt_end": 0},
+    {"name": "End -6mo (2020-01 to 2026-01)",             "start": "2020-01", "end": "2026-01", "dt_start": 0,     "dt_end": -0.5},
+    {"name": "Start +6mo, End -1yr (2020-07 to 2025-07)", "start": "2020-07", "end": "2025-07", "dt_start": +0.5,  "dt_end": -1.0},
+    {"name": "Start +1yr, End -6mo (2021-01 to 2026-01)", "start": "2021-01", "end": "2026-01", "dt_start": +1.0,  "dt_end": -0.5},
+    {"name": "GRACE-FO era (2018-06 to 2026-07)",         "start": "2018-06", "end": "2026-07", "dt_start": -1.58, "dt_end": 0},
 ]
 
 def get_duration_months(start_ym: str, end_ym: str) -> int:
@@ -329,6 +330,7 @@ def main():
     # 1. Run boundary perturbations
     _sep("Evaluating 9 Boundary Perturbation Configurations ...")
     sens_df = run_boundary_sensitivity(reg_df, div_df)
+    print(f"  Boundary configs meeting >=60 months: {len(BOUNDARY_CONFIGS)}")
     sens_csv = OUTPUT_DIR / "task4_sensitivity_boundaries.csv"
     sens_df.to_csv(sens_csv, index=False)
     print(f"  Saved: {sens_csv} ({len(sens_df)} rows)")
@@ -401,13 +403,15 @@ def main():
             min_s = sub["tws_slope_cm_yr"].min()
             max_s = sub["tws_slope_cm_yr"].max()
             mean_s = sub["tws_slope_cm_yr"].mean()
-            # If all rolling slopes are strictly negative
+            n_total_roll = len(sub)
+            n_neg = int((sub["tws_slope_cm_yr"] < 0).sum())
+            n_pos = int((sub["tws_slope_cm_yr"] > 0).sum())
             if max_s < 0:
-                stab = "Persistent Negative (100% windows)"
+                stab = f"Persistent Negative ({n_neg}/{n_total_roll} windows negative)"
             elif min_s > 0:
-                stab = "Persistent Positive (100% windows)"
+                stab = f"Persistent Positive ({n_pos}/{n_total_roll} windows positive)"
             else:
-                stab = "Fluctuating around zero"
+                stab = f"Fluctuating ({n_neg}/{n_total_roll} windows negative)"
             print(f"  {reg:<10}  {w}m{'':<5}  {min_s:>+10.2f}  {max_s:>+10.2f}  {mean_s:>+11.2f}  {stab}")
     print()
 
@@ -421,15 +425,22 @@ def main():
     }
     for reg in REGIONS:
         sub = reg_sens[reg_sens["entity"] == reg]
+        n_configs = len(sub)
+        n_neg = int((sub["tws_slope_cm_yr"] < 0).sum())
+        n_sig = int((sub["tws_p_value"] < 0.05).sum())
         all_neg = bool((sub["tws_slope_cm_yr"] < 0).all())
-        all_sig = bool((sub["tws_p_value"] < 0.05).all())
         summary["region_tws_stability"][reg] = {
             "min_slope_cm_yr": float(sub["tws_slope_cm_yr"].min()),
             "max_slope_cm_yr": float(sub["tws_slope_cm_yr"].max()),
             "mean_slope_cm_yr": round(float(sub["tws_slope_cm_yr"].mean()), 4),
-            "always_negative": all_neg,
-            "always_significant": all_sig,
+            "n_configs": n_configs,
+            "all_negative": all_neg,
+            "n_negative": n_neg,
+            "n_significant": n_sig,
+            "fraction_negative": f"{n_neg}/{n_configs}",
+            "fraction_significant": f"{n_sig}/{n_configs}",
         }
+        print(f"  {reg}: negative in {n_neg}/{n_configs} configs ({n_sig}/{n_configs} with p < 0.05)")
     summary_path = OUTPUT_DIR / "task4_summary.json"
     with open(summary_path, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2, ensure_ascii=False)

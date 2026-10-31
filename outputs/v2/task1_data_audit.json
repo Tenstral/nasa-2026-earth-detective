@@ -42,7 +42,7 @@
       "2018-08",
       "2018-09"
     ],
-    "lwe_units": "?"
+    "lwe_units": "cm"
   },
   "precip_netcdf": {
     "file": "C:\\Users\\LEON\\OneDrive\\Documents\\GitHub\\nasa-2026-earth-detective\\nasa_precipitation_bangladesh.nc",
@@ -182,6 +182,6 @@
       "total_area_km2": 24886.5
     }
   },
-  "generated_at": "2026-10-31T08:15:25.415786",
+  "generated_at": "2026-10-31T10:54:25.956384",
   "python_version": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]"
 }

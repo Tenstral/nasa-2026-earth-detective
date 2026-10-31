@@ -7,8 +7,8 @@ STRICT SCIENTIFIC GUIDELINES:
   - GRACE/GRACE-FO satellite data only (no rainfall needed).
   - Calculates 5-year (60-month) rolling Theil-Sen slopes across the full mission record (2002–2026).
   - Marks the 11-month data gap between GRACE and GRACE-FO (June 2017 – June 2018).
-  - Reports whether the recent 2018–2026 rate of depletion is faster or slower than earlier rolling windows, with 95% bootstrap CIs.
-  - Evaluates Pettitt's change-point test across the long-term context record, labeled "CONTEXT ONLY".
+  - Reports a bootstrap difference test comparing recent (post-2018-06) vs earlier (pre-2017-06) rolling 5-yr slopes.
+  - Exploratory segmented regression break-point detection, labeled "CONTEXT ONLY".
 
 Outputs:
   outputs/v2/fig_context_rolling_5yr_slopes.png
@@ -78,22 +78,57 @@ def compute_theil_sen_slope_fast(x: np.ndarray, y: np.ndarray) -> float:
     return float(np.median(slopes))
 
 
-def pettitt_change_point_test(series: np.ndarray) -> tuple[int, float]:
-    """Non-parametric Pettitt change point test on 1D series."""
-    n = len(series)
-    if n < 10:
-        return 0, 1.0
-    u_vals = np.zeros(n)
-    for t in range(n):
-        s = 0
-        for i in range(t + 1):
-            s += np.sum(np.sign(series[i] - series[t + 1:]))
-        u_vals[t] = s
-    k_star = int(np.argmax(np.abs(u_vals)))
-    k_stat = np.max(np.abs(u_vals))
-    p_val = 2.0 * np.exp(-6.0 * (k_stat ** 2) / (n ** 3 + n ** 2))
-    p_val = min(1.0, max(0.0, p_val))
-    return k_star, float(p_val)
+def segmented_regression_breakpoint(
+    t_vals: np.ndarray, y_vals: np.ndarray, times_index: pd.DatetimeIndex
+) -> dict:
+    """
+    Exploratory segmented regression: search for the break-point (every 6 months,
+    2004-01 to 2023-01) that minimises the combined residual sum of squares of two
+    OLS lines fitted before and after the candidate break.
+
+    Returns a dict with the best break year-month, slopes before/after, and an
+    exploratory note.  CONTEXT ONLY — not used for headline claims.
+    """
+    candidates = pd.date_range("2004-01-01", "2023-01-01", freq="6MS")
+    best_rss = np.inf
+    best_ym = None
+    best_slope_before = np.nan
+    best_slope_after = np.nan
+
+    for bp in candidates:
+        mask_before = times_index < bp
+        mask_after = times_index >= bp
+        if mask_before.sum() < 6 or mask_after.sum() < 6:
+            continue
+        tb, yb = t_vals[mask_before], y_vals[mask_before]
+        ta, ya = t_vals[mask_after], y_vals[mask_after]
+
+        # OLS fit for each segment
+        def _ols_rss(tx, yx):
+            A = np.column_stack([tx, np.ones_like(tx)])
+            coef, _, _, _ = np.linalg.lstsq(A, yx, rcond=None)
+            resid = yx - A @ coef
+            return float(np.sum(resid ** 2)), float(coef[0])
+
+        rss_b, sl_b = _ols_rss(tb, yb)
+        rss_a, sl_a = _ols_rss(ta, ya)
+        total_rss = rss_b + rss_a
+
+        if total_rss < best_rss:
+            best_rss = total_rss
+            best_ym = bp.strftime("%Y-%m")
+            best_slope_before = sl_b
+            best_slope_after = sl_a
+
+    return {
+        "exploratory_segmented_regression_breakpoint_ym": best_ym,
+        "exploratory_slope_before_cm_yr": float(best_slope_before),
+        "exploratory_slope_after_cm_yr": float(best_slope_after),
+        "exploratory_note": (
+            "CONTEXT ONLY — segmented regression is exploratory; "
+            "not used for headline claims"
+        ),
+    }
 
 
 def run_context_analysis():
@@ -139,6 +174,17 @@ def run_context_analysis():
     if "Units" in ds["time"].attrs and "units" not in ds["time"].attrs:
         ds["time"].attrs["units"] = ds["time"].attrs["Units"]
     ds = xr.decode_cf(ds)
+
+    # --- Assert lwe_thickness units ---
+    lwe_units = ds["lwe_thickness"].attrs.get(
+        "units", ds["lwe_thickness"].attrs.get("Units", "NOT_FOUND")
+    )
+    print(f"  lwe_thickness units: '{lwe_units}'")
+    if not ("cm" in str(lwe_units).lower() or "centimeter" in str(lwe_units).lower()):
+        raise ValueError(
+            f"lwe_thickness units are '{lwe_units}' — expected 'cm' or 'centimeter'. "
+            "Check the NetCDF file; slopes and CIs assume centimetres."
+        )
 
     times = pd.to_datetime(ds["time"].values)
     lwe = ds["lwe_thickness"].values  # (time, lat, lon)
@@ -247,27 +293,66 @@ def run_context_analysis():
         ci_low = float(np.percentile(boot_slopes, 2.5))
         ci_high = float(np.percentile(boot_slopes, 97.5))
 
-        # Comparison with earlier rolling slopes (pre-2017)
+        # Comparison with earlier rolling slopes (pre-2017-06) — bootstrap difference test
         pre_gap_mask = [d < pd.Timestamp("2017-06-01") for d in slope_dates]
-        pre_gap_slopes = np.array(slopes_r)[pre_gap_mask]
-        median_pre = float(np.median(pre_gap_slopes))
-        min_pre = float(np.min(pre_gap_slopes))
-        max_pre = float(np.max(pre_gap_slopes))
+        pre_slopes = np.array(slopes_r)[pre_gap_mask]
 
-        is_faster = recent_slope < median_pre  # more negative = faster depletion
+        post_gap_mask = [d > pd.Timestamp("2018-06-01") for d in slope_dates]
+        recent_slopes_arr = np.array(slopes_r)[post_gap_mask]
 
-        # Context change point test
-        k_star, p_pettitt = pettitt_change_point_test(y_deseas)
-        cp_date = str(df_full.index[k_star])[:7]
+        # Keep finite values only
+        pre_slopes = pre_slopes[np.isfinite(pre_slopes)]
+        recent_slopes_arr = recent_slopes_arr[np.isfinite(recent_slopes_arr)]
+
+        median_pre = float(np.median(pre_slopes)) if len(pre_slopes) > 0 else np.nan
+        min_pre = float(np.min(pre_slopes)) if len(pre_slopes) > 0 else np.nan
+        max_pre = float(np.max(pre_slopes)) if len(pre_slopes) > 0 else np.nan
+
+        observed_diff = float(np.mean(recent_slopes_arr) - np.mean(pre_slopes))
+
+        rng2 = np.random.default_rng(123)
+        B = 2000
+        boot_diffs = []
+        n_pre = len(pre_slopes)
+        n_rec_arr = len(recent_slopes_arr)
+        for _ in range(B):
+            samp_rec = recent_slopes_arr[rng2.integers(0, n_rec_arr, size=n_rec_arr)]
+            samp_pre = pre_slopes[rng2.integers(0, n_pre, size=n_pre)]
+            boot_diffs.append(float(np.mean(samp_rec) - np.mean(samp_pre)))
+        diff_ci_low = float(np.percentile(boot_diffs, 2.5))
+        diff_ci_high = float(np.percentile(boot_diffs, 97.5))
+
+        ci_includes_zero = (diff_ci_low <= 0 <= diff_ci_high)
+        if ci_includes_zero:
+            pace_verdict = (
+                "No clear evidence of acceleration or deceleration "
+                "(bootstrap 95% CI includes zero)"
+            )
+        elif diff_ci_high < 0:
+            pace_verdict = (
+                "Recent slopes lower (more negative) than earlier period "
+                "(bootstrap CI excludes zero)"
+            )
+        else:
+            pace_verdict = (
+                "Recent slopes higher (less negative) than earlier period "
+                "(bootstrap CI excludes zero)"
+            )
+
+        print(f"  [{r_name}] pace_verdict: {pace_verdict}")
+
+        # Exploratory segmented regression
+        seg_result = segmented_regression_breakpoint(t_vals, y_deseas, df_full.index)
 
         recent_comparison[r_name] = {
             "recent_slope_2018_2026_cm_yr": float(recent_slope),
             "recent_95ci_cm_yr": [ci_low, ci_high],
             "earlier_rolling_5yr_median_cm_yr": median_pre,
             "earlier_rolling_5yr_range_cm_yr": [min_pre, max_pre],
-            "pace_verdict": "FASTER DEPLETION" if is_faster else "SLOWER / SIMILAR DEPLETION",
-            "context_pettitt_change_point_month": cp_date,
-            "context_pettitt_p_value": p_pettitt,
+            "pace_diff_mean_cm_yr": observed_diff,
+            "pace_diff_95ci_cm_yr": [diff_ci_low, diff_ci_high],
+            "pace_verdict": pace_verdict,
+            **seg_result,
         }
 
         for d, sl in zip(slope_dates, slopes_r):
@@ -295,8 +380,14 @@ def run_context_analysis():
         rec_info = recent_comparison[r_name]
         r_sl = rec_info["recent_slope_2018_2026_cm_yr"]
         ci_l, ci_h = rec_info["recent_95ci_cm_yr"]
+        verdict_label = rec_info["pace_verdict"]
+        if len(verdict_label) > 60:
+            verdict_label = verdict_label[:57] + "..."
         ax.axhline(r_sl, color="#0f172a", linestyle="--", linewidth=1.6,
-                   label=f"2018–2026 Rate: {r_sl:+.2f} cm/yr [{ci_l:+.2f}, {ci_h:+.2f}]")
+                   label=(
+                       f"2018–2026 Rate: {r_sl:+.2f} cm/yr [{ci_l:+.2f}, {ci_h:+.2f}]\n"
+                       f"  {verdict_label}"
+                   ))
 
         ax.set_ylabel(f"{r_name}\n(cm / yr)", fontsize=9.5, fontweight="bold")
         ax.grid(True, linestyle=":", alpha=0.5)
