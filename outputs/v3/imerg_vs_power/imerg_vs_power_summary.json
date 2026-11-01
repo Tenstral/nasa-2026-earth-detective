@@ -1,11 +1,13 @@
 {
   "status": "COMPLETED",
-  "timestamp": "2026-11-01T17:59:15.256414",
+  "timestamp": "2026-11-01T19:00:02.402508",
   "primary_dataset": "GPM_IMERG_V07B",
   "secondary_dataset": "NASA_POWER_PRECTOTCORR",
   "overlap_months": 285,
   "overlap_period": "2002-01 to 2025-09",
-  "decision_rule": "GPM IMERG selected as primary based on statistical homogeneity (Pettitt p > 0.05) and consistency with BMD climatology (2,428 mm/yr). NASA POWER rejected as non-homogeneous due to significant post-2018 step inflation (p < 0.0001).",
+  "imerg_end_date": "2025-09",
+  "truncation_vs_grace_2026_07_months": 10,
+  "decision_rule": "GPM IMERG selected as primary based on statistical homogeneity (Pettitt p > 0.05 across all regions) and consistency with BMD national normal (2,428 mm/yr). NASA POWER rejected as non-homogeneous due to significant step inflation around 2014-12 to 2015-12 (cause unverified, p < 0.0001).",
   "national_metrics": {
     "raw_pearson_r": 0.899,
     "anomaly_pearson_r": 0.6049,
@@ -16,7 +18,11 @@
     "rmse_mm_mo": 99.6
   },
   "power_break_date": "2014-12",
+  "power_break_cause": "unverified (potential MERRA-2 assimilation shift)",
   "power_pettitt_p": 0.0,
   "diff_break_date": "2015-12",
-  "diff_pettitt_p": 0.0
+  "diff_pettitt_p": 0.0,
+  "imerg_snht_nw_p": 0.013,
+  "pre_break_bias_national_mm_mo": -36.4,
+  "post_break_bias_national_mm_mo": 79.5
 }

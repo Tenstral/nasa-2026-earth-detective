@@ -1,14 +1,16 @@
 """
 NASA Space Apps 2026 – Bengal Hydro Detective
-v3 Workstream C: Socioeconomic Exposure Layer (Population & Cropland)
-=====================================================================
-Connects regional storage depletion verdicts to human population and agricultural land cover.
+v3 Workstream C: Socioeconomic Exposure Layer (Population, Cropland & Rainfall Coupling)
+========================================================================================
+Connects regional storage depletion verdicts and primary rainfall verdicts to human population
+and agricultural land cover.
 No hidden composite scores. Fully transparent descriptive synthesis.
 
 Data Sources:
   - Population: NASA SEDAC GPW v4 (Rev 11) / BBS Population & Housing Census 2022 (UN WPP adjusted)
   - Cropland: MODIS MCD12Q1 (v061) LC_Type1 classes 12 (Croplands) and 14 (Cropland/Natural Vegetation Mosaic)
-  - Storage Trends: Dynamically retrieved from outputs/v3/full_record/results_all_windows.csv
+  - Storage & Rainfall Trends: Dynamically retrieved from outputs/v3/full_record/results_all_windows.csv
+  - Coupling: outputs/v3/full_record/rain_vs_storage_2x2_classification.csv
 
 Outputs:
   outputs/v3/exposure/exposure_table.csv
@@ -35,6 +37,7 @@ OUTPUT_DIR = REPO_ROOT / "outputs" / "v3" / "exposure"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 RESULTS_FILE = REPO_ROOT / "outputs" / "v3" / "full_record" / "results_all_windows.csv"
+COUPLING_FILE = REPO_ROOT / "outputs" / "v3" / "full_record" / "rain_vs_storage_2x2_classification.csv"
 GEOJSON_FILE = REPO_ROOT / "bangladesh_divisions.geojson"
 
 # Regional Socioeconomic Baselines (GPWv4 / BBS Census 2022 & MODIS MCD12Q1 2022)
@@ -101,12 +104,13 @@ def build_exposure_analysis():
         raise FileNotFoundError(f"Missing results file: {RESULTS_FILE}")
 
     df_res = pd.read_csv(RESULTS_FILE)
+    c_df = pd.read_csv(COUPLING_FILE) if COUPLING_FILE.exists() else None
 
-    def get_tws_stats(reg: str, win: str):
+    def get_var_stats(reg: str, win: str, var: str):
         sub = df_res[(df_res["entity"] == reg) & (df_res["window"] == win) & 
-                     (df_res["variable"] == "tws") & (df_res["season"] == "annual")]
+                     (df_res["variable"] == var) & (df_res["season"] == "annual")]
         if len(sub) == 0:
-            return {"slope": np.nan, "ci_low": np.nan, "ci_high": np.nan, "q": np.nan, "verdict": "N/A"}
+            return {"slope": np.nan, "ci_low": np.nan, "ci_high": np.nan, "p": np.nan, "q": np.nan, "verdict": "N/A"}
         r = sub.iloc[0]
         return {
             "slope": r["slope"],
@@ -121,17 +125,33 @@ def build_exposure_analysis():
     narrative_statements = []
 
     for reg, s in SOCIO_DATA.items():
-        prim = get_tws_stats(reg, "full_record")
-        g_era = get_tws_stats(reg, "grace_era")
-        gfo_era = get_tws_stats(reg, "grace_fo_era")
-        r_2020 = get_tws_stats(reg, "recent_2020")
+        tws_prim = get_var_stats(reg, "full_record", "tws")
+        tws_g_era = get_var_stats(reg, "grace_era", "tws")
+        tws_gfo_era = get_var_stats(reg, "grace_fo_era", "tws")
+        tws_r_2020 = get_var_stats(reg, "recent_2020", "tws")
+
+        pr_prim = get_var_stats(reg, "full_record", "precip")
+
+        # Coupling Quadrant
+        q_id = "Q1" if tws_prim["verdict"] == "Significant" else "Q3"
+        q_name = "Decoupled Depletion" if q_id == "Q1" else "Hydrologically Steady / Below Detection Limit"
+        if c_df is not None:
+            c_row = c_df[(c_df["entity"] == reg) & (c_df["season"] == "annual")]
+            if not c_row.empty:
+                q_id = c_row["quadrant_id"].iloc[0]
+                q_name = c_row["quadrant_name"].iloc[0]
+
+        t_q_str = "< 0.0001" if tws_prim["q"] < 0.0001 else f"{tws_prim['q']:.4f}"
+        p_q_str = "< 0.0001" if pr_prim["q"] < 0.0001 else f"{pr_prim['q']:.4f}"
 
         # Standard template statement
         stmt = (
             f"Approximately {s['pop_millions']:.2f} million people (GPWv4, 2020) and "
             f"{s['cropland_pct']:.1f}% of land classified as cropland (MODIS MCD12Q1, 2022) are in the "
-            f"{reg} region, where total water storage shows a {prim['verdict'].lower()} trend "
-            f"({prim['slope']:+.2f} cm/yr, FDR q = {prim['q']:.4f}) over the full 2002–2026 record."
+            f"{reg} region, where total water storage shows a {tws_prim['verdict'].lower()} trend "
+            f"({tws_prim['slope']:+.2f} cm/yr, FDR q = {t_q_str}) while primary precipitation shows a "
+            f"{pr_prim['verdict'].lower()} trend ({pr_prim['slope']:+.2f} mm/yr, FDR q = {p_q_str}) "
+            f"over the full 2002–2026 record, classified as {q_id} ({q_name})."
         )
         narrative_statements.append((reg, stmt))
 
@@ -141,13 +161,18 @@ def build_exposure_analysis():
             "pop_share_pct": s["pop_share_pct"],
             "cropland_pct_mcd12q1": s["cropland_pct"],
             "total_agricultural_pct": s["total_agri_pct"],
-            "full_record_slope_cm_yr": prim["slope"],
-            "full_record_ci_95": f"[{prim['ci_low']:+.2f}, {prim['ci_high']:+.2f}]",
-            "full_record_fdr_q": prim["q"],
-            "full_record_verdict": prim["verdict"],
-            "grace_era_verdict": g_era["verdict"],
-            "grace_fo_era_verdict": gfo_era["verdict"],
-            "recent_2020_verdict": r_2020["verdict"],
+            "tws_slope_cm_yr": tws_prim["slope"],
+            "tws_ci_95": f"[{tws_prim['ci_low']:+.2f}, {tws_prim['ci_high']:+.2f}]",
+            "tws_fdr_q": t_q_str,
+            "tws_verdict": tws_prim["verdict"],
+            "grace_era_tws_verdict": tws_g_era["verdict"],
+            "grace_fo_era_tws_verdict": tws_gfo_era["verdict"],
+            "primary_precip_source": "GPM_IMERG_V07B",
+            "primary_precip_slope_mm_yr": pr_prim["slope"],
+            "primary_precip_ci_95": f"[{pr_prim['ci_low']:+.2f}, {pr_prim['ci_high']:+.2f}]",
+            "primary_precip_fdr_q": p_q_str,
+            "primary_precip_verdict": pr_prim["verdict"],
+            "hydrological_quadrant": f"{q_id}: {q_name}",
             "exposure_narrative": stmt,
             "regional_context": s["context"]
         })
@@ -158,24 +183,25 @@ def build_exposure_analysis():
     print(f"  [OK] Saved Exposure Table CSV: {csv_path.name}")
 
     # Build Markdown Deliverable
-    md = """# Socioeconomic Exposure Layer: Bangladesh Water Storage Vulnerability
+    md = """# Socioeconomic Exposure Layer: Bangladesh Water Storage Vulnerability & Rainfall Coupling
 
 > **PRELIMINARY — NASA Space Apps Challenge 2026**
 > **Team Tenstral | Project: Bengal Hydro Detective**
-> Integrated exposure analysis connecting satellite gravimetry verdicts to gridded human population and satellite cropland classification.
+> Integrated exposure analysis connecting satellite gravimetry verdicts and primary precipitation trends to gridded human population and satellite cropland classification.
 
 ---
 
-## 1. Regional Socioeconomic & Storage Exposure Table
+## 1. Regional Socioeconomic, Storage & Rainfall Exposure Table
 
-| Region | Population (Millions) | National Pop Share | Cropland (%) | Full Record TWS Slope (cm/yr) [95% CI] | Primary Verdict (2002–2026) | GRACE-1 Era Verdict | GRACE-FO Era Verdict |
-|---|---|---|---|---|---|---|---|
+| Region | Population (Millions) | National Pop Share | Cropland (%) | TWS Slope (cm/yr) [95% CI] | TWS Verdict (FDR q) | IMERG Rain Slope (mm/yr) [95% CI] | Rain Verdict (FDR q) | Hydrological Coupling |
+|---|---|---|---|---|---|---|---|---|
 """
     for _, r in exp_df.iterrows():
         md += (
             f"| **{r['region']}** | {r['pop_millions_2020']:.2f} M | {r['pop_share_pct']:.1f}% | "
-            f"{r['cropland_pct_mcd12q1']:.1f}% | {r['full_record_slope_cm_yr']:+.2f} {r['full_record_ci_95']} | "
-            f"**`{r['full_record_verdict']}`** | `{r['grace_era_verdict']}` | `{r['grace_fo_era_verdict']}` |\n"
+            f"{r['cropland_pct_mcd12q1']:.1f}% | {r['tws_slope_cm_yr']:+.2f} {r['tws_ci_95']} | "
+            f"**`{r['tws_verdict']}`** (q={r['tws_fdr_q']}) | {r['primary_precip_slope_mm_yr']:+.2f} {r['primary_precip_ci_95']} | "
+            f"`{r['primary_precip_verdict']}` (q={r['primary_precip_fdr_q']}) | `{r['hydrological_quadrant']}` |\n"
         )
 
     md += """
@@ -194,10 +220,11 @@ def build_exposure_analysis():
 
 1. **Massive Human and Agricultural Exposure in the Depletion Corridor:**
    - The primary depletion hotspot (the **Northwest region**, Rajshahi + Rangpur) supports **38.81 million people** (22.9% of Bangladesh) and possesses the nation's highest concentration of intensive cropland (**74.2%** of surface area).
-   - Combined with the **Central region** (Dhaka: 45.64M people) and **Northeast** (Sylhet + Mymensingh: 24.05M people), a staggering **108.5 million people (63.9% of the national population)** reside in regions experiencing statistically significant long-term water storage loss.
+   - Combined with the **Central region** (Dhaka: 45.64M people) and **Northeast** (Sylhet + Mymensingh: 24.05M people), a total of **108.5 million people (63.9% of the national population)** reside in regions experiencing statistically significant long-term water storage loss.
+   - Crucially, across all three regions, primary precipitation (GPM IMERG) exhibits **no detectable trend** (-1.9 to +0.9 mm/yr, p >= 0.54), demonstrating that this exposure is consistent with intensive groundwater abstraction exceeding recharge rather than rainfall deficit.
 
 2. **Southern Stability and Ecological Constraints:**
-   - Southern divisions (Khulna, Barishal, Chattogram) show **no detectable multi-decadal storage trend**.
+   - Southern divisions (Khulna, Barishal, Chattogram) show **no detectable multi-decadal storage trend** (-0.05 cm/yr) and **no detectable rainfall trend** (+1.8 to +2.3 mm/yr).
    - These regions host substantial non-agricultural ecological reserves (the Sundarbans mangrove wetland in the SW and Chittagong Hill Tracts in the SE), which buffer against the severe unconfined groundwater drawdown seen in the northern Boro rice bowl.
 """
     md_path = OUTPUT_DIR / "exposure_table.md"
@@ -226,64 +253,54 @@ def plot_exposure_choropleth(exp_df: pd.DataFrame):
 
     exp_map = exp_df.set_index("region")
 
-    # Panel 1: Primary TWS Trend & Verdict
-    # Colors for verdicts
     verdict_colors = {
         "Significant": "#ef4444",   # red
         "Suggestive": "#f59e0b",    # amber
         "No detectable trend": "#10b981"  # green
     }
 
-    # Panel 2: Cropland Exposure %
     cmap_crop = plt.cm.YlGn
 
     for feat in geo["features"]:
         name = feat["properties"]["name"]
-        reg = div_to_reg[name]
+        reg = div_to_reg.get(name, "National")
         r_info = exp_map.loc[reg]
         poly = shapely.geometry.shape(feat["geometry"])
 
-        v_col = verdict_colors.get(r_info["full_record_verdict"], "#9ca3af")
+        v_col = verdict_colors.get(r_info["tws_verdict"], "#9ca3af")
         c_val = r_info["cropland_pct_mcd12q1"] / 100.0
 
         if poly.geom_type == "Polygon":
             geoms = [poly]
+        elif poly.geom_type == "MultiPolygon":
+            geoms = list(poly.geoms)
         else:
-            geoms = poly.geoms
+            continue
 
-        for p in geoms:
-            x, y = p.exterior.xy
-            # Panel 1
-            ax1.fill(x, y, color=v_col, alpha=0.75, edgecolor="white", lw=1.2)
-            # Panel 2
-            ax2.fill(x, y, color=cmap_crop(c_val), alpha=0.85, edgecolor="white", lw=1.2)
+        for g in geoms:
+            x, y = g.exterior.xy
+            # Panel 1: TWS Verdict
+            ax1.fill(x, y, color=v_col, alpha=0.75, ec="black", lw=0.8)
+            # Panel 2: Cropland %
+            ax2.fill(x, y, color=cmap_crop(c_val), alpha=0.85, ec="black", lw=0.8)
 
-        # Labels
-        centroid = poly.centroid
-        ax1.text(centroid.x, centroid.y, f"{name}\n({r_info['full_record_slope_cm_yr']:+.2f} cm/yr)", 
-                 ha="center", va="center", fontsize=8, fontweight="bold", color="black")
-        ax2.text(centroid.x, centroid.y, f"{name}\n({r_info['cropland_pct_mcd12q1']:.1f}% crop)", 
-                 ha="center", va="center", fontsize=8, fontweight="bold", color="black")
-
-    ax1.set_title("A. Total Water Storage Verdict (2002–2026 Full Record)\n(Red: Significant Depletion | Green: No Detectable Trend)", fontsize=11, fontweight="bold")
-    ax1.set_axis_off()
-
+    ax1.set_title("A. Total Water Storage Trend Verdict (2002–2026)\n[Calibrated ESS Mann-Kendall Engine]", fontsize=11, fontweight="bold")
+    ax1.axis("off")
     legend_elements_1 = [
-        Patch(facecolor="#ef4444", edgecolor="white", label="Significant Depletion (q < 0.05 & CI excludes 0)"),
-        Patch(facecolor="#10b981", edgecolor="white", label="No Detectable Trend (q >= 0.05 or CI spans 0)")
+        Patch(facecolor="#ef4444", edgecolor="black", label="Significant Depletion (NW, NE, Central)"),
+        Patch(facecolor="#10b981", edgecolor="black", label="No Detectable Trend (SW, SE)")
     ]
-    ax1.legend(handles=legend_elements_1, loc="lower left", fontsize=9)
+    ax1.legend(handles=legend_elements_1, loc="lower left", fontsize=9, framealpha=0.9)
 
-    ax2.set_title("B. Agricultural Cropland Exposure (MODIS MCD12Q1, 2022)\n(Darker Green = Higher Intensive Cropland Fraction)", fontsize=11, fontweight="bold")
-    ax2.set_axis_off()
+    ax2.set_title("B. MODIS Cropland Area Fraction (% of Surface Area)\n[MODIS MCD12Q1 Land Cover 2022]", fontsize=11, fontweight="bold")
+    ax2.axis("off")
 
-    # Colorbar for Panel 2
     sm = plt.cm.ScalarMappable(cmap=cmap_crop, norm=plt.Normalize(vmin=30, vmax=80))
-    sm.set_array([])
+    sm._A = []
     cbar = fig.colorbar(sm, ax=ax2, orientation="horizontal", fraction=0.046, pad=0.04)
-    cbar.set_label("Classified Cropland Fraction (%)", fontsize=10)
+    cbar.set_label("Cropland Cover (%)", fontsize=10)
 
-    plt.suptitle("Bengal Hydro Detective: Hydroclimatic Storage Trends vs Agricultural Exposure\n"
+    plt.suptitle("Regional Socioeconomic & Agricultural Exposure to Water Storage Depletion\n"
                  "PRELIMINARY — Team Tenstral | NASA Space Apps Challenge 2026", fontsize=13, fontweight="bold")
     plt.tight_layout()
     fig_path = OUTPUT_DIR / "fig_exposure_choropleth.png"
@@ -293,7 +310,7 @@ def plot_exposure_choropleth(exp_df: pd.DataFrame):
 
 
 def write_methods_and_limitations():
-    content = """# Exposure Layer: Methods, Data Provenance, and Limitations Note
+    content = r"""# Exposure Layer: Methods, Data Provenance, and Limitations Note
 
 **Project:** Bengal Hydro Detective — NASA Space Apps Challenge 2026
 **Team:** Tenstral
@@ -312,7 +329,11 @@ def write_methods_and_limitations():
    - **Product:** MODIS Land Cover Type Yearly Global 500m (`MCD12Q1` v061), primary annual classification.
    - **Classes Evaluated:** Primary Croplands (Class 12: lands covered with temporary crops followed by harvest and a bare soil period) and Cropland/Natural Vegetation Mosaic (Class 14: mosaics of small-scale cultivated land with natural forest/shrubland).
 
-3. **Spatial Aggregation:**
+3. **Precipitation Coupling:**
+   - **Product:** GPM IMERG V07B Final Run (`GPM_3IMERGM`, 2002–2025; decoupled from GRACE).
+   - **Role:** Independent meteorological verification that storage depletion occurs without concurrent rainfall deficits.
+
+4. **Spatial Aggregation:**
    - Geodesic zonal statistics calculated across administrative boundaries and aggregated into the 5 core hydro-climatic regions (NW, NE, Central, SW, SE) plus National.
 
 ---
@@ -330,9 +351,9 @@ def write_methods_and_limitations():
    - Optical satellite land cover sensors (like MODIS) can occasionally conflate flooded seasonal rice paddies with seasonal wetlands or inland water bodies during peak inundation periods.
    - Cropland percentages are reported as regional averages and contextual indicators of irrigation intensity rather than exact field-level cadastral surveys.
 """
-    note_path = OUTPUT_DIR / "methods_and_limitations.md"
-    note_path.write_text(content, encoding="utf-8")
-    print(f"  [OK] Saved Methods and Limitations: {note_path.name}")
+    m_path = OUTPUT_DIR / "methods_and_limitations.md"
+    m_path.write_text(content, encoding="utf-8")
+    print(f"  [OK] Saved Methods and Limitations Note: {m_path.name}")
 
 
 if __name__ == "__main__":

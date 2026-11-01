@@ -1,106 +1,172 @@
 {
-  "timestamp": "2026-11-01T04:46:29.116003",
-  "period": "2002 to 2025 (24 hydrological monsoon seasons)",
+  "timestamp": "2026-11-01T19:15:34.233332",
+  "period": "2002 to 2025 (24 hydrological monsoon seasons; 22 complete observation pairs)",
   "definitions": {
-    "rebound_cm": "TWS_peak (Sep/Oct) minus TWS_pre (Apr/May) in cm",
-    "recharge_efficiency": "rebound_cm / (0.1 * monsoon_precip_mm) [fractional recovery]"
+    "rebound_alone_cm": "TWS_peak (Sep/Oct) minus TWS_pre (Apr/May) in cm (independent of rainfall)",
+    "recharge_efficiency_imerg": "rebound_cm / (0.1 * imerg_monsoon_precip_mm) [fractional recovery]"
   },
   "results": [
     {
       "region": "NW",
       "region_name": "Northwest (Rajshahi + Rangpur)",
-      "n_seasons": 22,
-      "rebound_mean_cm": 55.6,
-      "rebound_slope_cm_yr": 0.34,
-      "rebound_p_value": 0.10732,
-      "rebound_verdict": "No detectable trend",
-      "efficiency_mean": 0.5268,
-      "efficiency_slope_per_yr": -0.0121,
-      "efficiency_p_value": 0.01921,
-      "efficiency_verdict": "Declining efficiency",
-      "exploratory_segmented_breakpoint": 2012,
-      "exploratory_slope_before": -0.01724,
-      "exploratory_slope_after": -0.03625
+      "n_valid_seasons": 22,
+      "rebound_alone_mean_cm": 55.6,
+      "rebound_alone_slope_cm_yr": 0.34,
+      "rebound_alone_ci95": [
+        -0.453,
+        0.981
+      ],
+      "rebound_alone_p_value": 0.505,
+      "rebound_alone_verdict": "No detectable trend",
+      "efficiency_imerg_mean": 0.3961,
+      "efficiency_imerg_slope_per_yr": 0.00266,
+      "efficiency_imerg_ci95": [
+        -0.0029,
+        0.0084
+      ],
+      "efficiency_imerg_p_value": 0.37835,
+      "efficiency_imerg_verdict": "No detectable trend",
+      "old_power_efficiency_mean": null,
+      "old_power_efficiency_slope_per_yr": null,
+      "old_power_efficiency_p_value": null,
+      "exploratory_segmented_breakpoint": 2021,
+      "exploratory_slope_before": 0.00471,
+      "exploratory_slope_after": 0.06723
     },
     {
       "region": "NE",
       "region_name": "Northeast (Sylhet + Mymensingh)",
-      "n_seasons": 22,
-      "rebound_mean_cm": 59.28,
-      "rebound_slope_cm_yr": 0.3972,
-      "rebound_p_value": 0.25935,
-      "rebound_verdict": "No detectable trend",
-      "efficiency_mean": 0.4032,
-      "efficiency_slope_per_yr": -0.00924,
-      "efficiency_p_value": 0.01531,
-      "efficiency_verdict": "Declining efficiency",
-      "exploratory_segmented_breakpoint": 2006,
-      "exploratory_slope_before": -0.13412,
-      "exploratory_slope_after": -0.01298
+      "n_valid_seasons": 22,
+      "rebound_alone_mean_cm": 59.28,
+      "rebound_alone_slope_cm_yr": 0.3972,
+      "rebound_alone_ci95": [
+        -0.389,
+        0.72
+      ],
+      "rebound_alone_p_value": 0.25935,
+      "rebound_alone_verdict": "No detectable trend",
+      "efficiency_imerg_mean": 0.3006,
+      "efficiency_imerg_slope_per_yr": 0.00203,
+      "efficiency_imerg_ci95": [
+        -0.0008,
+        0.005
+      ],
+      "efficiency_imerg_p_value": 0.21471,
+      "efficiency_imerg_verdict": "No detectable trend",
+      "old_power_efficiency_mean": null,
+      "old_power_efficiency_slope_per_yr": null,
+      "old_power_efficiency_p_value": null,
+      "exploratory_segmented_breakpoint": 2016,
+      "exploratory_slope_before": 0.00233,
+      "exploratory_slope_after": 0.01759
     },
     {
       "region": "Central",
       "region_name": "Central (Dhaka)",
-      "n_seasons": 22,
-      "rebound_mean_cm": 59.05,
-      "rebound_slope_cm_yr": 0.2918,
-      "rebound_p_value": 0.2375,
-      "rebound_verdict": "No detectable trend",
-      "efficiency_mean": 0.5607,
-      "efficiency_slope_per_yr": -0.01179,
-      "efficiency_p_value": 0.00783,
-      "efficiency_verdict": "Declining efficiency",
-      "exploratory_segmented_breakpoint": 2006,
-      "exploratory_slope_before": -0.22015,
-      "exploratory_slope_after": -0.01277
+      "n_valid_seasons": 22,
+      "rebound_alone_mean_cm": 59.05,
+      "rebound_alone_slope_cm_yr": 0.2918,
+      "rebound_alone_ci95": [
+        -0.504,
+        0.804
+      ],
+      "rebound_alone_p_value": 0.37286,
+      "rebound_alone_verdict": "No detectable trend",
+      "efficiency_imerg_mean": 0.4222,
+      "efficiency_imerg_slope_per_yr": 0.00387,
+      "efficiency_imerg_ci95": [
+        0.0005,
+        0.0071
+      ],
+      "efficiency_imerg_p_value": 0.03685,
+      "efficiency_imerg_verdict": "No detectable trend",
+      "old_power_efficiency_mean": null,
+      "old_power_efficiency_slope_per_yr": null,
+      "old_power_efficiency_p_value": null,
+      "exploratory_segmented_breakpoint": 2014,
+      "exploratory_slope_before": 0.00769,
+      "exploratory_slope_after": 0.01048
     },
     {
       "region": "SW",
       "region_name": "Southwest (Khulna + Barishal)",
-      "n_seasons": 22,
-      "rebound_mean_cm": 49.62,
-      "rebound_slope_cm_yr": 0.0496,
-      "rebound_p_value": 0.84688,
-      "rebound_verdict": "No detectable trend",
-      "efficiency_mean": 0.3885,
-      "efficiency_slope_per_yr": -0.01479,
-      "efficiency_p_value": 0.0,
-      "efficiency_verdict": "Declining efficiency",
-      "exploratory_segmented_breakpoint": 2006,
-      "exploratory_slope_before": -0.19139,
-      "exploratory_slope_after": -0.01149
+      "n_valid_seasons": 22,
+      "rebound_alone_mean_cm": 49.62,
+      "rebound_alone_slope_cm_yr": 0.0496,
+      "rebound_alone_ci95": [
+        -0.335,
+        0.333
+      ],
+      "rebound_alone_p_value": 0.86565,
+      "rebound_alone_verdict": "No detectable trend",
+      "efficiency_imerg_mean": 0.3301,
+      "efficiency_imerg_slope_per_yr": 0.00138,
+      "efficiency_imerg_ci95": [
+        -0.0016,
+        0.0048
+      ],
+      "efficiency_imerg_p_value": 0.4298,
+      "efficiency_imerg_verdict": "No detectable trend",
+      "old_power_efficiency_mean": null,
+      "old_power_efficiency_slope_per_yr": null,
+      "old_power_efficiency_p_value": null,
+      "exploratory_segmented_breakpoint": 2010,
+      "exploratory_slope_before": 0.01001,
+      "exploratory_slope_after": 0.00292
     },
     {
       "region": "SE",
       "region_name": "Southeast (Chattogram)",
-      "n_seasons": 22,
-      "rebound_mean_cm": 52.02,
-      "rebound_slope_cm_yr": 0.0754,
-      "rebound_p_value": 0.3314,
-      "rebound_verdict": "No detectable trend",
-      "efficiency_mean": 0.3311,
-      "efficiency_slope_per_yr": -0.01283,
-      "efficiency_p_value": 0.00199,
-      "efficiency_verdict": "Declining efficiency",
-      "exploratory_segmented_breakpoint": 2006,
-      "exploratory_slope_before": -0.23787,
-      "exploratory_slope_after": -0.00674
+      "n_valid_seasons": 22,
+      "rebound_alone_mean_cm": 52.02,
+      "rebound_alone_slope_cm_yr": 0.0754,
+      "rebound_alone_ci95": [
+        -0.148,
+        0.312
+      ],
+      "rebound_alone_p_value": 0.59212,
+      "rebound_alone_verdict": "No detectable trend",
+      "efficiency_imerg_mean": 0.2603,
+      "efficiency_imerg_slope_per_yr": 0.00063,
+      "efficiency_imerg_ci95": [
+        -0.0015,
+        0.0023
+      ],
+      "efficiency_imerg_p_value": 0.61176,
+      "efficiency_imerg_verdict": "No detectable trend",
+      "old_power_efficiency_mean": null,
+      "old_power_efficiency_slope_per_yr": null,
+      "old_power_efficiency_p_value": null,
+      "exploratory_segmented_breakpoint": 2021,
+      "exploratory_slope_before": -0.00037,
+      "exploratory_slope_after": -0.0229
     },
     {
       "region": "National",
       "region_name": "National Composite (All 8 Divisions)",
-      "n_seasons": 22,
-      "rebound_mean_cm": 53.95,
-      "rebound_slope_cm_yr": 0.2349,
-      "rebound_p_value": 0.09579,
-      "rebound_verdict": "No detectable trend",
-      "efficiency_mean": 0.4165,
-      "efficiency_slope_per_yr": -0.01048,
-      "efficiency_p_value": 0.00072,
-      "efficiency_verdict": "Declining efficiency",
-      "exploratory_segmented_breakpoint": 2006,
-      "exploratory_slope_before": -0.16751,
-      "exploratory_slope_after": -0.01118
+      "n_valid_seasons": 22,
+      "rebound_alone_mean_cm": 53.95,
+      "rebound_alone_slope_cm_yr": 0.2349,
+      "rebound_alone_ci95": [
+        -0.279,
+        0.603
+      ],
+      "rebound_alone_p_value": 0.4298,
+      "rebound_alone_verdict": "No detectable trend",
+      "efficiency_imerg_mean": 0.3255,
+      "efficiency_imerg_slope_per_yr": 0.00136,
+      "efficiency_imerg_ci95": [
+        0.0003,
+        0.0035
+      ],
+      "efficiency_imerg_p_value": 0.02076,
+      "efficiency_imerg_verdict": "No detectable trend",
+      "old_power_efficiency_mean": null,
+      "old_power_efficiency_slope_per_yr": null,
+      "old_power_efficiency_p_value": null,
+      "exploratory_segmented_breakpoint": 2010,
+      "exploratory_slope_before": 0.01009,
+      "exploratory_slope_after": 0.00193
     }
   ]
 }

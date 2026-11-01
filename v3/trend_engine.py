@@ -103,6 +103,51 @@ def run_ess_mann_kendall(t_years: np.ndarray, y: np.ndarray, alpha: float = 0.05
     }
 
 
+def run_surrogate_theilsen(
+    t_years: np.ndarray, y: np.ndarray, n_surr: int = 1999, seed: int = 42
+) -> dict:
+    """
+    Phase-randomized Fourier surrogate test and confidence interval for Theil-Sen slope.
+    Preserves exact power spectrum and autocorrelation structure of detrended residuals.
+    Used for regions failing placebo false-positive rate calibration (such as NW).
+    """
+    n = len(y)
+    i_idx, j_idx = np.triu_indices(n, k=1)
+    dt = t_years[j_idx] - t_years[i_idx]
+    dy = y[j_idx] - y[i_idx]
+    s_obs = float(np.median(dy / dt))
+    resid = y - s_obs * t_years
+
+    f = np.fft.rfft(resid)
+    mag = np.abs(f)
+    n_freq = len(f)
+
+    rng = np.random.default_rng(seed)
+    phases = rng.uniform(0, 2 * np.pi, size=(n_surr, n_freq))
+    phases[:, 0] = 0
+    if n % 2 == 0:
+        phases[:, -1] = 0
+
+    f_surrs = mag[None, :] * np.exp(1j * phases)
+    surr_noises = np.fft.irfft(f_surrs, n=n, axis=1)
+
+    dy_surr = surr_noises[:, j_idx] - surr_noises[:, i_idx]
+    slopes_null = np.median(dy_surr / dt[None, :], axis=1)
+    slopes_boot = s_obs + slopes_null
+
+    p_surr = float((1 + np.sum(np.abs(slopes_null) >= np.abs(s_obs))) / (n_surr + 1))
+    ci_low = float(np.percentile(slopes_boot, 2.5))
+    ci_high = float(np.percentile(slopes_boot, 97.5))
+    return {
+        "slope": s_obs,
+        "ci_low": ci_low,
+        "ci_high": ci_high,
+        "p_value": p_surr,
+        "z": float(s_obs / max(1e-12, np.std(slopes_null, ddof=1))),
+        "method": "Surrogate (Phase-Randomized)",
+    }
+
+
 def run_trend_v3(
     t_years: np.ndarray,
     y_raw: np.ndarray,
@@ -112,10 +157,12 @@ def run_trend_v3(
     variable: str,  # "tws" or "precip"
     period_mean: float = 0.0,
     run_bootstrap: bool = True,
+    use_surrogate: bool = False,
 ) -> dict:
     """
     Computes calibrated v3 trend analysis for a single series.
-    Uses calibrated ESS Mann-Kendall as PRIMARY and Hamed-Rao as SECONDARY.
+    Uses calibrated ESS Mann-Kendall (or phase-randomized surrogate for placebo-failing series)
+    as PRIMARY and Hamed-Rao as SECONDARY.
     """
     # Deseasonalise
     y = deseasonalise(y_raw, months)
@@ -132,13 +179,27 @@ def run_trend_v3(
     # Block length for sensitivity bootstrap
     block_len, block_just = choose_block_length(n)
 
-    # Calibrated Primary Test: ESS-MK + Analytical Theil-Sen CI
-    ess_res = run_ess_mann_kendall(t_v, y_v, alpha=0.05)
-    slope = ess_res["slope"]
-    ci_low = ess_res["ci_low"]
-    ci_high = ess_res["ci_high"]
-    p_primary = ess_res["p_value"]
-    z_primary = ess_res["z"]
+    # Primary Significance Test
+    if use_surrogate:
+        surr_res = run_surrogate_theilsen(t_v, y_v, n_surr=1999)
+        slope = surr_res["slope"]
+        ci_low = surr_res["ci_low"]
+        ci_high = surr_res["ci_high"]
+        p_primary = surr_res["p_value"]
+        z_primary = surr_res["z"]
+        primary_method = "Surrogate (Phase-Randomized)"
+        gamma = 1.0
+        r1_used = 0.0
+    else:
+        ess_res = run_ess_mann_kendall(t_v, y_v, alpha=0.05)
+        slope = ess_res["slope"]
+        ci_low = ess_res["ci_low"]
+        ci_high = ess_res["ci_high"]
+        p_primary = ess_res["p_value"]
+        z_primary = ess_res["z"]
+        primary_method = "Calibrated ESS-MK"
+        gamma = ess_res.get("gamma", 1.0)
+        r1_used = ess_res.get("r1_detrended", 0.0)
 
     # Secondary Bootstrap CI (for sensitivity / cross-validation)
     if run_bootstrap:
@@ -212,9 +273,10 @@ def run_trend_v3(
     return {
         "label": label,
         "n_obs": n,
-        "n_star": ess_res["n_star"],
-        "gamma": ess_res["gamma"],
-        "r1_detrended": ess_res["r1_detrended"],
+        "primary_method": primary_method,
+        "n_star": round(n / gamma, 1),
+        "gamma": round(gamma, 3),
+        "r1_detrended": round(r1_used, 4),
         "block_len": block_len,
         "block_justification": block_just,
         "slope": round(slope_primary, 5),

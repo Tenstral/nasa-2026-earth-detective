@@ -74,13 +74,13 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
         sub["month"] = sub["date"].dt.month
         sub["year"] = sub["date"].dt.year
 
+        # Check if region uses phase-randomized surrogate based on placebo FPR/coverage calibration
+        use_surr = (reg in ["NW", "SW", "SE"])
+
         for season, months_list in SEASONS.items():
             seas_sub = sub[sub["month"].isin(months_list)].copy()
             if seas_sub.empty:
                 continue
-
-            t_years = seas_sub["decimal_year"].values
-            months = seas_sub["month"].values
 
             # TWS trend
             tws_sub = seas_sub.dropna(subset=["grace_tws_cm"])
@@ -93,6 +93,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                     area_km2=area,
                     variable="tws",
                     period_mean=0.0,
+                    use_surrogate=use_surr,
                 )
                 tws_res.update({
                     "window": window_name,
@@ -105,18 +106,20 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                 })
                 results.append(tws_res)
 
-            # Precip trend
-            pr_sub = seas_sub.dropna(subset=["power_precip_mm"])
+            # Primary Precip trend (GPM IMERG V07B)
+            p_col = "imerg_precip_mm" if "imerg_precip_mm" in seas_sub.columns else "power_precip_mm"
+            pr_sub = seas_sub.dropna(subset=[p_col])
             if len(pr_sub) >= 10:
-                p_mean = float(pr_sub["power_precip_mm"].mean())
+                p_mean = float(pr_sub[p_col].mean())
                 pr_res = run_trend_v3(
                     t_years=pr_sub["decimal_year"].values,
-                    y_raw=pr_sub["power_precip_mm"].values,
+                    y_raw=pr_sub[p_col].values,
                     months=pr_sub["month"].values,
                     label=f"{reg}_{season}_precip",
                     area_km2=area,
                     variable="precip",
                     period_mean=p_mean,
+                    use_surrogate=False,
                 )
                 pr_res.update({
                     "window": window_name,
@@ -126,6 +129,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                     "variable": "precip",
                     "season": season,
                     "n_obs": len(pr_sub),
+                    "precip_source": "GPM_IMERG_V07B",
                 })
                 results.append(pr_res)
 
@@ -135,6 +139,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
         sub["date"] = pd.to_datetime(sub["date"])
         sub["month"] = sub["date"].dt.month
         sub["year"] = sub["date"].dt.year
+        div_use_surr = (div in ["Rajshahi", "Rangpur", "Khulna", "Barishal", "Chattogram"])
 
         for season, months_list in SEASONS.items():
             seas_sub = sub[sub["month"].isin(months_list)].copy()
@@ -152,6 +157,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                     area_km2=area,
                     variable="tws",
                     period_mean=0.0,
+                    use_surrogate=div_use_surr,
                 )
                 tws_res.update({
                     "window": window_name,
@@ -164,18 +170,20 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                 })
                 results.append(tws_res)
 
-            # Precip
-            pr_sub = seas_sub.dropna(subset=["power_precip_mm"])
+            # Primary Precip (GPM IMERG V07B)
+            p_col = "imerg_precip_mm" if "imerg_precip_mm" in seas_sub.columns else "power_precip_mm"
+            pr_sub = seas_sub.dropna(subset=[p_col])
             if len(pr_sub) >= 10:
-                p_mean = float(pr_sub["power_precip_mm"].mean())
+                p_mean = float(pr_sub[p_col].mean())
                 pr_res = run_trend_v3(
                     t_years=pr_sub["decimal_year"].values,
-                    y_raw=pr_sub["power_precip_mm"].values,
+                    y_raw=pr_sub[p_col].values,
                     months=pr_sub["month"].values,
                     label=f"{div}_{season}_precip",
                     area_km2=area,
                     variable="precip",
                     period_mean=p_mean,
+                    use_surrogate=False,
                 )
                 pr_res.update({
                     "window": window_name,
@@ -185,6 +193,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                     "variable": "precip",
                     "season": season,
                     "n_obs": len(pr_sub),
+                    "precip_source": "GPM_IMERG_V07B",
                 })
                 results.append(pr_res)
 
@@ -231,6 +240,11 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
             r["verdict"] = "Suggestive"
         else:
             r["verdict"] = "No detectable trend"
+
+        if r["verdict"] == "No detectable trend" and window_name in ["grace_fo_era", "recent_2020"]:
+            r["verdict_detail"] = "Below detection limit"
+        else:
+            r["verdict_detail"] = r["verdict"]
 
         # Secondary Hamed-Rao verdict for reference
         hr_p = float(r["hr_p_value"]) if r.get("hr_p_value") is not None else 1.0

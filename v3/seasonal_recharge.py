@@ -2,16 +2,19 @@
 NASA Space Apps 2026 – Bengal Hydro Detective
 v3 Seasonal Recharge Dynamics: 24-Season Rebound & Efficiency
 ==============================================================
-Analyzes hydrological recovery dynamics across ~24 monsoon seasons (2002–2025):
-  - Pre-monsoon dry season low (Apr/May) to post-monsoon peak (Sep/Oct) storage rebound (Delta TWS, cm)
-  - Seasonal monsoon precipitation accumulation (P_monsoon, mm)
-  - Recharge efficiency ratio: RE = Delta TWS (cm) / (0.1 * P_monsoon, cm)
-  - Theil-Sen trend and Hamed-Rao test on 24-year recharge metrics.
-  - Exploratory segmented regression break-point analysis (labeled exploratory, no Pettitt).
+Analyzes hydrological recovery dynamics across 24 monsoon seasons (2002–2025):
+  - Pre-monsoon dry season low (Apr/May, or Mar) to post-monsoon peak (Sep/Oct, or Aug/Nov)
+    storage rebound alone (Delta TWS, cm) — reported independently so it does not depend
+    on the rainfall denominator.
+  - Decoupled seasonal monsoon precipitation (P_monsoon, mm) from GPM IMERG V07B (4 complete months Jun-Sep).
+  - Seasonal recharge efficiency ratio: RE = Delta TWS (cm) / (0.1 * P_monsoon, cm).
+  - Explicit flagging of satellite mission gap seasons (2017 lacks post-monsoon peak; 2018 lacks pre-monsoon low).
+  - Trend estimation on both storage rebound alone and recharge efficiency.
 
 Outputs:
   outputs/v3/full_record/seasonal_recharge_24yr.csv
   outputs/v3/full_record/seasonal_recharge_summary.json
+  outputs/v3/full_record/fig2_recharge_efficiency_24yr.png
 """
 
 import json
@@ -26,58 +29,86 @@ if str(REPO_ROOT) not in sys.path:
 import numpy as np
 import pandas as pd
 from scipy import stats
-import pymannkendall as mk
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
-from v2.task3_trend_engine import (
-    choose_block_length,
-    circular_block_bootstrap_slope,
-    RANDOM_SEED,
-    N_BOOT,
-)
 from v3.windows import REGIONS, OUTPUTS_V3_FULL
+from v3.trend_engine import run_ess_mann_kendall
 
 CSV_PATH = OUTPUTS_V3_FULL / "seasonal_recharge_24yr.csv"
 JSON_PATH = OUTPUTS_V3_FULL / "seasonal_recharge_summary.json"
+FIG2_PATH = OUTPUTS_V3_FULL / "fig2_recharge_efficiency_24yr.png"
+SEASONAL_RAIN_CSV = REPO_ROOT / "outputs" / "v3" / "imerg_vs_power" / "rainfall_seasonal_regional.csv"
 
 
-def compute_seasonal_recharge_table(reg_df: pd.DataFrame) -> pd.DataFrame:
+def compute_seasonal_recharge_table(reg_df: pd.DataFrame, rain_df: pd.DataFrame) -> pd.DataFrame:
     """
-    Computes year-by-year dry-season low, post-monsoon peak, rebound,
-    monsoon precipitation, and recharge efficiency per region.
+    Computes year-by-year dry-season low, post-monsoon peak, storage rebound alone (Delta TWS),
+    decoupled IMERG monsoon precipitation, and recharge efficiency per region.
     """
     df = reg_df.copy()
     df["date"] = pd.to_datetime(df["date"])
     df["year"] = df["date"].dt.year
     df["month"] = df["date"].dt.month
 
+    # Filter rain_df to monsoon
+    monsoon_rain = rain_df[rain_df["season"] == "monsoon"].copy()
+
     rows = []
-    years = sorted(df["year"].unique())
-    # Exclude 2026 if incomplete monsoon
-    years = [y for y in years if y <= 2025]
+    years = [y for y in sorted(df["year"].unique()) if y <= 2025]
 
     for reg in ["NW", "NE", "Central", "SW", "SE", "National"]:
         sub = df[df["region"] == reg]
+        sub_rain = monsoon_rain[monsoon_rain["region"] == reg]
 
         for y in years:
             # 1. Pre-monsoon dry low: Apr/May of year y (or Mar if Apr missing)
-            pre_sub = sub[(sub["year"] == y) & (sub["month"].isin([3, 4, 5]))]
-            # 2. Post-monsoon high: Sep/Oct of year y (or Aug/Nov)
-            post_sub = sub[(sub["year"] == y) & (sub["month"].isin([8, 9, 10]))]
-            # 3. Monsoon precipitation: Jun-Sep total
-            monsoon_p = sub[(sub["year"] == y) & (sub["month"].isin([6, 7, 8, 9]))]["power_precip_mm"].sum()
+            pre_sub = sub[(sub["year"] == y) & (sub["month"].isin([3, 4, 5]))].dropna(subset=["grace_tws_cm"])
+            # 2. Post-monsoon high: Sep/Oct of year y (or Aug/Nov if missing)
+            post_sub = sub[(sub["year"] == y) & (sub["month"].isin([8, 9, 10, 11]))].dropna(subset=["grace_tws_cm"])
 
-            tws_pre = pre_sub["grace_tws_cm"].min() if not pre_sub.dropna(subset=["grace_tws_cm"]).empty else np.nan
-            tws_post = post_sub["grace_tws_cm"].max() if not post_sub.dropna(subset=["grace_tws_cm"]).empty else np.nan
+            tws_pre = float(pre_sub["grace_tws_cm"].min()) if not pre_sub.empty else np.nan
+            tws_post = float(post_sub["grace_tws_cm"].max()) if not post_sub.empty else np.nan
 
-            if not np.isnan(tws_pre) and not np.isnan(tws_post) and monsoon_p > 0:
-                rebound_cm = tws_post - tws_pre
-                p_cm = monsoon_p * 0.1  # mm to cm
-                eff = rebound_cm / p_cm if p_cm > 0 else np.nan
-                has_data = True
+            # 3. Decoupled IMERG monsoon rainfall (Jun-Sep complete)
+            r_row = sub_rain[sub_rain["year"] == y]
+            if not r_row.empty:
+                imerg_p = float(r_row["imerg_total_mm"].iloc[0])
+                power_p = float(r_row["power_total_mm"].iloc[0]) if pd.notna(r_row["power_total_mm"].iloc[0]) else np.nan
+                rain_complete = bool(r_row["is_complete"].iloc[0])
             else:
+                imerg_p = np.nan
+                power_p = np.nan
+                rain_complete = False
+
+            # Check gap artifact
+            if y == 2017:
+                has_rebound = False
+                note = "GRACE mission gap: missing post-monsoon peak"
                 rebound_cm = np.nan
-                eff = np.nan
-                has_data = False
+                eff_imerg = np.nan
+                eff_power = np.nan
+            elif y == 2018:
+                has_rebound = False
+                note = "GRACE-FO launch: missing pre-monsoon low"
+                rebound_cm = np.nan
+                eff_imerg = np.nan
+                eff_power = np.nan
+            elif not np.isnan(tws_pre) and not np.isnan(tws_post):
+                has_rebound = True
+                note = "Complete seasonal pair"
+                rebound_cm = tws_post - tws_pre
+                p_cm_imerg = imerg_p * 0.1 if (not np.isnan(imerg_p) and imerg_p > 0) else np.nan
+                p_cm_power = power_p * 0.1 if (not np.isnan(power_p) and power_p > 0) else np.nan
+                eff_imerg = rebound_cm / p_cm_imerg if (p_cm_imerg and not np.isnan(p_cm_imerg)) else np.nan
+                eff_power = rebound_cm / p_cm_power if (p_cm_power and not np.isnan(p_cm_power)) else np.nan
+            else:
+                has_rebound = False
+                note = "Incomplete satellite observations"
+                rebound_cm = np.nan
+                eff_imerg = np.nan
+                eff_power = np.nan
 
             rows.append({
                 "region": reg,
@@ -86,9 +117,12 @@ def compute_seasonal_recharge_table(reg_df: pd.DataFrame) -> pd.DataFrame:
                 "pre_monsoon_low_cm": round(tws_pre, 3) if not np.isnan(tws_pre) else np.nan,
                 "post_monsoon_peak_cm": round(tws_post, 3) if not np.isnan(tws_post) else np.nan,
                 "rebound_cm": round(rebound_cm, 3) if not np.isnan(rebound_cm) else np.nan,
-                "monsoon_precip_mm": round(monsoon_p, 1) if monsoon_p > 0 else np.nan,
-                "recharge_efficiency_ratio": round(eff, 4) if not np.isnan(eff) else np.nan,
-                "valid": has_data,
+                "monsoon_precip_imerg_mm": round(imerg_p, 1) if not np.isnan(imerg_p) else np.nan,
+                "monsoon_precip_power_mm": round(power_p, 1) if not np.isnan(power_p) else np.nan,
+                "recharge_efficiency_imerg": round(eff_imerg, 4) if not np.isnan(eff_imerg) else np.nan,
+                "recharge_efficiency_power": round(eff_power, 4) if not np.isnan(eff_power) else np.nan,
+                "valid": has_rebound,
+                "note": note,
             })
 
     return pd.DataFrame(rows)
@@ -108,7 +142,6 @@ def fit_exploratory_segmented_regression(years: np.ndarray, y: np.ndarray) -> di
     best_sl_b = None
     best_sl_a = None
 
-    # Search candidates leaving at least 4 seasons on either side
     candidates = years[4:-4]
     for bp in candidates:
         tb = years[years <= bp]
@@ -146,14 +179,18 @@ def fit_exploratory_segmented_regression(years: np.ndarray, y: np.ndarray) -> di
 def run_seasonal_recharge_analysis():
     reg_file = OUTPUTS_V3_FULL / "region_series_2002_2026.csv"
     if not reg_file.exists():
-        raise FileNotFoundError(f"Missing regional series: {reg_file}. Run series_extractor first.")
+        raise FileNotFoundError(f"Missing regional series: {reg_file}")
+    if not SEASONAL_RAIN_CSV.exists():
+        raise FileNotFoundError(f"Missing seasonal rain series: {SEASONAL_RAIN_CSV}")
 
     reg_df = pd.read_csv(reg_file)
-    table_df = compute_seasonal_recharge_table(reg_df)
+    rain_df = pd.read_csv(SEASONAL_RAIN_CSV)
+
+    table_df = compute_seasonal_recharge_table(reg_df, rain_df)
     table_df.to_csv(CSV_PATH, index=False)
 
     summary_results = []
-    print("\nRunning Seasonal Recharge & Efficiency Trends across 24 Monsoon Seasons (2002–2025)...")
+    print("\nRunning Seasonal Recharge Dynamics (2002–2025)...")
 
     for reg in ["NW", "NE", "Central", "SW", "SE", "National"]:
         sub = table_df[(table_df["region"] == reg) & (table_df["valid"] == True)].copy()
@@ -161,35 +198,57 @@ def run_seasonal_recharge_analysis():
 
         yrs = sub["year"].values.astype(float)
         rebound = sub["rebound_cm"].values
-        eff = sub["recharge_efficiency_ratio"].values
+        eff_imerg = sub["recharge_efficiency_imerg"].values
+        eff_power = sub["recharge_efficiency_power"].dropna().values
 
-        # 1. Trend in Rebound (Delta TWS)
-        ts_reb = stats.theilslopes(rebound, yrs)
-        hr_reb = mk.hamed_rao_modification_test(rebound)
-        reb_slope = float(ts_reb.slope)
-        reb_p = float(hr_reb.p) if not np.isnan(hr_reb.p) else 1.0
+        # 1. Storage Rebound ALONE (Delta TWS, cm)
+        ess_reb = run_ess_mann_kendall(yrs, rebound, alpha=0.05)
+        reb_slope = ess_reb["slope"]
+        reb_ci_low = ess_reb["ci_low"]
+        reb_ci_high = ess_reb["ci_high"]
+        reb_p = ess_reb["p_value"]
+        reb_vrd = "Significant decrease" if (reb_p < 0.05 and reb_slope < 0) else (
+            "Suggestive decrease" if (reb_p < 0.05 and reb_slope < 0) else "No detectable trend"
+        )
 
-        # 2. Trend in Recharge Efficiency (RE)
-        ts_eff = stats.theilslopes(eff, yrs)
-        hr_eff = mk.hamed_rao_modification_test(eff)
-        eff_slope = float(ts_eff.slope)
-        eff_p = float(hr_eff.p) if not np.isnan(hr_eff.p) else 1.0
+        # 2. Recharge Efficiency with IMERG (RE_imerg)
+        ess_eff = run_ess_mann_kendall(yrs, eff_imerg, alpha=0.05)
+        eff_slope = ess_eff["slope"]
+        eff_ci_low = ess_eff["ci_low"]
+        eff_ci_high = ess_eff["ci_high"]
+        eff_p = ess_eff["p_value"]
+        eff_vrd = "Declining efficiency" if (eff_p < 0.05 and eff_slope < 0) else "No detectable trend"
 
-        # 3. Exploratory Segmented Regression on Efficiency
-        seg_res = fit_exploratory_segmented_regression(yrs, eff)
+        # 3. Old POWER Recharge Efficiency (for comparison)
+        if len(eff_power) >= 8:
+            yrs_pow = sub.dropna(subset=["recharge_efficiency_power"])["year"].values.astype(float)
+            ess_pow = run_ess_mann_kendall(yrs_pow, eff_power, alpha=0.05)
+            pow_slope = ess_pow["slope"]
+            pow_p = ess_pow["p_value"]
+            pow_mean = float(np.mean(eff_power))
+        else:
+            pow_slope = pow_p = pow_mean = np.nan
+
+        # 4. Exploratory Segmented Regression on IMERG Efficiency
+        seg_res = fit_exploratory_segmented_regression(yrs, eff_imerg)
 
         summary_results.append({
             "region": reg,
             "region_name": REGIONS[reg]["name_long"],
-            "n_seasons": n_seasons,
-            "rebound_mean_cm": round(float(np.mean(rebound)), 2),
-            "rebound_slope_cm_yr": round(reb_slope, 4),
-            "rebound_p_value": round(reb_p, 5),
-            "rebound_verdict": "Decreasing rebound" if (reb_p < 0.05 and reb_slope < 0) else "No detectable trend",
-            "efficiency_mean": round(float(np.mean(eff)), 4),
-            "efficiency_slope_per_yr": round(eff_slope, 5),
-            "efficiency_p_value": round(eff_p, 5),
-            "efficiency_verdict": "Declining efficiency" if (eff_p < 0.05 and eff_slope < 0) else "No detectable trend",
+            "n_valid_seasons": n_seasons,
+            "rebound_alone_mean_cm": round(float(np.mean(rebound)), 2),
+            "rebound_alone_slope_cm_yr": round(reb_slope, 4),
+            "rebound_alone_ci95": [round(reb_ci_low, 3), round(reb_ci_high, 3)],
+            "rebound_alone_p_value": round(reb_p, 5),
+            "rebound_alone_verdict": reb_vrd,
+            "efficiency_imerg_mean": round(float(np.mean(eff_imerg)), 4),
+            "efficiency_imerg_slope_per_yr": round(eff_slope, 5),
+            "efficiency_imerg_ci95": [round(eff_ci_low, 4), round(eff_ci_high, 4)],
+            "efficiency_imerg_p_value": round(eff_p, 5),
+            "efficiency_imerg_verdict": eff_vrd,
+            "old_power_efficiency_mean": round(pow_mean, 4) if not np.isnan(pow_mean) else None,
+            "old_power_efficiency_slope_per_yr": round(pow_slope, 5) if not np.isnan(pow_slope) else None,
+            "old_power_efficiency_p_value": round(pow_p, 5) if not np.isnan(pow_p) else None,
             "exploratory_segmented_breakpoint": seg_res["breakpoint_year"],
             "exploratory_slope_before": seg_res["slope_before"],
             "exploratory_slope_after": seg_res["slope_after"],
@@ -198,15 +257,15 @@ def run_seasonal_recharge_analysis():
         print(
             f"  {reg:10s} (N={n_seasons} seasons): Mean Rebound = {np.mean(rebound):.1f} cm "
             f"(slope: {reb_slope:+.3f} cm/yr, p={reb_p:.4f}) | "
-            f"Mean Efficiency = {np.mean(eff)*100:.1f}% (slope: {eff_slope*100:+.3f}%/yr, p={eff_p:.4f})"
+            f"IMERG Efficiency = {np.mean(eff_imerg)*100:.1f}% (slope: {eff_slope*100:+.3f}%/yr, p={eff_p:.4f})"
         )
 
     summary = {
         "timestamp": datetime.now().isoformat(),
-        "period": "2002 to 2025 (24 hydrological monsoon seasons)",
+        "period": "2002 to 2025 (24 hydrological monsoon seasons; 22 complete observation pairs)",
         "definitions": {
-            "rebound_cm": "TWS_peak (Sep/Oct) minus TWS_pre (Apr/May) in cm",
-            "recharge_efficiency": "rebound_cm / (0.1 * monsoon_precip_mm) [fractional recovery]",
+            "rebound_alone_cm": "TWS_peak (Sep/Oct) minus TWS_pre (Apr/May) in cm (independent of rainfall)",
+            "recharge_efficiency_imerg": "rebound_cm / (0.1 * imerg_monsoon_precip_mm) [fractional recovery]",
         },
         "results": summary_results,
     }
@@ -214,10 +273,72 @@ def run_seasonal_recharge_analysis():
     with open(JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
 
+    # Plot Figure 2
+    plot_fig2_recharge_efficiency(table_df)
+
     print(f"\n[OK] Saved seasonal recharge deliverables:")
-    print(f"  CSV:  {CSV_PATH.name} ({len(table_df)} rows)")
-    print(f"  JSON: {JSON_PATH.name}")
+    print(f"  CSV:    {CSV_PATH.name} ({len(table_df)} rows)")
+    print(f"  JSON:   {JSON_PATH.name}")
+    print(f"  Figure: {FIG2_PATH.name}")
     return table_df, summary_results
+
+
+def plot_fig2_recharge_efficiency(df: pd.DataFrame):
+    valid_df = df[df["valid"] == True].copy()
+
+    reg_colors = {
+        "NW": "#dc2626", "NE": "#8b5cf6", "Central": "#0284c7",
+        "SW": "#059669", "SE": "#ea580c", "National": "#1f2937",
+    }
+
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10), sharex=True)
+
+    flood_years = [2004, 2007, 2020, 2022]
+    for fy in flood_years:
+        ax1.axvline(fy, color="#94a3b8", linestyle="--", alpha=0.6)
+        ax2.axvline(fy, color="#94a3b8", linestyle="--", alpha=0.6)
+
+    # Panel 1: Storage Rebound Alone (Delta TWS, cm)
+    for reg in ["NW", "NE", "Central", "SW", "SE", "National"]:
+        sub = valid_df[valid_df["region"] == reg]
+        ax1.plot(sub["year"], sub["rebound_cm"], marker="o", color=reg_colors[reg],
+                 label=REGIONS[reg]["name_long"], lw=1.8 if reg != "National" else 2.5,
+                 linestyle="-" if reg != "National" else "--")
+
+    ax1.set_title("A. Storage Rebound Alone (ΔTWS = Peak - Dry Season Low, cm) [Independent of Rainfall]",
+                  fontsize=12, fontweight="bold")
+    ax1.set_ylabel("Storage Rebound (cm)", fontsize=10)
+    ax1.grid(True, linestyle=":", alpha=0.5)
+    ax1.legend(loc="upper right", ncol=3, fontsize=8)
+
+    # Panel 2: Recharge Efficiency Ratio (%) with IMERG
+    for reg in ["NW", "NE", "Central", "SW", "SE", "National"]:
+        sub = valid_df[valid_df["region"] == reg]
+        eff_pct = sub["recharge_efficiency_imerg"] * 100.0
+        ax2.plot(sub["year"], eff_pct, marker="s", color=reg_colors[reg],
+                 label=f"{reg} Efficiency", lw=1.8 if reg != "National" else 2.5,
+                 linestyle="-" if reg != "National" else "--")
+
+    ax2.set_title("B. Seasonal Recharge Efficiency Ratio: [ΔTWS (cm) / (0.1 × IMERG Monsoon Precip (cm))] × 100%",
+                  fontsize=12, fontweight="bold")
+    ax2.set_ylabel("Recharge Efficiency (%)", fontsize=10)
+    ax2.set_xlabel("Hydrological Year (2002–2025)", fontsize=11)
+    ax2.grid(True, linestyle=":", alpha=0.5)
+
+    # Annotate flood events
+    for fy in flood_years:
+        ax1.text(fy, 75, f"{fy} Flood", rotation=90, verticalalignment="bottom", fontsize=8, color="#475569")
+
+    # Annotate 2017-2018 mission gap
+    ax1.axvspan(2017 - 0.4, 2018 + 0.4, color="#fee2e2", alpha=0.5, zorder=0)
+    ax2.axvspan(2017 - 0.4, 2018 + 0.4, color="#fee2e2", alpha=0.5, zorder=0)
+    ax1.text(2017.5, 30, "GRACE/GRACE-FO\nMission Gap", horizontalalignment="center", fontsize=8, color="#b91c1c", fontweight="bold")
+
+    plt.suptitle("Bengal Basin Hydrological Recovery & Recharge Dynamics (2002–2025)\n"
+                 "PRELIMINARY — 24 Monsoon Seasons Analysis | Team Tenstral", fontsize=13, fontweight="bold", y=0.98)
+    plt.tight_layout()
+    plt.savefig(FIG2_PATH, dpi=300)
+    plt.close()
 
 
 if __name__ == "__main__":

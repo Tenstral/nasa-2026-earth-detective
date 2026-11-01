@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-01T04:44:12.870880",
+  "timestamp": "2026-11-01T19:11:25.814265",
   "transition_date": "2018-06",
   "model": "y_t = beta_0 + beta_1 * t + delta * 1_{t >= 2018.5} + eps_t",
   "covariance_estimator": "HAC Newey-West (maxlags=12)",

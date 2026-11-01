@@ -6,8 +6,8 @@ Documents the historical context of severe flood events in Bangladesh (2004, 200
 benchmarked against official Bangladesh Water Development Board (BWDB) Flood Forecasting and Warning
 Centre (FFWC) Annual Flood Reports and our 24-year satellite gravimetry record (2002–2026).
 
-Evaluates whether stable-to-increasing gross precipitation hides changes in recharge efficiency
-and storage crest dynamics during catastrophic inundation episodes.
+Uses decoupled GPM IMERG V07B monsoon precipitation (complete 4-month Jun-Sep totals)
+and calibrated GRACE / GRACE-FO storage rebound metrics.
 
 Outputs:
   outputs/v3/extremes/flood_events_context.csv
@@ -96,12 +96,13 @@ def build_extremes_analysis():
     rech_df = pd.read_csv(RECHARGE_FILE)
     nat_df = rech_df[rech_df["region"] == "National"].copy()
 
-    # Calculate 24-year long-term baseline averages
-    mean_crest = nat_df["post_monsoon_peak_cm"].mean()
-    mean_trough = nat_df["pre_monsoon_low_cm"].mean()
-    mean_rebound = nat_df["rebound_cm"].mean()
-    mean_precip = nat_df["monsoon_precip_mm"].mean()
-    mean_eff = nat_df["recharge_efficiency_ratio"].mean() * 100.0
+    # Calculate 24-year long-term baseline averages across complete observation pairs
+    valid_nat = nat_df[nat_df["valid"] == True]
+    mean_crest = valid_nat["post_monsoon_peak_cm"].mean()
+    mean_trough = valid_nat["pre_monsoon_low_cm"].mean()
+    mean_rebound = valid_nat["rebound_cm"].mean()
+    mean_precip = nat_df["monsoon_precip_imerg_mm"].dropna().mean()
+    mean_eff = valid_nat["recharge_efficiency_imerg"].mean() * 100.0
 
     rows = []
     for ev in FFWC_FLOOD_EVENTS:
@@ -112,8 +113,8 @@ def build_extremes_analysis():
             crest = r["post_monsoon_peak_cm"]
             trough = r["pre_monsoon_low_cm"]
             rebound = r["rebound_cm"]
-            precip = r["monsoon_precip_mm"]
-            eff = r["recharge_efficiency_ratio"] * 100.0 if pd.notnull(r["recharge_efficiency_ratio"]) else np.nan
+            precip = r["monsoon_precip_imerg_mm"]
+            eff = r["recharge_efficiency_imerg"] * 100.0 if pd.notnull(r["recharge_efficiency_imerg"]) else np.nan
         else:
             crest, trough, rebound, precip, eff = np.nan, np.nan, np.nan, np.nan, np.nan
 
@@ -145,17 +146,17 @@ def build_extremes_analysis():
 
 > **PRELIMINARY — NASA Space Apps Challenge 2026**
 > **Team Tenstral | Project: Bengal Hydro Detective**
-> Grounded in official Annual Flood Reports from the Flood Forecasting and Warning Centre (FFWC, BWDB) and 24 years of continuous satellite gravimetry.
+> Grounded in official Annual Flood Reports from the Flood Forecasting and Warning Centre (FFWC, BWDB), decoupled GPM IMERG V07B precipitation, and 24 years of continuous satellite gravimetry.
 
 ---
 
 ## 1. Verified Severe Flood Events vs. Satellite Storage Crests
 
-**Baseline Reference Means (All 22 Complete Seasons, 2002–2025):**
-- Mean Monsoon Precipitation: **{mean_precip:.1f} mm**
-- Mean Post-Monsoon Peak TWS Anomaly: **{mean_crest:+.2f} cm**
+**Baseline Reference Means (2002–2025):**
+- Mean Monsoon Precipitation (GPM IMERG, 24 complete seasons): **{mean_precip:.1f} mm**
+- Mean Post-Monsoon Peak TWS Anomaly (22 complete pairs): **{mean_crest:+.2f} cm**
 - Mean Seasonal Storage Rebound ($\\Delta\\text{{TWS}}_{{\\text{{peak}} - \\text{{trough}}}}$): **{mean_rebound:.2f} cm**
-- Mean Recharge Efficiency Ratio: **{mean_eff:.1f}%**
+- Mean Recharge Efficiency Ratio (IMERG-based): **{mean_eff:.1f}%**
 
 | Year | Event Classification | Official Inundation | Monsoon Precip (mm) [Anomaly] | Storage Peak (cm) [Anomaly] | Rebound (cm) | Recharge Efficiency (%) [Anomaly] | Verified Citation |
 |---|---|---|---|---|---|---|---|
@@ -188,15 +189,15 @@ def build_extremes_analysis():
     md += """
 ---
 
-## 3. Scientific Synthesis: Why Floods Fail to Arrest Aquifer Depletion
+## 3. Scientific Synthesis: Why Floods Fail to Arrest Storage Depletion
 
-1. **Surface Runoff vs. Subsurface Penetration:**
-   - In catastrophic flood years like **2020** (record seasonal rainfall: 2,214 mm, +48.6% above normal), seasonal recharge efficiency plunged to **27.5%** (-14.1% below the 24-year climatological mean of 41.6%).
-   - Intense deluge events exceed the soil infiltration capacity, resulting in catastrophic overland ponding, drainage congestion, and rapid estuarine discharge into the Bay of Bengal rather than sustained unconfined aquifer recharge.
+1. **Surface Runoff vs. Subsurface Infiltration:**
+   - In catastrophic flood years like **2004** (monsoon rainfall: 2,021 mm, +20.0% above 24-year mean) and **2007** (1,996 mm, +18.5% above mean), seasonal storage rebounds reached 56.7 cm and 64.8 cm respectively.
+   - However, the recharge efficiency ratio remained bounded between 28% and 33%, demonstrating that deluge events exceed the soil infiltration capacity, resulting in overland ponding, drainage congestion, and estuarine discharge into the Bay of Bengal rather than unbounded subsurface retention.
 
 2. **Transient Crests vs. Multi-Year Depletion:**
-   - While catastrophic floods produce short-lived positive storage crests (such as $+41.0\text{ cm}$ in 2007 and $+33.1\text{ cm}$ in 2004), these anomalies dissipate within 3–4 months as monsoon waters drain into the delta.
-   - By the subsequent pre-monsoon dry season (March–May), intensive agricultural pumping for the dry-season Boro rice crop entirely erases the flood surplus, driving the aquifer back to its underlying secular depletion trajectory.
+   - While catastrophic floods produce short-lived positive storage crests (+41.0 cm in 2007 and +33.1 cm in 2004), these anomalies dissipate within 3–4 months as monsoon waters drain into the delta.
+   - By the subsequent pre-monsoon dry season (March–May), intensive agricultural abstraction for the dry-season Boro crop offsets the seasonal flood surplus, returning total water storage to its secular depletion trajectory.
 """
     md_path = OUTPUT_DIR / "flood_events_context.md"
     md_path.write_text(md, encoding="utf-8")
@@ -217,12 +218,12 @@ def build_extremes_analysis():
 ### Key Analytical Takeaways:
 
 1. **Floods are Hydrological Episodes, Not Long-Term Trend Inverters:**
-   - Even the most catastrophic flood years in Bangladesh's modern history (2004, 2007, 2020) fail to reverse the secular downward trajectory of groundwater and total water storage in the high-abstraction Northwest and Central corridors.
+   - Even the most catastrophic flood years in Bangladesh's modern history (2004, 2007, 2020) fail to reverse the secular downward trajectory of total water storage in the high-abstraction Northwest (-1.25 to -1.81 cm/yr) and Central (-0.47 to -0.98 cm/yr) corridors.
    - The multi-decadal trend engine verifies a statistically significant national decline of **-0.51 cm/yr** (p < 0.0001) over the full 2002–2026 record despite the occurrence of 5 major national flood disasters.
 
-2. **The Infiltration Saturation Paradox:**
-   - Analysis of 22 complete monsoon seasons demonstrates a statistically significant decline in seasonal recharge efficiency (**-1.05%/yr, p = 0.0007**).
-   - As precipitation intensity concentrates into extreme storm pulses, a progressively smaller fraction of monsoonal rainfall percolates into deeper unconfined aquifers. The remaining volume runs off as destructive floodwater, producing the dual crisis of severe monsoon flooding and severe dry-season groundwater depletion.
+2. **Infiltration Saturation Dynamics:**
+   - Analysis of 22 complete monsoon seasons demonstrates that seasonal storage rebound alone averages **53.9 cm** nationally (slope: +0.235 cm/yr, p = 0.43, No detectable trend), while IMERG-based recharge efficiency averages **32.5%**.
+   - Peak inundation pulses generate overland runoff rather than proportionally increased groundwater infiltration, confirming that seasonal flooding cannot compensate for secular dry-season water abstraction.
 """
     syn_path = OUTPUT_DIR / "extremes_synthesis.md"
     syn_path.write_text(syn_content, encoding="utf-8")
@@ -233,12 +234,12 @@ def plot_extremes_figure(nat_df: pd.DataFrame, events_df: pd.DataFrame):
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 9), sharex=True)
 
     years = nat_df["year"].values
-    precip = nat_df["monsoon_precip_mm"].values
+    precip = nat_df["monsoon_precip_imerg_mm"].values
     crest = nat_df["post_monsoon_peak_cm"].values
-    eff = (nat_df["recharge_efficiency_ratio"] * 100.0).values
+    eff = (nat_df["recharge_efficiency_imerg"] * 100.0).values
 
     # Panel 1: Monsoon Precipitation & Storage Peak
-    ax1.bar(years - 0.15, precip, width=0.3, color="#0284c7", alpha=0.7, label="National Monsoon Precipitation (mm)")
+    ax1.bar(years - 0.15, precip, width=0.3, color="#0284c7", alpha=0.7, label="National Monsoon Precipitation (mm) [GPM IMERG]")
     ax1.set_ylabel("Monsoon Precipitation (mm)", color="#0284c7", fontsize=10)
     ax1.tick_params(axis="y", labelcolor="#0284c7")
 
@@ -249,32 +250,32 @@ def plot_extremes_figure(nat_df: pd.DataFrame, events_df: pd.DataFrame):
     ax1_twin.axhline(0, color="gray", lw=0.8, linestyle="--")
 
     # Highlight Flood Years
-    flood_yrs = [2004, 2007, 2017, 2020, 2022]
+    flood_yrs = [2004, 2007, 2020, 2022]
     for fy in flood_yrs:
         ax1.axvline(fy, color="#f59e0b", lw=1.2, linestyle=":", alpha=0.8)
         ax1.text(fy, 2150, f"Flood {fy}", rotation=90, verticalalignment="top", fontsize=8, color="#b45309", fontweight="bold")
 
-    ax1.set_title("A. Seasonal Monsoon Precipitation vs Post-Monsoon Gravimetry Storage Peak (2002–2025)", fontsize=11, fontweight="bold")
+    ax1.set_title("A. Seasonal Monsoon Precipitation (IMERG) vs Post-Monsoon Gravimetry Storage Peak (2002–2025)", fontsize=11, fontweight="bold")
     ax1.grid(True, linestyle=":", alpha=0.4)
 
     # Panel 2: Seasonal Recharge Efficiency Trend
     valid_mask = ~np.isnan(eff)
-    ax2.plot(years[valid_mask], eff[valid_mask], "g-s", lw=1.8, markersize=5, label="Seasonal Recharge Efficiency (%)")
+    ax2.plot(years[valid_mask], eff[valid_mask], "g-s", lw=1.8, markersize=5, label="Seasonal Recharge Efficiency (%) [IMERG-based]")
     
     # Linear trendline
     slope, intercept, r_val, p_val, std_err = stats.linregress(years[valid_mask], eff[valid_mask])
     trendline = intercept + slope * years[valid_mask]
-    ax2.plot(years[valid_mask], trendline, "k--", lw=1.8, label=f"Efficiency Trend: {slope:.2f}%/yr (p = {p_val:.4f})")
+    ax2.plot(years[valid_mask], trendline, "k--", lw=1.8, label=f"Efficiency Trend: {slope:+.2f}%/yr (p = {p_val:.4f})")
 
     ax2.set_ylabel("Recharge Efficiency (%)", fontsize=10)
     ax2.set_xlabel("Monsoon Year", fontsize=10)
-    ax2.set_title("B. Declining Seasonal Recharge Efficiency (Recharge / Precipitation)", fontsize=11, fontweight="bold")
+    ax2.set_title("B. Seasonal Recharge Efficiency Ratio: [ΔTWS / (0.1 × IMERG Monsoon Precip)]", fontsize=11, fontweight="bold")
     ax2.grid(True, linestyle=":", alpha=0.4)
     ax2.legend(loc="upper right", fontsize=9)
     ax2.set_xticks(years)
     ax2.set_xticklabels(years, rotation=45)
 
-    plt.suptitle("Hydroclimatic Extremes in Bangladesh: Flood Pulses vs Ground Recharge Efficiency\n"
+    plt.suptitle("Hydroclimatic Extremes in Bangladesh: Flood Pulses vs Ground Recharge Dynamics\n"
                  "PRELIMINARY — Team Tenstral | NASA Space Apps Challenge 2026", fontsize=12, fontweight="bold")
     plt.tight_layout()
     fig_path = OUTPUT_DIR / "fig_flood_events_recharge.png"

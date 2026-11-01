@@ -17,7 +17,11 @@
    - **Product:** MODIS Land Cover Type Yearly Global 500m (`MCD12Q1` v061), primary annual classification.
    - **Classes Evaluated:** Primary Croplands (Class 12: lands covered with temporary crops followed by harvest and a bare soil period) and Cropland/Natural Vegetation Mosaic (Class 14: mosaics of small-scale cultivated land with natural forest/shrubland).
 
-3. **Spatial Aggregation:**
+3. **Precipitation Coupling:**
+   - **Product:** GPM IMERG V07B Final Run (`GPM_3IMERGM`, 2002–2025; decoupled from GRACE).
+   - **Role:** Independent meteorological verification that storage depletion occurs without concurrent rainfall deficits.
+
+4. **Spatial Aggregation:**
    - Geodesic zonal statistics calculated across administrative boundaries and aggregated into the 5 core hydro-climatic regions (NW, NE, Central, SW, SE) plus National.
 
 ---
@@ -25,7 +29,7 @@
 ### 2. Methodological Constraints and Limitations
 
 1. **Resolution Mismatch and Spatial Scale Guardrails:**
-   - GRACE and GRACE-FO satellite gravimetry has an effective native spatial resolution of roughly $300	ext{ km} 	imes 300	ext{ km}$ (~$90,000	ext{ km}^2$).
+   - GRACE and GRACE-FO satellite gravimetry has an effective native spatial resolution of roughly $300\text{ km} \times 300\text{ km}$ (~$90,000\text{ km}^2$).
    - Consequently, **exposure claims are valid ONLY at the regional level** (e.g. Northwest vs Southern delta). Storage verdicts cannot be disaggregated to individual upazilas, districts, or localized villages.
 
 2. **No Population Trend Claims:**
