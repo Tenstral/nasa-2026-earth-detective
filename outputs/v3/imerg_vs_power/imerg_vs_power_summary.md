@@ -123,12 +123,12 @@ A precipitation dataset qualifies as the primary rainfall source for water stora
 ## 7. Physical Synthesis & Evidence Assessment
 
 1. **Resolution of the Artificial Rainfall Increase:**
-   - Previous versions reported significant positive rainfall trends (+28 to +108 mm/yr) driven by NASA POWER. This audit demonstrates that these trends are non-climatic artifacts caused by an abrupt upward step change in NASA POWER between 2014-12 and 2015-12 (potential MERRA-2 assimilation shift, unverified).
+   - Previous versions reported significant positive rainfall trends (+28 to +108 mm/yr) driven by NASA POWER. This audit shows that these trends are non-climatic artifacts caused by an abrupt upward step change in NASA POWER between 2014-12 and 2015-12 (potential MERRA-2 assimilation shift, unverified).
    - Under the calibrated GPM IMERG V07B record, **no statistically significant long-term rainfall trend exists across Bangladesh** during the 2002–2025 period (all regions exhibit `No detectable trend` under the calibrated ESS-MK engine, with slopes between -2.6 and +1.2 mm/yr).
 
 2. **Correction of Prior Hypotheses:**
    - Earlier draft text conjectured that IMERG showed higher values due to "capturing heavier convective cells with dual-frequency radar". That conjecture was incorrect and is deleted: **IMERG is systematically lower than NASA POWER nationally post-2015**, where POWER exhibits an upward surge of +79.5 mm/month relative to IMERG.
 
 3. **Status of the Bengal Water Storage Paradox:**
-   - Because GPM IMERG confirms that rainfall in the Northwest and Central regions has remained stable without long-term decline or surge, the persistent depletion of Total Water Storage (TWS) in the Northwest (-1.25 to -1.81 cm/yr) and Central divisions cannot be attributed to a declining rainfall influx.
+   - Because GPM IMERG confirms that rainfall in the Northwest and Central regions has remained stable without long-term decline or surge, the persistent depletion of Total Water Storage (TWS) in the Northwest (-1.25 to -1.81 cm/yr) and Central divisions occurs without a corresponding decline in rainfall influx.
    - This pattern is **consistent with, not proof of**, human water extraction (such as intensive Boro dry-season groundwater abstraction).

@@ -35,7 +35,7 @@ To test whether the 11-month gap between GRACE and GRACE-FO introduced statistic
 3. **Epoch Invariance:** A paired circular block-bootstrap test between Epoch 1 (2002–2017) and Epoch 2 (2018–2026) confirms the difference CI includes zero (NW difference: -0.10 [-1.60, +1.43] cm/yr; National: +0.21 [-0.71, +1.13] cm/yr), indicating consistent secular depletion rates across satellite generations.
 
 ## 3. Homogenized Precipitation vs. Seasonal Storage Response
-Analysis of GPM IMERG V07B precipitation across 2002–2025 demonstrates stationary annual rainfall nationally (+2.04 mm/yr, p = 0.6395, classified as `No detectable trend`).
+Analysis of GPM IMERG V07B precipitation across 2002–2025 shows stationary annual rainfall nationally (+2.04 mm/yr, p = 0.6395, classified as `No detectable trend`).
 Across 22 complete monsoon cycles:
 - Seasonal storage rebound alone (ΔTWS from pre-monsoon low to post-monsoon peak) averages 54.0 cm nationally and exhibits `No detectable trend` (p = 0.4298).
 - The **seasonal storage response ratio** (rebound / monsoon precipitation) exhibits a suggestive upward slope nationally (+0.136%/yr, raw p = 0.0208, FDR q = 0.1105, classified as `Suggestive increase`), while Northwest response ratio shows `No detectable trend` (p = 0.3784).
@@ -44,7 +44,7 @@ Across 22 complete monsoon cycles:
 ## 4. Multi-Model Land Surface Partitioning (GLDAS)
 Evaluating three land surface models (GLDAS Noah 2.1, VIC 2.1, and CLSM 2.2 [labeled *Non-independent / GRACE-assimilated*]):
 - Simulated topsoil moisture (0–2 m) shows no statistically significant secular decline in the Northwest during GRACE-FO (Noah: +0.05 cm/yr; VIC: +0.20 cm/yr; Ensemble: -0.29 cm/yr, p = 0.58).
-- The resulting partitioned subsurface residual ('groundwater + surface water + model error residual') declines at **-1.37 cm/yr** [95% CI: -2.02, -0.71], indicating that terrestrial storage loss in the Bengal Basin is concentrated in the deep subsurface, consistent with unconfined aquifer drawdown from dry-season Boro rice irrigation rather than topsoil desiccation.
+- The resulting partitioned subsurface residual ('groundwater + surface water + model error residual') declines at **-1.37 cm/yr** [95% CI: -2.02, -0.71], most of the decline is not accounted for by simulated soil moisture; groundwater and surface water cannot be separated here. This pattern is consistent with, not proof of, agricultural extraction from the deep subsurface.
 
 ## 5. Methodological Safeguards & Data Availability
 - Statistical significance is determined using calibrated Effective Sample Size Mann-Kendall with phase-randomized surrogate verification for autocorrelated series.

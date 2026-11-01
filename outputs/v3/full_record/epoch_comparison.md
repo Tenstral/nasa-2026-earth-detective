@@ -11,7 +11,7 @@
 
 1. **No Clear Evidence of Acceleration or Deceleration:**
    - Across all regions of Bangladesh, the 95% confidence interval for the paired slope difference $(\beta_{\text{Epoch 2}} - \beta_{\text{Epoch 1}})$ **includes zero** ($p \ge 0.60$ for NW, NE, Central, and National).
-   - In the high-depletion Northwest, the slope difference is only **-0.10 cm/yr** (95% CI [-1.60, +1.43] cm/yr), confirming that water storage depletion is **continuing at a similar rate** across both satellite missions without clear evidence of acceleration or deceleration.
+   - In the high-depletion Northwest, the slope difference is only **-0.10 cm/yr** (95% CI [-1.60, +1.43] cm/yr), indicating that water storage depletion is **continuing at a similar rate** across both satellite missions without clear evidence of acceleration or deceleration.
 
 2. **Physical Explanation of the Full-Record Slope Dilution:**
    - In the Northwest, the full-record single-line slope (**-1.25 cm/yr**) is smaller in magnitude than **both** individual epoch slopes (**-1.56 cm/yr** in GRACE-1; **-1.67 cm/yr** in GRACE-FO).

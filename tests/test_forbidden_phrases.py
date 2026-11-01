@@ -1,15 +1,20 @@
 """
 Unit and Integration Test: Enforce Zero Forbidden Phrases in Documentation and Reports
 ======================================================================================
-Scans all markdown and text deliverables under outputs/v3/ and root README.md
-to strictly assert zero occurrences of forbidden, causal, or unscientific wording:
+Scans all markdown and text deliverables under outputs/ (excluding archived outputs/v2)
+and root README.md to strictly assert zero occurrences of forbidden, causal, or unscientific wording:
   - "flat" / "Corrected to Flat"
   - "Hydrologically Steady"
   - "proving" / "proven" / "proves"
   - "despite normal rainfall"
   - "Paradox confirmed" / "Paradox validated"
-  - "cannot be attributed to meteorological drought"
+  - "cannot be attributed"
   - "completely decoupled"
+  - "disproving"
+  - "corroborat*"
+  - "demonstrat*"
+  - "confirmed"
+  - "concentrated in"
 """
 
 import re
@@ -25,22 +30,32 @@ FORBIDDEN_PATTERNS = [
     (r"\bprov(ing|en|es)\b", "proving/proven/proves"),
     (r"\bdespite normal rainfall\b", "despite normal rainfall"),
     (r"\bParadox (confirmed|validated)\b", "Paradox confirmed/validated"),
-    (r"\bcannot be attributed to meteorological drought\b", "cannot be attributed to meteorological drought"),
+    (r"\bcannot be attributed\b", "cannot be attributed"),
     (r"\bcompletely decoupled\b", "completely decoupled"),
+    (r"\bdisproving\b", "disproving"),
+    (r"\bcorroborat\w*", "corroborat*"),
+    (r"\bdemonstrat\w*", "demonstrat*"),
+    (r"\bconfirmed\b", "confirmed"),
+    (r"\bconcentrated in\b", "concentrated in"),
 ]
 
 
 class TestForbiddenPhrases(unittest.TestCase):
 
-    def test_zero_forbidden_phrases_in_outputs_v3_and_readme(self):
-        v3_dir = REPO_ROOT / "outputs" / "v3"
+    def test_zero_forbidden_phrases_in_outputs_and_readme(self):
+        outputs_dir = REPO_ROOT / "outputs"
         readme_file = REPO_ROOT / "README.md"
 
-        self.assertTrue(v3_dir.exists(), "outputs/v3 directory must exist")
+        self.assertTrue(outputs_dir.exists(), "outputs directory must exist")
         self.assertTrue(readme_file.exists(), "README.md must exist")
 
-        target_files = list(v3_dir.rglob("*.md")) + list(v3_dir.rglob("*.txt")) + [readme_file]
-        self.assertGreater(len(target_files), 10, "Expected at least 10 documentation files to scan")
+        # Scan all .md and .txt files under outputs/ (excluding archived outputs/v2) and README.md
+        target_files = [
+            f for f in outputs_dir.rglob("*")
+            if f.suffix in (".md", ".txt") and "v2" not in f.parts
+        ] + [readme_file]
+
+        self.assertGreater(len(target_files), 15, "Expected at least 15 documentation files to scan")
 
         violations = []
 

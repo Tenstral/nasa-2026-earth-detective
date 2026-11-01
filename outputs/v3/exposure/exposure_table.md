@@ -41,7 +41,7 @@
 1. **Massive Human and Agricultural Exposure in the Depletion Corridor:**
    - The primary depletion hotspot (the **Northwest region**, Rajshahi + Rangpur) supports **38.81 million people** (22.9% of Bangladesh) and possesses the nation's highest concentration of intensive cropland (**74.2%** of surface area).
    - Combined with the **Central region** (Dhaka: 45.64M people) and **Northeast** (Sylhet + Mymensingh: 24.05M people), a total of **108.5 million people (63.9% of the national population)** live in regions where regional-mean total water storage declined significantly over the full 2002–2026 record in the absence of a detected rainfall trend.
-   - Crucially, across all three regions, primary precipitation (GPM IMERG) exhibits **no detectable trend** (-1.9 to +0.9 mm/yr, p >= 0.54), demonstrating that this exposure is consistent with intensive groundwater abstraction exceeding recharge rather than rainfall deficit.
+   - Crucially, across all three regions, primary precipitation (GPM IMERG) exhibits **no detectable trend** (-1.9 to +0.9 mm/yr, p >= 0.54), showing that this exposure is consistent with intensive groundwater abstraction exceeding recharge rather than rainfall deficit.
 
 2. **Southern Stability and Ecological Constraints:**
    - Southern divisions (Khulna, Barishal, Chattogram) show **no detectable multi-decadal storage trend** (-0.05 cm/yr) and **no detectable rainfall trend** (+1.8 to +2.3 mm/yr).

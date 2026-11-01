@@ -95,4 +95,4 @@
 
 3. **Localized Sylhet/Haor Deluges Decoupled from National Monsoon Aggregates:**
    - In **2017**, pre-monsoon rainfall in the Northeast reached **1,091.8 mm (+49.1% above normal)**, generating catastrophic flash flooding across the Haor basin in April before the monsoon onset.
-   - In **2022**, while national monsoon rainfall was below average (1,363.6 mm, -18.1%), June rainfall in the Northeast reached **978.6 mm (+60.6% above baseline)**, submerging 94% of Sunamganj and 84% of Sylhet, demonstrating that regional extremes can diverge sharply from national seasonal statistics.
+   - In **2022**, while national monsoon rainfall was below average (1,363.6 mm, -18.1%), June rainfall in the Northeast reached **978.6 mm (+60.6% above baseline)**, submerging 94% of Sunamganj and 84% of Sylhet, showing that regional extremes can diverge sharply from national seasonal statistics.

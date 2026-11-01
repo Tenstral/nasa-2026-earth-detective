@@ -5,8 +5,11 @@ Unit Tests for Task 7: Benchmark Table and Novelty Statement Integrity
 Verifies:
   1. Strict comparability rule: Only PUB-02 (Purdy et al., 2019) is marked 'Comparable: Yes'.
   2. All other studies (PUB-01, PUB-03, PUB-04, PUB-05, PUB-06) are marked 'Comparable: No' with documented reasons.
-  3. All deliverables exist and are non-empty.
-  4. Proper scientific labeling and no forbidden phrases.
+  3. Non-comparable rows are described as 'context only'.
+  4. PUB-01 leaves km3-to-cm conversion blank.
+  5. PUB-02 notes that Purdy's -1.99 lies outside our NW CI.
+  6. All deliverables exist and are non-empty.
+  7. Proper scientific labeling and no forbidden phrases in novelty statement.
 """
 
 import unittest
@@ -48,6 +51,23 @@ class TestTask7Benchmark(unittest.TestCase):
             reason = str(row["comparable_reason"])
             self.assertTrue(len(reason) > 10, f"Missing detailed comparability reason for {row['id']}")
 
+    def test_pub01_blank_converted_rate(self):
+        row_pub01 = self.df[self.df["id"] == "PUB-01"].iloc[0]
+        # Must be blank / NaN because the paper does not define the area
+        self.assertTrue(pd.isna(row_pub01["reported_rate_cm_yr"]) or str(row_pub01["reported_rate_cm_yr"]).strip() == "")
+
+    def test_non_comparable_context_only_description(self):
+        no_entries = self.df[self.df["comparable"] == "No"]
+        for _, row in no_entries.iterrows():
+            traj = str(row["trajectory_comparison"])
+            self.assertTrue(traj.startswith("Context only:"), f"Row {row['id']} must describe trajectory as 'Context only:'")
+
+    def test_pub02_purdy_outside_nw_ci_documented(self):
+        row_pub02 = self.df[self.df["id"] == "PUB-02"].iloc[0]
+        traj = str(row_pub02["trajectory_comparison"])
+        self.assertIn("-1.99 cm/yr lies outside our NW", traj)
+        self.assertIn("similar sign and order of magnitude; ours is lower", traj)
+
     def test_novelty_statement_terminology(self):
         content = self.novelty_path.read_text(encoding="utf-8")
         # Forbidden terminology checks
@@ -56,6 +76,14 @@ class TestTask7Benchmark(unittest.TestCase):
         self.assertNotIn("caused by", content.lower())
         self.assertIn("total water storage", content.lower())
         self.assertIn("seasonal storage response ratio", content.lower())
+
+        # Expanded forbidden phrase checks
+        for forbidden in ["disproving", "corroborat", "demonstrat", "confirmed", "concentrated in", "cannot be attributed"]:
+            self.assertNotIn(forbidden, content.lower())
+
+        # Check required wording
+        self.assertIn("we detected an artifact in nasa power rainfall by cross-checking with imerg; cause not established", content.lower())
+        self.assertIn("most of the decline is not accounted for by simulated soil moisture; groundwater and surface water cannot be separated here", content.lower())
 
 
 if __name__ == "__main__":
