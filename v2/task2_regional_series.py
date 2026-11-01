@@ -108,6 +108,27 @@ def load_excel_series() -> pd.DataFrame:
     df["ym"] = df["Year-Month"].astype(str)
     df["date"] = pd.to_datetime(df["ym"] + "-01")
     df = df.sort_values(["Division", "date"]).reset_index(drop=True)
+
+    import os
+    rain_source = os.environ.get("RAIN_SOURCE", "power").lower()
+    df["rain_source"] = rain_source
+    if rain_source == "imerg":
+        imerg_file = REPO_ROOT / "outputs" / "v3" / "imerg_vs_power" / "imerg_division_series.csv"
+        if imerg_file.exists():
+            im_df = pd.read_csv(imerg_file)
+            im_df = im_df.rename(columns={"division": "Division"})
+            merged = pd.merge(df.drop(columns=["nasa_power_precip_mm"]),
+                              im_df[["ym", "Division", "imerg_precip_mm"]],
+                              on=["ym", "Division"], how="left")
+            merged["nasa_power_precip_mm"] = merged["imerg_precip_mm"]
+            merged["rain_source"] = "imerg"
+            print(f"  [INFO] Successfully substituted GPM IMERG V07B precipitation for all divisions. Rain source: IMERG")
+            return merged
+        else:
+            print(f"  [WARN] IMERG series not found at {imerg_file}. Keeping NASA POWER precipitation.")
+    else:
+        print(f"  [INFO] Using precipitation source: POWER (NASA POWER PRECTOTCORR)")
+
     return df
 
 
@@ -260,6 +281,8 @@ def build_region_series(div_df: pd.DataFrame, divs: dict) -> pd.DataFrame:
             tws_wmean    = float(np.sum(tws_arr * wts) / wts.sum())
             precip_wmean = float(np.sum(precip_arr * wts) / wts.sum())
 
+            import os
+            rain_source = os.environ.get("RAIN_SOURCE", "power").lower()
             rec = {
                 "date": dt,
                 "ym": dt.strftime("%Y-%m"),
@@ -268,6 +291,7 @@ def build_region_series(div_df: pd.DataFrame, divs: dict) -> pd.DataFrame:
                 "total_area_km2": round(total_area, 1),
                 "grace_tws_cm": round(tws_wmean, 4),
                 "nasa_power_precip_mm": round(precip_wmean, 4),
+                "rain_source": rain_source,
             }
             if nc_precip_vals:
                 nc_arr = np.array(nc_precip_vals)

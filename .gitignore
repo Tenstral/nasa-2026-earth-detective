@@ -3,5 +3,11 @@ CSR_GRACE_GRACE-FO_RL0602_Mascons_all-corrections.nc
 __pycache__/
 *.pyc
 data_imerg/
+data_gldas_temp/
 .env
+*.env
+.netrc
+_netrc
+*.netrc
+credentials.json
 

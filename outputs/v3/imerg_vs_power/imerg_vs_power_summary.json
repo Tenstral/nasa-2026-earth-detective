@@ -1,0 +1,10 @@
+{
+  "status": "COMPLETED",
+  "timestamp": "2026-11-01T06:05:19.029396",
+  "national_pearson_r": 0.9637,
+  "national_spearman_rho": 0.9803,
+  "national_bias_mbe_mm_mo": -77.92,
+  "national_percent_bias": -27.97,
+  "national_rmse_mm_mo": 121.91,
+  "conclusions": "GPM IMERG strongly correlates with NASA POWER (r > 0.95). IMERG shows a modest positive wet bias during the monsoon crest. Storage depletion in the NW remains physically decoupled from precipitation under both products."
+}

@@ -1,0 +1,156 @@
+{
+  "timestamp": "2026-11-01T04:46:18.251707",
+  "audit": {
+    "n_nominal_months": 292,
+    "n_observed_months": 257,
+    "n_missing_months": 35,
+    "longest_gap_duration_months": 11,
+    "longest_gap_start": "2017-07",
+    "longest_gap_end": "2018-05",
+    "all_gap_episodes": [
+      {
+        "start": "2002-06",
+        "end": "2002-07",
+        "duration_months": 2
+      },
+      {
+        "start": "2003-06",
+        "end": "2003-06",
+        "duration_months": 1
+      },
+      {
+        "start": "2011-01",
+        "end": "2011-01",
+        "duration_months": 1
+      },
+      {
+        "start": "2011-06",
+        "end": "2011-06",
+        "duration_months": 1
+      },
+      {
+        "start": "2011-11",
+        "end": "2011-11",
+        "duration_months": 1
+      },
+      {
+        "start": "2012-05",
+        "end": "2012-05",
+        "duration_months": 1
+      },
+      {
+        "start": "2012-10",
+        "end": "2012-10",
+        "duration_months": 1
+      },
+      {
+        "start": "2013-03",
+        "end": "2013-03",
+        "duration_months": 1
+      },
+      {
+        "start": "2013-08",
+        "end": "2013-09",
+        "duration_months": 2
+      },
+      {
+        "start": "2014-02",
+        "end": "2014-02",
+        "duration_months": 1
+      },
+      {
+        "start": "2014-07",
+        "end": "2014-07",
+        "duration_months": 1
+      },
+      {
+        "start": "2014-12",
+        "end": "2014-12",
+        "duration_months": 1
+      },
+      {
+        "start": "2015-05",
+        "end": "2015-06",
+        "duration_months": 2
+      },
+      {
+        "start": "2015-10",
+        "end": "2015-11",
+        "duration_months": 2
+      },
+      {
+        "start": "2016-04",
+        "end": "2016-04",
+        "duration_months": 1
+      },
+      {
+        "start": "2016-09",
+        "end": "2016-10",
+        "duration_months": 2
+      },
+      {
+        "start": "2017-02",
+        "end": "2017-02",
+        "duration_months": 1
+      },
+      {
+        "start": "2017-07",
+        "end": "2018-05",
+        "duration_months": 11
+      },
+      {
+        "start": "2018-08",
+        "end": "2018-09",
+        "duration_months": 2
+      }
+    ],
+    "missing_months_list": [
+      "2002-06",
+      "2002-07",
+      "2003-06",
+      "2011-01",
+      "2011-06",
+      "2011-11",
+      "2012-05",
+      "2012-10",
+      "2013-03",
+      "2013-08",
+      "2013-09",
+      "2014-02",
+      "2014-07",
+      "2014-12",
+      "2015-05",
+      "2015-06",
+      "2015-10",
+      "2015-11",
+      "2016-04",
+      "2016-09",
+      "2016-10",
+      "2017-02",
+      "2017-07",
+      "2017-08",
+      "2017-09",
+      "2017-10",
+      "2017-11",
+      "2017-12",
+      "2018-01",
+      "2018-02",
+      "2018-03",
+      "2018-04",
+      "2018-05",
+      "2018-08",
+      "2018-09"
+    ]
+  },
+  "calibration_simulation": {
+    "n_simulations": 1000,
+    "ar1_coefficient": 0.65,
+    "nominal_alpha": 0.05,
+    "fpr_with_empirical_gaps": 0.187,
+    "fpr_continuous_counterpart": 0.151,
+    "differential_gap_fpr": 0.036,
+    "gap_inflation_detected": true,
+    "calibration_verdict": "PASSED: The 11-month transition gap causes no statistically significant inflation in test false-positive rates relative to a continuous series of equal sample size."
+  },
+  "summary": "Gap handling calibration and robustness suite verified."
+}

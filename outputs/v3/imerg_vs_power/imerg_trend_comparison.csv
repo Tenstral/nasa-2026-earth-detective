@@ -1,0 +1,13 @@
+window,region,n_obs,imerg_slope_mm_yr,imerg_slope_ci_low,imerg_slope_ci_high,imerg_p_value,imerg_verdict,power_slope_mm_yr,power_slope_ci_low,power_slope_ci_high,power_p_value,power_verdict,slope_diff_mm_yr
+grace_fo_era,NW,86,-2.2,-48.33,45.13,0.89319,No detectable trend,-5.5,-79.27,68.04,0.84038,No detectable trend,3.3
+grace_fo_era,NE,86,26.37,-42.88,91.81,0.30502,No detectable trend,-5.07,-102.72,93.92,0.90946,No detectable trend,31.44
+grace_fo_era,Central,86,15.56,-28.58,60.31,0.61197,No detectable trend,-31.6,-106.66,38.91,0.13323,No detectable trend,47.16
+grace_fo_era,SW,86,8.2,-48.31,64.86,0.77111,No detectable trend,-140.96,-296.01,14.59,0.15052,No detectable trend,149.16
+grace_fo_era,SE,86,5.06,-44.21,53.22,0.84488,No detectable trend,-144.38,-294.44,-1.9,0.09231,No detectable trend,149.45
+grace_fo_era,National,86,3.09,-47.42,51.11,0.8887,No detectable trend,-62.73,-155.29,26.29,0.18699,No detectable trend,65.82
+recent_2020,NW,69,-26.61,-85.34,42.52,0.26128,No detectable trend,-36.69,-139.93,70.42,0.37088,No detectable trend,10.08
+recent_2020,NE,69,-1.35,-87.24,86.34,0.901,No detectable trend,3.08,-118.39,125.76,0.87925,No detectable trend,-4.43
+recent_2020,Central,69,-7.68,-75.57,54.27,0.80767,No detectable trend,-11.48,-124.78,87.56,0.70647,No detectable trend,3.8
+recent_2020,SW,69,-8.73,-83.34,63.34,0.78369,No detectable trend,-37.68,-199.63,131.81,0.61538,No detectable trend,28.94
+recent_2020,SE,69,24.07,-45.71,94.51,0.53629,No detectable trend,-8.55,-162.19,163.58,0.8808,No detectable trend,32.62
+recent_2020,National,69,-28.57,-97.32,38.63,0.23417,No detectable trend,-48.39,-181.55,79.55,0.25188,No detectable trend,19.82

@@ -74,6 +74,13 @@ def main():
     parser.add_argument("--end", type=str, default="2026-07", help="Primary end month (YYYY-MM)")
     parser.add_argument("--seed", type=int, default=42, help="Fixed random seed for bootstrap replicability")
     parser.add_argument("--grace-nc", type=str, default=None, help="Path to CSR GRACE/GRACE-FO Mascon NetCDF")
+    parser.add_argument(
+        "--rain-source",
+        type=str,
+        default="power",
+        choices=["power", "imerg"],
+        help="Precipitation data source: 'power' (NASA POWER PRECTOTCORR) or 'imerg' (GPM IMERG V07B)"
+    )
     args = parser.parse_args()
 
     try:
@@ -88,6 +95,7 @@ def main():
     print("  'BE AN EARTH SYSTEM TREND DETECTIVE!'")
     print("  Bengal Hydro Detective v2 Pipeline Execution")
     print(f"  Primary Window : {args.start} to {args.end}")
+    print(f"  Rain Source    : {args.rain_source.upper()}")
     print(f"  Random Seed    : {args.seed} (deterministic bootstrap)")
     print(f"  GRACE NetCDF   : {grace_path if grace_path else '[ABSENT — Single Window (Primary) Active; No Duplicate Rows]'}")
     print(f"  Timestamp      : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -103,6 +111,7 @@ def main():
     env["ANALYSIS_START_DATE"] = args.start
     env["ANALYSIS_END_DATE"] = args.end
     env["ANALYSIS_RANDOM_SEED"] = str(args.seed)
+    env["RAIN_SOURCE"] = args.rain_source
     if grace_path:
         env["GRACE_NETCDF_PATH"] = str(grace_path)
 

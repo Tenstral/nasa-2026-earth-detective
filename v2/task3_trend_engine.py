@@ -181,8 +181,9 @@ def circular_block_bootstrap_slope(
     i_idx, j_idx = np.triu_indices(n, k=1)
     dt = t_v[j_idx] - t_v[i_idx]
 
-    # Batch computation to keep memory footprint under 200 MB
-    batch_size = 2500
+    # Dynamic batch size to keep memory footprint under 80 MB for any sample size N
+    n_pairs = len(dt)
+    batch_size = max(50, min(2500, int(8_000_000 / max(1, n_pairs))))
     boot_slopes = []
     for b in range(0, n_boot, batch_size):
         sub_y = boot_y[b : b + batch_size]

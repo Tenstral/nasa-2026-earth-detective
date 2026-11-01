@@ -17,6 +17,7 @@ Run:
     python -X utf8 v2/task7_outputs.py
 """
 
+import os
 import json
 import sys
 from datetime import datetime
@@ -228,7 +229,8 @@ def compile_unified_results() -> tuple[pd.DataFrame, list[dict]]:
             "quadrant_name": c_info["quadrant_name"],
             "label_note": "PRELIMINARY",
             "tws_source": "CSR GRACE/GRACE-FO RL06.3 Mascons (Pre-extracted division series)",
-            "precip_source": "NASA POWER PRECTOTCORR Satellite Precipitation (mm/month)",
+            "precip_source": "GPM IMERG V07B Final Run (mm/month)" if os.environ.get("RAIN_SOURCE", "power").lower() == "imerg" else "NASA POWER PRECTOTCORR Satellite Precipitation (mm/month)",
+            "rain_source": os.environ.get("RAIN_SOURCE", "power").lower(),
         }
         rows.append(row)
 
