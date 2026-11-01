@@ -1,49 +1,49 @@
 scope,period,region,index_name,index_label,mean_value,slope,slope_ci_low,slope_ci_high,units,p_value,verdict,bh_fdr_q_value
-annual_calendar_year,2003–2024 (22 complete years),NW,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),75.62,-13.2,-26.2,0.8,mm/yr,0.10195,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),NW,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),195.53,-0.12,-26.491,24.11,mm/yr,1.0,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),NW,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),3.14,-0.0,-1.5,1.5,days/yr,0.56408,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),NW,annual_total_mm,Annual Total Precipitation,2112.94,-80.4,-255.914,94.748,mm/yr,0.53502,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),NE,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),98.39,7.6,-13.467,29.47,mm/yr,0.57278,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),NE,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),291.17,22.467,-44.995,88.929,mm/yr,0.53502,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),NE,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),8.27,-0.0,-2.182,2.182,days/yr,0.80496,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),NE,annual_total_mm,Annual Total Precipitation,3156.9,-10.24,-274.415,262.232,mm/yr,1.0,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),Central,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),78.3,1.76,-16.544,20.448,mm/yr,0.86565,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),Central,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),191.42,-26.4,-59.7,1.44,mm/yr,0.20429,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),Central,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),3.05,-0.0,-1.333,1.5,days/yr,0.86213,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),Central,annual_total_mm,Annual Total Precipitation,2106.34,-32.8,-191.43,121.2,mm/yr,0.73508,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),SW,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),80.74,-3.853,-16.916,11.053,mm/yr,0.49822,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),SW,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),200.33,-43.44,-77.247,-10.56,mm/yr,0.02408,Suggestive decrease,0.57792
-annual_calendar_year,2003–2024 (22 complete years),SW,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),3.55,-0.0,-2.0,2.182,days/yr,0.53925,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),SW,annual_total_mm,Annual Total Precipitation,1981.57,-43.5,-224.444,147.056,mm/yr,0.82152,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),SE,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),98.72,13.2,-1.754,29.4,mm/yr,0.27126,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),SE,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),293.59,3.4,-46.744,56.618,mm/yr,0.84855,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),SE,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),7.95,-2.0,-4.375,0.154,days/yr,0.26678,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),SE,annual_total_mm,Annual Total Precipitation,2734.41,10.8,-170.161,193.8,mm/yr,0.95503,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),National,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),60.88,9.825,1.022,19.012,mm/yr,0.13489,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),National,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),184.75,-2.04,-23.436,20.326,mm/yr,0.90161,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),National,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),2.18,-0.0,-0.923,1.091,days/yr,0.70738,No detectable trend,1.0
-annual_calendar_year,2003–2024 (22 complete years),National,annual_total_mm,Annual Total Precipitation,2389.07,-46.8,-195.867,101.407,mm/yr,0.48978,No detectable trend,1.0
-monsoon_season,2002–2025 (24 complete seasons),NW,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),1553.25,-93.975,-191.613,-3.092,mm/yr,0.00263,Suggestive decrease,0.06312
-monsoon_season,2002–2025 (24 complete seasons),NW,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,65.64,-1.72,-8.353,4.305,mm/yr,0.84266,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),NW,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,191.8,-6.434,-23.976,10.701,mm/yr,0.56834,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),NW,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,2.54,-0.0,-0.962,1.0,days/yr,0.97974,No detectable trend,0.97974
-monsoon_season,2002–2025 (24 complete seasons),NE,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),2123.2,-59.68,-190.207,70.16,mm/yr,0.3668,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),NE,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,93.39,3.56,-14.503,21.9,mm/yr,0.67326,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),NE,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,281.99,4.181,-55.912,63.303,mm/yr,0.78307,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),NE,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,6.08,-0.0,-1.568,1.55,days/yr,0.88068,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),Central,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),1438.36,-98.183,-233.135,26.605,mm/yr,0.53519,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),Central,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,67.3,-0.48,-13.299,11.967,mm/yr,0.90124,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),Central,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,183.85,-24.25,-50.795,-0.893,mm/yr,0.15012,No detectable trend,0.72058
-monsoon_season,2002–2025 (24 complete seasons),Central,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,2.12,-0.0,-0.706,0.728,days/yr,0.60266,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),SW,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),1424.62,-82.84,-219.525,65.168,mm/yr,0.30916,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),SW,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,70.4,-10.3,-21.549,0.988,mm/yr,0.15012,No detectable trend,0.72058
-monsoon_season,2002–2025 (24 complete seasons),SW,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,195.73,-27.775,-60.002,2.361,mm/yr,0.15012,No detectable trend,0.72058
-monsoon_season,2002–2025 (24 complete seasons),SW,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,2.33,-0.686,-1.961,0.536,days/yr,0.06917,No detectable trend,0.72058
-monsoon_season,2002–2025 (24 complete seasons),SE,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),1963.48,-15.551,-126.263,79.597,mm/yr,0.82335,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),SE,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,94.12,13.088,3.625,23.196,mm/yr,0.18029,No detectable trend,0.72116
-monsoon_season,2002–2025 (24 complete seasons),SE,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,276.83,13.71,-21.015,55.12,mm/yr,0.31783,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),SE,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,5.92,-0.0,-1.5,1.5,days/yr,0.86068,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),National,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),1689.77,-53.855,-149.234,30.549,mm/yr,0.44193,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),National,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,57.04,4.644,-1.728,10.598,mm/yr,0.4272,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),National,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,181.46,-6.167,-24.745,12.985,mm/yr,0.52227,No detectable trend,0.94042
-monsoon_season,2002–2025 (24 complete seasons),National,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,1.75,-0.0,-0.667,0.667,days/yr,0.7988,No detectable trend,0.94042
+annual_calendar_year,2003–2024 (22 complete years),NW,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),75.62,-1.1,-2.65,0.367,mm/yr,0.10195,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),NW,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),195.53,-0.01,-3.367,2.506,mm/yr,1.0,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),NW,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),3.14,0.0,-0.143,0.2,days/yr,0.60173,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),NW,annual_total_mm,Annual Total Precipitation,2112.94,-6.7,-29.487,10.333,mm/yr,0.57644,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),NE,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),98.39,0.633,-1.836,2.974,mm/yr,0.57278,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),NE,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),291.17,1.872,-3.829,9.24,mm/yr,0.55992,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),NE,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),8.27,0.0,-0.333,0.273,days/yr,0.93258,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),NE,annual_total_mm,Annual Total Precipitation,3156.9,-0.853,-43.931,35.58,mm/yr,1.0,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),Central,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),78.3,0.147,-1.493,2.692,mm/yr,0.86565,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),Central,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),191.42,-2.2,-6.111,1.416,mm/yr,0.20447,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),Central,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),3.05,0.0,-0.2,0.125,days/yr,0.86565,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),Central,annual_total_mm,Annual Total Precipitation,2106.34,-2.733,-19.957,12.7,mm/yr,0.73508,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),SW,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),80.74,-0.321,-2.2,1.5,mm/yr,0.63396,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),SW,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),200.33,-3.62,-7.307,0.167,mm/yr,0.05996,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),SW,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),3.55,0.0,-0.429,0.333,days/yr,0.69312,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),SW,annual_total_mm,Annual Total Precipitation,1981.57,-3.625,-24.208,18.989,mm/yr,0.82153,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),SE,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),98.72,1.1,-0.65,2.792,mm/yr,0.27145,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),SE,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),293.59,0.283,-4.56,6.875,mm/yr,0.9102,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),SE,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),7.95,-0.167,-0.389,0.167,days/yr,0.27145,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),SE,annual_total_mm,Annual Total Precipitation,2734.41,0.9,-23.447,19.175,mm/yr,0.95503,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),National,rx1day_mm,Annual Maximum 1-Day Rainfall (Rx1day),60.88,0.819,-0.2,1.682,mm/yr,0.13505,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),National,rx5day_mm,Annual Maximum 5-Day Rainfall (Rx5day),184.75,-0.17,-2.538,2.483,mm/yr,0.9102,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),National,days_ge_50mm,Days with Rainfall >= 50 mm (R50mm),2.18,0.0,-0.125,0.154,days/yr,0.71394,No detectable trend,1.0
+annual_calendar_year,2003–2024 (22 complete years),National,annual_total_mm,Annual Total Precipitation,2389.07,-3.9,-22.036,14.353,mm/yr,0.57278,No detectable trend,1.0
+monsoon_season,2002–2025 (24 complete seasons),NW,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),1553.25,-7.831,-21.289,3.425,mm/yr,0.09653,No detectable trend,0.86606
+monsoon_season,2002–2025 (24 complete seasons),NW,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,65.64,-0.143,-1.09,0.938,mm/yr,0.8427,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),NW,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,191.8,-0.536,-3.029,2.06,mm/yr,0.56834,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),NW,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,2.54,0.0,-0.105,0.1,days/yr,0.98021,No detectable trend,0.98021
+monsoon_season,2002–2025 (24 complete seasons),NE,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),2123.2,-4.973,-24.508,23.44,mm/yr,0.74711,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),NE,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,93.39,0.297,-1.49,2.529,mm/yr,0.67326,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),NE,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,281.99,0.348,-6.038,7.786,mm/yr,0.83791,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),NE,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,6.08,0.0,-0.25,0.231,days/yr,0.88169,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),Central,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),1438.36,-8.182,-24.044,8.82,mm/yr,0.53519,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),Central,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,67.3,-0.04,-1.606,1.11,mm/yr,0.90943,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),Central,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,183.85,-2.021,-5.25,1.227,mm/yr,0.15025,No detectable trend,0.86606
+monsoon_season,2002–2025 (24 complete seasons),Central,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,2.12,0.0,-0.154,0.091,days/yr,0.8041,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),SW,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),1424.62,-6.903,-25.029,10.006,mm/yr,0.30916,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),SW,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,70.4,-0.858,-2.143,0.227,mm/yr,0.15025,No detectable trend,0.86606
+monsoon_season,2002–2025 (24 complete seasons),SW,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,195.73,-2.315,-5.14,0.636,mm/yr,0.15025,No detectable trend,0.86606
+monsoon_season,2002–2025 (24 complete seasons),SW,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,2.33,-0.057,-0.222,0.077,days/yr,0.37188,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),SE,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),1963.48,-1.296,-16.267,17.054,mm/yr,0.82335,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),SE,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,94.12,1.091,-0.517,2.72,mm/yr,0.18043,No detectable trend,0.86606
+monsoon_season,2002–2025 (24 complete seasons),SE,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,276.83,1.143,-3.31,6.933,mm/yr,0.63744,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),SE,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,5.92,0.0,-0.25,0.231,days/yr,0.86216,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),National,monsoon_total_mm,Monsoon Season Total Precipitation (JJAS),1689.77,-4.488,-19.929,8.771,mm/yr,0.44193,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),National,monsoon_rx1day_mm,Monsoon Maximum 1-Day Rainfall,57.04,0.387,-0.428,1.058,mm/yr,0.42735,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),National,monsoon_rx5day_mm,Monsoon Maximum 5-Day Rainfall,181.46,-0.514,-2.771,1.6,mm/yr,0.60244,No detectable trend,0.94897
+monsoon_season,2002–2025 (24 complete seasons),National,monsoon_days_ge_50mm,Monsoon Days with Rainfall >= 50 mm,1.75,0.0,-0.125,0.077,days/yr,0.8041,No detectable trend,0.94897
