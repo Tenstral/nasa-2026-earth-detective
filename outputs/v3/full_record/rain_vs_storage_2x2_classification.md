@@ -8,10 +8,10 @@
 
 | Region | TWS Slope (cm/yr) [95% CI] | TWS Verdict (FDR q) | IMERG Rain Slope (mm/yr) [95% CI] | Rain Verdict (FDR q) | Quadrant ID | Coupling Classification |
 |---|---|---|---|---|---|---|
-| **NW** | -1.25 [-1.54, -0.96] | `Significant` (q=0.0015) | -1.91 [-11.04, +4.48] | `No detectable trend` (q=0.8968) | **`Q1`** | Decoupled Depletion (Bengal Water Storage Paradox) |
+| **NW** | -1.25 [-1.50, -1.02] | `Significant` (q=< 0.0001) | -1.91 [-11.04, +4.48] | `No detectable trend` (q=0.8968) | **`Q1`** | Decoupled Depletion (Bengal Water Storage Paradox) |
 | **NE** | -0.56 [-0.70, -0.42] | `Significant` (q=< 0.0001) | -0.59 [-15.38, +16.13] | `No detectable trend` (q=0.9342) | **`Q1`** | Decoupled Depletion (Bengal Water Storage Paradox) |
 | **Central** | -0.47 [-0.62, -0.34] | `Significant` (q=< 0.0001) | +0.89 [-9.75, +12.72] | `No detectable trend` (q=0.9342) | **`Q1`** | Decoupled Depletion (Bengal Water Storage Paradox) |
-| **SW** | -0.05 [-0.17, +0.08] | `No detectable trend` (q=0.8968) | +2.25 [-7.31, +14.56] | `No detectable trend` (q=0.8968) | `Q3` | No Detectable Trend / Below Detection Limit |
+| **SW** | -0.05 [-0.20, +0.10] | `No detectable trend` (q=0.8968) | +2.25 [-7.31, +14.56] | `No detectable trend` (q=0.8968) | `Q3` | No Detectable Trend / Below Detection Limit |
 | **SE** | -0.05 [-0.17, +0.06] | `No detectable trend` (q=0.8968) | +1.76 [-9.35, +13.75] | `No detectable trend` (q=0.9342) | `Q3` | No Detectable Trend / Below Detection Limit |
 | **National** | -0.51 [-0.66, -0.38] | `Significant` (q=< 0.0001) | +2.04 [-7.70, +12.45] | `No detectable trend` (q=0.9342) | **`Q1`** | Decoupled Depletion (Bengal Water Storage Paradox) |
 
@@ -24,10 +24,10 @@
 |---|---|---|---|---|
 | **Dhaka** | -0.47 [-0.62, -0.34] | +0.89 [-9.75, +12.72] | `Descriptive (not independent)` | Below GRACE mascon resolution |
 | **Chattogram** | -0.05 [-0.17, +0.06] | +1.76 [-9.35, +13.75] | `Descriptive (not independent)` | Below GRACE mascon resolution |
-| **Rajshahi** | -0.90 [-1.13, -0.66] | -0.89 [-9.30, +5.16] | `Descriptive (not independent)` | Below GRACE mascon resolution |
-| **Rangpur** | -1.61 [-1.96, -1.26] | -3.37 [-14.02, +3.71] | `Descriptive (not independent)` | Below GRACE mascon resolution |
-| **Khulna** | -0.17 [-0.29, -0.05] | +1.38 [-8.63, +11.61] | `Descriptive (not independent)` | Below GRACE mascon resolution |
-| **Barishal** | +0.03 [-0.12, +0.18] | +5.52 [-4.78, +17.85] | `Descriptive (not independent)` | Below GRACE mascon resolution |
+| **Rajshahi** | -0.90 [-1.14, -0.69] | -0.89 [-9.30, +5.16] | `Descriptive (not independent)` | Below GRACE mascon resolution |
+| **Rangpur** | -1.61 [-1.88, -1.35] | -3.37 [-14.02, +3.71] | `Descriptive (not independent)` | Below GRACE mascon resolution |
+| **Khulna** | -0.17 [-0.28, -0.07] | +1.38 [-8.63, +11.61] | `Descriptive (not independent)` | Below GRACE mascon resolution |
+| **Barishal** | +0.03 [-0.17, +0.21] | +5.52 [-4.78, +17.85] | `Descriptive (not independent)` | Below GRACE mascon resolution |
 | **Sylhet** | -0.40 [-0.53, -0.28] | +0.18 [-16.85, +19.88] | `Descriptive (not independent)` | Below GRACE mascon resolution |
 | **Mymensingh** | -0.69 [-0.86, -0.54] | -2.07 [-14.36, +8.40] | `Descriptive (not independent)` | Below GRACE mascon resolution |
 

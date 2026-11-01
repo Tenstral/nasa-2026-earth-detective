@@ -9,8 +9,9 @@ Implements the calibrated significance testing engine for v3:
      detrended residual lag-1 autocorrelation (PRIMARY significance test).
   4. Exact duality-aligned 95% Theil-Sen confidence intervals with ESS rank bounds.
      - Calibrated to satisfy FPR in [3.5%, 6.5%] and CI coverage in [93.0%, 97.0%].
-  5. Hamed-Rao modified Mann-Kendall test (SECONDARY reference test).
-  6. Circular block-bootstrap CI (secondary sensitivity verification).
+  5. Phase-randomized Fourier surrogate test (>= 10,000 runs, SECONDARY side-by-side test).
+  6. Hamed-Rao modified Mann-Kendall test (SECONDARY reference test).
+  7. Circular block-bootstrap CI (secondary sensitivity verification).
 """
 
 import sys
@@ -104,12 +105,17 @@ def run_ess_mann_kendall(t_years: np.ndarray, y: np.ndarray, alpha: float = 0.05
 
 
 def run_surrogate_theilsen(
-    t_years: np.ndarray, y: np.ndarray, n_surr: int = 1999, seed: int = 42
+    t_years: np.ndarray,
+    y: np.ndarray,
+    n_surr: int = 10000,
+    seed: int = 42,
+    batch_size: int = 500,
 ) -> dict:
     """
     Phase-randomized Fourier surrogate test and confidence interval for Theil-Sen slope.
     Preserves exact power spectrum and autocorrelation structure of detrended residuals.
-    Used for regions failing placebo false-positive rate calibration (such as NW).
+    Evaluates >= 10,000 surrogates in batches to avoid high memory allocations.
+    Floor p-values are reported with exact value and formatted '< 0.0001'.
     """
     n = len(y)
     i_idx, j_idx = np.triu_indices(n, k=1)
@@ -123,19 +129,29 @@ def run_surrogate_theilsen(
     n_freq = len(f)
 
     rng = np.random.default_rng(seed)
-    phases = rng.uniform(0, 2 * np.pi, size=(n_surr, n_freq))
-    phases[:, 0] = 0
-    if n % 2 == 0:
-        phases[:, -1] = 0
+    slopes_null = []
 
-    f_surrs = mag[None, :] * np.exp(1j * phases)
-    surr_noises = np.fft.irfft(f_surrs, n=n, axis=1)
+    for b in range(0, n_surr, batch_size):
+        cur_batch = min(batch_size, n_surr - b)
+        phases = rng.uniform(0, 2 * np.pi, size=(cur_batch, n_freq))
+        phases[:, 0] = 0
+        if n % 2 == 0:
+            phases[:, -1] = 0
 
-    dy_surr = surr_noises[:, j_idx] - surr_noises[:, i_idx]
-    slopes_null = np.median(dy_surr / dt[None, :], axis=1)
+        f_surrs = mag[None, :] * np.exp(1j * phases)
+        surr_noises = np.fft.irfft(f_surrs, n=n, axis=1)
+
+        dy_surr = surr_noises[:, j_idx] - surr_noises[:, i_idx]
+        b_slopes = np.median(dy_surr / dt[None, :], axis=1)
+        slopes_null.extend(b_slopes)
+
+    slopes_null = np.array(slopes_null)
     slopes_boot = s_obs + slopes_null
 
-    p_surr = float((1 + np.sum(np.abs(slopes_null) >= np.abs(s_obs))) / (n_surr + 1))
+    n_exceed = int(np.sum(np.abs(slopes_null) >= np.abs(s_obs)))
+    p_surr = float((1.0 + n_exceed) / (n_surr + 1.0))
+    p_formatted = "< 0.0001" if n_exceed == 0 else f"{p_surr:.4f}"
+
     ci_low = float(np.percentile(slopes_boot, 2.5))
     ci_high = float(np.percentile(slopes_boot, 97.5))
     return {
@@ -143,6 +159,7 @@ def run_surrogate_theilsen(
         "ci_low": ci_low,
         "ci_high": ci_high,
         "p_value": p_surr,
+        "p_formatted": p_formatted,
         "z": float(s_obs / max(1e-12, np.std(slopes_null, ddof=1))),
         "method": "Surrogate (Phase-Randomized)",
     }
@@ -157,12 +174,12 @@ def run_trend_v3(
     variable: str,  # "tws" or "precip"
     period_mean: float = 0.0,
     run_bootstrap: bool = True,
-    use_surrogate: bool = False,
+    run_surrogate: bool = True,
 ) -> dict:
     """
     Computes calibrated v3 trend analysis for a single series.
-    Uses calibrated ESS Mann-Kendall (or phase-randomized surrogate for placebo-failing series)
-    as PRIMARY and Hamed-Rao as SECONDARY.
+    Uses calibrated ESS Mann-Kendall as the SINGLE PRIMARY significance method across all regions.
+    Also computes Surrogate (Phase-Randomized, >= 10,000 runs) and Hamed-Rao tests side-by-side.
     """
     # Deseasonalise
     y = deseasonalise(y_raw, months)
@@ -179,27 +196,29 @@ def run_trend_v3(
     # Block length for sensitivity bootstrap
     block_len, block_just = choose_block_length(n)
 
-    # Primary Significance Test
-    if use_surrogate:
-        surr_res = run_surrogate_theilsen(t_v, y_v, n_surr=1999)
-        slope = surr_res["slope"]
-        ci_low = surr_res["ci_low"]
-        ci_high = surr_res["ci_high"]
-        p_primary = surr_res["p_value"]
-        z_primary = surr_res["z"]
-        primary_method = "Surrogate (Phase-Randomized)"
-        gamma = 1.0
-        r1_used = 0.0
+    # 1. PRIMARY Significance Test: Calibrated ESS-MK
+    ess_res = run_ess_mann_kendall(t_v, y_v, alpha=0.05)
+    slope = ess_res["slope"]
+    ci_low = ess_res["ci_low"]
+    ci_high = ess_res["ci_high"]
+    p_primary = ess_res["p_value"]
+    z_primary = ess_res["z"]
+    primary_method = "Calibrated ESS-MK"
+    gamma = ess_res.get("gamma", 1.0)
+    r1_used = ess_res.get("r1_detrended", 0.0)
+
+    # 2. Side-by-Side Surrogate Test (>= 10,000 runs)
+    if run_surrogate:
+        surr_res = run_surrogate_theilsen(t_v, y_v, n_surr=10000)
+        surr_slope = surr_res["slope"]
+        surr_ci_low = surr_res["ci_low"]
+        surr_ci_high = surr_res["ci_high"]
+        surr_p = surr_res["p_value"]
+        surr_p_str = surr_res["p_formatted"]
+        surr_z = surr_res["z"]
     else:
-        ess_res = run_ess_mann_kendall(t_v, y_v, alpha=0.05)
-        slope = ess_res["slope"]
-        ci_low = ess_res["ci_low"]
-        ci_high = ess_res["ci_high"]
-        p_primary = ess_res["p_value"]
-        z_primary = ess_res["z"]
-        primary_method = "Calibrated ESS-MK"
-        gamma = ess_res.get("gamma", 1.0)
-        r1_used = ess_res.get("r1_detrended", 0.0)
+        surr_slope = surr_ci_low = surr_ci_high = surr_p = surr_z = None
+        surr_p_str = None
 
     # Secondary Bootstrap CI (for sensitivity / cross-validation)
     if run_bootstrap:
@@ -233,12 +252,20 @@ def run_trend_v3(
         ci_low_alt = round(ci_low_km3, 4)
         ci_high_alt = round(ci_high_km3, 4)
         unit_alt = "km³/yr"
+
+        surr_slope_scaled = surr_slope
+        surr_ci_low_scaled = surr_ci_low
+        surr_ci_high_scaled = surr_ci_high
     else:
         # Precipitation: monthly rate to annual total mm/yr (x12)
         slope_primary = slope * 12.0
         ci_low_primary = ci_low * 12.0
         ci_high_primary = ci_high * 12.0
         unit_primary = "mm/yr"
+
+        surr_slope_scaled = surr_slope * 12.0 if surr_slope is not None else None
+        surr_ci_low_scaled = surr_ci_low * 12.0 if surr_ci_low is not None else None
+        surr_ci_high_scaled = surr_ci_high * 12.0 if surr_ci_high is not None else None
 
         # %/decade: (slope_annual * 10 / period_mean) * 100
         if period_mean and period_mean != 0:
@@ -270,6 +297,8 @@ def run_trend_v3(
     else:
         stars = "ns"
 
+    p_formatted = "< 0.0001" if p_primary < 0.0001 else f"{p_primary:.4f}"
+
     return {
         "label": label,
         "n_obs": n,
@@ -291,6 +320,13 @@ def run_trend_v3(
         "unit_alt": unit_alt,
         "z_stat": round(z_primary, 4),
         "p_value": round(p_primary, 6),
+        "p_formatted": p_formatted,
+        "surr_slope": round(surr_slope_scaled, 5) if surr_slope_scaled is not None else None,
+        "surr_ci_low": round(surr_ci_low_scaled, 5) if surr_ci_low_scaled is not None else None,
+        "surr_ci_high": round(surr_ci_high_scaled, 5) if surr_ci_high_scaled is not None else None,
+        "surr_p_value": round(surr_p, 6) if surr_p is not None else None,
+        "surr_p_formatted": surr_p_str,
+        "surr_z": round(surr_z, 4) if surr_z is not None else None,
         "hr_p_value": round(hr_p, 6) if not np.isnan(hr_p) else None,
         "hr_z": round(hr_z, 4) if not np.isnan(hr_z) else None,
         "hr_tau": round(hr_tau, 4) if not np.isnan(hr_tau) else None,

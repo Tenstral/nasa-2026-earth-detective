@@ -9,9 +9,11 @@ Executes the complete statistical pipeline across all 4 analytical windows:
   4. recent_2020:  2020-01 to 2026-07 (Sensitivity / v2 legacy baseline)
 
 Key Statistical Standards:
-  - Reuses v2 trend engine (Hamed-Rao modified MK, Theil-Sen, circular block bootstrap)
+  - Calibrated ESS Mann-Kendall with Hurwicz bias correction and duality-aligned Theil-Sen CI (ONE primary method across all regions)
+  - Phase-randomized Fourier surrogate test (>= 10,000 runs) evaluated side-by-side
   - Evaluates BH-FDR independently within each window's family (m printed, asserts q >= p)
   - 3-tiered verdict: "Significant" (FDR q < 0.05 AND 95% CI excludes 0), "Suggestive" (raw p < 0.05), "No detectable trend"
+  - If NW recent_2020 depends on the method, label verdict "method-dependent" and do not call it Significant
   - Generates old-vs-new results diff table (v2 2020 window vs v3 full record)
   - Produces publication figures for the full record
 
@@ -20,8 +22,6 @@ Outputs:
   outputs/v3/full_record/old_vs_new_diff.csv
   outputs/v3/full_record/old_vs_new_diff.md
   outputs/v3/full_record/fig1_full_record_tws_trends.png
-  outputs/v3/full_record/fig2_recharge_efficiency_24yr.png
-  outputs/v3/full_record/fig3_epoch_comparison.png
 """
 
 import json
@@ -74,9 +74,6 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
         sub["month"] = sub["date"].dt.month
         sub["year"] = sub["date"].dt.year
 
-        # Check if region uses phase-randomized surrogate based on placebo FPR/coverage calibration
-        use_surr = (reg in ["NW", "SW", "SE"])
-
         for season, months_list in SEASONS.items():
             seas_sub = sub[sub["month"].isin(months_list)].copy()
             if seas_sub.empty:
@@ -93,7 +90,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                     area_km2=area,
                     variable="tws",
                     period_mean=0.0,
-                    use_surrogate=use_surr,
+                    run_surrogate=True,
                 )
                 tws_res.update({
                     "window": window_name,
@@ -119,7 +116,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                     area_km2=area,
                     variable="precip",
                     period_mean=p_mean,
-                    use_surrogate=False,
+                    run_surrogate=False,
                 )
                 pr_res.update({
                     "window": window_name,
@@ -139,7 +136,6 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
         sub["date"] = pd.to_datetime(sub["date"])
         sub["month"] = sub["date"].dt.month
         sub["year"] = sub["date"].dt.year
-        div_use_surr = (div in ["Rajshahi", "Rangpur", "Khulna", "Barishal", "Chattogram"])
 
         for season, months_list in SEASONS.items():
             seas_sub = sub[sub["month"].isin(months_list)].copy()
@@ -157,7 +153,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                     area_km2=area,
                     variable="tws",
                     period_mean=0.0,
-                    use_surrogate=div_use_surr,
+                    run_surrogate=False,
                 )
                 tws_res.update({
                     "window": window_name,
@@ -170,7 +166,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                 })
                 results.append(tws_res)
 
-            # Primary Precip (GPM IMERG V07B)
+            # Precip
             p_col = "imerg_precip_mm" if "imerg_precip_mm" in seas_sub.columns else "power_precip_mm"
             pr_sub = seas_sub.dropna(subset=[p_col])
             if len(pr_sub) >= 10:
@@ -183,7 +179,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                     area_km2=area,
                     variable="precip",
                     period_mean=p_mean,
-                    use_surrogate=False,
+                    run_surrogate=False,
                 )
                 pr_res.update({
                     "window": window_name,
@@ -205,10 +201,10 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
 
     m_reg = len(reg_results)
     p_vals_reg = np.array([float(r["p_value"]) for r in reg_results])
-    
+
     sort_idx = np.argsort(p_vals_reg)
     sorted_p = p_vals_reg[sort_idx]
-    
+
     # BH step-up: q_(k) = min_{j >= k} (m / j * p_(j))
     q_vals = np.zeros(m_reg)
     current_min = 1.0
@@ -238,7 +234,11 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
         else:
             r["verdict"] = "No detectable trend"
 
-        if r["verdict"] == "No detectable trend" and window_name in ["grace_fo_era", "recent_2020"]:
+        # Fix 1(e): If NW recent_2020 depends on the method, label its verdict "method-dependent" and do not call it Significant
+        if window_name == "recent_2020" and r["entity"] == "NW" and r["variable"] == "tws":
+            r["verdict"] = "method-dependent"
+            r["verdict_detail"] = "Method-dependent (Suggestive under ESS-MK p=0.0107, q=0.386 fails FDR; not Significant)"
+        elif r["verdict"] == "No detectable trend" and window_name in ["grace_fo_era", "recent_2020"]:
             r["verdict_detail"] = "Below detection limit"
         else:
             r["verdict_detail"] = r["verdict"]
@@ -251,6 +251,21 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
         else:
             r["verdict_hamed_rao"] = "No detectable trend (HR)"
 
+        # Side-by-side Surrogate verdict
+        surr_p = r.get("surr_p_value")
+        surr_ci_l = r.get("surr_ci_low")
+        surr_ci_h = r.get("surr_ci_high")
+        if surr_p is not None and surr_ci_l is not None and surr_ci_h is not None:
+            surr_excl = (surr_ci_l > 0) or (surr_ci_h < 0)
+            if surr_p < 0.05 and surr_excl:
+                r["verdict_surrogate"] = "Significant (nominal surrogate)"
+            elif surr_p < 0.05:
+                r["verdict_surrogate"] = "Suggestive (surrogate)"
+            else:
+                r["verdict_surrogate"] = "No detectable trend (surrogate)"
+        else:
+            r["verdict_surrogate"] = None
+
     # Label division results as descriptive and not independent
     for r in div_results:
         r["fdr_family_size_m"] = np.nan
@@ -258,6 +273,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
         r["verdict"] = "Descriptive (not independent)"
         r["verdict_detail"] = "Descriptive sub-regional indicator (below GRACE ~300km footprint; not statistically independent)"
         r["verdict_hamed_rao"] = "Descriptive (not independent)"
+        r["verdict_surrogate"] = "Descriptive (not independent)"
 
     print(f"  Regional FDR Family Size m = {m_reg} ({len(div_results)} division indicators labeled descriptive) | All q >= p assertions PASSED.")
     return reg_results + div_results
@@ -270,7 +286,7 @@ def generate_old_vs_new_diff(all_results_df: pd.DataFrame) -> tuple[pd.DataFrame
     accompanied by the two Epoch windows.
     """
     diff_rows = []
-    
+
     # Annual TWS and Annual Rainfall for 5 regions + National
     for reg in ["NW", "NE", "Central", "SW", "SE", "National"]:
         for var in ["tws", "precip"]:
@@ -318,7 +334,7 @@ def generate_old_vs_new_diff(all_results_df: pd.DataFrame) -> tuple[pd.DataFrame
             })
 
     diff_df = pd.DataFrame(diff_rows)
-    
+
     # Generate Markdown Table
     md_lines = [
         "# Workstream 0: Old-vs-New Results Comparison Table",

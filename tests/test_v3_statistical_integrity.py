@@ -9,8 +9,11 @@ Verifies:
   4. Storage partition residual strictly labeled and physically consistent.
   5. Exposure population and cropland bounds.
   6. Flood event context and crest anomalies.
+  7. Gap calibration and independent AR(1) null generator validation pass criteria.
+  8. Method consistency: Calibrated ESS-MK applied across all regions, NW recent_2020 labeled method-dependent.
 """
 
+import json
 import unittest
 import numpy as np
 import pandas as pd
@@ -32,7 +35,8 @@ class TestV3StatisticalIntegrity(unittest.TestCase):
         self.assertEqual(expected_windows, found_windows)
 
         # BH-FDR q-value must be >= raw p-value within rounding tolerance (5 decimal places)
-        bad = df[df["bh_fdr_q_value"] < df["p_value"].round(5) - 1e-5]
+        reg_df = df[df["entity_type"] == "region"].dropna(subset=["bh_fdr_q_value"])
+        bad = reg_df[reg_df["bh_fdr_q_value"] < reg_df["p_value"].round(5) - 1e-5]
         self.assertEqual(len(bad), 0, f"Found q < p in results: {bad}")
 
     def test_gldas_baseline_alignment(self):
@@ -92,7 +96,6 @@ class TestV3StatisticalIntegrity(unittest.TestCase):
     def test_gap_calibration_pass_criteria(self):
         calib_path = OUTPUTS_V3 / "full_record" / "gap_calibration_report.json"
         self.assertTrue(calib_path.exists(), f"Missing {calib_path}")
-        import json
         with open(calib_path, "r", encoding="utf-8") as f:
             report = json.load(f)
 
@@ -128,6 +131,51 @@ class TestV3StatisticalIntegrity(unittest.TestCase):
         self.assertIn("PASSED", sim["method_selection"]["calibration_verdict"])
         self.assertNotIn("FAILED", sim["method_selection"]["calibration_verdict"])
 
+    def test_independent_null_generator_validation(self):
+        calib_path = OUTPUTS_V3 / "full_record" / "gap_calibration_report.json"
+        self.assertTrue(calib_path.exists(), f"Missing {calib_path}")
+        with open(calib_path, "r", encoding="utf-8") as f:
+            report = json.load(f)
+
+        indep = report.get("independent_null_generator_audit", {})
+        self.assertTrue(len(indep) == 6, f"Expected 6 regions in independent null audit, found {len(indep)}")
+
+        for reg in ["NW", "NE", "Central", "SW", "SE", "National"]:
+            self.assertIn(reg, indep)
+            reg_res = indep[reg]
+            ess = reg_res["ess_mk"]
+            fpr = ess["fpr"]
+            cov = ess["ci_coverage_95"]
+            self.assertTrue(
+                0.035 <= fpr <= 0.065,
+                f"{reg} ESS FPR {fpr} out of bounds [0.035, 0.065]"
+            )
+            self.assertTrue(
+                0.930 <= cov <= 0.970,
+                f"{reg} ESS Coverage {cov} out of bounds [0.930, 0.970]"
+            )
+            self.assertEqual(reg_res["status"], "PASSED")
+
+    def test_method_consistency_and_nw_recent_2020(self):
+        csv_path = OUTPUTS_V3 / "full_record" / "results_all_windows.csv"
+        df = pd.read_csv(csv_path)
+
+        # 1. Single primary method across all regions
+        reg_df = df[df["entity_type"] == "region"]
+        methods = reg_df["primary_method"].unique()
+        self.assertEqual(len(methods), 1)
+        self.assertEqual(methods[0], "Calibrated ESS-MK")
+
+        # 2. Both ESS-MK and Surrogate columns present
+        for col in ["slope", "slope_ci_low", "slope_ci_high", "p_value", "surr_slope", "surr_ci_low", "surr_ci_high", "surr_p_value"]:
+            self.assertIn(col, df.columns)
+
+        # 3. NW recent_2020 labeled method-dependent and NOT Significant
+        nw_2020 = df[(df["window"] == "recent_2020") & (df["entity"] == "NW") & (df["variable"] == "tws") & (df["season"] == "annual")]
+        self.assertEqual(len(nw_2020), 1)
+        vrd = nw_2020["verdict"].iloc[0]
+        self.assertEqual(vrd, "method-dependent")
+        self.assertNotEqual(vrd, "Significant")
 
 
 if __name__ == "__main__":
