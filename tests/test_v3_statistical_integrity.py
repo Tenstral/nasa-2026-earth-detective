@@ -89,6 +89,46 @@ class TestV3StatisticalIntegrity(unittest.TestCase):
         self.assertGreater(peak_2007, 30.0)
         self.assertGreater(peak_2020, 25.0)
 
+    def test_gap_calibration_pass_criteria(self):
+        calib_path = OUTPUTS_V3 / "full_record" / "gap_calibration_report.json"
+        self.assertTrue(calib_path.exists(), f"Missing {calib_path}")
+        import json
+        with open(calib_path, "r", encoding="utf-8") as f:
+            report = json.load(f)
+
+        sim = report["calibration_simulation"]
+        results_by_phi = sim["results_by_phi"]
+
+        # Absolute pass criteria: FPR in [0.035, 0.065] and CI coverage in [0.930, 0.970]
+        for phi_str, res in results_by_phi.items():
+            ess = res["ess_corrected_mk"]
+            fpr = ess["fpr"]
+            cov = ess["ci_coverage_95"]
+            self.assertTrue(
+                0.035 <= fpr <= 0.065,
+                f"ESS-MK FPR {fpr} out of bounds [0.035, 0.065] for phi={phi_str}",
+            )
+            self.assertTrue(
+                0.930 <= cov <= 0.970,
+                f"ESS-MK 95% CI coverage {cov} out of bounds [0.930, 0.970] for phi={phi_str}",
+            )
+            self.assertTrue(
+                ess["passed_both_criteria"],
+                f"passed_both_criteria is False for phi={phi_str}",
+            )
+
+        self.assertTrue(
+            sim["method_selection"]["all_empirical_phi_passed"],
+            "all_empirical_phi_passed is not True",
+        )
+        self.assertEqual(
+            sim["method_selection"]["selected_primary_method"],
+            "ESS-corrected Mann-Kendall with Analytical Theil-Sen Duality",
+        )
+        self.assertIn("PASSED", sim["method_selection"]["calibration_verdict"])
+        self.assertNotIn("FAILED", sim["method_selection"]["calibration_verdict"])
+
+
 
 if __name__ == "__main__":
     unittest.main()

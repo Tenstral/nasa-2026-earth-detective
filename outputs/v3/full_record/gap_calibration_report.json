@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-01T04:46:18.251707",
+  "timestamp": "2026-11-01T11:29:21.687013",
   "audit": {
     "n_nominal_months": 292,
     "n_observed_months": 257,
@@ -142,15 +142,237 @@
       "2018-09"
     ]
   },
-  "calibration_simulation": {
-    "n_simulations": 1000,
-    "ar1_coefficient": 0.65,
-    "nominal_alpha": 0.05,
-    "fpr_with_empirical_gaps": 0.187,
-    "fpr_continuous_counterpart": 0.151,
-    "differential_gap_fpr": 0.036,
-    "gap_inflation_detected": true,
-    "calibration_verdict": "PASSED: The 11-month transition gap causes no statistically significant inflation in test false-positive rates relative to a continuous series of equal sample size."
+  "empirical_regional_phi": {
+    "NW": {
+      "n_obs": 257,
+      "phi_deseasonalized": 0.8272,
+      "phi_detrended_noise": 0.5357,
+      "linear_slope_cm_yr": -1.487
+    },
+    "NE": {
+      "n_obs": 257,
+      "phi_deseasonalized": 0.6431,
+      "phi_detrended_noise": 0.4264,
+      "linear_slope_cm_yr": -0.736
+    },
+    "Central": {
+      "n_obs": 257,
+      "phi_deseasonalized": 0.6552,
+      "phi_detrended_noise": 0.4742,
+      "linear_slope_cm_yr": -0.648
+    },
+    "SW": {
+      "n_obs": 257,
+      "phi_deseasonalized": 0.6307,
+      "phi_detrended_noise": 0.6254,
+      "linear_slope_cm_yr": -0.084
+    },
+    "SE": {
+      "n_obs": 257,
+      "phi_deseasonalized": 0.6025,
+      "phi_detrended_noise": 0.5918,
+      "linear_slope_cm_yr": -0.092
+    },
+    "National": {
+      "n_obs": 257,
+      "phi_deseasonalized": 0.7278,
+      "phi_detrended_noise": 0.5333,
+      "linear_slope_cm_yr": -0.646
+    }
   },
-  "summary": "Gap handling calibration and robustness suite verified."
+  "calibration_simulation": {
+    "n_simulations": 2000,
+    "nominal_alpha": 0.05,
+    "empirical_regional_phi": {
+      "NW": {
+        "n_obs": 257,
+        "phi_deseasonalized": 0.8272,
+        "phi_detrended_noise": 0.5357,
+        "linear_slope_cm_yr": -1.487
+      },
+      "NE": {
+        "n_obs": 257,
+        "phi_deseasonalized": 0.6431,
+        "phi_detrended_noise": 0.4264,
+        "linear_slope_cm_yr": -0.736
+      },
+      "Central": {
+        "n_obs": 257,
+        "phi_deseasonalized": 0.6552,
+        "phi_detrended_noise": 0.4742,
+        "linear_slope_cm_yr": -0.648
+      },
+      "SW": {
+        "n_obs": 257,
+        "phi_deseasonalized": 0.6307,
+        "phi_detrended_noise": 0.6254,
+        "linear_slope_cm_yr": -0.084
+      },
+      "SE": {
+        "n_obs": 257,
+        "phi_deseasonalized": 0.6025,
+        "phi_detrended_noise": 0.5918,
+        "linear_slope_cm_yr": -0.092
+      },
+      "National": {
+        "n_obs": 257,
+        "phi_deseasonalized": 0.7278,
+        "phi_detrended_noise": 0.5333,
+        "linear_slope_cm_yr": -0.646
+      }
+    },
+    "results_by_phi": {
+      "0.45": {
+        "phi": 0.45,
+        "hamed_rao": {
+          "fpr": 0.134,
+          "power_minus_0_5cm": 1.0,
+          "passed_fpr_criteria": false
+        },
+        "yue_wang": {
+          "fpr": 0.5055,
+          "power_minus_0_5cm": 1.0,
+          "passed_fpr_criteria": false
+        },
+        "ess_corrected_mk": {
+          "fpr": 0.0485,
+          "power_minus_0_5cm": 1.0,
+          "ci_coverage_95": 0.9515,
+          "passed_both_criteria": true
+        }
+      },
+      "0.53": {
+        "phi": 0.53,
+        "hamed_rao": {
+          "fpr": 0.1445,
+          "power_minus_0_5cm": 0.999,
+          "passed_fpr_criteria": false
+        },
+        "yue_wang": {
+          "fpr": 0.5125,
+          "power_minus_0_5cm": 1.0,
+          "passed_fpr_criteria": false
+        },
+        "ess_corrected_mk": {
+          "fpr": 0.053,
+          "power_minus_0_5cm": 1.0,
+          "ci_coverage_95": 0.947,
+          "passed_both_criteria": true
+        }
+      },
+      "0.6": {
+        "phi": 0.6,
+        "hamed_rao": {
+          "fpr": 0.162,
+          "power_minus_0_5cm": 0.9985,
+          "passed_fpr_criteria": false
+        },
+        "yue_wang": {
+          "fpr": 0.4905,
+          "power_minus_0_5cm": 1.0,
+          "passed_fpr_criteria": false
+        },
+        "ess_corrected_mk": {
+          "fpr": 0.0475,
+          "power_minus_0_5cm": 1.0,
+          "ci_coverage_95": 0.9525,
+          "passed_both_criteria": true
+        }
+      },
+      "0.63": {
+        "phi": 0.63,
+        "hamed_rao": {
+          "fpr": 0.1745,
+          "power_minus_0_5cm": 0.9995,
+          "passed_fpr_criteria": false
+        },
+        "yue_wang": {
+          "fpr": 0.508,
+          "power_minus_0_5cm": 1.0,
+          "passed_fpr_criteria": false
+        },
+        "ess_corrected_mk": {
+          "fpr": 0.05,
+          "power_minus_0_5cm": 1.0,
+          "ci_coverage_95": 0.95,
+          "passed_both_criteria": true
+        }
+      },
+      "0.65": {
+        "phi": 0.65,
+        "hamed_rao": {
+          "fpr": 0.195,
+          "power_minus_0_5cm": 0.999,
+          "passed_fpr_criteria": false
+        },
+        "yue_wang": {
+          "fpr": 0.5115,
+          "power_minus_0_5cm": 1.0,
+          "passed_fpr_criteria": false
+        },
+        "ess_corrected_mk": {
+          "fpr": 0.0575,
+          "power_minus_0_5cm": 1.0,
+          "ci_coverage_95": 0.9425,
+          "passed_both_criteria": true
+        }
+      },
+      "0.73": {
+        "phi": 0.73,
+        "hamed_rao": {
+          "fpr": 0.217,
+          "power_minus_0_5cm": 0.9965,
+          "passed_fpr_criteria": false
+        },
+        "yue_wang": {
+          "fpr": 0.515,
+          "power_minus_0_5cm": 1.0,
+          "passed_fpr_criteria": false
+        },
+        "ess_corrected_mk": {
+          "fpr": 0.0475,
+          "power_minus_0_5cm": 1.0,
+          "ci_coverage_95": 0.9525,
+          "passed_both_criteria": true
+        }
+      },
+      "0.83": {
+        "phi": 0.83,
+        "hamed_rao": {
+          "fpr": 0.2505,
+          "power_minus_0_5cm": 0.9975,
+          "passed_fpr_criteria": false
+        },
+        "yue_wang": {
+          "fpr": 0.531,
+          "power_minus_0_5cm": 1.0,
+          "passed_fpr_criteria": false
+        },
+        "ess_corrected_mk": {
+          "fpr": 0.0505,
+          "power_minus_0_5cm": 1.0,
+          "ci_coverage_95": 0.9495,
+          "passed_both_criteria": true
+        }
+      }
+    },
+    "block_permutation_reference_fpr": 0.072,
+    "method_selection": {
+      "selected_primary_method": "ESS-corrected Mann-Kendall with Analytical Theil-Sen Duality",
+      "secondary_reference_method": "Hamed-Rao Modified Mann-Kendall",
+      "pass_criteria": {
+        "target_fpr_range": [
+          0.035,
+          0.065
+        ],
+        "target_ci_coverage_range": [
+          0.93,
+          0.97
+        ]
+      },
+      "all_empirical_phi_passed": true,
+      "calibration_verdict": "PASSED: Effective-Sample-Size (ESS) corrected Mann-Kendall satisfies the absolute calibration criteria (FPR between 3.5% and 6.5% and 95% CI coverage between 93.0% and 97.0%) across all empirical regional autocorrelation levels (phi in [0.45, 0.83]) and the reference value 0.65. Hamed-Rao (FPR 14-26%) and Yue-Wang (FPR 48-53%) fail calibration and are rejected as primary tests."
+    }
+  },
+  "summary": "Significance calibration complete: ESS-corrected Mann-Kendall selected as calibrated primary method."
 }

@@ -42,7 +42,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from v2.task3_trend_engine import (
-    run_trend,
     deseasonalise,
     circular_block_bootstrap_slope,
     choose_block_length,
@@ -50,6 +49,7 @@ from v2.task3_trend_engine import (
     RANDOM_SEED,
     N_BOOT,
 )
+from v3.trend_engine import run_trend_v3
 from v3.windows import WINDOWS, REGIONS, DIV_AREAS, SEASONS, OUTPUTS_V3_FULL
 
 BANNER = "═" * 84
@@ -85,7 +85,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
             # TWS trend
             tws_sub = seas_sub.dropna(subset=["grace_tws_cm"])
             if len(tws_sub) >= 10:
-                tws_res = run_trend(
+                tws_res = run_trend_v3(
                     t_years=tws_sub["decimal_year"].values,
                     y_raw=tws_sub["grace_tws_cm"].values,
                     months=tws_sub["month"].values,
@@ -109,7 +109,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
             pr_sub = seas_sub.dropna(subset=["power_precip_mm"])
             if len(pr_sub) >= 10:
                 p_mean = float(pr_sub["power_precip_mm"].mean())
-                pr_res = run_trend(
+                pr_res = run_trend_v3(
                     t_years=pr_sub["decimal_year"].values,
                     y_raw=pr_sub["power_precip_mm"].values,
                     months=pr_sub["month"].values,
@@ -144,7 +144,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
             # TWS
             tws_sub = seas_sub.dropna(subset=["grace_tws_cm"])
             if len(tws_sub) >= 10:
-                tws_res = run_trend(
+                tws_res = run_trend_v3(
                     t_years=tws_sub["decimal_year"].values,
                     y_raw=tws_sub["grace_tws_cm"].values,
                     months=tws_sub["month"].values,
@@ -168,7 +168,7 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
             pr_sub = seas_sub.dropna(subset=["power_precip_mm"])
             if len(pr_sub) >= 10:
                 p_mean = float(pr_sub["power_precip_mm"].mean())
-                pr_res = run_trend(
+                pr_res = run_trend_v3(
                     t_years=pr_sub["decimal_year"].values,
                     y_raw=pr_sub["power_precip_mm"].values,
                     months=pr_sub["month"].values,
@@ -217,8 +217,8 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
         r["fdr_family_size_m"] = m
         r["bh_fdr_q_value"] = round(q, 5)
 
-        # 3-tiered verdict
-        # Significant = passes BH-FDR (q < 0.05) AND bootstrap 95% CI excludes zero
+        # 3-tiered verdict (PRIMARY: Calibrated ESS Mann-Kendall + Duality Theil-Sen CI)
+        # Significant = passes BH-FDR (q < 0.05) AND calibrated 95% CI excludes zero
         # Suggestive = raw p < 0.05 only
         # Else = No detectable trend
         ci_low = float(r["slope_ci_low"])
@@ -231,6 +231,15 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
             r["verdict"] = "Suggestive"
         else:
             r["verdict"] = "No detectable trend"
+
+        # Secondary Hamed-Rao verdict for reference
+        hr_p = float(r["hr_p_value"]) if r.get("hr_p_value") is not None else 1.0
+        if hr_p < 0.05 and ci_excludes_zero:
+            r["verdict_hamed_rao"] = "Significant (HR)"
+        elif hr_p < 0.05:
+            r["verdict_hamed_rao"] = "Suggestive (HR)"
+        else:
+            r["verdict_hamed_rao"] = "No detectable trend (HR)"
 
     print(f"  FDR Family Size m = {m} | All q >= p assertions PASSED.")
     return clean_results
