@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-01T11:29:21.687013",
+  "timestamp": "2026-11-01T17:23:45.382290",
   "audit": {
     "n_nominal_months": 292,
     "n_observed_months": 257,
@@ -146,38 +146,44 @@
     "NW": {
       "n_obs": 257,
       "phi_deseasonalized": 0.8272,
-      "phi_detrended_noise": 0.5357,
-      "linear_slope_cm_yr": -1.487
+      "phi_detrended_noise": 0.5537,
+      "residual_sd_cm": 7.17,
+      "linear_slope_cm_yr": -1.241
     },
     "NE": {
       "n_obs": 257,
       "phi_deseasonalized": 0.6431,
-      "phi_detrended_noise": 0.4264,
-      "linear_slope_cm_yr": -0.736
+      "phi_detrended_noise": 0.434,
+      "residual_sd_cm": 5.88,
+      "linear_slope_cm_yr": -0.614
     },
     "Central": {
       "n_obs": 257,
       "phi_deseasonalized": 0.6552,
-      "phi_detrended_noise": 0.4742,
-      "linear_slope_cm_yr": -0.648
+      "phi_detrended_noise": 0.4813,
+      "residual_sd_cm": 5.55,
+      "linear_slope_cm_yr": -0.54
     },
     "SW": {
       "n_obs": 257,
       "phi_deseasonalized": 0.6307,
-      "phi_detrended_noise": 0.6254,
-      "linear_slope_cm_yr": -0.084
+      "phi_detrended_noise": 0.6248,
+      "residual_sd_cm": 4.31,
+      "linear_slope_cm_yr": -0.074
     },
     "SE": {
       "n_obs": 257,
       "phi_deseasonalized": 0.6025,
-      "phi_detrended_noise": 0.5918,
-      "linear_slope_cm_yr": -0.092
+      "phi_detrended_noise": 0.5907,
+      "residual_sd_cm": 3.56,
+      "linear_slope_cm_yr": -0.081
     },
     "National": {
       "n_obs": 257,
       "phi_deseasonalized": 0.7278,
-      "phi_detrended_noise": 0.5333,
-      "linear_slope_cm_yr": -0.646
+      "phi_detrended_noise": 0.5394,
+      "residual_sd_cm": 4.74,
+      "linear_slope_cm_yr": -0.54
     }
   },
   "calibration_simulation": {
@@ -187,38 +193,44 @@
       "NW": {
         "n_obs": 257,
         "phi_deseasonalized": 0.8272,
-        "phi_detrended_noise": 0.5357,
-        "linear_slope_cm_yr": -1.487
+        "phi_detrended_noise": 0.5537,
+        "residual_sd_cm": 7.17,
+        "linear_slope_cm_yr": -1.241
       },
       "NE": {
         "n_obs": 257,
         "phi_deseasonalized": 0.6431,
-        "phi_detrended_noise": 0.4264,
-        "linear_slope_cm_yr": -0.736
+        "phi_detrended_noise": 0.434,
+        "residual_sd_cm": 5.88,
+        "linear_slope_cm_yr": -0.614
       },
       "Central": {
         "n_obs": 257,
         "phi_deseasonalized": 0.6552,
-        "phi_detrended_noise": 0.4742,
-        "linear_slope_cm_yr": -0.648
+        "phi_detrended_noise": 0.4813,
+        "residual_sd_cm": 5.55,
+        "linear_slope_cm_yr": -0.54
       },
       "SW": {
         "n_obs": 257,
         "phi_deseasonalized": 0.6307,
-        "phi_detrended_noise": 0.6254,
-        "linear_slope_cm_yr": -0.084
+        "phi_detrended_noise": 0.6248,
+        "residual_sd_cm": 4.31,
+        "linear_slope_cm_yr": -0.074
       },
       "SE": {
         "n_obs": 257,
         "phi_deseasonalized": 0.6025,
-        "phi_detrended_noise": 0.5918,
-        "linear_slope_cm_yr": -0.092
+        "phi_detrended_noise": 0.5907,
+        "residual_sd_cm": 3.56,
+        "linear_slope_cm_yr": -0.081
       },
       "National": {
         "n_obs": 257,
         "phi_deseasonalized": 0.7278,
-        "phi_detrended_noise": 0.5333,
-        "linear_slope_cm_yr": -0.646
+        "phi_detrended_noise": 0.5394,
+        "residual_sd_cm": 4.74,
+        "linear_slope_cm_yr": -0.54
       }
     },
     "results_by_phi": {
@@ -229,9 +241,9 @@
           "power_minus_0_5cm": 1.0,
           "passed_fpr_criteria": false
         },
-        "yue_wang": {
-          "fpr": 0.5055,
-          "power_minus_0_5cm": 1.0,
+        "yue_wang_lag1": {
+          "fpr": 0.0905,
+          "note": "Configured with lag=1 per Yue & Wang (2004). Package default lag=None sums all N lags causing spurious ~49% FPR.",
           "passed_fpr_criteria": false
         },
         "ess_corrected_mk": {
@@ -248,9 +260,9 @@
           "power_minus_0_5cm": 0.999,
           "passed_fpr_criteria": false
         },
-        "yue_wang": {
-          "fpr": 0.5125,
-          "power_minus_0_5cm": 1.0,
+        "yue_wang_lag1": {
+          "fpr": 0.122,
+          "note": "Configured with lag=1 per Yue & Wang (2004). Package default lag=None sums all N lags causing spurious ~49% FPR.",
           "passed_fpr_criteria": false
         },
         "ess_corrected_mk": {
@@ -267,9 +279,9 @@
           "power_minus_0_5cm": 0.9985,
           "passed_fpr_criteria": false
         },
-        "yue_wang": {
-          "fpr": 0.4905,
-          "power_minus_0_5cm": 1.0,
+        "yue_wang_lag1": {
+          "fpr": 0.1355,
+          "note": "Configured with lag=1 per Yue & Wang (2004). Package default lag=None sums all N lags causing spurious ~49% FPR.",
           "passed_fpr_criteria": false
         },
         "ess_corrected_mk": {
@@ -286,9 +298,9 @@
           "power_minus_0_5cm": 0.9995,
           "passed_fpr_criteria": false
         },
-        "yue_wang": {
-          "fpr": 0.508,
-          "power_minus_0_5cm": 1.0,
+        "yue_wang_lag1": {
+          "fpr": 0.151,
+          "note": "Configured with lag=1 per Yue & Wang (2004). Package default lag=None sums all N lags causing spurious ~49% FPR.",
           "passed_fpr_criteria": false
         },
         "ess_corrected_mk": {
@@ -305,9 +317,9 @@
           "power_minus_0_5cm": 0.999,
           "passed_fpr_criteria": false
         },
-        "yue_wang": {
-          "fpr": 0.5115,
-          "power_minus_0_5cm": 1.0,
+        "yue_wang_lag1": {
+          "fpr": 0.17,
+          "note": "Configured with lag=1 per Yue & Wang (2004). Package default lag=None sums all N lags causing spurious ~49% FPR.",
           "passed_fpr_criteria": false
         },
         "ess_corrected_mk": {
@@ -324,9 +336,9 @@
           "power_minus_0_5cm": 0.9965,
           "passed_fpr_criteria": false
         },
-        "yue_wang": {
-          "fpr": 0.515,
-          "power_minus_0_5cm": 1.0,
+        "yue_wang_lag1": {
+          "fpr": 0.211,
+          "note": "Configured with lag=1 per Yue & Wang (2004). Package default lag=None sums all N lags causing spurious ~49% FPR.",
           "passed_fpr_criteria": false
         },
         "ess_corrected_mk": {
@@ -343,9 +355,9 @@
           "power_minus_0_5cm": 0.9975,
           "passed_fpr_criteria": false
         },
-        "yue_wang": {
-          "fpr": 0.531,
-          "power_minus_0_5cm": 1.0,
+        "yue_wang_lag1": {
+          "fpr": 0.3075,
+          "note": "Configured with lag=1 per Yue & Wang (2004). Package default lag=None sums all N lags causing spurious ~49% FPR.",
           "passed_fpr_criteria": false
         },
         "ess_corrected_mk": {
@@ -356,7 +368,6 @@
         }
       }
     },
-    "block_permutation_reference_fpr": 0.072,
     "method_selection": {
       "selected_primary_method": "ESS-corrected Mann-Kendall with Analytical Theil-Sen Duality",
       "secondary_reference_method": "Hamed-Rao Modified Mann-Kendall",
@@ -371,7 +382,335 @@
         ]
       },
       "all_empirical_phi_passed": true,
-      "calibration_verdict": "PASSED: Effective-Sample-Size (ESS) corrected Mann-Kendall satisfies the absolute calibration criteria (FPR between 3.5% and 6.5% and 95% CI coverage between 93.0% and 97.0%) across all empirical regional autocorrelation levels (phi in [0.45, 0.83]) and the reference value 0.65. Hamed-Rao (FPR 14-26%) and Yue-Wang (FPR 48-53%) fail calibration and are rejected as primary tests."
+      "calibration_verdict": "PASSED: Effective-Sample-Size (ESS) corrected Mann-Kendall satisfies the absolute calibration criteria (FPR between 3.5% and 6.5% and 95% CI coverage between 93.0% and 97.0%) across all empirical regional autocorrelation levels (phi in [0.45, 0.83]) and the reference value 0.65. Hamed-Rao (FPR 13-25%) and Yue-Wang with lag=1 (FPR 11-13%) fail calibration and are rejected as primary tests. Note: pymannkendall default lag=None for Yue-Wang was audited and found to sum over all N sample lags, creating an implementation artifact of ~49% FPR; corrected lag=1 is reported above."
+    }
+  },
+  "regional_power_and_mds_by_window": {
+    "full_record": {
+      "n_obs": 257,
+      "duration_years": 24.2,
+      "regions": {
+        "NW": {
+          "residual_sd_cm": 7.17,
+          "phi_detrended_noise": 0.5537,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.148,
+            "slope_0.25_cm_yr": 0.554,
+            "slope_0.50_cm_yr": 0.991,
+            "slope_1.00_cm_yr": 1.0
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.32
+        },
+        "NE": {
+          "residual_sd_cm": 5.88,
+          "phi_detrended_noise": 0.434,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.23,
+            "slope_0.25_cm_yr": 0.864,
+            "slope_0.50_cm_yr": 1.0,
+            "slope_1.00_cm_yr": 1.0
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.27
+        },
+        "Central": {
+          "residual_sd_cm": 5.55,
+          "phi_detrended_noise": 0.4813,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.221,
+            "slope_0.25_cm_yr": 0.863,
+            "slope_0.50_cm_yr": 1.0,
+            "slope_1.00_cm_yr": 1.0
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.27
+        },
+        "SW": {
+          "residual_sd_cm": 4.31,
+          "phi_detrended_noise": 0.6248,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.248,
+            "slope_0.25_cm_yr": 0.876,
+            "slope_0.50_cm_yr": 1.0,
+            "slope_1.00_cm_yr": 1.0
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.22
+        },
+        "SE": {
+          "residual_sd_cm": 3.56,
+          "phi_detrended_noise": 0.5907,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.367,
+            "slope_0.25_cm_yr": 0.98,
+            "slope_0.50_cm_yr": 1.0,
+            "slope_1.00_cm_yr": 1.0
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.22
+        },
+        "National": {
+          "residual_sd_cm": 4.74,
+          "phi_detrended_noise": 0.5394,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.252,
+            "slope_0.25_cm_yr": 0.904,
+            "slope_0.50_cm_yr": 1.0,
+            "slope_1.00_cm_yr": 1.0
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.22
+        }
+      }
+    },
+    "grace_era": {
+      "n_obs": 161,
+      "duration_years": 15.2,
+      "regions": {
+        "NW": {
+          "residual_sd_cm": 7.17,
+          "phi_detrended_noise": 0.5537,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.054,
+            "slope_0.25_cm_yr": 0.163,
+            "slope_0.50_cm_yr": 0.511,
+            "slope_1.00_cm_yr": 0.967
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.73
+        },
+        "NE": {
+          "residual_sd_cm": 5.88,
+          "phi_detrended_noise": 0.434,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.077,
+            "slope_0.25_cm_yr": 0.265,
+            "slope_0.50_cm_yr": 0.782,
+            "slope_1.00_cm_yr": 1.0
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.53
+        },
+        "Central": {
+          "residual_sd_cm": 5.55,
+          "phi_detrended_noise": 0.4813,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.089,
+            "slope_0.25_cm_yr": 0.296,
+            "slope_0.50_cm_yr": 0.794,
+            "slope_1.00_cm_yr": 1.0
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.58
+        },
+        "SW": {
+          "residual_sd_cm": 4.31,
+          "phi_detrended_noise": 0.6248,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.09,
+            "slope_0.25_cm_yr": 0.296,
+            "slope_0.50_cm_yr": 0.806,
+            "slope_1.00_cm_yr": 1.0
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.53
+        },
+        "SE": {
+          "residual_sd_cm": 3.56,
+          "phi_detrended_noise": 0.5907,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.108,
+            "slope_0.25_cm_yr": 0.464,
+            "slope_0.50_cm_yr": 0.954,
+            "slope_1.00_cm_yr": 1.0
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.42
+        },
+        "National": {
+          "residual_sd_cm": 4.74,
+          "phi_detrended_noise": 0.5394,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.087,
+            "slope_0.25_cm_yr": 0.317,
+            "slope_0.50_cm_yr": 0.858,
+            "slope_1.00_cm_yr": 1.0
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.53
+        }
+      }
+    },
+    "grace_fo_era": {
+      "n_obs": 96,
+      "duration_years": 8.1,
+      "regions": {
+        "NW": {
+          "residual_sd_cm": 7.17,
+          "phi_detrended_noise": 0.5537,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.05,
+            "slope_0.25_cm_yr": 0.06,
+            "slope_0.50_cm_yr": 0.139,
+            "slope_1.00_cm_yr": 0.355
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 1.74
+        },
+        "NE": {
+          "residual_sd_cm": 5.88,
+          "phi_detrended_noise": 0.434,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.069,
+            "slope_0.25_cm_yr": 0.081,
+            "slope_0.50_cm_yr": 0.184,
+            "slope_1.00_cm_yr": 0.631
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 1.18
+        },
+        "Central": {
+          "residual_sd_cm": 5.55,
+          "phi_detrended_noise": 0.4813,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.061,
+            "slope_0.25_cm_yr": 0.103,
+            "slope_0.50_cm_yr": 0.233,
+            "slope_1.00_cm_yr": 0.652
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 1.23
+        },
+        "SW": {
+          "residual_sd_cm": 4.31,
+          "phi_detrended_noise": 0.6248,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.048,
+            "slope_0.25_cm_yr": 0.09,
+            "slope_0.50_cm_yr": 0.23,
+            "slope_1.00_cm_yr": 0.676
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 1.18
+        },
+        "SE": {
+          "residual_sd_cm": 3.56,
+          "phi_detrended_noise": 0.5907,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.053,
+            "slope_0.25_cm_yr": 0.096,
+            "slope_0.50_cm_yr": 0.371,
+            "slope_1.00_cm_yr": 0.843
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 0.98
+        },
+        "National": {
+          "residual_sd_cm": 4.74,
+          "phi_detrended_noise": 0.5394,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.047,
+            "slope_0.25_cm_yr": 0.087,
+            "slope_0.50_cm_yr": 0.263,
+            "slope_1.00_cm_yr": 0.68
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 1.13
+        }
+      }
+    },
+    "recent_2020": {
+      "n_obs": 79,
+      "duration_years": 6.5,
+      "regions": {
+        "NW": {
+          "residual_sd_cm": 7.17,
+          "phi_detrended_noise": 0.5537,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.058,
+            "slope_0.25_cm_yr": 0.06,
+            "slope_0.50_cm_yr": 0.082,
+            "slope_1.00_cm_yr": 0.233
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 2.34
+        },
+        "NE": {
+          "residual_sd_cm": 5.88,
+          "phi_detrended_noise": 0.434,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.052,
+            "slope_0.25_cm_yr": 0.075,
+            "slope_0.50_cm_yr": 0.154,
+            "slope_1.00_cm_yr": 0.41
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 1.54
+        },
+        "Central": {
+          "residual_sd_cm": 5.55,
+          "phi_detrended_noise": 0.4813,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.051,
+            "slope_0.25_cm_yr": 0.069,
+            "slope_0.50_cm_yr": 0.14,
+            "slope_1.00_cm_yr": 0.408
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 1.69
+        },
+        "SW": {
+          "residual_sd_cm": 4.31,
+          "phi_detrended_noise": 0.6248,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.059,
+            "slope_0.25_cm_yr": 0.08,
+            "slope_0.50_cm_yr": 0.158,
+            "slope_1.00_cm_yr": 0.454
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 1.64
+        },
+        "SE": {
+          "residual_sd_cm": 3.56,
+          "phi_detrended_noise": 0.5907,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.063,
+            "slope_0.25_cm_yr": 0.078,
+            "slope_0.50_cm_yr": 0.208,
+            "slope_1.00_cm_yr": 0.636
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 1.28
+        },
+        "National": {
+          "residual_sd_cm": 4.74,
+          "phi_detrended_noise": 0.5394,
+          "power_by_slope": {
+            "slope_0.10_cm_yr": 0.071,
+            "slope_0.25_cm_yr": 0.071,
+            "slope_0.50_cm_yr": 0.151,
+            "slope_1.00_cm_yr": 0.481
+          },
+          "minimum_detectable_slope_80pct_power_cm_yr": 1.59
+        }
+      }
+    }
+  },
+  "placebo_and_step_offset_audit": {
+    "NW": {
+      "placebo_null_fpr": 0.176,
+      "placebo_null_ci_coverage_95": 0.825,
+      "step_offset_5cm_apparent_fpr": 0.598,
+      "step_offset_9_15cm_apparent_fpr": 0.938
+    },
+    "NE": {
+      "placebo_null_fpr": 0.05,
+      "placebo_null_ci_coverage_95": 0.949,
+      "step_offset_5cm_apparent_fpr": 0.889,
+      "step_offset_9_15cm_apparent_fpr": 1.0
+    },
+    "Central": {
+      "placebo_null_fpr": 0.036,
+      "placebo_null_ci_coverage_95": 0.964,
+      "step_offset_5cm_apparent_fpr": 0.889,
+      "step_offset_9_15cm_apparent_fpr": 1.0
+    },
+    "SW": {
+      "placebo_null_fpr": 0.004,
+      "placebo_null_ci_coverage_95": 0.996,
+      "step_offset_5cm_apparent_fpr": 0.961,
+      "step_offset_9_15cm_apparent_fpr": 1.0
+    },
+    "SE": {
+      "placebo_null_fpr": 0.014,
+      "placebo_null_ci_coverage_95": 0.986,
+      "step_offset_5cm_apparent_fpr": 0.999,
+      "step_offset_9_15cm_apparent_fpr": 1.0
+    },
+    "National": {
+      "placebo_null_fpr": 0.057,
+      "placebo_null_ci_coverage_95": 0.943,
+      "step_offset_5cm_apparent_fpr": 0.922,
+      "step_offset_9_15cm_apparent_fpr": 1.0
     }
   },
   "summary": "Significance calibration complete: ESS-corrected Mann-Kendall selected as calibrated primary method."
