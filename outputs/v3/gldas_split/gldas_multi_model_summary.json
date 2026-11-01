@@ -1,0 +1,136 @@
+{
+  "status": "COMPLETED",
+  "timestamp": "2026-11-01T21:33:42.389588",
+  "models": {
+    "noah_21": {
+      "short_name": "GLDAS_NOAH025_M",
+      "resolution": "0.25 deg",
+      "depth_m": 2.0
+    },
+    "vic_21": {
+      "short_name": "GLDAS_VIC10_M",
+      "resolution": "1.0 deg",
+      "layers": 3
+    },
+    "clsm_22": {
+      "short_name": "GLDAS_CLSM025_DA1_D",
+      "resolution": "0.25 deg",
+      "note": "Non-independent / GRACE-assimilated",
+      "start": "2003-02"
+    }
+  },
+  "windows_evaluated": [
+    "full_record",
+    "grace_era",
+    "grace_fo_era",
+    "recent_2020"
+  ],
+  "residual_label": "groundwater + surface water + model error residual",
+  "northwest_grace_fo": {
+    "tws_slope_cm_yr": -1.67,
+    "noah_sms_slope_cm_yr": 0.05,
+    "vic_sms_slope_cm_yr": 0.2,
+    "clsm_sms_slope_cm_yr": -1.09,
+    "ensemble_sms_slope_cm_yr": -0.29,
+    "ensemble_residual_slope_cm_yr": -1.37,
+    "ensemble_residual_ci": "[-2.02, -0.71]"
+  },
+  "homogeneity_summary": {
+    "NW": {
+      "noah_pettitt_break_date": "2009-02",
+      "noah_pettitt_p_value": 0.0,
+      "noah_snht_break_date": "2004-08",
+      "noah_snht_p_value": 0.2019,
+      "noah_homogeneous": false,
+      "vic_pettitt_break_date": "2009-01",
+      "vic_pettitt_p_value": 0.0,
+      "vic_snht_break_date": "2006-04",
+      "vic_snht_p_value": 0.1553,
+      "vic_homogeneous": false,
+      "clsm_pettitt_break_date": "2010-07",
+      "clsm_pettitt_p_value": 0.0,
+      "clsm_snht_p_value": 0.0133,
+      "clsm_homogeneous": false
+    },
+    "NE": {
+      "noah_pettitt_break_date": "2009-02",
+      "noah_pettitt_p_value": 0.0038,
+      "noah_snht_break_date": "2004-11",
+      "noah_snht_p_value": 0.4706,
+      "noah_homogeneous": false,
+      "vic_pettitt_break_date": "2008-04",
+      "vic_pettitt_p_value": 0.0007,
+      "vic_snht_break_date": "2008-05",
+      "vic_snht_p_value": 0.472,
+      "vic_homogeneous": false,
+      "clsm_pettitt_break_date": "2009-02",
+      "clsm_pettitt_p_value": 0.0,
+      "clsm_snht_p_value": 0.3321,
+      "clsm_homogeneous": false
+    },
+    "Central": {
+      "noah_pettitt_break_date": "2009-02",
+      "noah_pettitt_p_value": 0.0,
+      "noah_snht_break_date": "2009-02",
+      "noah_snht_p_value": 0.187,
+      "noah_homogeneous": false,
+      "vic_pettitt_break_date": "2009-02",
+      "vic_pettitt_p_value": 0.0,
+      "vic_snht_break_date": "2008-05",
+      "vic_snht_p_value": 0.0843,
+      "vic_homogeneous": false,
+      "clsm_pettitt_break_date": "2009-02",
+      "clsm_pettitt_p_value": 0.0,
+      "clsm_snht_p_value": 0.0644,
+      "clsm_homogeneous": false
+    },
+    "SW": {
+      "noah_pettitt_break_date": "2009-01",
+      "noah_pettitt_p_value": 0.0,
+      "noah_snht_break_date": "2004-10",
+      "noah_snht_p_value": 0.2491,
+      "noah_homogeneous": false,
+      "vic_pettitt_break_date": "2009-01",
+      "vic_pettitt_p_value": 0.0,
+      "vic_snht_break_date": "2008-08",
+      "vic_snht_p_value": 0.0597,
+      "vic_homogeneous": false,
+      "clsm_pettitt_break_date": "2008-12",
+      "clsm_pettitt_p_value": 0.0,
+      "clsm_snht_p_value": 0.1,
+      "clsm_homogeneous": false
+    },
+    "SE": {
+      "noah_pettitt_break_date": "2008-04",
+      "noah_pettitt_p_value": 0.0023,
+      "noah_snht_break_date": "2003-07",
+      "noah_snht_p_value": 0.4277,
+      "noah_homogeneous": false,
+      "vic_pettitt_break_date": "2008-03",
+      "vic_pettitt_p_value": 0.0109,
+      "vic_snht_break_date": "2008-04",
+      "vic_snht_p_value": 0.6133,
+      "vic_homogeneous": false,
+      "clsm_pettitt_break_date": "2018-08",
+      "clsm_pettitt_p_value": 0.0,
+      "clsm_snht_p_value": 0.2838,
+      "clsm_homogeneous": false
+    },
+    "National": {
+      "noah_pettitt_break_date": "2009-02",
+      "noah_pettitt_p_value": 0.0,
+      "noah_snht_break_date": "2004-11",
+      "noah_snht_p_value": 0.2295,
+      "noah_homogeneous": false,
+      "vic_pettitt_break_date": "2009-02",
+      "vic_pettitt_p_value": 0.0,
+      "vic_snht_break_date": "2008-05",
+      "vic_snht_p_value": 0.0901,
+      "vic_homogeneous": false,
+      "clsm_pettitt_break_date": "2009-04",
+      "clsm_pettitt_p_value": 0.0,
+      "clsm_snht_p_value": 0.0473,
+      "clsm_homogeneous": false
+    }
+  }
+}
