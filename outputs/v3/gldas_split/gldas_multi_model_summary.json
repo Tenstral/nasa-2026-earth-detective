@@ -1,21 +1,24 @@
 {
   "status": "COMPLETED",
-  "timestamp": "2026-11-01T21:33:42.389588",
+  "timestamp": "2026-11-02T00:48:17.042070",
   "models": {
     "noah_21": {
       "short_name": "GLDAS_NOAH025_M",
       "resolution": "0.25 deg",
-      "depth_m": 2.0
+      "depth_m": 2.0,
+      "role": "independent"
     },
     "vic_21": {
       "short_name": "GLDAS_VIC10_M",
       "resolution": "1.0 deg",
-      "layers": 3
+      "layers": 3,
+      "role": "independent"
     },
     "clsm_22": {
       "short_name": "GLDAS_CLSM025_DA1_D",
       "resolution": "0.25 deg",
-      "note": "Non-independent / GRACE-assimilated",
+      "role": "non-independent",
+      "note": "Assimilates GRACE TWSA via EnKF; cannot serve as independent partition",
       "start": "2003-02"
     }
   },
@@ -30,10 +33,10 @@
     "tws_slope_cm_yr": -1.67,
     "noah_sms_slope_cm_yr": 0.05,
     "vic_sms_slope_cm_yr": 0.2,
+    "independent_sms_range_cm_yr": "[+0.05, +0.20]",
+    "independent_residual_range_cm_yr": "[-1.92, -1.70]",
     "clsm_sms_slope_cm_yr": -1.09,
-    "ensemble_sms_slope_cm_yr": -0.29,
-    "ensemble_residual_slope_cm_yr": -1.37,
-    "ensemble_residual_ci": "[-2.02, -0.71]"
+    "clsm_note": "Non-independent / GRACE-assimilated"
   },
   "homogeneity_summary": {
     "NW": {
@@ -132,5 +135,6 @@
       "clsm_snht_p_value": 0.0473,
       "clsm_homogeneous": false
     }
-  }
+  },
+  "homogeneity_interpretation_note": "Pettitt test detects step changes under a trend and does not constitute evidence of data inhomogeneity."
 }

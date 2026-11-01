@@ -89,5 +89,30 @@ class TestGLDASMultiModel(unittest.TestCase):
             self.assertAlmostEqual(sub.loc[base_mask, "clsm_sms_anom_cm"].mean(), 0.0, places=4)
 
 
+    def test_independent_models_separation_and_range(self):
+        self.assertIn("independent_sms_slope_min", self.df_summary.columns)
+        self.assertIn("independent_sms_slope_max", self.df_summary.columns)
+        self.assertIn("independent_residual_slope_min", self.df_summary.columns)
+        self.assertIn("independent_residual_slope_max", self.df_summary.columns)
+
+        for _, row in self.df_summary.iterrows():
+            self.assertLessEqual(row["independent_sms_slope_min"], row["independent_sms_slope_max"])
+            self.assertLessEqual(row["independent_residual_slope_min"], row["independent_residual_slope_max"])
+            self.assertIn("cannot serve as an independent partition", str(row["clsm_independence_note"]))
+
+    def test_homogeneity_interpretation_note(self):
+        md_path = OUTPUT_DIR / "gldas_multi_model_summary.md"
+        self.assertTrue(md_path.exists())
+        md_text = md_path.read_text(encoding="utf-8")
+        self.assertIn("Interpretation of Homogeneity Tests Under a Secular Trend", md_text)
+        self.assertIn("does not constitute evidence of meteorological data inhomogeneity", md_text.replace("**", ""))
+
+        json_path = OUTPUT_DIR / "gldas_multi_model_summary.json"
+        self.assertTrue(json_path.exists())
+        import json
+        data = json.loads(json_path.read_text(encoding="utf-8"))
+        self.assertIn("homogeneity_interpretation_note", data)
+
+
 if __name__ == "__main__":
     unittest.main()
