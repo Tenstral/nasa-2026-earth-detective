@@ -1,7 +1,7 @@
-region,region_name,n_months,period,pearson_r,pearson_p,spearman_rho,mean_imerg_mm_mo,mean_power_mm_mo,bias_mbe_mm_mo,percent_bias_pct,mae_mm_mo,rmse_mm_mo,monsoon_mean_imerg_mm,monsoon_mean_power_mm,dry_mean_imerg_mm,dry_mean_power_mm
-NW,Northwest (Rajshahi + Rangpur),86,2018-06 to 2025-09,0.9785,0.0,0.9843,165.08,195.41,-30.32,-15.52,33.43,52.25,1381.1,1570.6,61.3,86.5
-NE,Northeast (Sylhet + Mymensingh),86,2018-06 to 2025-09,0.971,0.0,0.9863,253.29,327.1,-73.81,-22.57,74.53,120.39,2003.2,2472.6,94.9,134.5
-Central,Central (Dhaka),86,2018-06 to 2025-09,0.9588,0.0,0.9565,175.52,222.25,-46.73,-21.03,50.62,76.49,1368.1,1629.3,88.1,132.2
-SW,Southwest (Khulna + Barishal),86,2018-06 to 2025-09,0.9236,0.0,0.9631,182.59,316.15,-133.56,-42.25,133.76,211.68,1515.3,2548.8,75.9,161.1
-SE,Southeast (Chattogram),86,2018-06 to 2025-09,0.9439,0.0,0.9753,238.08,393.07,-154.98,-39.43,155.62,264.06,2066.7,3328.2,71.4,133.9
-National,National Composite (All 8 Divisions),86,2018-06 to 2025-09,0.9637,0.0,0.9803,200.7,278.63,-77.92,-27.97,78.09,121.91,1657.4,2219.2,76.3,124.8
+region,region_name,n_overlap_months,overlap_period,raw_pearson_r,raw_spearman_rho,anomaly_pearson_r,anomaly_spearman_rho,mean_imerg_mm_mo,mean_power_mm_mo,bias_power_minus_imerg_mm_mo,bias_imerg_minus_power_mm_mo,percent_bias_pct,mae_mm_mo,rmse_mm_mo
+NW,Northwest (Rajshahi + Rangpur),285,2002-01 to 2025-09,0.9366,0.9629,0.734,0.7259,163.9,155.7,-8.2,8.2,-5.0,36.1,58.1
+NE,Northeast (Sylhet + Mymensingh),285,2002-01 to 2025-09,0.9084,0.9496,0.676,0.6883,252.2,260.7,8.5,-8.5,3.4,68.3,109.9
+Central,Central (Dhaka),285,2002-01 to 2025-09,0.9167,0.9525,0.7288,0.6983,174.7,181.5,6.9,-6.9,3.9,44.4,72.2
+SW,Southwest (Khulna + Barishal),285,2002-01 to 2025-09,0.8749,0.9441,0.6221,0.6443,177.2,196.9,19.7,-19.7,11.1,61.8,110.1
+SE,Southeast (Chattogram),285,2002-01 to 2025-09,0.8576,0.9413,0.6029,0.6237,237.1,292.2,55.1,-55.1,23.2,108.2,202.6
+National,National Composite (All 8 Divisions),285,2002-01 to 2025-09,0.899,0.9524,0.6049,0.6232,198.7,214.8,16.1,-16.1,8.1,58.6,99.6

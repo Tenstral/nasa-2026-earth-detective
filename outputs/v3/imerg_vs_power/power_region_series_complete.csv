@@ -1,0 +1,1783 @@
+region,region_name,ym,date,power_precip_mm
+NW,Northwest (Rajshahi + Rangpur),2002-01,2002-01-01,8.63
+NE,Northeast (Sylhet + Mymensingh),2002-01,2002-01-01,10.37
+Central,Central (Dhaka),2002-01,2002-01-01,13.75
+SW,Southwest (Khulna + Barishal),2002-01,2002-01-01,13.01
+SE,Southeast (Chattogram),2002-01,2002-01-01,4.48
+National,National (All Bangladesh),2002-01,2002-01-01,9.81
+NW,Northwest (Rajshahi + Rangpur),2002-02,2002-02-01,2.9
+NE,Northeast (Sylhet + Mymensingh),2002-02,2002-02-01,2.49
+Central,Central (Dhaka),2002-02,2002-02-01,1.12
+SW,Southwest (Khulna + Barishal),2002-02,2002-02-01,0.25
+SE,Southeast (Chattogram),2002-02,2002-02-01,0.1
+National,National (All Bangladesh),2002-02,2002-02-01,1.4
+NW,Northwest (Rajshahi + Rangpur),2002-03,2002-03-01,29.3
+NE,Northeast (Sylhet + Mymensingh),2002-03,2002-03-01,79.83
+Central,Central (Dhaka),2002-03,2002-03-01,54.35
+SW,Southwest (Khulna + Barishal),2002-03,2002-03-01,31.39
+SE,Southeast (Chattogram),2002-03,2002-03-01,44.64
+National,National (All Bangladesh),2002-03,2002-03-01,45.16
+NW,Northwest (Rajshahi + Rangpur),2002-04,2002-04-01,191.84
+NE,Northeast (Sylhet + Mymensingh),2002-04,2002-04-01,292.65
+Central,Central (Dhaka),2002-04,2002-04-01,126.27
+SW,Southwest (Khulna + Barishal),2002-04,2002-04-01,64.89
+SE,Southeast (Chattogram),2002-04,2002-04-01,63.83
+National,National (All Bangladesh),2002-04,2002-04-01,144.88
+NW,Northwest (Rajshahi + Rangpur),2002-05,2002-05-01,126.88
+NE,Northeast (Sylhet + Mymensingh),2002-05,2002-05-01,286.73
+Central,Central (Dhaka),2002-05,2002-05-01,192.98
+SW,Southwest (Khulna + Barishal),2002-05,2002-05-01,161.83
+SE,Southeast (Chattogram),2002-05,2002-05-01,207.59
+National,National (All Bangladesh),2002-05,2002-05-01,188.29
+NW,Northwest (Rajshahi + Rangpur),2002-06,2002-06-01,332.36
+NE,Northeast (Sylhet + Mymensingh),2002-06,2002-06-01,474.71
+Central,Central (Dhaka),2002-06,2002-06-01,354.43
+SW,Southwest (Khulna + Barishal),2002-06,2002-06-01,325.46
+SE,Southeast (Chattogram),2002-06,2002-06-01,299.4
+National,National (All Bangladesh),2002-06,2002-06-01,351.82
+NW,Northwest (Rajshahi + Rangpur),2002-07,2002-07-01,312.74
+NE,Northeast (Sylhet + Mymensingh),2002-07,2002-07-01,500.77
+Central,Central (Dhaka),2002-07,2002-07-01,379.32
+SW,Southwest (Khulna + Barishal),2002-07,2002-07-01,349.33
+SE,Southeast (Chattogram),2002-07,2002-07-01,480.94
+National,National (All Bangladesh),2002-07,2002-07-01,397.27
+NW,Northwest (Rajshahi + Rangpur),2002-08,2002-08-01,304.29
+NE,Northeast (Sylhet + Mymensingh),2002-08,2002-08-01,359.14
+Central,Central (Dhaka),2002-08,2002-08-01,259.76
+SW,Southwest (Khulna + Barishal),2002-08,2002-08-01,245.86
+SE,Southeast (Chattogram),2002-08,2002-08-01,246.18
+National,National (All Bangladesh),2002-08,2002-08-01,282.29
+NW,Northwest (Rajshahi + Rangpur),2002-09,2002-09-01,306.26
+NE,Northeast (Sylhet + Mymensingh),2002-09,2002-09-01,273.51
+Central,Central (Dhaka),2002-09,2002-09-01,184.61
+SW,Southwest (Khulna + Barishal),2002-09,2002-09-01,170.76
+SE,Southeast (Chattogram),2002-09,2002-09-01,148.76
+National,National (All Bangladesh),2002-09,2002-09-01,220.34
+NW,Northwest (Rajshahi + Rangpur),2002-10,2002-10-01,50.0
+NE,Northeast (Sylhet + Mymensingh),2002-10,2002-10-01,59.8
+Central,Central (Dhaka),2002-10,2002-10-01,52.9
+SW,Southwest (Khulna + Barishal),2002-10,2002-10-01,63.58
+SE,Southeast (Chattogram),2002-10,2002-10-01,78.16
+National,National (All Bangladesh),2002-10,2002-10-01,60.96
+NW,Northwest (Rajshahi + Rangpur),2002-11,2002-11-01,26.06
+NE,Northeast (Sylhet + Mymensingh),2002-11,2002-11-01,100.73
+Central,Central (Dhaka),2002-11,2002-11-01,102.05
+SW,Southwest (Khulna + Barishal),2002-11,2002-11-01,66.21
+SE,Southeast (Chattogram),2002-11,2002-11-01,79.31
+National,National (All Bangladesh),2002-11,2002-11-01,69.71
+NW,Northwest (Rajshahi + Rangpur),2002-12,2002-12-01,1.75
+NE,Northeast (Sylhet + Mymensingh),2002-12,2002-12-01,46.21
+Central,Central (Dhaka),2002-12,2002-12-01,5.72
+SW,Southwest (Khulna + Barishal),2002-12,2002-12-01,0.35
+SE,Southeast (Chattogram),2002-12,2002-12-01,4.0
+National,National (All Bangladesh),2002-12,2002-12-01,10.14
+NW,Northwest (Rajshahi + Rangpur),2003-01,2003-01-01,3.94
+NE,Northeast (Sylhet + Mymensingh),2003-01,2003-01-01,21.9
+Central,Central (Dhaka),2003-01,2003-01-01,12.13
+SW,Southwest (Khulna + Barishal),2003-01,2003-01-01,0.72
+SE,Southeast (Chattogram),2003-01,2003-01-01,8.22
+National,National (All Bangladesh),2003-01,2003-01-01,8.33
+NW,Northwest (Rajshahi + Rangpur),2003-02,2003-02-01,35.41
+NE,Northeast (Sylhet + Mymensingh),2003-02,2003-02-01,27.38
+Central,Central (Dhaka),2003-02,2003-02-01,29.79
+SW,Southwest (Khulna + Barishal),2003-02,2003-02-01,9.78
+SE,Southeast (Chattogram),2003-02,2003-02-01,4.28
+National,National (All Bangladesh),2003-02,2003-02-01,21.0
+NW,Northwest (Rajshahi + Rangpur),2003-03,2003-03-01,56.43
+NE,Northeast (Sylhet + Mymensingh),2003-03,2003-03-01,132.22
+Central,Central (Dhaka),2003-03,2003-03-01,100.36
+SW,Southwest (Khulna + Barishal),2003-03,2003-03-01,106.12
+SE,Southeast (Chattogram),2003-03,2003-03-01,58.93
+National,National (All Bangladesh),2003-03,2003-03-01,87.65
+NW,Northwest (Rajshahi + Rangpur),2003-04,2003-04-01,83.99
+NE,Northeast (Sylhet + Mymensingh),2003-04,2003-04-01,194.16
+Central,Central (Dhaka),2003-04,2003-04-01,102.33
+SW,Southwest (Khulna + Barishal),2003-04,2003-04-01,40.87
+SE,Southeast (Chattogram),2003-04,2003-04-01,48.04
+National,National (All Bangladesh),2003-04,2003-04-01,88.41
+NW,Northwest (Rajshahi + Rangpur),2003-05,2003-05-01,108.63
+NE,Northeast (Sylhet + Mymensingh),2003-05,2003-05-01,211.16
+Central,Central (Dhaka),2003-05,2003-05-01,118.55
+SW,Southwest (Khulna + Barishal),2003-05,2003-05-01,71.86
+SE,Southeast (Chattogram),2003-05,2003-05-01,110.62
+National,National (All Bangladesh),2003-05,2003-05-01,119.73
+NW,Northwest (Rajshahi + Rangpur),2003-06,2003-06-01,304.16
+NE,Northeast (Sylhet + Mymensingh),2003-06,2003-06-01,665.33
+Central,Central (Dhaka),2003-06,2003-06-01,473.02
+SW,Southwest (Khulna + Barishal),2003-06,2003-06-01,371.41
+SE,Southeast (Chattogram),2003-06,2003-06-01,324.15
+National,National (All Bangladesh),2003-06,2003-06-01,409.92
+NW,Northwest (Rajshahi + Rangpur),2003-07,2003-07-01,298.42
+NE,Northeast (Sylhet + Mymensingh),2003-07,2003-07-01,307.68
+Central,Central (Dhaka),2003-07,2003-07-01,180.34
+SW,Southwest (Khulna + Barishal),2003-07,2003-07-01,203.02
+SE,Southeast (Chattogram),2003-07,2003-07-01,281.08
+National,National (All Bangladesh),2003-07,2003-07-01,258.02
+NW,Northwest (Rajshahi + Rangpur),2003-08,2003-08-01,144.6
+NE,Northeast (Sylhet + Mymensingh),2003-08,2003-08-01,270.7
+Central,Central (Dhaka),2003-08,2003-08-01,172.01
+SW,Southwest (Khulna + Barishal),2003-08,2003-08-01,169.37
+SE,Southeast (Chattogram),2003-08,2003-08-01,200.59
+National,National (All Bangladesh),2003-08,2003-08-01,187.37
+NW,Northwest (Rajshahi + Rangpur),2003-09,2003-09-01,179.6
+NE,Northeast (Sylhet + Mymensingh),2003-09,2003-09-01,263.26
+Central,Central (Dhaka),2003-09,2003-09-01,179.16
+SW,Southwest (Khulna + Barishal),2003-09,2003-09-01,120.77
+SE,Southeast (Chattogram),2003-09,2003-09-01,133.07
+National,National (All Bangladesh),2003-09,2003-09-01,171.03
+NW,Northwest (Rajshahi + Rangpur),2003-10,2003-10-01,217.06
+NE,Northeast (Sylhet + Mymensingh),2003-10,2003-10-01,232.96
+Central,Central (Dhaka),2003-10,2003-10-01,173.22
+SW,Southwest (Khulna + Barishal),2003-10,2003-10-01,227.22
+SE,Southeast (Chattogram),2003-10,2003-10-01,138.11
+National,National (All Bangladesh),2003-10,2003-10-01,199.96
+NW,Northwest (Rajshahi + Rangpur),2003-11,2003-11-01,3.35
+NE,Northeast (Sylhet + Mymensingh),2003-11,2003-11-01,23.93
+Central,Central (Dhaka),2003-11,2003-11-01,3.29
+SW,Southwest (Khulna + Barishal),2003-11,2003-11-01,1.68
+SE,Southeast (Chattogram),2003-11,2003-11-01,2.04
+National,National (All Bangladesh),2003-11,2003-11-01,6.26
+NW,Northwest (Rajshahi + Rangpur),2003-12,2003-12-01,13.55
+NE,Northeast (Sylhet + Mymensingh),2003-12,2003-12-01,28.53
+Central,Central (Dhaka),2003-12,2003-12-01,32.3
+SW,Southwest (Khulna + Barishal),2003-12,2003-12-01,21.73
+SE,Southeast (Chattogram),2003-12,2003-12-01,18.42
+National,National (All Bangladesh),2003-12,2003-12-01,21.64
+NW,Northwest (Rajshahi + Rangpur),2004-01,2004-01-01,8.9
+NE,Northeast (Sylhet + Mymensingh),2004-01,2004-01-01,6.17
+Central,Central (Dhaka),2004-01,2004-01-01,3.04
+SW,Southwest (Khulna + Barishal),2004-01,2004-01-01,1.29
+SE,Southeast (Chattogram),2004-01,2004-01-01,0.85
+National,National (All Bangladesh),2004-01,2004-01-01,4.22
+NW,Northwest (Rajshahi + Rangpur),2004-02,2004-02-01,0.49
+NE,Northeast (Sylhet + Mymensingh),2004-02,2004-02-01,5.89
+Central,Central (Dhaka),2004-02,2004-02-01,1.88
+SW,Southwest (Khulna + Barishal),2004-02,2004-02-01,0.2
+SE,Southeast (Chattogram),2004-02,2004-02-01,1.22
+National,National (All Bangladesh),2004-02,2004-02-01,1.7
+NW,Northwest (Rajshahi + Rangpur),2004-03,2004-03-01,24.2
+NE,Northeast (Sylhet + Mymensingh),2004-03,2004-03-01,35.25
+Central,Central (Dhaka),2004-03,2004-03-01,15.12
+SW,Southwest (Khulna + Barishal),2004-03,2004-03-01,7.37
+SE,Southeast (Chattogram),2004-03,2004-03-01,7.42
+National,National (All Bangladesh),2004-03,2004-03-01,17.56
+NW,Northwest (Rajshahi + Rangpur),2004-04,2004-04-01,135.21
+NE,Northeast (Sylhet + Mymensingh),2004-04,2004-04-01,381.41
+Central,Central (Dhaka),2004-04,2004-04-01,171.03
+SW,Southwest (Khulna + Barishal),2004-04,2004-04-01,83.54
+SE,Southeast (Chattogram),2004-04,2004-04-01,117.52
+National,National (All Bangladesh),2004-04,2004-04-01,167.39
+NW,Northwest (Rajshahi + Rangpur),2004-05,2004-05-01,128.06
+NE,Northeast (Sylhet + Mymensingh),2004-05,2004-05-01,199.97
+Central,Central (Dhaka),2004-05,2004-05-01,119.3
+SW,Southwest (Khulna + Barishal),2004-05,2004-05-01,79.2
+SE,Southeast (Chattogram),2004-05,2004-05-01,148.26
+National,National (All Bangladesh),2004-05,2004-05-01,132.16
+NW,Northwest (Rajshahi + Rangpur),2004-06,2004-06-01,275.84
+NE,Northeast (Sylhet + Mymensingh),2004-06,2004-06-01,432.49
+Central,Central (Dhaka),2004-06,2004-06-01,301.2
+SW,Southwest (Khulna + Barishal),2004-06,2004-06-01,263.98
+SE,Southeast (Chattogram),2004-06,2004-06-01,231.89
+National,National (All Bangladesh),2004-06,2004-06-01,294.86
+NW,Northwest (Rajshahi + Rangpur),2004-07,2004-07-01,509.19
+NE,Northeast (Sylhet + Mymensingh),2004-07,2004-07-01,746.01
+Central,Central (Dhaka),2004-07,2004-07-01,349.28
+SW,Southwest (Khulna + Barishal),2004-07,2004-07-01,228.75
+SE,Southeast (Chattogram),2004-07,2004-07-01,374.71
+National,National (All Bangladesh),2004-07,2004-07-01,435.95
+NW,Northwest (Rajshahi + Rangpur),2004-08,2004-08-01,207.0
+NE,Northeast (Sylhet + Mymensingh),2004-08,2004-08-01,303.08
+Central,Central (Dhaka),2004-08,2004-08-01,219.48
+SW,Southwest (Khulna + Barishal),2004-08,2004-08-01,273.61
+SE,Southeast (Chattogram),2004-08,2004-08-01,261.25
+National,National (All Bangladesh),2004-08,2004-08-01,251.75
+NW,Northwest (Rajshahi + Rangpur),2004-09,2004-09-01,301.91
+NE,Northeast (Sylhet + Mymensingh),2004-09,2004-09-01,438.51
+Central,Central (Dhaka),2004-09,2004-09-01,566.59
+SW,Southwest (Khulna + Barishal),2004-09,2004-09-01,493.77
+SE,Southeast (Chattogram),2004-09,2004-09-01,431.08
+National,National (All Bangladesh),2004-09,2004-09-01,433.05
+NW,Northwest (Rajshahi + Rangpur),2004-10,2004-10-01,243.71
+NE,Northeast (Sylhet + Mymensingh),2004-10,2004-10-01,281.0
+Central,Central (Dhaka),2004-10,2004-10-01,189.27
+SW,Southwest (Khulna + Barishal),2004-10,2004-10-01,164.87
+SE,Southeast (Chattogram),2004-10,2004-10-01,138.77
+National,National (All Bangladesh),2004-10,2004-10-01,203.06
+NW,Northwest (Rajshahi + Rangpur),2004-11,2004-11-01,1.18
+NE,Northeast (Sylhet + Mymensingh),2004-11,2004-11-01,3.36
+Central,Central (Dhaka),2004-11,2004-11-01,0.65
+SW,Southwest (Khulna + Barishal),2004-11,2004-11-01,0.0
+SE,Southeast (Chattogram),2004-11,2004-11-01,0.3
+National,National (All Bangladesh),2004-11,2004-11-01,1.03
+NW,Northwest (Rajshahi + Rangpur),2004-12,2004-12-01,0.14
+NE,Northeast (Sylhet + Mymensingh),2004-12,2004-12-01,3.68
+Central,Central (Dhaka),2004-12,2004-12-01,0.41
+SW,Southwest (Khulna + Barishal),2004-12,2004-12-01,0.0
+SE,Southeast (Chattogram),2004-12,2004-12-01,0.27
+National,National (All Bangladesh),2004-12,2004-12-01,0.78
+NW,Northwest (Rajshahi + Rangpur),2005-01,2005-01-01,9.37
+NE,Northeast (Sylhet + Mymensingh),2005-01,2005-01-01,5.65
+Central,Central (Dhaka),2005-01,2005-01-01,6.77
+SW,Southwest (Khulna + Barishal),2005-01,2005-01-01,14.18
+SE,Southeast (Chattogram),2005-01,2005-01-01,5.7
+National,National (All Bangladesh),2005-01,2005-01-01,8.72
+NW,Northwest (Rajshahi + Rangpur),2005-02,2005-02-01,6.93
+NE,Northeast (Sylhet + Mymensingh),2005-02,2005-02-01,17.31
+Central,Central (Dhaka),2005-02,2005-02-01,4.84
+SW,Southwest (Khulna + Barishal),2005-02,2005-02-01,0.99
+SE,Southeast (Chattogram),2005-02,2005-02-01,2.22
+National,National (All Bangladesh),2005-02,2005-02-01,6.11
+NW,Northwest (Rajshahi + Rangpur),2005-03,2005-03-01,53.65
+NE,Northeast (Sylhet + Mymensingh),2005-03,2005-03-01,194.07
+Central,Central (Dhaka),2005-03,2005-03-01,118.7
+SW,Southwest (Khulna + Barishal),2005-03,2005-03-01,67.36
+SE,Southeast (Chattogram),2005-03,2005-03-01,51.46
+National,National (All Bangladesh),2005-03,2005-03-01,89.79
+NW,Northwest (Rajshahi + Rangpur),2005-04,2005-04-01,48.1
+NE,Northeast (Sylhet + Mymensingh),2005-04,2005-04-01,148.15
+Central,Central (Dhaka),2005-04,2005-04-01,66.62
+SW,Southwest (Khulna + Barishal),2005-04,2005-04-01,33.83
+SE,Southeast (Chattogram),2005-04,2005-04-01,86.22
+National,National (All Bangladesh),2005-04,2005-04-01,72.5
+NW,Northwest (Rajshahi + Rangpur),2005-05,2005-05-01,101.34
+NE,Northeast (Sylhet + Mymensingh),2005-05,2005-05-01,370.92
+Central,Central (Dhaka),2005-05,2005-05-01,160.31
+SW,Southwest (Khulna + Barishal),2005-05,2005-05-01,70.18
+SE,Southeast (Chattogram),2005-05,2005-05-01,110.08
+National,National (All Bangladesh),2005-05,2005-05-01,150.91
+NW,Northwest (Rajshahi + Rangpur),2005-06,2005-06-01,109.33
+NE,Northeast (Sylhet + Mymensingh),2005-06,2005-06-01,156.48
+Central,Central (Dhaka),2005-06,2005-06-01,114.07
+SW,Southwest (Khulna + Barishal),2005-06,2005-06-01,128.06
+SE,Southeast (Chattogram),2005-06,2005-06-01,189.93
+National,National (All Bangladesh),2005-06,2005-06-01,138.87
+NW,Northwest (Rajshahi + Rangpur),2005-07,2005-07-01,423.7
+NE,Northeast (Sylhet + Mymensingh),2005-07,2005-07-01,504.96
+Central,Central (Dhaka),2005-07,2005-07-01,375.22
+SW,Southwest (Khulna + Barishal),2005-07,2005-07-01,291.64
+SE,Southeast (Chattogram),2005-07,2005-07-01,311.96
+National,National (All Bangladesh),2005-07,2005-07-01,377.88
+NW,Northwest (Rajshahi + Rangpur),2005-08,2005-08-01,368.64
+NE,Northeast (Sylhet + Mymensingh),2005-08,2005-08-01,558.19
+Central,Central (Dhaka),2005-08,2005-08-01,308.64
+SW,Southwest (Khulna + Barishal),2005-08,2005-08-01,263.25
+SE,Southeast (Chattogram),2005-08,2005-08-01,453.88
+National,National (All Bangladesh),2005-08,2005-08-01,386.17
+NW,Northwest (Rajshahi + Rangpur),2005-09,2005-09-01,196.66
+NE,Northeast (Sylhet + Mymensingh),2005-09,2005-09-01,302.06
+Central,Central (Dhaka),2005-09,2005-09-01,274.74
+SW,Southwest (Khulna + Barishal),2005-09,2005-09-01,152.51
+SE,Southeast (Chattogram),2005-09,2005-09-01,185.47
+National,National (All Bangladesh),2005-09,2005-09-01,213.42
+NW,Northwest (Rajshahi + Rangpur),2005-10,2005-10-01,413.33
+NE,Northeast (Sylhet + Mymensingh),2005-10,2005-10-01,326.91
+Central,Central (Dhaka),2005-10,2005-10-01,351.91
+SW,Southwest (Khulna + Barishal),2005-10,2005-10-01,293.69
+SE,Southeast (Chattogram),2005-10,2005-10-01,141.5
+National,National (All Bangladesh),2005-10,2005-10-01,306.94
+NW,Northwest (Rajshahi + Rangpur),2005-11,2005-11-01,0.09
+NE,Northeast (Sylhet + Mymensingh),2005-11,2005-11-01,0.84
+Central,Central (Dhaka),2005-11,2005-11-01,1.95
+SW,Southwest (Khulna + Barishal),2005-11,2005-11-01,1.71
+SE,Southeast (Chattogram),2005-11,2005-11-01,6.76
+National,National (All Bangladesh),2005-11,2005-11-01,2.21
+NW,Northwest (Rajshahi + Rangpur),2005-12,2005-12-01,0.49
+NE,Northeast (Sylhet + Mymensingh),2005-12,2005-12-01,0.86
+Central,Central (Dhaka),2005-12,2005-12-01,0.88
+SW,Southwest (Khulna + Barishal),2005-12,2005-12-01,2.21
+SE,Southeast (Chattogram),2005-12,2005-12-01,4.9
+National,National (All Bangladesh),2005-12,2005-12-01,1.9
+NW,Northwest (Rajshahi + Rangpur),2006-01,2006-01-01,0.0
+NE,Northeast (Sylhet + Mymensingh),2006-01,2006-01-01,0.0
+Central,Central (Dhaka),2006-01,2006-01-01,0.0
+SW,Southwest (Khulna + Barishal),2006-01,2006-01-01,0.0
+SE,Southeast (Chattogram),2006-01,2006-01-01,0.0
+National,National (All Bangladesh),2006-01,2006-01-01,0.0
+NW,Northwest (Rajshahi + Rangpur),2006-02,2006-02-01,1.43
+NE,Northeast (Sylhet + Mymensingh),2006-02,2006-02-01,26.57
+Central,Central (Dhaka),2006-02,2006-02-01,3.35
+SW,Southwest (Khulna + Barishal),2006-02,2006-02-01,0.04
+SE,Southeast (Chattogram),2006-02,2006-02-01,2.32
+National,National (All Bangladesh),2006-02,2006-02-01,5.92
+NW,Northwest (Rajshahi + Rangpur),2006-03,2006-03-01,6.93
+NE,Northeast (Sylhet + Mymensingh),2006-03,2006-03-01,10.11
+Central,Central (Dhaka),2006-03,2006-03-01,3.98
+SW,Southwest (Khulna + Barishal),2006-03,2006-03-01,5.49
+SE,Southeast (Chattogram),2006-03,2006-03-01,0.5
+National,National (All Bangladesh),2006-03,2006-03-01,5.43
+NW,Northwest (Rajshahi + Rangpur),2006-04,2006-04-01,87.13
+NE,Northeast (Sylhet + Mymensingh),2006-04,2006-04-01,231.94
+Central,Central (Dhaka),2006-04,2006-04-01,126.54
+SW,Southwest (Khulna + Barishal),2006-04,2006-04-01,54.17
+SE,Southeast (Chattogram),2006-04,2006-04-01,72.82
+National,National (All Bangladesh),2006-04,2006-04-01,107.24
+NW,Northwest (Rajshahi + Rangpur),2006-05,2006-05-01,220.21
+NE,Northeast (Sylhet + Mymensingh),2006-05,2006-05-01,411.12
+Central,Central (Dhaka),2006-05,2006-05-01,253.65
+SW,Southwest (Khulna + Barishal),2006-05,2006-05-01,207.88
+SE,Southeast (Chattogram),2006-05,2006-05-01,607.75
+National,National (All Bangladesh),2006-05,2006-05-01,333.96
+NW,Northwest (Rajshahi + Rangpur),2006-06,2006-06-01,234.92
+NE,Northeast (Sylhet + Mymensingh),2006-06,2006-06-01,506.18
+Central,Central (Dhaka),2006-06,2006-06-01,262.31
+SW,Southwest (Khulna + Barishal),2006-06,2006-06-01,179.05
+SE,Southeast (Chattogram),2006-06,2006-06-01,387.54
+National,National (All Bangladesh),2006-06,2006-06-01,303.94
+NW,Northwest (Rajshahi + Rangpur),2006-07,2006-07-01,250.99
+NE,Northeast (Sylhet + Mymensingh),2006-07,2006-07-01,312.5
+Central,Central (Dhaka),2006-07,2006-07-01,255.66
+SW,Southwest (Khulna + Barishal),2006-07,2006-07-01,319.13
+SE,Southeast (Chattogram),2006-07,2006-07-01,409.89
+National,National (All Bangladesh),2006-07,2006-07-01,310.3
+NW,Northwest (Rajshahi + Rangpur),2006-08,2006-08-01,156.27
+NE,Northeast (Sylhet + Mymensingh),2006-08,2006-08-01,279.47
+Central,Central (Dhaka),2006-08,2006-08-01,209.82
+SW,Southwest (Khulna + Barishal),2006-08,2006-08-01,242.28
+SE,Southeast (Chattogram),2006-08,2006-08-01,250.32
+National,National (All Bangladesh),2006-08,2006-08-01,224.03
+NW,Northwest (Rajshahi + Rangpur),2006-09,2006-09-01,262.16
+NE,Northeast (Sylhet + Mymensingh),2006-09,2006-09-01,294.02
+Central,Central (Dhaka),2006-09,2006-09-01,369.93
+SW,Southwest (Khulna + Barishal),2006-09,2006-09-01,358.43
+SE,Southeast (Chattogram),2006-09,2006-09-01,384.33
+National,National (All Bangladesh),2006-09,2006-09-01,329.77
+NW,Northwest (Rajshahi + Rangpur),2006-10,2006-10-01,54.14
+NE,Northeast (Sylhet + Mymensingh),2006-10,2006-10-01,87.99
+Central,Central (Dhaka),2006-10,2006-10-01,58.5
+SW,Southwest (Khulna + Barishal),2006-10,2006-10-01,36.99
+SE,Southeast (Chattogram),2006-10,2006-10-01,49.47
+National,National (All Bangladesh),2006-10,2006-10-01,55.72
+NW,Northwest (Rajshahi + Rangpur),2006-11,2006-11-01,5.66
+NE,Northeast (Sylhet + Mymensingh),2006-11,2006-11-01,6.94
+Central,Central (Dhaka),2006-11,2006-11-01,3.7
+SW,Southwest (Khulna + Barishal),2006-11,2006-11-01,5.36
+SE,Southeast (Chattogram),2006-11,2006-11-01,12.51
+National,National (All Bangladesh),2006-11,2006-11-01,6.93
+NW,Northwest (Rajshahi + Rangpur),2006-12,2006-12-01,7.18
+NE,Northeast (Sylhet + Mymensingh),2006-12,2006-12-01,4.19
+Central,Central (Dhaka),2006-12,2006-12-01,0.72
+SW,Southwest (Khulna + Barishal),2006-12,2006-12-01,0.08
+SE,Southeast (Chattogram),2006-12,2006-12-01,0.19
+National,National (All Bangladesh),2006-12,2006-12-01,2.7
+NW,Northwest (Rajshahi + Rangpur),2007-01,2007-01-01,0.11
+NE,Northeast (Sylhet + Mymensingh),2007-01,2007-01-01,0.45
+Central,Central (Dhaka),2007-01,2007-01-01,0.0
+SW,Southwest (Khulna + Barishal),2007-01,2007-01-01,0.38
+SE,Southeast (Chattogram),2007-01,2007-01-01,0.0
+National,National (All Bangladesh),2007-01,2007-01-01,0.19
+NW,Northwest (Rajshahi + Rangpur),2007-02,2007-02-01,31.37
+NE,Northeast (Sylhet + Mymensingh),2007-02,2007-02-01,45.59
+Central,Central (Dhaka),2007-02,2007-02-01,42.21
+SW,Southwest (Khulna + Barishal),2007-02,2007-02-01,58.17
+SE,Southeast (Chattogram),2007-02,2007-02-01,70.85
+National,National (All Bangladesh),2007-02,2007-02-01,49.55
+NW,Northwest (Rajshahi + Rangpur),2007-03,2007-03-01,15.63
+NE,Northeast (Sylhet + Mymensingh),2007-03,2007-03-01,19.5
+Central,Central (Dhaka),2007-03,2007-03-01,10.58
+SW,Southwest (Khulna + Barishal),2007-03,2007-03-01,14.93
+SE,Southeast (Chattogram),2007-03,2007-03-01,15.77
+National,National (All Bangladesh),2007-03,2007-03-01,15.46
+NW,Northwest (Rajshahi + Rangpur),2007-04,2007-04-01,44.91
+NE,Northeast (Sylhet + Mymensingh),2007-04,2007-04-01,301.97
+Central,Central (Dhaka),2007-04,2007-04-01,138.78
+SW,Southwest (Khulna + Barishal),2007-04,2007-04-01,53.99
+SE,Southeast (Chattogram),2007-04,2007-04-01,165.73
+National,National (All Bangladesh),2007-04,2007-04-01,129.25
+NW,Northwest (Rajshahi + Rangpur),2007-05,2007-05-01,117.47
+NE,Northeast (Sylhet + Mymensingh),2007-05,2007-05-01,299.89
+Central,Central (Dhaka),2007-05,2007-05-01,162.51
+SW,Southwest (Khulna + Barishal),2007-05,2007-05-01,99.66
+SE,Southeast (Chattogram),2007-05,2007-05-01,221.86
+National,National (All Bangladesh),2007-05,2007-05-01,172.51
+NW,Northwest (Rajshahi + Rangpur),2007-06,2007-06-01,394.1
+NE,Northeast (Sylhet + Mymensingh),2007-06,2007-06-01,657.79
+Central,Central (Dhaka),2007-06,2007-06-01,514.56
+SW,Southwest (Khulna + Barishal),2007-06,2007-06-01,394.32
+SE,Southeast (Chattogram),2007-06,2007-06-01,644.77
+National,National (All Bangladesh),2007-06,2007-06-01,507.69
+NW,Northwest (Rajshahi + Rangpur),2007-07,2007-07-01,497.62
+NE,Northeast (Sylhet + Mymensingh),2007-07,2007-07-01,685.56
+Central,Central (Dhaka),2007-07,2007-07-01,651.01
+SW,Southwest (Khulna + Barishal),2007-07,2007-07-01,665.0
+SE,Southeast (Chattogram),2007-07,2007-07-01,830.88
+National,National (All Bangladesh),2007-07,2007-07-01,657.96
+NW,Northwest (Rajshahi + Rangpur),2007-08,2007-08-01,199.96
+NE,Northeast (Sylhet + Mymensingh),2007-08,2007-08-01,305.01
+Central,Central (Dhaka),2007-08,2007-08-01,277.86
+SW,Southwest (Khulna + Barishal),2007-08,2007-08-01,275.24
+SE,Southeast (Chattogram),2007-08,2007-08-01,345.38
+National,National (All Bangladesh),2007-08,2007-08-01,275.97
+NW,Northwest (Rajshahi + Rangpur),2007-09,2007-09-01,248.96
+NE,Northeast (Sylhet + Mymensingh),2007-09,2007-09-01,312.4
+Central,Central (Dhaka),2007-09,2007-09-01,219.43
+SW,Southwest (Khulna + Barishal),2007-09,2007-09-01,324.12
+SE,Southeast (Chattogram),2007-09,2007-09-01,367.1
+National,National (All Bangladesh),2007-09,2007-09-01,297.14
+NW,Northwest (Rajshahi + Rangpur),2007-10,2007-10-01,129.09
+NE,Northeast (Sylhet + Mymensingh),2007-10,2007-10-01,196.83
+Central,Central (Dhaka),2007-10,2007-10-01,253.49
+SW,Southwest (Khulna + Barishal),2007-10,2007-10-01,247.64
+SE,Southeast (Chattogram),2007-10,2007-10-01,384.05
+National,National (All Bangladesh),2007-10,2007-10-01,237.38
+NW,Northwest (Rajshahi + Rangpur),2007-11,2007-11-01,19.47
+NE,Northeast (Sylhet + Mymensingh),2007-11,2007-11-01,62.9
+Central,Central (Dhaka),2007-11,2007-11-01,68.27
+SW,Southwest (Khulna + Barishal),2007-11,2007-11-01,65.88
+SE,Southeast (Chattogram),2007-11,2007-11-01,108.67
+National,National (All Bangladesh),2007-11,2007-11-01,62.65
+NW,Northwest (Rajshahi + Rangpur),2007-12,2007-12-01,0.0
+NE,Northeast (Sylhet + Mymensingh),2007-12,2007-12-01,0.16
+Central,Central (Dhaka),2007-12,2007-12-01,0.0
+SW,Southwest (Khulna + Barishal),2007-12,2007-12-01,0.0
+SE,Southeast (Chattogram),2007-12,2007-12-01,0.0
+National,National (All Bangladesh),2007-12,2007-12-01,0.03
+NW,Northwest (Rajshahi + Rangpur),2008-01,2008-01-01,30.89
+NE,Northeast (Sylhet + Mymensingh),2008-01,2008-01-01,33.76
+Central,Central (Dhaka),2008-01,2008-01-01,32.35
+SW,Southwest (Khulna + Barishal),2008-01,2008-01-01,40.96
+SE,Southeast (Chattogram),2008-01,2008-01-01,34.43
+National,National (All Bangladesh),2008-01,2008-01-01,34.63
+NW,Northwest (Rajshahi + Rangpur),2008-02,2008-02-01,2.91
+NE,Northeast (Sylhet + Mymensingh),2008-02,2008-02-01,9.88
+Central,Central (Dhaka),2008-02,2008-02-01,15.86
+SW,Southwest (Khulna + Barishal),2008-02,2008-02-01,16.92
+SE,Southeast (Chattogram),2008-02,2008-02-01,7.56
+National,National (All Bangladesh),2008-02,2008-02-01,10.1
+NW,Northwest (Rajshahi + Rangpur),2008-03,2008-03-01,18.63
+NE,Northeast (Sylhet + Mymensingh),2008-03,2008-03-01,86.45
+Central,Central (Dhaka),2008-03,2008-03-01,25.62
+SW,Southwest (Khulna + Barishal),2008-03,2008-03-01,11.45
+SE,Southeast (Chattogram),2008-03,2008-03-01,11.73
+National,National (All Bangladesh),2008-03,2008-03-01,28.3
+NW,Northwest (Rajshahi + Rangpur),2008-04,2008-04-01,42.39
+NE,Northeast (Sylhet + Mymensingh),2008-04,2008-04-01,90.45
+Central,Central (Dhaka),2008-04,2008-04-01,50.68
+SW,Southwest (Khulna + Barishal),2008-04,2008-04-01,36.43
+SE,Southeast (Chattogram),2008-04,2008-04-01,9.53
+National,National (All Bangladesh),2008-04,2008-04-01,43.82
+NW,Northwest (Rajshahi + Rangpur),2008-05,2008-05-01,157.27
+NE,Northeast (Sylhet + Mymensingh),2008-05,2008-05-01,232.61
+Central,Central (Dhaka),2008-05,2008-05-01,168.5
+SW,Southwest (Khulna + Barishal),2008-05,2008-05-01,125.79
+SE,Southeast (Chattogram),2008-05,2008-05-01,149.42
+National,National (All Bangladesh),2008-05,2008-05-01,163.06
+NW,Northwest (Rajshahi + Rangpur),2008-06,2008-06-01,335.09
+NE,Northeast (Sylhet + Mymensingh),2008-06,2008-06-01,387.24
+Central,Central (Dhaka),2008-06,2008-06-01,296.65
+SW,Southwest (Khulna + Barishal),2008-06,2008-06-01,277.21
+SE,Southeast (Chattogram),2008-06,2008-06-01,507.01
+National,National (All Bangladesh),2008-06,2008-06-01,360.39
+NW,Northwest (Rajshahi + Rangpur),2008-07,2008-07-01,191.09
+NE,Northeast (Sylhet + Mymensingh),2008-07,2008-07-01,334.9
+Central,Central (Dhaka),2008-07,2008-07-01,286.55
+SW,Southwest (Khulna + Barishal),2008-07,2008-07-01,333.4
+SE,Southeast (Chattogram),2008-07,2008-07-01,598.84
+National,National (All Bangladesh),2008-07,2008-07-01,345.05
+NW,Northwest (Rajshahi + Rangpur),2008-08,2008-08-01,314.62
+NE,Northeast (Sylhet + Mymensingh),2008-08,2008-08-01,434.15
+Central,Central (Dhaka),2008-08,2008-08-01,267.85
+SW,Southwest (Khulna + Barishal),2008-08,2008-08-01,280.51
+SE,Southeast (Chattogram),2008-08,2008-08-01,502.58
+National,National (All Bangladesh),2008-08,2008-08-01,359.16
+NW,Northwest (Rajshahi + Rangpur),2008-09,2008-09-01,144.8
+NE,Northeast (Sylhet + Mymensingh),2008-09,2008-09-01,158.68
+Central,Central (Dhaka),2008-09,2008-09-01,179.42
+SW,Southwest (Khulna + Barishal),2008-09,2008-09-01,198.26
+SE,Southeast (Chattogram),2008-09,2008-09-01,163.32
+National,National (All Bangladesh),2008-09,2008-09-01,168.12
+NW,Northwest (Rajshahi + Rangpur),2008-10,2008-10-01,140.64
+NE,Northeast (Sylhet + Mymensingh),2008-10,2008-10-01,184.45
+Central,Central (Dhaka),2008-10,2008-10-01,208.39
+SW,Southwest (Khulna + Barishal),2008-10,2008-10-01,201.82
+SE,Southeast (Chattogram),2008-10,2008-10-01,186.35
+National,National (All Bangladesh),2008-10,2008-10-01,181.09
+NW,Northwest (Rajshahi + Rangpur),2008-11,2008-11-01,23.99
+NE,Northeast (Sylhet + Mymensingh),2008-11,2008-11-01,5.25
+Central,Central (Dhaka),2008-11,2008-11-01,1.14
+SW,Southwest (Khulna + Barishal),2008-11,2008-11-01,1.8
+SE,Southeast (Chattogram),2008-11,2008-11-01,14.4
+National,National (All Bangladesh),2008-11,2008-11-01,10.49
+NW,Northwest (Rajshahi + Rangpur),2008-12,2008-12-01,0.33
+NE,Northeast (Sylhet + Mymensingh),2008-12,2008-12-01,0.87
+Central,Central (Dhaka),2008-12,2008-12-01,14.56
+SW,Southwest (Khulna + Barishal),2008-12,2008-12-01,25.51
+SE,Southeast (Chattogram),2008-12,2008-12-01,7.2
+National,National (All Bangladesh),2008-12,2008-12-01,9.61
+NW,Northwest (Rajshahi + Rangpur),2009-01,2009-01-01,0.21
+NE,Northeast (Sylhet + Mymensingh),2009-01,2009-01-01,0.0
+Central,Central (Dhaka),2009-01,2009-01-01,0.0
+SW,Southwest (Khulna + Barishal),2009-01,2009-01-01,0.12
+SE,Southeast (Chattogram),2009-01,2009-01-01,1.44
+National,National (All Bangladesh),2009-01,2009-01-01,0.37
+NW,Northwest (Rajshahi + Rangpur),2009-02,2009-02-01,18.25
+NE,Northeast (Sylhet + Mymensingh),2009-02,2009-02-01,16.72
+Central,Central (Dhaka),2009-02,2009-02-01,21.53
+SW,Southwest (Khulna + Barishal),2009-02,2009-02-01,31.29
+SE,Southeast (Chattogram),2009-02,2009-02-01,32.08
+National,National (All Bangladesh),2009-02,2009-02-01,24.26
+NW,Northwest (Rajshahi + Rangpur),2009-03,2009-03-01,21.28
+NE,Northeast (Sylhet + Mymensingh),2009-03,2009-03-01,49.0
+Central,Central (Dhaka),2009-03,2009-03-01,37.56
+SW,Southwest (Khulna + Barishal),2009-03,2009-03-01,33.89
+SE,Southeast (Chattogram),2009-03,2009-03-01,22.43
+National,National (All Bangladesh),2009-03,2009-03-01,31.5
+NW,Northwest (Rajshahi + Rangpur),2009-04,2009-04-01,51.31
+NE,Northeast (Sylhet + Mymensingh),2009-04,2009-04-01,153.09
+Central,Central (Dhaka),2009-04,2009-04-01,40.6
+SW,Southwest (Khulna + Barishal),2009-04,2009-04-01,36.12
+SE,Southeast (Chattogram),2009-04,2009-04-01,93.82
+National,National (All Bangladesh),2009-04,2009-04-01,72.6
+NW,Northwest (Rajshahi + Rangpur),2009-05,2009-05-01,187.29
+NE,Northeast (Sylhet + Mymensingh),2009-05,2009-05-01,334.82
+Central,Central (Dhaka),2009-05,2009-05-01,212.58
+SW,Southwest (Khulna + Barishal),2009-05,2009-05-01,207.78
+SE,Southeast (Chattogram),2009-05,2009-05-01,358.2
+National,National (All Bangladesh),2009-05,2009-05-01,255.87
+NW,Northwest (Rajshahi + Rangpur),2009-06,2009-06-01,174.75
+NE,Northeast (Sylhet + Mymensingh),2009-06,2009-06-01,337.09
+Central,Central (Dhaka),2009-06,2009-06-01,223.98
+SW,Southwest (Khulna + Barishal),2009-06,2009-06-01,180.33
+SE,Southeast (Chattogram),2009-06,2009-06-01,399.7
+National,National (All Bangladesh),2009-06,2009-06-01,256.81
+NW,Northwest (Rajshahi + Rangpur),2009-07,2009-07-01,276.82
+NE,Northeast (Sylhet + Mymensingh),2009-07,2009-07-01,451.51
+Central,Central (Dhaka),2009-07,2009-07-01,407.89
+SW,Southwest (Khulna + Barishal),2009-07,2009-07-01,482.1
+SE,Southeast (Chattogram),2009-07,2009-07-01,1033.68
+National,National (All Bangladesh),2009-07,2009-07-01,526.61
+NW,Northwest (Rajshahi + Rangpur),2009-08,2009-08-01,518.98
+NE,Northeast (Sylhet + Mymensingh),2009-08,2009-08-01,524.07
+Central,Central (Dhaka),2009-08,2009-08-01,444.23
+SW,Southwest (Khulna + Barishal),2009-08,2009-08-01,494.22
+SE,Southeast (Chattogram),2009-08,2009-08-01,628.61
+National,National (All Bangladesh),2009-08,2009-08-01,526.0
+NW,Northwest (Rajshahi + Rangpur),2009-09,2009-09-01,166.77
+NE,Northeast (Sylhet + Mymensingh),2009-09,2009-09-01,215.51
+Central,Central (Dhaka),2009-09,2009-09-01,234.72
+SW,Southwest (Khulna + Barishal),2009-09,2009-09-01,290.63
+SE,Southeast (Chattogram),2009-09,2009-09-01,298.19
+National,National (All Bangladesh),2009-09,2009-09-01,239.96
+NW,Northwest (Rajshahi + Rangpur),2009-10,2009-10-01,165.46
+NE,Northeast (Sylhet + Mymensingh),2009-10,2009-10-01,156.56
+Central,Central (Dhaka),2009-10,2009-10-01,118.51
+SW,Southwest (Khulna + Barishal),2009-10,2009-10-01,136.25
+SE,Southeast (Chattogram),2009-10,2009-10-01,217.43
+National,National (All Bangladesh),2009-10,2009-10-01,161.19
+NW,Northwest (Rajshahi + Rangpur),2009-11,2009-11-01,1.46
+NE,Northeast (Sylhet + Mymensingh),2009-11,2009-11-01,13.8
+Central,Central (Dhaka),2009-11,2009-11-01,15.66
+SW,Southwest (Khulna + Barishal),2009-11,2009-11-01,18.96
+SE,Southeast (Chattogram),2009-11,2009-11-01,43.2
+National,National (All Bangladesh),2009-11,2009-11-01,18.1
+NW,Northwest (Rajshahi + Rangpur),2009-12,2009-12-01,0.7
+NE,Northeast (Sylhet + Mymensingh),2009-12,2009-12-01,24.36
+Central,Central (Dhaka),2009-12,2009-12-01,1.91
+SW,Southwest (Khulna + Barishal),2009-12,2009-12-01,0.12
+SE,Southeast (Chattogram),2009-12,2009-12-01,1.38
+National,National (All Bangladesh),2009-12,2009-12-01,4.98
+NW,Northwest (Rajshahi + Rangpur),2010-01,2010-01-01,0.0
+NE,Northeast (Sylhet + Mymensingh),2010-01,2010-01-01,0.08
+Central,Central (Dhaka),2010-01,2010-01-01,0.0
+SW,Southwest (Khulna + Barishal),2010-01,2010-01-01,0.0
+SE,Southeast (Chattogram),2010-01,2010-01-01,0.0
+National,National (All Bangladesh),2010-01,2010-01-01,0.01
+NW,Northwest (Rajshahi + Rangpur),2010-02,2010-02-01,5.58
+NE,Northeast (Sylhet + Mymensingh),2010-02,2010-02-01,5.94
+Central,Central (Dhaka),2010-02,2010-02-01,23.31
+SW,Southwest (Khulna + Barishal),2010-02,2010-02-01,25.43
+SE,Southeast (Chattogram),2010-02,2010-02-01,8.1
+National,National (All Bangladesh),2010-02,2010-02-01,13.21
+NW,Northwest (Rajshahi + Rangpur),2010-03,2010-03-01,3.62
+NE,Northeast (Sylhet + Mymensingh),2010-03,2010-03-01,75.01
+Central,Central (Dhaka),2010-03,2010-03-01,21.59
+SW,Southwest (Khulna + Barishal),2010-03,2010-03-01,9.82
+SE,Southeast (Chattogram),2010-03,2010-03-01,37.0
+National,National (All Bangladesh),2010-03,2010-03-01,26.72
+NW,Northwest (Rajshahi + Rangpur),2010-04,2010-04-01,58.87
+NE,Northeast (Sylhet + Mymensingh),2010-04,2010-04-01,289.12
+Central,Central (Dhaka),2010-04,2010-04-01,65.94
+SW,Southwest (Khulna + Barishal),2010-04,2010-04-01,26.89
+SE,Southeast (Chattogram),2010-04,2010-04-01,50.78
+National,National (All Bangladesh),2010-04,2010-04-01,90.75
+NW,Northwest (Rajshahi + Rangpur),2010-05,2010-05-01,187.05
+NE,Northeast (Sylhet + Mymensingh),2010-05,2010-05-01,443.5
+Central,Central (Dhaka),2010-05,2010-05-01,270.4
+SW,Southwest (Khulna + Barishal),2010-05,2010-05-01,252.68
+SE,Southeast (Chattogram),2010-05,2010-05-01,504.59
+National,National (All Bangladesh),2010-05,2010-05-01,322.84
+NW,Northwest (Rajshahi + Rangpur),2010-06,2010-06-01,358.58
+NE,Northeast (Sylhet + Mymensingh),2010-06,2010-06-01,569.68
+Central,Central (Dhaka),2010-06,2010-06-01,364.94
+SW,Southwest (Khulna + Barishal),2010-06,2010-06-01,392.38
+SE,Southeast (Chattogram),2010-06,2010-06-01,802.0
+National,National (All Bangladesh),2010-06,2010-06-01,494.01
+NW,Northwest (Rajshahi + Rangpur),2010-07,2010-07-01,267.89
+NE,Northeast (Sylhet + Mymensingh),2010-07,2010-07-01,283.84
+Central,Central (Dhaka),2010-07,2010-07-01,181.16
+SW,Southwest (Khulna + Barishal),2010-07,2010-07-01,243.02
+SE,Southeast (Chattogram),2010-07,2010-07-01,331.68
+National,National (All Bangladesh),2010-07,2010-07-01,265.76
+NW,Northwest (Rajshahi + Rangpur),2010-08,2010-08-01,241.34
+NE,Northeast (Sylhet + Mymensingh),2010-08,2010-08-01,339.89
+Central,Central (Dhaka),2010-08,2010-08-01,255.18
+SW,Southwest (Khulna + Barishal),2010-08,2010-08-01,257.23
+SE,Southeast (Chattogram),2010-08,2010-08-01,443.85
+National,National (All Bangladesh),2010-08,2010-08-01,305.2
+NW,Northwest (Rajshahi + Rangpur),2010-09,2010-09-01,235.34
+NE,Northeast (Sylhet + Mymensingh),2010-09,2010-09-01,342.53
+Central,Central (Dhaka),2010-09,2010-09-01,197.19
+SW,Southwest (Khulna + Barishal),2010-09,2010-09-01,227.57
+SE,Southeast (Chattogram),2010-09,2010-09-01,203.22
+National,National (All Bangladesh),2010-09,2010-09-01,240.25
+NW,Northwest (Rajshahi + Rangpur),2010-10,2010-10-01,123.88
+NE,Northeast (Sylhet + Mymensingh),2010-10,2010-10-01,220.56
+Central,Central (Dhaka),2010-10,2010-10-01,201.24
+SW,Southwest (Khulna + Barishal),2010-10,2010-10-01,200.98
+SE,Southeast (Chattogram),2010-10,2010-10-01,343.84
+National,National (All Bangladesh),2010-10,2010-10-01,213.94
+NW,Northwest (Rajshahi + Rangpur),2010-11,2010-11-01,6.5
+NE,Northeast (Sylhet + Mymensingh),2010-11,2010-11-01,7.7
+Central,Central (Dhaka),2010-11,2010-11-01,12.22
+SW,Southwest (Khulna + Barishal),2010-11,2010-11-01,21.1
+SE,Southeast (Chattogram),2010-11,2010-11-01,22.15
+National,National (All Bangladesh),2010-11,2010-11-01,14.05
+NW,Northwest (Rajshahi + Rangpur),2010-12,2010-12-01,24.34
+NE,Northeast (Sylhet + Mymensingh),2010-12,2010-12-01,43.37
+Central,Central (Dhaka),2010-12,2010-12-01,64.4
+SW,Southwest (Khulna + Barishal),2010-12,2010-12-01,65.47
+SE,Southeast (Chattogram),2010-12,2010-12-01,58.92
+National,National (All Bangladesh),2010-12,2010-12-01,49.74
+NW,Northwest (Rajshahi + Rangpur),2011-01,2011-01-01,2.18
+NE,Northeast (Sylhet + Mymensingh),2011-01,2011-01-01,0.87
+Central,Central (Dhaka),2011-01,2011-01-01,0.36
+SW,Southwest (Khulna + Barishal),2011-01,2011-01-01,0.65
+SE,Southeast (Chattogram),2011-01,2011-01-01,4.44
+National,National (All Bangladesh),2011-01,2011-01-01,1.8
+NW,Northwest (Rajshahi + Rangpur),2011-02,2011-02-01,8.3
+NE,Northeast (Sylhet + Mymensingh),2011-02,2011-02-01,4.36
+Central,Central (Dhaka),2011-02,2011-02-01,1.07
+SW,Southwest (Khulna + Barishal),2011-02,2011-02-01,1.33
+SE,Southeast (Chattogram),2011-02,2011-02-01,1.92
+National,National (All Bangladesh),2011-02,2011-02-01,3.7
+NW,Northwest (Rajshahi + Rangpur),2011-03,2011-03-01,15.87
+NE,Northeast (Sylhet + Mymensingh),2011-03,2011-03-01,54.43
+Central,Central (Dhaka),2011-03,2011-03-01,36.23
+SW,Southwest (Khulna + Barishal),2011-03,2011-03-01,33.74
+SE,Southeast (Chattogram),2011-03,2011-03-01,51.5
+National,National (All Bangladesh),2011-03,2011-03-01,36.76
+NW,Northwest (Rajshahi + Rangpur),2011-04,2011-04-01,74.55
+NE,Northeast (Sylhet + Mymensingh),2011-04,2011-04-01,90.75
+Central,Central (Dhaka),2011-04,2011-04-01,92.58
+SW,Southwest (Khulna + Barishal),2011-04,2011-04-01,73.86
+SE,Southeast (Chattogram),2011-04,2011-04-01,90.79
+National,National (All Bangladesh),2011-04,2011-04-01,83.03
+NW,Northwest (Rajshahi + Rangpur),2011-05,2011-05-01,214.31
+NE,Northeast (Sylhet + Mymensingh),2011-05,2011-05-01,331.62
+Central,Central (Dhaka),2011-05,2011-05-01,256.13
+SW,Southwest (Khulna + Barishal),2011-05,2011-05-01,198.51
+SE,Southeast (Chattogram),2011-05,2011-05-01,330.41
+National,National (All Bangladesh),2011-05,2011-05-01,260.47
+NW,Northwest (Rajshahi + Rangpur),2011-06,2011-06-01,251.91
+NE,Northeast (Sylhet + Mymensingh),2011-06,2011-06-01,365.98
+Central,Central (Dhaka),2011-06,2011-06-01,281.6
+SW,Southwest (Khulna + Barishal),2011-06,2011-06-01,360.07
+SE,Southeast (Chattogram),2011-06,2011-06-01,579.19
+National,National (All Bangladesh),2011-06,2011-06-01,367.28
+NW,Northwest (Rajshahi + Rangpur),2011-07,2011-07-01,251.1
+NE,Northeast (Sylhet + Mymensingh),2011-07,2011-07-01,319.71
+Central,Central (Dhaka),2011-07,2011-07-01,244.72
+SW,Southwest (Khulna + Barishal),2011-07,2011-07-01,328.86
+SE,Southeast (Chattogram),2011-07,2011-07-01,500.3
+National,National (All Bangladesh),2011-07,2011-07-01,330.67
+NW,Northwest (Rajshahi + Rangpur),2011-08,2011-08-01,517.66
+NE,Northeast (Sylhet + Mymensingh),2011-08,2011-08-01,619.52
+Central,Central (Dhaka),2011-08,2011-08-01,492.1
+SW,Southwest (Khulna + Barishal),2011-08,2011-08-01,565.45
+SE,Southeast (Chattogram),2011-08,2011-08-01,818.05
+National,National (All Bangladesh),2011-08,2011-08-01,603.83
+NW,Northwest (Rajshahi + Rangpur),2011-09,2011-09-01,279.27
+NE,Northeast (Sylhet + Mymensingh),2011-09,2011-09-01,265.85
+Central,Central (Dhaka),2011-09,2011-09-01,206.24
+SW,Southwest (Khulna + Barishal),2011-09,2011-09-01,300.21
+SE,Southeast (Chattogram),2011-09,2011-09-01,502.03
+National,National (All Bangladesh),2011-09,2011-09-01,316.85
+NW,Northwest (Rajshahi + Rangpur),2011-10,2011-10-01,12.33
+NE,Northeast (Sylhet + Mymensingh),2011-10,2011-10-01,24.87
+Central,Central (Dhaka),2011-10,2011-10-01,34.53
+SW,Southwest (Khulna + Barishal),2011-10,2011-10-01,41.95
+SE,Southeast (Chattogram),2011-10,2011-10-01,95.32
+National,National (All Bangladesh),2011-10,2011-10-01,41.31
+NW,Northwest (Rajshahi + Rangpur),2011-11,2011-11-01,4.29
+NE,Northeast (Sylhet + Mymensingh),2011-11,2011-11-01,1.07
+Central,Central (Dhaka),2011-11,2011-11-01,0.9
+SW,Southwest (Khulna + Barishal),2011-11,2011-11-01,1.61
+SE,Southeast (Chattogram),2011-11,2011-11-01,0.04
+National,National (All Bangladesh),2011-11,2011-11-01,1.78
+NW,Northwest (Rajshahi + Rangpur),2011-12,2011-12-01,1.46
+NE,Northeast (Sylhet + Mymensingh),2011-12,2011-12-01,0.08
+Central,Central (Dhaka),2011-12,2011-12-01,2.54
+SW,Southwest (Khulna + Barishal),2011-12,2011-12-01,6.72
+SE,Southeast (Chattogram),2011-12,2011-12-01,2.96
+National,National (All Bangladesh),2011-12,2011-12-01,2.89
+NW,Northwest (Rajshahi + Rangpur),2012-01,2012-01-01,11.4
+NE,Northeast (Sylhet + Mymensingh),2012-01,2012-01-01,12.12
+Central,Central (Dhaka),2012-01,2012-01-01,17.06
+SW,Southwest (Khulna + Barishal),2012-01,2012-01-01,25.97
+SE,Southeast (Chattogram),2012-01,2012-01-01,1.77
+National,National (All Bangladesh),2012-01,2012-01-01,13.71
+NW,Northwest (Rajshahi + Rangpur),2012-02,2012-02-01,5.24
+NE,Northeast (Sylhet + Mymensingh),2012-02,2012-02-01,26.76
+Central,Central (Dhaka),2012-02,2012-02-01,13.81
+SW,Southwest (Khulna + Barishal),2012-02,2012-02-01,6.96
+SE,Southeast (Chattogram),2012-02,2012-02-01,6.61
+National,National (All Bangladesh),2012-02,2012-02-01,10.84
+NW,Northwest (Rajshahi + Rangpur),2012-03,2012-03-01,5.36
+NE,Northeast (Sylhet + Mymensingh),2012-03,2012-03-01,20.47
+Central,Central (Dhaka),2012-03,2012-03-01,9.93
+SW,Southwest (Khulna + Barishal),2012-03,2012-03-01,15.51
+SE,Southeast (Chattogram),2012-03,2012-03-01,27.6
+National,National (All Bangladesh),2012-03,2012-03-01,15.48
+NW,Northwest (Rajshahi + Rangpur),2012-04,2012-04-01,110.53
+NE,Northeast (Sylhet + Mymensingh),2012-04,2012-04-01,329.31
+Central,Central (Dhaka),2012-04,2012-04-01,173.13
+SW,Southwest (Khulna + Barishal),2012-04,2012-04-01,101.51
+SE,Southeast (Chattogram),2012-04,2012-04-01,218.38
+National,National (All Bangladesh),2012-04,2012-04-01,177.06
+NW,Northwest (Rajshahi + Rangpur),2012-05,2012-05-01,100.2
+NE,Northeast (Sylhet + Mymensingh),2012-05,2012-05-01,212.22
+Central,Central (Dhaka),2012-05,2012-05-01,109.34
+SW,Southwest (Khulna + Barishal),2012-05,2012-05-01,77.26
+SE,Southeast (Chattogram),2012-05,2012-05-01,196.32
+National,National (All Bangladesh),2012-05,2012-05-01,135.16
+NW,Northwest (Rajshahi + Rangpur),2012-06,2012-06-01,216.91
+NE,Northeast (Sylhet + Mymensingh),2012-06,2012-06-01,482.39
+Central,Central (Dhaka),2012-06,2012-06-01,189.46
+SW,Southwest (Khulna + Barishal),2012-06,2012-06-01,198.24
+SE,Southeast (Chattogram),2012-06,2012-06-01,613.46
+National,National (All Bangladesh),2012-06,2012-06-01,335.43
+NW,Northwest (Rajshahi + Rangpur),2012-07,2012-07-01,354.09
+NE,Northeast (Sylhet + Mymensingh),2012-07,2012-07-01,405.52
+Central,Central (Dhaka),2012-07,2012-07-01,279.98
+SW,Southwest (Khulna + Barishal),2012-07,2012-07-01,376.42
+SE,Southeast (Chattogram),2012-07,2012-07-01,874.16
+National,National (All Bangladesh),2012-07,2012-07-01,463.54
+NW,Northwest (Rajshahi + Rangpur),2012-08,2012-08-01,165.62
+NE,Northeast (Sylhet + Mymensingh),2012-08,2012-08-01,372.54
+Central,Central (Dhaka),2012-08,2012-08-01,248.13
+SW,Southwest (Khulna + Barishal),2012-08,2012-08-01,282.81
+SE,Southeast (Chattogram),2012-08,2012-08-01,457.73
+National,National (All Bangladesh),2012-08,2012-08-01,299.4
+NW,Northwest (Rajshahi + Rangpur),2012-09,2012-09-01,305.72
+NE,Northeast (Sylhet + Mymensingh),2012-09,2012-09-01,237.66
+Central,Central (Dhaka),2012-09,2012-09-01,200.21
+SW,Southwest (Khulna + Barishal),2012-09,2012-09-01,287.07
+SE,Southeast (Chattogram),2012-09,2012-09-01,248.35
+National,National (All Bangladesh),2012-09,2012-09-01,263.19
+NW,Northwest (Rajshahi + Rangpur),2012-10,2012-10-01,68.95
+NE,Northeast (Sylhet + Mymensingh),2012-10,2012-10-01,121.33
+Central,Central (Dhaka),2012-10,2012-10-01,66.46
+SW,Southwest (Khulna + Barishal),2012-10,2012-10-01,53.38
+SE,Southeast (Chattogram),2012-10,2012-10-01,70.35
+National,National (All Bangladesh),2012-10,2012-10-01,74.38
+NW,Northwest (Rajshahi + Rangpur),2012-11,2012-11-01,34.64
+NE,Northeast (Sylhet + Mymensingh),2012-11,2012-11-01,35.33
+Central,Central (Dhaka),2012-11,2012-11-01,67.12
+SW,Southwest (Khulna + Barishal),2012-11,2012-11-01,66.04
+SE,Southeast (Chattogram),2012-11,2012-11-01,26.9
+National,National (All Bangladesh),2012-11,2012-11-01,44.96
+NW,Northwest (Rajshahi + Rangpur),2012-12,2012-12-01,1.47
+NE,Northeast (Sylhet + Mymensingh),2012-12,2012-12-01,20.18
+Central,Central (Dhaka),2012-12,2012-12-01,2.79
+SW,Southwest (Khulna + Barishal),2012-12,2012-12-01,4.77
+SE,Southeast (Chattogram),2012-12,2012-12-01,0.88
+National,National (All Bangladesh),2012-12,2012-12-01,5.53
+NW,Northwest (Rajshahi + Rangpur),2013-01,2013-01-01,1.08
+NE,Northeast (Sylhet + Mymensingh),2013-01,2013-01-01,0.0
+Central,Central (Dhaka),2013-01,2013-01-01,0.67
+SW,Southwest (Khulna + Barishal),2013-01,2013-01-01,1.93
+SE,Southeast (Chattogram),2013-01,2013-01-01,0.0
+National,National (All Bangladesh),2013-01,2013-01-01,0.81
+NW,Northwest (Rajshahi + Rangpur),2013-02,2013-02-01,14.47
+NE,Northeast (Sylhet + Mymensingh),2013-02,2013-02-01,10.49
+Central,Central (Dhaka),2013-02,2013-02-01,7.79
+SW,Southwest (Khulna + Barishal),2013-02,2013-02-01,7.4
+SE,Southeast (Chattogram),2013-02,2013-02-01,4.31
+National,National (All Bangladesh),2013-02,2013-02-01,9.15
+NW,Northwest (Rajshahi + Rangpur),2013-03,2013-03-01,9.54
+NE,Northeast (Sylhet + Mymensingh),2013-03,2013-03-01,24.4
+Central,Central (Dhaka),2013-03,2013-03-01,19.16
+SW,Southwest (Khulna + Barishal),2013-03,2013-03-01,10.58
+SE,Southeast (Chattogram),2013-03,2013-03-01,6.97
+National,National (All Bangladesh),2013-03,2013-03-01,13.18
+NW,Northwest (Rajshahi + Rangpur),2013-04,2013-04-01,69.15
+NE,Northeast (Sylhet + Mymensingh),2013-04,2013-04-01,120.78
+Central,Central (Dhaka),2013-04,2013-04-01,60.78
+SW,Southwest (Khulna + Barishal),2013-04,2013-04-01,45.07
+SE,Southeast (Chattogram),2013-04,2013-04-01,65.68
+National,National (All Bangladesh),2013-04,2013-04-01,70.68
+NW,Northwest (Rajshahi + Rangpur),2013-05,2013-05-01,242.46
+NE,Northeast (Sylhet + Mymensingh),2013-05,2013-05-01,572.84
+Central,Central (Dhaka),2013-05,2013-05-01,404.51
+SW,Southwest (Khulna + Barishal),2013-05,2013-05-01,402.09
+SE,Southeast (Chattogram),2013-05,2013-05-01,681.6
+National,National (All Bangladesh),2013-05,2013-05-01,448.44
+NW,Northwest (Rajshahi + Rangpur),2013-06,2013-06-01,239.19
+NE,Northeast (Sylhet + Mymensingh),2013-06,2013-06-01,330.23
+Central,Central (Dhaka),2013-06,2013-06-01,275.94
+SW,Southwest (Khulna + Barishal),2013-06,2013-06-01,298.64
+SE,Southeast (Chattogram),2013-06,2013-06-01,605.6
+National,National (All Bangladesh),2013-06,2013-06-01,348.32
+NW,Northwest (Rajshahi + Rangpur),2013-07,2013-07-01,224.74
+NE,Northeast (Sylhet + Mymensingh),2013-07,2013-07-01,338.99
+Central,Central (Dhaka),2013-07,2013-07-01,226.68
+SW,Southwest (Khulna + Barishal),2013-07,2013-07-01,322.93
+SE,Southeast (Chattogram),2013-07,2013-07-01,495.11
+National,National (All Bangladesh),2013-07,2013-07-01,322.39
+NW,Northwest (Rajshahi + Rangpur),2013-08,2013-08-01,275.57
+NE,Northeast (Sylhet + Mymensingh),2013-08,2013-08-01,337.35
+Central,Central (Dhaka),2013-08,2013-08-01,236.06
+SW,Southwest (Khulna + Barishal),2013-08,2013-08-01,333.96
+SE,Southeast (Chattogram),2013-08,2013-08-01,498.29
+National,National (All Bangladesh),2013-08,2013-08-01,339.48
+NW,Northwest (Rajshahi + Rangpur),2013-09,2013-09-01,157.08
+NE,Northeast (Sylhet + Mymensingh),2013-09,2013-09-01,206.47
+Central,Central (Dhaka),2013-09,2013-09-01,215.5
+SW,Southwest (Khulna + Barishal),2013-09,2013-09-01,316.24
+SE,Southeast (Chattogram),2013-09,2013-09-01,299.5
+National,National (All Bangladesh),2013-09,2013-09-01,239.41
+NW,Northwest (Rajshahi + Rangpur),2013-10,2013-10-01,237.07
+NE,Northeast (Sylhet + Mymensingh),2013-10,2013-10-01,259.91
+Central,Central (Dhaka),2013-10,2013-10-01,173.87
+SW,Southwest (Khulna + Barishal),2013-10,2013-10-01,254.17
+SE,Southeast (Chattogram),2013-10,2013-10-01,273.49
+National,National (All Bangladesh),2013-10,2013-10-01,243.52
+NW,Northwest (Rajshahi + Rangpur),2013-11,2013-11-01,0.0
+NE,Northeast (Sylhet + Mymensingh),2013-11,2013-11-01,0.0
+Central,Central (Dhaka),2013-11,2013-11-01,0.0
+SW,Southwest (Khulna + Barishal),2013-11,2013-11-01,0.0
+SE,Southeast (Chattogram),2013-11,2013-11-01,0.0
+National,National (All Bangladesh),2013-11,2013-11-01,0.0
+NW,Northwest (Rajshahi + Rangpur),2013-12,2013-12-01,0.16
+NE,Northeast (Sylhet + Mymensingh),2013-12,2013-12-01,1.48
+Central,Central (Dhaka),2013-12,2013-12-01,1.29
+SW,Southwest (Khulna + Barishal),2013-12,2013-12-01,0.12
+SE,Southeast (Chattogram),2013-12,2013-12-01,0.38
+National,National (All Bangladesh),2013-12,2013-12-01,0.58
+NW,Northwest (Rajshahi + Rangpur),2014-01,2014-01-01,0.26
+NE,Northeast (Sylhet + Mymensingh),2014-01,2014-01-01,0.18
+Central,Central (Dhaka),2014-01,2014-01-01,0.1
+SW,Southwest (Khulna + Barishal),2014-01,2014-01-01,0.12
+SE,Southeast (Chattogram),2014-01,2014-01-01,0.0
+National,National (All Bangladesh),2014-01,2014-01-01,0.14
+NW,Northwest (Rajshahi + Rangpur),2014-02,2014-02-01,27.51
+NE,Northeast (Sylhet + Mymensingh),2014-02,2014-02-01,28.96
+Central,Central (Dhaka),2014-02,2014-02-01,18.23
+SW,Southwest (Khulna + Barishal),2014-02,2014-02-01,19.57
+SE,Southeast (Chattogram),2014-02,2014-02-01,20.71
+National,National (All Bangladesh),2014-02,2014-02-01,23.25
+NW,Northwest (Rajshahi + Rangpur),2014-03,2014-03-01,7.2
+NE,Northeast (Sylhet + Mymensingh),2014-03,2014-03-01,31.16
+Central,Central (Dhaka),2014-03,2014-03-01,15.29
+SW,Southwest (Khulna + Barishal),2014-03,2014-03-01,14.58
+SE,Southeast (Chattogram),2014-03,2014-03-01,16.2
+National,National (All Bangladesh),2014-03,2014-03-01,16.01
+NW,Northwest (Rajshahi + Rangpur),2014-04,2014-04-01,19.55
+NE,Northeast (Sylhet + Mymensingh),2014-04,2014-04-01,84.91
+Central,Central (Dhaka),2014-04,2014-04-01,43.61
+SW,Southwest (Khulna + Barishal),2014-04,2014-04-01,7.65
+SE,Southeast (Chattogram),2014-04,2014-04-01,31.23
+National,National (All Bangladesh),2014-04,2014-04-01,33.88
+NW,Northwest (Rajshahi + Rangpur),2014-05,2014-05-01,185.58
+NE,Northeast (Sylhet + Mymensingh),2014-05,2014-05-01,321.37
+Central,Central (Dhaka),2014-05,2014-05-01,212.08
+SW,Southwest (Khulna + Barishal),2014-05,2014-05-01,165.46
+SE,Southeast (Chattogram),2014-05,2014-05-01,269.37
+National,National (All Bangladesh),2014-05,2014-05-01,225.23
+NW,Northwest (Rajshahi + Rangpur),2014-06,2014-06-01,309.63
+NE,Northeast (Sylhet + Mymensingh),2014-06,2014-06-01,533.36
+Central,Central (Dhaka),2014-06,2014-06-01,407.72
+SW,Southwest (Khulna + Barishal),2014-06,2014-06-01,369.17
+SE,Southeast (Chattogram),2014-06,2014-06-01,927.36
+National,National (All Bangladesh),2014-06,2014-06-01,501.47
+NW,Northwest (Rajshahi + Rangpur),2014-07,2014-07-01,210.77
+NE,Northeast (Sylhet + Mymensingh),2014-07,2014-07-01,273.72
+Central,Central (Dhaka),2014-07,2014-07-01,245.48
+SW,Southwest (Khulna + Barishal),2014-07,2014-07-01,338.14
+SE,Southeast (Chattogram),2014-07,2014-07-01,470.82
+National,National (All Bangladesh),2014-07,2014-07-01,308.74
+NW,Northwest (Rajshahi + Rangpur),2014-08,2014-08-01,309.3
+NE,Northeast (Sylhet + Mymensingh),2014-08,2014-08-01,506.99
+Central,Central (Dhaka),2014-08,2014-08-01,335.46
+SW,Southwest (Khulna + Barishal),2014-08,2014-08-01,330.27
+SE,Southeast (Chattogram),2014-08,2014-08-01,582.71
+National,National (All Bangladesh),2014-08,2014-08-01,407.65
+NW,Northwest (Rajshahi + Rangpur),2014-09,2014-09-01,305.58
+NE,Northeast (Sylhet + Mymensingh),2014-09,2014-09-01,462.81
+Central,Central (Dhaka),2014-09,2014-09-01,247.97
+SW,Southwest (Khulna + Barishal),2014-09,2014-09-01,232.2
+SE,Southeast (Chattogram),2014-09,2014-09-01,373.19
+National,National (All Bangladesh),2014-09,2014-09-01,321.62
+NW,Northwest (Rajshahi + Rangpur),2014-10,2014-10-01,34.98
+NE,Northeast (Sylhet + Mymensingh),2014-10,2014-10-01,52.12
+Central,Central (Dhaka),2014-10,2014-10-01,58.25
+SW,Southwest (Khulna + Barishal),2014-10,2014-10-01,78.94
+SE,Southeast (Chattogram),2014-10,2014-10-01,100.38
+National,National (All Bangladesh),2014-10,2014-10-01,64.63
+NW,Northwest (Rajshahi + Rangpur),2014-11,2014-11-01,0.0
+NE,Northeast (Sylhet + Mymensingh),2014-11,2014-11-01,0.0
+Central,Central (Dhaka),2014-11,2014-11-01,0.05
+SW,Southwest (Khulna + Barishal),2014-11,2014-11-01,0.63
+SE,Southeast (Chattogram),2014-11,2014-11-01,6.64
+National,National (All Bangladesh),2014-11,2014-11-01,1.5
+NW,Northwest (Rajshahi + Rangpur),2014-12,2014-12-01,0.07
+NE,Northeast (Sylhet + Mymensingh),2014-12,2014-12-01,3.68
+Central,Central (Dhaka),2014-12,2014-12-01,2.22
+SW,Southwest (Khulna + Barishal),2014-12,2014-12-01,0.56
+SE,Southeast (Chattogram),2014-12,2014-12-01,2.11
+National,National (All Bangladesh),2014-12,2014-12-01,1.53
+NW,Northwest (Rajshahi + Rangpur),2015-01,2015-01-01,13.27
+NE,Northeast (Sylhet + Mymensingh),2015-01,2015-01-01,10.63
+Central,Central (Dhaka),2015-01,2015-01-01,6.31
+SW,Southwest (Khulna + Barishal),2015-01,2015-01-01,17.23
+SE,Southeast (Chattogram),2015-01,2015-01-01,6.87
+National,National (All Bangladesh),2015-01,2015-01-01,11.45
+NW,Northwest (Rajshahi + Rangpur),2015-02,2015-02-01,15.87
+NE,Northeast (Sylhet + Mymensingh),2015-02,2015-02-01,27.82
+Central,Central (Dhaka),2015-02,2015-02-01,24.32
+SW,Southwest (Khulna + Barishal),2015-02,2015-02-01,24.46
+SE,Southeast (Chattogram),2015-02,2015-02-01,8.01
+National,National (All Bangladesh),2015-02,2015-02-01,19.5
+NW,Northwest (Rajshahi + Rangpur),2015-03,2015-03-01,26.89
+NE,Northeast (Sylhet + Mymensingh),2015-03,2015-03-01,25.92
+Central,Central (Dhaka),2015-03,2015-03-01,22.12
+SW,Southwest (Khulna + Barishal),2015-03,2015-03-01,36.31
+SE,Southeast (Chattogram),2015-03,2015-03-01,34.71
+National,National (All Bangladesh),2015-03,2015-03-01,29.81
+NW,Northwest (Rajshahi + Rangpur),2015-04,2015-04-01,140.97
+NE,Northeast (Sylhet + Mymensingh),2015-04,2015-04-01,357.95
+Central,Central (Dhaka),2015-04,2015-04-01,198.61
+SW,Southwest (Khulna + Barishal),2015-04,2015-04-01,161.59
+SE,Southeast (Chattogram),2015-04,2015-04-01,211.52
+National,National (All Bangladesh),2015-04,2015-04-01,205.73
+NW,Northwest (Rajshahi + Rangpur),2015-05,2015-05-01,192.73
+NE,Northeast (Sylhet + Mymensingh),2015-05,2015-05-01,395.49
+Central,Central (Dhaka),2015-05,2015-05-01,162.62
+SW,Southwest (Khulna + Barishal),2015-05,2015-05-01,85.69
+SE,Southeast (Chattogram),2015-05,2015-05-01,150.21
+National,National (All Bangladesh),2015-05,2015-05-01,190.37
+NW,Northwest (Rajshahi + Rangpur),2015-06,2015-06-01,348.94
+NE,Northeast (Sylhet + Mymensingh),2015-06,2015-06-01,531.45
+Central,Central (Dhaka),2015-06,2015-06-01,420.48
+SW,Southwest (Khulna + Barishal),2015-06,2015-06-01,540.56
+SE,Southeast (Chattogram),2015-06,2015-06-01,967.18
+National,National (All Bangladesh),2015-06,2015-06-01,560.42
+NW,Northwest (Rajshahi + Rangpur),2015-07,2015-07-01,283.63
+NE,Northeast (Sylhet + Mymensingh),2015-07,2015-07-01,552.28
+Central,Central (Dhaka),2015-07,2015-07-01,597.64
+SW,Southwest (Khulna + Barishal),2015-07,2015-07-01,955.24
+SE,Southeast (Chattogram),2015-07,2015-07-01,1391.16
+National,National (All Bangladesh),2015-07,2015-07-01,753.95
+NW,Northwest (Rajshahi + Rangpur),2015-08,2015-08-01,379.56
+NE,Northeast (Sylhet + Mymensingh),2015-08,2015-08-01,479.45
+Central,Central (Dhaka),2015-08,2015-08-01,295.95
+SW,Southwest (Khulna + Barishal),2015-08,2015-08-01,357.61
+SE,Southeast (Chattogram),2015-08,2015-08-01,648.21
+National,National (All Bangladesh),2015-08,2015-08-01,434.75
+NW,Northwest (Rajshahi + Rangpur),2015-09,2015-09-01,258.53
+NE,Northeast (Sylhet + Mymensingh),2015-09,2015-09-01,318.01
+Central,Central (Dhaka),2015-09,2015-09-01,235.68
+SW,Southwest (Khulna + Barishal),2015-09,2015-09-01,320.7
+SE,Southeast (Chattogram),2015-09,2015-09-01,436.03
+National,National (All Bangladesh),2015-09,2015-09-01,316.04
+NW,Northwest (Rajshahi + Rangpur),2015-10,2015-10-01,28.0
+NE,Northeast (Sylhet + Mymensingh),2015-10,2015-10-01,74.3
+Central,Central (Dhaka),2015-10,2015-10-01,74.1
+SW,Southwest (Khulna + Barishal),2015-10,2015-10-01,126.59
+SE,Southeast (Chattogram),2015-10,2015-10-01,267.85
+National,National (All Bangladesh),2015-10,2015-10-01,113.95
+NW,Northwest (Rajshahi + Rangpur),2015-11,2015-11-01,1.04
+NE,Northeast (Sylhet + Mymensingh),2015-11,2015-11-01,5.17
+Central,Central (Dhaka),2015-11,2015-11-01,1.75
+SW,Southwest (Khulna + Barishal),2015-11,2015-11-01,9.62
+SE,Southeast (Chattogram),2015-11,2015-11-01,21.44
+National,National (All Bangladesh),2015-11,2015-11-01,7.98
+NW,Northwest (Rajshahi + Rangpur),2015-12,2015-12-01,0.63
+NE,Northeast (Sylhet + Mymensingh),2015-12,2015-12-01,5.04
+Central,Central (Dhaka),2015-12,2015-12-01,1.6
+SW,Southwest (Khulna + Barishal),2015-12,2015-12-01,5.26
+SE,Southeast (Chattogram),2015-12,2015-12-01,4.27
+National,National (All Bangladesh),2015-12,2015-12-01,3.34
+NW,Northwest (Rajshahi + Rangpur),2016-01,2016-01-01,25.95
+NE,Northeast (Sylhet + Mymensingh),2016-01,2016-01-01,87.83
+Central,Central (Dhaka),2016-01,2016-01-01,34.09
+SW,Southwest (Khulna + Barishal),2016-01,2016-01-01,5.53
+SE,Southeast (Chattogram),2016-01,2016-01-01,5.01
+National,National (All Bangladesh),2016-01,2016-01-01,28.85
+NW,Northwest (Rajshahi + Rangpur),2016-02,2016-02-01,6.06
+NE,Northeast (Sylhet + Mymensingh),2016-02,2016-02-01,35.18
+Central,Central (Dhaka),2016-02,2016-02-01,37.55
+SW,Southwest (Khulna + Barishal),2016-02,2016-02-01,65.56
+SE,Southeast (Chattogram),2016-02,2016-02-01,54.84
+National,National (All Bangladesh),2016-02,2016-02-01,39.13
+NW,Northwest (Rajshahi + Rangpur),2016-03,2016-03-01,49.11
+NE,Northeast (Sylhet + Mymensingh),2016-03,2016-03-01,103.74
+Central,Central (Dhaka),2016-03,2016-03-01,52.98
+SW,Southwest (Khulna + Barishal),2016-03,2016-03-01,43.43
+SE,Southeast (Chattogram),2016-03,2016-03-01,96.88
+National,National (All Bangladesh),2016-03,2016-03-01,67.53
+NW,Northwest (Rajshahi + Rangpur),2016-04,2016-04-01,59.94
+NE,Northeast (Sylhet + Mymensingh),2016-04,2016-04-01,454.54
+Central,Central (Dhaka),2016-04,2016-04-01,88.06
+SW,Southwest (Khulna + Barishal),2016-04,2016-04-01,36.64
+SE,Southeast (Chattogram),2016-04,2016-04-01,73.75
+National,National (All Bangladesh),2016-04,2016-04-01,129.69
+NW,Northwest (Rajshahi + Rangpur),2016-05,2016-05-01,325.16
+NE,Northeast (Sylhet + Mymensingh),2016-05,2016-05-01,664.18
+Central,Central (Dhaka),2016-05,2016-05-01,471.89
+SW,Southwest (Khulna + Barishal),2016-05,2016-05-01,500.62
+SE,Southeast (Chattogram),2016-05,2016-05-01,605.36
+National,National (All Bangladesh),2016-05,2016-05-01,501.81
+NW,Northwest (Rajshahi + Rangpur),2016-06,2016-06-01,264.42
+NE,Northeast (Sylhet + Mymensingh),2016-06,2016-06-01,445.81
+Central,Central (Dhaka),2016-06,2016-06-01,204.62
+SW,Southwest (Khulna + Barishal),2016-06,2016-06-01,255.36
+SE,Southeast (Chattogram),2016-06,2016-06-01,320.0
+National,National (All Bangladesh),2016-06,2016-06-01,296.7
+NW,Northwest (Rajshahi + Rangpur),2016-07,2016-07-01,569.26
+NE,Northeast (Sylhet + Mymensingh),2016-07,2016-07-01,866.69
+Central,Central (Dhaka),2016-07,2016-07-01,610.77
+SW,Southwest (Khulna + Barishal),2016-07,2016-07-01,882.95
+SE,Southeast (Chattogram),2016-07,2016-07-01,1400.6
+National,National (All Bangladesh),2016-07,2016-07-01,867.88
+NW,Northwest (Rajshahi + Rangpur),2016-08,2016-08-01,237.3
+NE,Northeast (Sylhet + Mymensingh),2016-08,2016-08-01,350.16
+Central,Central (Dhaka),2016-08,2016-08-01,519.18
+SW,Southwest (Khulna + Barishal),2016-08,2016-08-01,914.48
+SE,Southeast (Chattogram),2016-08,2016-08-01,1010.96
+National,National (All Bangladesh),2016-08,2016-08-01,609.5
+NW,Northwest (Rajshahi + Rangpur),2016-09,2016-09-01,381.35
+NE,Northeast (Sylhet + Mymensingh),2016-09,2016-09-01,505.1
+Central,Central (Dhaka),2016-09,2016-09-01,338.79
+SW,Southwest (Khulna + Barishal),2016-09,2016-09-01,388.21
+SE,Southeast (Chattogram),2016-09,2016-09-01,640.37
+National,National (All Bangladesh),2016-09,2016-09-01,451.1
+NW,Northwest (Rajshahi + Rangpur),2016-10,2016-10-01,154.49
+NE,Northeast (Sylhet + Mymensingh),2016-10,2016-10-01,205.91
+Central,Central (Dhaka),2016-10,2016-10-01,183.63
+SW,Southwest (Khulna + Barishal),2016-10,2016-10-01,306.7
+SE,Southeast (Chattogram),2016-10,2016-10-01,525.18
+National,National (All Bangladesh),2016-10,2016-10-01,277.9
+NW,Northwest (Rajshahi + Rangpur),2016-11,2016-11-01,3.82
+NE,Northeast (Sylhet + Mymensingh),2016-11,2016-11-01,69.47
+Central,Central (Dhaka),2016-11,2016-11-01,105.69
+SW,Southwest (Khulna + Barishal),2016-11,2016-11-01,171.45
+SE,Southeast (Chattogram),2016-11,2016-11-01,276.05
+National,National (All Bangladesh),2016-11,2016-11-01,123.4
+NW,Northwest (Rajshahi + Rangpur),2016-12,2016-12-01,3.18
+NE,Northeast (Sylhet + Mymensingh),2016-12,2016-12-01,2.65
+Central,Central (Dhaka),2016-12,2016-12-01,0.41
+SW,Southwest (Khulna + Barishal),2016-12,2016-12-01,0.83
+SE,Southeast (Chattogram),2016-12,2016-12-01,0.19
+National,National (All Bangladesh),2016-12,2016-12-01,1.55
+NW,Northwest (Rajshahi + Rangpur),2017-01,2017-01-01,2.86
+NE,Northeast (Sylhet + Mymensingh),2017-01,2017-01-01,0.49
+Central,Central (Dhaka),2017-01,2017-01-01,1.96
+SW,Southwest (Khulna + Barishal),2017-01,2017-01-01,0.26
+SE,Southeast (Chattogram),2017-01,2017-01-01,2.32
+National,National (All Bangladesh),2017-01,2017-01-01,1.62
+NW,Northwest (Rajshahi + Rangpur),2017-02,2017-02-01,0.86
+NE,Northeast (Sylhet + Mymensingh),2017-02,2017-02-01,69.16
+Central,Central (Dhaka),2017-02,2017-02-01,7.27
+SW,Southwest (Khulna + Barishal),2017-02,2017-02-01,1.38
+SE,Southeast (Chattogram),2017-02,2017-02-01,5.56
+National,National (All Bangladesh),2017-02,2017-02-01,14.67
+NW,Northwest (Rajshahi + Rangpur),2017-03,2017-03-01,95.56
+NE,Northeast (Sylhet + Mymensingh),2017-03,2017-03-01,325.77
+Central,Central (Dhaka),2017-03,2017-03-01,195.21
+SW,Southwest (Khulna + Barishal),2017-03,2017-03-01,172.75
+SE,Southeast (Chattogram),2017-03,2017-03-01,274.46
+National,National (All Bangladesh),2017-03,2017-03-01,203.55
+NW,Northwest (Rajshahi + Rangpur),2017-04,2017-04-01,243.87
+NE,Northeast (Sylhet + Mymensingh),2017-04,2017-04-01,814.06
+Central,Central (Dhaka),2017-04,2017-04-01,444.93
+SW,Southwest (Khulna + Barishal),2017-04,2017-04-01,283.81
+SE,Southeast (Chattogram),2017-04,2017-04-01,613.27
+National,National (All Bangladesh),2017-04,2017-04-01,455.13
+NW,Northwest (Rajshahi + Rangpur),2017-05,2017-05-01,277.54
+NE,Northeast (Sylhet + Mymensingh),2017-05,2017-05-01,541.57
+Central,Central (Dhaka),2017-05,2017-05-01,346.31
+SW,Southwest (Khulna + Barishal),2017-05,2017-05-01,242.59
+SE,Southeast (Chattogram),2017-05,2017-05-01,375.57
+National,National (All Bangladesh),2017-05,2017-05-01,344.81
+NW,Northwest (Rajshahi + Rangpur),2017-06,2017-06-01,324.94
+NE,Northeast (Sylhet + Mymensingh),2017-06,2017-06-01,1078.5
+Central,Central (Dhaka),2017-06,2017-06-01,604.52
+SW,Southwest (Khulna + Barishal),2017-06,2017-06-01,541.86
+SE,Southeast (Chattogram),2017-06,2017-06-01,1040.6
+National,National (All Bangladesh),2017-06,2017-06-01,690.12
+NW,Northwest (Rajshahi + Rangpur),2017-07,2017-07-01,486.68
+NE,Northeast (Sylhet + Mymensingh),2017-07,2017-07-01,763.91
+Central,Central (Dhaka),2017-07,2017-07-01,854.52
+SW,Southwest (Khulna + Barishal),2017-07,2017-07-01,1301.54
+SE,Southeast (Chattogram),2017-07,2017-07-01,1799.09
+National,National (All Bangladesh),2017-07,2017-07-01,1040.65
+NW,Northwest (Rajshahi + Rangpur),2017-08,2017-08-01,580.14
+NE,Northeast (Sylhet + Mymensingh),2017-08,2017-08-01,1033.39
+Central,Central (Dhaka),2017-08,2017-08-01,834.45
+SW,Southwest (Khulna + Barishal),2017-08,2017-08-01,748.19
+SE,Southeast (Chattogram),2017-08,2017-08-01,1267.67
+National,National (All Bangladesh),2017-08,2017-08-01,872.78
+NW,Northwest (Rajshahi + Rangpur),2017-09,2017-09-01,273.46
+NE,Northeast (Sylhet + Mymensingh),2017-09,2017-09-01,664.75
+Central,Central (Dhaka),2017-09,2017-09-01,499.09
+SW,Southwest (Khulna + Barishal),2017-09,2017-09-01,541.85
+SE,Southeast (Chattogram),2017-09,2017-09-01,1128.72
+National,National (All Bangladesh),2017-09,2017-09-01,608.56
+NW,Northwest (Rajshahi + Rangpur),2017-10,2017-10-01,261.84
+NE,Northeast (Sylhet + Mymensingh),2017-10,2017-10-01,409.24
+Central,Central (Dhaka),2017-10,2017-10-01,461.2
+SW,Southwest (Khulna + Barishal),2017-10,2017-10-01,631.3
+SE,Southeast (Chattogram),2017-10,2017-10-01,520.18
+National,National (All Bangladesh),2017-10,2017-10-01,452.85
+NW,Northwest (Rajshahi + Rangpur),2017-11,2017-11-01,7.32
+NE,Northeast (Sylhet + Mymensingh),2017-11,2017-11-01,20.02
+Central,Central (Dhaka),2017-11,2017-11-01,21.45
+SW,Southwest (Khulna + Barishal),2017-11,2017-11-01,29.31
+SE,Southeast (Chattogram),2017-11,2017-11-01,15.62
+National,National (All Bangladesh),2017-11,2017-11-01,18.25
+NW,Northwest (Rajshahi + Rangpur),2017-12,2017-12-01,26.45
+NE,Northeast (Sylhet + Mymensingh),2017-12,2017-12-01,111.23
+Central,Central (Dhaka),2017-12,2017-12-01,112.62
+SW,Southwest (Khulna + Barishal),2017-12,2017-12-01,95.92
+SE,Southeast (Chattogram),2017-12,2017-12-01,93.78
+National,National (All Bangladesh),2017-12,2017-12-01,82.88
+NW,Northwest (Rajshahi + Rangpur),2018-01,2018-01-01,0.0
+NE,Northeast (Sylhet + Mymensingh),2018-01,2018-01-01,11.19
+Central,Central (Dhaka),2018-01,2018-01-01,1.6
+SW,Southwest (Khulna + Barishal),2018-01,2018-01-01,1.8
+SE,Southeast (Chattogram),2018-01,2018-01-01,23.21
+National,National (All Bangladesh),2018-01,2018-01-01,7.3
+NW,Northwest (Rajshahi + Rangpur),2018-02,2018-02-01,18.16
+NE,Northeast (Sylhet + Mymensingh),2018-02,2018-02-01,44.82
+Central,Central (Dhaka),2018-02,2018-02-01,22.5
+SW,Southwest (Khulna + Barishal),2018-02,2018-02-01,5.01
+SE,Southeast (Chattogram),2018-02,2018-02-01,5.94
+National,National (All Bangladesh),2018-02,2018-02-01,17.88
+NW,Northwest (Rajshahi + Rangpur),2018-03,2018-03-01,43.23
+NE,Northeast (Sylhet + Mymensingh),2018-03,2018-03-01,83.4
+Central,Central (Dhaka),2018-03,2018-03-01,47.88
+SW,Southwest (Khulna + Barishal),2018-03,2018-03-01,13.45
+SE,Southeast (Chattogram),2018-03,2018-03-01,18.49
+National,National (All Bangladesh),2018-03,2018-03-01,38.96
+NW,Northwest (Rajshahi + Rangpur),2018-04,2018-04-01,274.09
+NE,Northeast (Sylhet + Mymensingh),2018-04,2018-04-01,483.23
+Central,Central (Dhaka),2018-04,2018-04-01,376.99
+SW,Southwest (Khulna + Barishal),2018-04,2018-04-01,248.58
+SE,Southeast (Chattogram),2018-04,2018-04-01,341.08
+National,National (All Bangladesh),2018-04,2018-04-01,332.49
+NW,Northwest (Rajshahi + Rangpur),2018-05,2018-05-01,316.35
+NE,Northeast (Sylhet + Mymensingh),2018-05,2018-05-01,727.12
+Central,Central (Dhaka),2018-05,2018-05-01,517.39
+SW,Southwest (Khulna + Barishal),2018-05,2018-05-01,337.44
+SE,Southeast (Chattogram),2018-05,2018-05-01,563.61
+National,National (All Bangladesh),2018-05,2018-05-01,470.81
+NW,Northwest (Rajshahi + Rangpur),2018-06,2018-06-01,325.37
+NE,Northeast (Sylhet + Mymensingh),2018-06,2018-06-01,712.85
+Central,Central (Dhaka),2018-06,2018-06-01,452.95
+SW,Southwest (Khulna + Barishal),2018-06,2018-06-01,707.09
+SE,Southeast (Chattogram),2018-06,2018-06-01,1355.81
+National,National (All Bangladesh),2018-06,2018-06-01,707.79
+NW,Northwest (Rajshahi + Rangpur),2018-07,2018-07-01,389.1
+NE,Northeast (Sylhet + Mymensingh),2018-07,2018-07-01,615.79
+Central,Central (Dhaka),2018-07,2018-07-01,578.91
+SW,Southwest (Khulna + Barishal),2018-07,2018-07-01,958.69
+SE,Southeast (Chattogram),2018-07,2018-07-01,1529.68
+National,National (All Bangladesh),2018-07,2018-07-01,818.0
+NW,Northwest (Rajshahi + Rangpur),2018-08,2018-08-01,224.17
+NE,Northeast (Sylhet + Mymensingh),2018-08,2018-08-01,448.34
+Central,Central (Dhaka),2018-08,2018-08-01,267.45
+SW,Southwest (Khulna + Barishal),2018-08,2018-08-01,356.88
+SE,Southeast (Chattogram),2018-08,2018-08-01,585.34
+National,National (All Bangladesh),2018-08,2018-08-01,373.07
+NW,Northwest (Rajshahi + Rangpur),2018-09,2018-09-01,260.22
+NE,Northeast (Sylhet + Mymensingh),2018-09,2018-09-01,376.78
+Central,Central (Dhaka),2018-09,2018-09-01,204.38
+SW,Southwest (Khulna + Barishal),2018-09,2018-09-01,285.14
+SE,Southeast (Chattogram),2018-09,2018-09-01,488.65
+National,National (All Bangladesh),2018-09,2018-09-01,324.79
+NW,Northwest (Rajshahi + Rangpur),2018-10,2018-10-01,37.1
+NE,Northeast (Sylhet + Mymensingh),2018-10,2018-10-01,100.67
+Central,Central (Dhaka),2018-10,2018-10-01,68.04
+SW,Southwest (Khulna + Barishal),2018-10,2018-10-01,181.44
+SE,Southeast (Chattogram),2018-10,2018-10-01,446.14
+National,National (All Bangladesh),2018-10,2018-10-01,168.86
+NW,Northwest (Rajshahi + Rangpur),2018-11,2018-11-01,1.24
+NE,Northeast (Sylhet + Mymensingh),2018-11,2018-11-01,13.75
+Central,Central (Dhaka),2018-11,2018-11-01,15.65
+SW,Southwest (Khulna + Barishal),2018-11,2018-11-01,8.07
+SE,Southeast (Chattogram),2018-11,2018-11-01,24.15
+National,National (All Bangladesh),2018-11,2018-11-01,11.66
+NW,Northwest (Rajshahi + Rangpur),2018-12,2018-12-01,12.03
+NE,Northeast (Sylhet + Mymensingh),2018-12,2018-12-01,25.92
+Central,Central (Dhaka),2018-12,2018-12-01,27.75
+SW,Southwest (Khulna + Barishal),2018-12,2018-12-01,23.73
+SE,Southeast (Chattogram),2018-12,2018-12-01,24.89
+National,National (All Bangladesh),2018-12,2018-12-01,21.95
+NW,Northwest (Rajshahi + Rangpur),2019-01,2019-01-01,0.15
+NE,Northeast (Sylhet + Mymensingh),2019-01,2019-01-01,0.0
+Central,Central (Dhaka),2019-01,2019-01-01,0.0
+SW,Southwest (Khulna + Barishal),2019-01,2019-01-01,0.0
+SE,Southeast (Chattogram),2019-01,2019-01-01,0.0
+National,National (All Bangladesh),2019-01,2019-01-01,0.04
+NW,Northwest (Rajshahi + Rangpur),2019-02,2019-02-01,28.28
+NE,Northeast (Sylhet + Mymensingh),2019-02,2019-02-01,60.83
+Central,Central (Dhaka),2019-02,2019-02-01,91.18
+SW,Southwest (Khulna + Barishal),2019-02,2019-02-01,160.82
+SE,Southeast (Chattogram),2019-02,2019-02-01,127.1
+National,National (All Bangladesh),2019-02,2019-02-01,93.32
+NW,Northwest (Rajshahi + Rangpur),2019-03,2019-03-01,19.13
+NE,Northeast (Sylhet + Mymensingh),2019-03,2019-03-01,39.11
+Central,Central (Dhaka),2019-03,2019-03-01,36.92
+SW,Southwest (Khulna + Barishal),2019-03,2019-03-01,68.82
+SE,Southeast (Chattogram),2019-03,2019-03-01,115.23
+National,National (All Bangladesh),2019-03,2019-03-01,56.06
+NW,Northwest (Rajshahi + Rangpur),2019-04,2019-04-01,91.6
+NE,Northeast (Sylhet + Mymensingh),2019-04,2019-04-01,228.66
+Central,Central (Dhaka),2019-04,2019-04-01,99.91
+SW,Southwest (Khulna + Barishal),2019-04,2019-04-01,87.78
+SE,Southeast (Chattogram),2019-04,2019-04-01,113.35
+National,National (All Bangladesh),2019-04,2019-04-01,120.06
+NW,Northwest (Rajshahi + Rangpur),2019-05,2019-05-01,246.45
+NE,Northeast (Sylhet + Mymensingh),2019-05,2019-05-01,677.44
+Central,Central (Dhaka),2019-05,2019-05-01,366.46
+SW,Southwest (Khulna + Barishal),2019-05,2019-05-01,289.27
+SE,Southeast (Chattogram),2019-05,2019-05-01,425.67
+National,National (All Bangladesh),2019-05,2019-05-01,384.23
+NW,Northwest (Rajshahi + Rangpur),2019-06,2019-06-01,394.2
+NE,Northeast (Sylhet + Mymensingh),2019-06,2019-06-01,878.61
+Central,Central (Dhaka),2019-06,2019-06-01,441.59
+SW,Southwest (Khulna + Barishal),2019-06,2019-06-01,388.69
+SE,Southeast (Chattogram),2019-06,2019-06-01,521.6
+National,National (All Bangladesh),2019-06,2019-06-01,509.41
+NW,Northwest (Rajshahi + Rangpur),2019-07,2019-07-01,725.03
+NE,Northeast (Sylhet + Mymensingh),2019-07,2019-07-01,1208.94
+Central,Central (Dhaka),2019-07,2019-07-01,681.63
+SW,Southwest (Khulna + Barishal),2019-07,2019-07-01,896.3
+SE,Southeast (Chattogram),2019-07,2019-07-01,2280.81
+National,National (All Bangladesh),2019-07,2019-07-01,1158.65
+NW,Northwest (Rajshahi + Rangpur),2019-08,2019-08-01,297.28
+NE,Northeast (Sylhet + Mymensingh),2019-08,2019-08-01,370.7
+Central,Central (Dhaka),2019-08,2019-08-01,461.6
+SW,Southwest (Khulna + Barishal),2019-08,2019-08-01,790.9
+SE,Southeast (Chattogram),2019-08,2019-08-01,978.63
+National,National (All Bangladesh),2019-08,2019-08-01,585.17
+NW,Northwest (Rajshahi + Rangpur),2019-09,2019-09-01,527.71
+NE,Northeast (Sylhet + Mymensingh),2019-09,2019-09-01,488.17
+Central,Central (Dhaka),2019-09,2019-09-01,353.86
+SW,Southwest (Khulna + Barishal),2019-09,2019-09-01,545.87
+SE,Southeast (Chattogram),2019-09,2019-09-01,940.3
+National,National (All Bangladesh),2019-09,2019-09-01,584.62
+NW,Northwest (Rajshahi + Rangpur),2019-10,2019-10-01,236.3
+NE,Northeast (Sylhet + Mymensingh),2019-10,2019-10-01,447.33
+Central,Central (Dhaka),2019-10,2019-10-01,303.57
+SW,Southwest (Khulna + Barishal),2019-10,2019-10-01,396.17
+SE,Southeast (Chattogram),2019-10,2019-10-01,476.18
+National,National (All Bangladesh),2019-10,2019-10-01,367.86
+NW,Northwest (Rajshahi + Rangpur),2019-11,2019-11-01,15.26
+NE,Northeast (Sylhet + Mymensingh),2019-11,2019-11-01,29.33
+Central,Central (Dhaka),2019-11,2019-11-01,113.69
+SW,Southwest (Khulna + Barishal),2019-11,2019-11-01,294.71
+SE,Southeast (Chattogram),2019-11,2019-11-01,251.31
+National,National (All Bangladesh),2019-11,2019-11-01,143.79
+NW,Northwest (Rajshahi + Rangpur),2019-12,2019-12-01,4.48
+NE,Northeast (Sylhet + Mymensingh),2019-12,2019-12-01,5.2
+Central,Central (Dhaka),2019-12,2019-12-01,17.28
+SW,Southwest (Khulna + Barishal),2019-12,2019-12-01,26.87
+SE,Southeast (Chattogram),2019-12,2019-12-01,16.16
+National,National (All Bangladesh),2019-12,2019-12-01,13.92
+NW,Northwest (Rajshahi + Rangpur),2020-01,2020-01-01,28.21
+NE,Northeast (Sylhet + Mymensingh),2020-01,2020-01-01,38.96
+Central,Central (Dhaka),2020-01,2020-01-01,58.57
+SW,Southwest (Khulna + Barishal),2020-01,2020-01-01,69.88
+SE,Southeast (Chattogram),2020-01,2020-01-01,84.18
+National,National (All Bangladesh),2020-01,2020-01-01,55.29
+NW,Northwest (Rajshahi + Rangpur),2020-02,2020-02-01,10.22
+NE,Northeast (Sylhet + Mymensingh),2020-02,2020-02-01,8.37
+Central,Central (Dhaka),2020-02,2020-02-01,3.09
+SW,Southwest (Khulna + Barishal),2020-02,2020-02-01,7.29
+SE,Southeast (Chattogram),2020-02,2020-02-01,7.8
+National,National (All Bangladesh),2020-02,2020-02-01,7.73
+NW,Northwest (Rajshahi + Rangpur),2020-03,2020-03-01,75.59
+NE,Northeast (Sylhet + Mymensingh),2020-03,2020-03-01,37.63
+Central,Central (Dhaka),2020-03,2020-03-01,69.24
+SW,Southwest (Khulna + Barishal),2020-03,2020-03-01,74.14
+SE,Southeast (Chattogram),2020-03,2020-03-01,17.92
+National,National (All Bangladesh),2020-03,2020-03-01,56.06
+NW,Northwest (Rajshahi + Rangpur),2020-04,2020-04-01,191.61
+NE,Northeast (Sylhet + Mymensingh),2020-04,2020-04-01,327.41
+Central,Central (Dhaka),2020-04,2020-04-01,279.02
+SW,Southwest (Khulna + Barishal),2020-04,2020-04-01,250.11
+SE,Southeast (Chattogram),2020-04,2020-04-01,279.54
+National,National (All Bangladesh),2020-04,2020-04-01,258.72
+NW,Northwest (Rajshahi + Rangpur),2020-05,2020-05-01,493.63
+NE,Northeast (Sylhet + Mymensingh),2020-05,2020-05-01,851.85
+Central,Central (Dhaka),2020-05,2020-05-01,530.3
+SW,Southwest (Khulna + Barishal),2020-05,2020-05-01,483.76
+SE,Southeast (Chattogram),2020-05,2020-05-01,679.78
+National,National (All Bangladesh),2020-05,2020-05-01,596.42
+NW,Northwest (Rajshahi + Rangpur),2020-06,2020-06-01,477.55
+NE,Northeast (Sylhet + Mymensingh),2020-06,2020-06-01,825.2
+Central,Central (Dhaka),2020-06,2020-06-01,419.01
+SW,Southwest (Khulna + Barishal),2020-06,2020-06-01,565.86
+SE,Southeast (Chattogram),2020-06,2020-06-01,845.9
+National,National (All Bangladesh),2020-06,2020-06-01,624.83
+NW,Northwest (Rajshahi + Rangpur),2020-07,2020-07-01,544.56
+NE,Northeast (Sylhet + Mymensingh),2020-07,2020-07-01,812.93
+Central,Central (Dhaka),2020-07,2020-07-01,428.88
+SW,Southwest (Khulna + Barishal),2020-07,2020-07-01,469.02
+SE,Southeast (Chattogram),2020-07,2020-07-01,757.11
+National,National (All Bangladesh),2020-07,2020-07-01,600.71
+NW,Northwest (Rajshahi + Rangpur),2020-08,2020-08-01,297.07
+NE,Northeast (Sylhet + Mymensingh),2020-08,2020-08-01,408.36
+Central,Central (Dhaka),2020-08,2020-08-01,337.52
+SW,Southwest (Khulna + Barishal),2020-08,2020-08-01,526.98
+SE,Southeast (Chattogram),2020-08,2020-08-01,727.3
+National,National (All Bangladesh),2020-08,2020-08-01,462.42
+NW,Northwest (Rajshahi + Rangpur),2020-09,2020-09-01,526.17
+NE,Northeast (Sylhet + Mymensingh),2020-09,2020-09-01,718.27
+Central,Central (Dhaka),2020-09,2020-09-01,351.74
+SW,Southwest (Khulna + Barishal),2020-09,2020-09-01,386.62
+SE,Southeast (Chattogram),2020-09,2020-09-01,642.01
+National,National (All Bangladesh),2020-09,2020-09-01,526.48
+NW,Northwest (Rajshahi + Rangpur),2020-10,2020-10-01,245.15
+NE,Northeast (Sylhet + Mymensingh),2020-10,2020-10-01,472.54
+Central,Central (Dhaka),2020-10,2020-10-01,400.15
+SW,Southwest (Khulna + Barishal),2020-10,2020-10-01,453.51
+SE,Southeast (Chattogram),2020-10,2020-10-01,692.84
+National,National (All Bangladesh),2020-10,2020-10-01,445.25
+NW,Northwest (Rajshahi + Rangpur),2020-11,2020-11-01,3.77
+NE,Northeast (Sylhet + Mymensingh),2020-11,2020-11-01,10.67
+Central,Central (Dhaka),2020-11,2020-11-01,40.39
+SW,Southwest (Khulna + Barishal),2020-11,2020-11-01,75.53
+SE,Southeast (Chattogram),2020-11,2020-11-01,164.14
+National,National (All Bangladesh),2020-11,2020-11-01,59.22
+NW,Northwest (Rajshahi + Rangpur),2020-12,2020-12-01,1.0
+NE,Northeast (Sylhet + Mymensingh),2020-12,2020-12-01,0.19
+Central,Central (Dhaka),2020-12,2020-12-01,3.82
+SW,Southwest (Khulna + Barishal),2020-12,2020-12-01,1.66
+SE,Southeast (Chattogram),2020-12,2020-12-01,0.0
+National,National (All Bangladesh),2020-12,2020-12-01,1.2
+NW,Northwest (Rajshahi + Rangpur),2021-01,2021-01-01,0.88
+NE,Northeast (Sylhet + Mymensingh),2021-01,2021-01-01,3.22
+Central,Central (Dhaka),2021-01,2021-01-01,5.02
+SW,Southwest (Khulna + Barishal),2021-01,2021-01-01,4.52
+SE,Southeast (Chattogram),2021-01,2021-01-01,1.04
+National,National (All Bangladesh),2021-01,2021-01-01,2.73
+NW,Northwest (Rajshahi + Rangpur),2021-02,2021-02-01,0.51
+NE,Northeast (Sylhet + Mymensingh),2021-02,2021-02-01,0.58
+Central,Central (Dhaka),2021-02,2021-02-01,0.28
+SW,Southwest (Khulna + Barishal),2021-02,2021-02-01,1.24
+SE,Southeast (Chattogram),2021-02,2021-02-01,0.0
+National,National (All Bangladesh),2021-02,2021-02-01,0.55
+NW,Northwest (Rajshahi + Rangpur),2021-03,2021-03-01,15.59
+NE,Northeast (Sylhet + Mymensingh),2021-03,2021-03-01,74.12
+Central,Central (Dhaka),2021-03,2021-03-01,12.39
+SW,Southwest (Khulna + Barishal),2021-03,2021-03-01,8.78
+SE,Southeast (Chattogram),2021-03,2021-03-01,23.25
+National,National (All Bangladesh),2021-03,2021-03-01,25.27
+NW,Northwest (Rajshahi + Rangpur),2021-04,2021-04-01,63.41
+NE,Northeast (Sylhet + Mymensingh),2021-04,2021-04-01,156.14
+Central,Central (Dhaka),2021-04,2021-04-01,66.4
+SW,Southwest (Khulna + Barishal),2021-04,2021-04-01,20.64
+SE,Southeast (Chattogram),2021-04,2021-04-01,59.77
+National,National (All Bangladesh),2021-04,2021-04-01,69.31
+NW,Northwest (Rajshahi + Rangpur),2021-05,2021-05-01,330.64
+NE,Northeast (Sylhet + Mymensingh),2021-05,2021-05-01,500.55
+Central,Central (Dhaka),2021-05,2021-05-01,323.72
+SW,Southwest (Khulna + Barishal),2021-05,2021-05-01,241.49
+SE,Southeast (Chattogram),2021-05,2021-05-01,254.23
+National,National (All Bangladesh),2021-05,2021-05-01,323.06
+NW,Northwest (Rajshahi + Rangpur),2021-06,2021-06-01,384.29
+NE,Northeast (Sylhet + Mymensingh),2021-06,2021-06-01,632.19
+Central,Central (Dhaka),2021-06,2021-06-01,494.63
+SW,Southwest (Khulna + Barishal),2021-06,2021-06-01,648.68
+SE,Southeast (Chattogram),2021-06,2021-06-01,934.26
+National,National (All Bangladesh),2021-06,2021-06-01,615.39
+NW,Northwest (Rajshahi + Rangpur),2021-07,2021-07-01,337.41
+NE,Northeast (Sylhet + Mymensingh),2021-07,2021-07-01,516.61
+Central,Central (Dhaka),2021-07,2021-07-01,413.49
+SW,Southwest (Khulna + Barishal),2021-07,2021-07-01,660.01
+SE,Southeast (Chattogram),2021-07,2021-07-01,982.51
+National,National (All Bangladesh),2021-07,2021-07-01,584.55
+NW,Northwest (Rajshahi + Rangpur),2021-08,2021-08-01,469.67
+NE,Northeast (Sylhet + Mymensingh),2021-08,2021-08-01,778.81
+Central,Central (Dhaka),2021-08,2021-08-01,415.88
+SW,Southwest (Khulna + Barishal),2021-08,2021-08-01,477.31
+SE,Southeast (Chattogram),2021-08,2021-08-01,800.25
+National,National (All Bangladesh),2021-08,2021-08-01,584.7
+NW,Northwest (Rajshahi + Rangpur),2021-09,2021-09-01,207.78
+NE,Northeast (Sylhet + Mymensingh),2021-09,2021-09-01,254.91
+Central,Central (Dhaka),2021-09,2021-09-01,238.67
+SW,Southwest (Khulna + Barishal),2021-09,2021-09-01,404.81
+SE,Southeast (Chattogram),2021-09,2021-09-01,370.52
+National,National (All Bangladesh),2021-09,2021-09-01,298.71
+NW,Northwest (Rajshahi + Rangpur),2021-10,2021-10-01,264.6
+NE,Northeast (Sylhet + Mymensingh),2021-10,2021-10-01,249.95
+Central,Central (Dhaka),2021-10,2021-10-01,218.09
+SW,Southwest (Khulna + Barishal),2021-10,2021-10-01,252.49
+SE,Southeast (Chattogram),2021-10,2021-10-01,324.49
+National,National (All Bangladesh),2021-10,2021-10-01,264.95
+NW,Northwest (Rajshahi + Rangpur),2021-11,2021-11-01,5.71
+NE,Northeast (Sylhet + Mymensingh),2021-11,2021-11-01,3.78
+Central,Central (Dhaka),2021-11,2021-11-01,19.36
+SW,Southwest (Khulna + Barishal),2021-11,2021-11-01,14.14
+SE,Southeast (Chattogram),2021-11,2021-11-01,6.6
+National,National (All Bangladesh),2021-11,2021-11-01,9.41
+NW,Northwest (Rajshahi + Rangpur),2021-12,2021-12-01,17.42
+NE,Northeast (Sylhet + Mymensingh),2021-12,2021-12-01,44.59
+Central,Central (Dhaka),2021-12,2021-12-01,105.38
+SW,Southwest (Khulna + Barishal),2021-12,2021-12-01,123.95
+SE,Southeast (Chattogram),2021-12,2021-12-01,95.5
+National,National (All Bangladesh),2021-12,2021-12-01,74.84
+NW,Northwest (Rajshahi + Rangpur),2022-01,2022-01-01,20.53
+NE,Northeast (Sylhet + Mymensingh),2022-01,2022-01-01,27.09
+Central,Central (Dhaka),2022-01,2022-01-01,24.8
+SW,Southwest (Khulna + Barishal),2022-01,2022-01-01,19.98
+SE,Southeast (Chattogram),2022-01,2022-01-01,19.88
+National,National (All Bangladesh),2022-01,2022-01-01,22.01
+NW,Northwest (Rajshahi + Rangpur),2022-02,2022-02-01,57.06
+NE,Northeast (Sylhet + Mymensingh),2022-02,2022-02-01,48.91
+Central,Central (Dhaka),2022-02,2022-02-01,56.82
+SW,Southwest (Khulna + Barishal),2022-02,2022-02-01,77.07
+SE,Southeast (Chattogram),2022-02,2022-02-01,49.28
+National,National (All Bangladesh),2022-02,2022-02-01,58.64
+NW,Northwest (Rajshahi + Rangpur),2022-03,2022-03-01,8.96
+NE,Northeast (Sylhet + Mymensingh),2022-03,2022-03-01,69.23
+Central,Central (Dhaka),2022-03,2022-03-01,10.12
+SW,Southwest (Khulna + Barishal),2022-03,2022-03-01,3.6
+SE,Southeast (Chattogram),2022-03,2022-03-01,6.89
+National,National (All Bangladesh),2022-03,2022-03-01,17.91
+NW,Northwest (Rajshahi + Rangpur),2022-04,2022-04-01,135.95
+NE,Northeast (Sylhet + Mymensingh),2022-04,2022-04-01,351.17
+Central,Central (Dhaka),2022-04,2022-04-01,90.56
+SW,Southwest (Khulna + Barishal),2022-04,2022-04-01,34.42
+SE,Southeast (Chattogram),2022-04,2022-04-01,93.37
+National,National (All Bangladesh),2022-04,2022-04-01,134.86
+NW,Northwest (Rajshahi + Rangpur),2022-05,2022-05-01,360.93
+NE,Northeast (Sylhet + Mymensingh),2022-05,2022-05-01,738.64
+Central,Central (Dhaka),2022-05,2022-05-01,421.63
+SW,Southwest (Khulna + Barishal),2022-05,2022-05-01,335.07
+SE,Southeast (Chattogram),2022-05,2022-05-01,481.35
+National,National (All Bangladesh),2022-05,2022-05-01,453.41
+NW,Northwest (Rajshahi + Rangpur),2022-06,2022-06-01,447.89
+NE,Northeast (Sylhet + Mymensingh),2022-06,2022-06-01,1008.67
+Central,Central (Dhaka),2022-06,2022-06-01,348.08
+SW,Southwest (Khulna + Barishal),2022-06,2022-06-01,301.74
+SE,Southeast (Chattogram),2022-06,2022-06-01,771.71
+National,National (All Bangladesh),2022-06,2022-06-01,563.31
+NW,Northwest (Rajshahi + Rangpur),2022-07,2022-07-01,199.99
+NE,Northeast (Sylhet + Mymensingh),2022-07,2022-07-01,353.07
+Central,Central (Dhaka),2022-07,2022-07-01,160.95
+SW,Southwest (Khulna + Barishal),2022-07,2022-07-01,224.84
+SE,Southeast (Chattogram),2022-07,2022-07-01,333.79
+National,National (All Bangladesh),2022-07,2022-07-01,253.98
+NW,Northwest (Rajshahi + Rangpur),2022-08,2022-08-01,254.95
+NE,Northeast (Sylhet + Mymensingh),2022-08,2022-08-01,354.76
+Central,Central (Dhaka),2022-08,2022-08-01,283.43
+SW,Southwest (Khulna + Barishal),2022-08,2022-08-01,341.21
+SE,Southeast (Chattogram),2022-08,2022-08-01,370.82
+National,National (All Bangladesh),2022-08,2022-08-01,319.65
+NW,Northwest (Rajshahi + Rangpur),2022-09,2022-09-01,296.64
+NE,Northeast (Sylhet + Mymensingh),2022-09,2022-09-01,490.58
+Central,Central (Dhaka),2022-09,2022-09-01,350.29
+SW,Southwest (Khulna + Barishal),2022-09,2022-09-01,395.85
+SE,Southeast (Chattogram),2022-09,2022-09-01,520.43
+National,National (All Bangladesh),2022-09,2022-09-01,406.1
+NW,Northwest (Rajshahi + Rangpur),2022-10,2022-10-01,176.45
+NE,Northeast (Sylhet + Mymensingh),2022-10,2022-10-01,337.36
+Central,Central (Dhaka),2022-10,2022-10-01,356.89
+SW,Southwest (Khulna + Barishal),2022-10,2022-10-01,382.93
+SE,Southeast (Chattogram),2022-10,2022-10-01,382.91
+National,National (All Bangladesh),2022-10,2022-10-01,319.1
+NW,Northwest (Rajshahi + Rangpur),2022-11,2022-11-01,0.37
+NE,Northeast (Sylhet + Mymensingh),2022-11,2022-11-01,1.75
+Central,Central (Dhaka),2022-11,2022-11-01,13.4
+SW,Southwest (Khulna + Barishal),2022-11,2022-11-01,61.78
+SE,Southeast (Chattogram),2022-11,2022-11-01,12.3
+National,National (All Bangladesh),2022-11,2022-11-01,18.99
+NW,Northwest (Rajshahi + Rangpur),2022-12,2022-12-01,2.63
+NE,Northeast (Sylhet + Mymensingh),2022-12,2022-12-01,6.59
+Central,Central (Dhaka),2022-12,2022-12-01,6.92
+SW,Southwest (Khulna + Barishal),2022-12,2022-12-01,4.73
+SE,Southeast (Chattogram),2022-12,2022-12-01,29.23
+National,National (All Bangladesh),2022-12,2022-12-01,9.81
+NW,Northwest (Rajshahi + Rangpur),2023-01,2023-01-01,0.47
+NE,Northeast (Sylhet + Mymensingh),2023-01,2023-01-01,1.24
+Central,Central (Dhaka),2023-01,2023-01-01,6.35
+SW,Southwest (Khulna + Barishal),2023-01,2023-01-01,0.56
+SE,Southeast (Chattogram),2023-01,2023-01-01,2.52
+National,National (All Bangladesh),2023-01,2023-01-01,1.87
+NW,Northwest (Rajshahi + Rangpur),2023-02,2023-02-01,1.28
+NE,Northeast (Sylhet + Mymensingh),2023-02,2023-02-01,9.52
+Central,Central (Dhaka),2023-02,2023-02-01,2.98
+SW,Southwest (Khulna + Barishal),2023-02,2023-02-01,2.22
+SE,Southeast (Chattogram),2023-02,2023-02-01,5.76
+National,National (All Bangladesh),2023-02,2023-02-01,4.07
+NW,Northwest (Rajshahi + Rangpur),2023-03,2023-03-01,92.04
+NE,Northeast (Sylhet + Mymensingh),2023-03,2023-03-01,178.96
+Central,Central (Dhaka),2023-03,2023-03-01,131.81
+SW,Southwest (Khulna + Barishal),2023-03,2023-03-01,111.21
+SE,Southeast (Chattogram),2023-03,2023-03-01,127.38
+National,National (All Bangladesh),2023-03,2023-03-01,124.26
+NW,Northwest (Rajshahi + Rangpur),2023-04,2023-04-01,74.27
+NE,Northeast (Sylhet + Mymensingh),2023-04,2023-04-01,147.19
+Central,Central (Dhaka),2023-04,2023-04-01,104.08
+SW,Southwest (Khulna + Barishal),2023-04,2023-04-01,95.35
+SE,Southeast (Chattogram),2023-04,2023-04-01,107.38
+National,National (All Bangladesh),2023-04,2023-04-01,102.66
+NW,Northwest (Rajshahi + Rangpur),2023-05,2023-05-01,218.22
+NE,Northeast (Sylhet + Mymensingh),2023-05,2023-05-01,325.11
+Central,Central (Dhaka),2023-05,2023-05-01,307.59
+SW,Southwest (Khulna + Barishal),2023-05,2023-05-01,222.25
+SE,Southeast (Chattogram),2023-05,2023-05-01,234.05
+National,National (All Bangladesh),2023-05,2023-05-01,253.4
+NW,Northwest (Rajshahi + Rangpur),2023-06,2023-06-01,396.2
+NE,Northeast (Sylhet + Mymensingh),2023-06,2023-06-01,844.89
+Central,Central (Dhaka),2023-06,2023-06-01,380.22
+SW,Southwest (Khulna + Barishal),2023-06,2023-06-01,380.17
+SE,Southeast (Chattogram),2023-06,2023-06-01,586.86
+National,National (All Bangladesh),2023-06,2023-06-01,506.79
+NW,Northwest (Rajshahi + Rangpur),2023-07,2023-07-01,314.71
+NE,Northeast (Sylhet + Mymensingh),2023-07,2023-07-01,606.04
+Central,Central (Dhaka),2023-07,2023-07-01,266.58
+SW,Southwest (Khulna + Barishal),2023-07,2023-07-01,257.41
+SE,Southeast (Chattogram),2023-07,2023-07-01,325.93
+National,National (All Bangladesh),2023-07,2023-07-01,347.54
+NW,Northwest (Rajshahi + Rangpur),2023-08,2023-08-01,442.49
+NE,Northeast (Sylhet + Mymensingh),2023-08,2023-08-01,685.52
+Central,Central (Dhaka),2023-08,2023-08-01,511.31
+SW,Southwest (Khulna + Barishal),2023-08,2023-08-01,638.36
+SE,Southeast (Chattogram),2023-08,2023-08-01,1083.06
+National,National (All Bangladesh),2023-08,2023-08-01,669.59
+NW,Northwest (Rajshahi + Rangpur),2023-09,2023-09-01,371.11
+NE,Northeast (Sylhet + Mymensingh),2023-09,2023-09-01,339.43
+Central,Central (Dhaka),2023-09,2023-09-01,332.77
+SW,Southwest (Khulna + Barishal),2023-09,2023-09-01,394.51
+SE,Southeast (Chattogram),2023-09,2023-09-01,531.55
+National,National (All Bangladesh),2023-09,2023-09-01,398.27
+NW,Northwest (Rajshahi + Rangpur),2023-10,2023-10-01,225.08
+NE,Northeast (Sylhet + Mymensingh),2023-10,2023-10-01,393.05
+Central,Central (Dhaka),2023-10,2023-10-01,273.82
+SW,Southwest (Khulna + Barishal),2023-10,2023-10-01,281.72
+SE,Southeast (Chattogram),2023-10,2023-10-01,346.73
+National,National (All Bangladesh),2023-10,2023-10-01,298.78
+NW,Northwest (Rajshahi + Rangpur),2023-11,2023-11-01,4.62
+NE,Northeast (Sylhet + Mymensingh),2023-11,2023-11-01,60.42
+Central,Central (Dhaka),2023-11,2023-11-01,92.09
+SW,Southwest (Khulna + Barishal),2023-11,2023-11-01,95.76
+SE,Southeast (Chattogram),2023-11,2023-11-01,149.44
+National,National (All Bangladesh),2023-11,2023-11-01,76.96
+NW,Northwest (Rajshahi + Rangpur),2023-12,2023-12-01,40.47
+NE,Northeast (Sylhet + Mymensingh),2023-12,2023-12-01,47.82
+Central,Central (Dhaka),2023-12,2023-12-01,65.09
+SW,Southwest (Khulna + Barishal),2023-12,2023-12-01,73.77
+SE,Southeast (Chattogram),2023-12,2023-12-01,32.37
+National,National (All Bangladesh),2023-12,2023-12-01,51.21
+NW,Northwest (Rajshahi + Rangpur),2024-01,2024-01-01,39.31
+NE,Northeast (Sylhet + Mymensingh),2024-01,2024-01-01,11.42
+Central,Central (Dhaka),2024-01,2024-01-01,37.37
+SW,Southwest (Khulna + Barishal),2024-01,2024-01-01,35.01
+SE,Southeast (Chattogram),2024-01,2024-01-01,18.06
+National,National (All Bangladesh),2024-01,2024-01-01,28.89
+NW,Northwest (Rajshahi + Rangpur),2024-02,2024-02-01,14.04
+NE,Northeast (Sylhet + Mymensingh),2024-02,2024-02-01,44.72
+Central,Central (Dhaka),2024-02,2024-02-01,39.9
+SW,Southwest (Khulna + Barishal),2024-02,2024-02-01,38.23
+SE,Southeast (Chattogram),2024-02,2024-02-01,19.69
+National,National (All Bangladesh),2024-02,2024-02-01,29.69
+NW,Northwest (Rajshahi + Rangpur),2024-03,2024-03-01,94.32
+NE,Northeast (Sylhet + Mymensingh),2024-03,2024-03-01,138.01
+Central,Central (Dhaka),2024-03,2024-03-01,96.91
+SW,Southwest (Khulna + Barishal),2024-03,2024-03-01,54.37
+SE,Southeast (Chattogram),2024-03,2024-03-01,80.43
+National,National (All Bangladesh),2024-03,2024-03-01,90.23
+NW,Northwest (Rajshahi + Rangpur),2024-04,2024-04-01,6.67
+NE,Northeast (Sylhet + Mymensingh),2024-04,2024-04-01,171.5
+Central,Central (Dhaka),2024-04,2024-04-01,39.02
+SW,Southwest (Khulna + Barishal),2024-04,2024-04-01,13.49
+SE,Southeast (Chattogram),2024-04,2024-04-01,39.33
+National,National (All Bangladesh),2024-04,2024-04-01,47.97
+NW,Northwest (Rajshahi + Rangpur),2024-05,2024-05-01,246.07
+NE,Northeast (Sylhet + Mymensingh),2024-05,2024-05-01,628.61
+Central,Central (Dhaka),2024-05,2024-05-01,418.59
+SW,Southwest (Khulna + Barishal),2024-05,2024-05-01,397.41
+SE,Southeast (Chattogram),2024-05,2024-05-01,588.98
+National,National (All Bangladesh),2024-05,2024-05-01,441.07
+NW,Northwest (Rajshahi + Rangpur),2024-06,2024-06-01,515.53
+NE,Northeast (Sylhet + Mymensingh),2024-06,2024-06-01,1200.54
+Central,Central (Dhaka),2024-06,2024-06-01,403.71
+SW,Southwest (Khulna + Barishal),2024-06,2024-06-01,279.16
+SE,Southeast (Chattogram),2024-06,2024-06-01,750.7
+National,National (All Bangladesh),2024-06,2024-06-01,612.0
+NW,Northwest (Rajshahi + Rangpur),2024-07,2024-07-01,419.78
+NE,Northeast (Sylhet + Mymensingh),2024-07,2024-07-01,583.74
+Central,Central (Dhaka),2024-07,2024-07-01,346.84
+SW,Southwest (Khulna + Barishal),2024-07,2024-07-01,541.99
+SE,Southeast (Chattogram),2024-07,2024-07-01,960.58
+National,National (All Bangladesh),2024-07,2024-07-01,576.09
+NW,Northwest (Rajshahi + Rangpur),2024-08,2024-08-01,364.94
+NE,Northeast (Sylhet + Mymensingh),2024-08,2024-08-01,781.6
+Central,Central (Dhaka),2024-08,2024-08-01,633.28
+SW,Southwest (Khulna + Barishal),2024-08,2024-08-01,851.82
+SE,Southeast (Chattogram),2024-08,2024-08-01,1424.37
+National,National (All Bangladesh),2024-08,2024-08-01,802.22
+NW,Northwest (Rajshahi + Rangpur),2024-09,2024-09-01,436.53
+NE,Northeast (Sylhet + Mymensingh),2024-09,2024-09-01,331.47
+Central,Central (Dhaka),2024-09,2024-09-01,465.78
+SW,Southwest (Khulna + Barishal),2024-09,2024-09-01,594.94
+SE,Southeast (Chattogram),2024-09,2024-09-01,651.61
+National,National (All Bangladesh),2024-09,2024-09-01,502.62
+NW,Northwest (Rajshahi + Rangpur),2024-10,2024-10-01,194.95
+NE,Northeast (Sylhet + Mymensingh),2024-10,2024-10-01,380.65
+Central,Central (Dhaka),2024-10,2024-10-01,389.21
+SW,Southwest (Khulna + Barishal),2024-10,2024-10-01,320.27
+SE,Southeast (Chattogram),2024-10,2024-10-01,316.23
+National,National (All Bangladesh),2024-10,2024-10-01,307.83
+NW,Northwest (Rajshahi + Rangpur),2024-11,2024-11-01,4.86
+NE,Northeast (Sylhet + Mymensingh),2024-11,2024-11-01,11.39
+Central,Central (Dhaka),2024-11,2024-11-01,14.56
+SW,Southwest (Khulna + Barishal),2024-11,2024-11-01,16.0
+SE,Southeast (Chattogram),2024-11,2024-11-01,47.67
+National,National (All Bangladesh),2024-11,2024-11-01,18.62
+NW,Northwest (Rajshahi + Rangpur),2024-12,2024-12-01,0.22
+NE,Northeast (Sylhet + Mymensingh),2024-12,2024-12-01,0.13
+Central,Central (Dhaka),2024-12,2024-12-01,2.8
+SW,Southwest (Khulna + Barishal),2024-12,2024-12-01,4.23
+SE,Southeast (Chattogram),2024-12,2024-12-01,1.39
+National,National (All Bangladesh),2024-12,2024-12-01,1.73
+NW,Northwest (Rajshahi + Rangpur),2025-01,2025-01-01,2.42
+NE,Northeast (Sylhet + Mymensingh),2025-01,2025-01-01,2.17
+Central,Central (Dhaka),2025-01,2025-01-01,4.64
+SW,Southwest (Khulna + Barishal),2025-01,2025-01-01,0.5
+SE,Southeast (Chattogram),2025-01,2025-01-01,0.31
+National,National (All Bangladesh),2025-01,2025-01-01,1.82
+NW,Northwest (Rajshahi + Rangpur),2025-02,2025-02-01,11.46
+NE,Northeast (Sylhet + Mymensingh),2025-02,2025-02-01,6.31
+Central,Central (Dhaka),2025-02,2025-02-01,5.55
+SW,Southwest (Khulna + Barishal),2025-02,2025-02-01,11.21
+SE,Southeast (Chattogram),2025-02,2025-02-01,3.12
+National,National (All Bangladesh),2025-02,2025-02-01,7.99
+NW,Northwest (Rajshahi + Rangpur),2025-03,2025-03-01,6.84
+NE,Northeast (Sylhet + Mymensingh),2025-03,2025-03-01,24.95
+Central,Central (Dhaka),2025-03,2025-03-01,2.63
+SW,Southwest (Khulna + Barishal),2025-03,2025-03-01,9.77
+SE,Southeast (Chattogram),2025-03,2025-03-01,27.97
+National,National (All Bangladesh),2025-03,2025-03-01,14.36
+NW,Northwest (Rajshahi + Rangpur),2025-04,2025-04-01,149.97
+NE,Northeast (Sylhet + Mymensingh),2025-04,2025-04-01,332.15
+Central,Central (Dhaka),2025-04,2025-04-01,160.45
+SW,Southwest (Khulna + Barishal),2025-04,2025-04-01,164.27
+SE,Southeast (Chattogram),2025-04,2025-04-01,221.23
+National,National (All Bangladesh),2025-04,2025-04-01,200.79
+NW,Northwest (Rajshahi + Rangpur),2025-05,2025-05-01,395.43
+NE,Northeast (Sylhet + Mymensingh),2025-05,2025-05-01,838.71
+Central,Central (Dhaka),2025-05,2025-05-01,441.31
+SW,Southwest (Khulna + Barishal),2025-05,2025-05-01,437.78
+SE,Southeast (Chattogram),2025-05,2025-05-01,685.52
+National,National (All Bangladesh),2025-05,2025-05-01,547.4
+NW,Northwest (Rajshahi + Rangpur),2025-06,2025-06-01,290.43
+NE,Northeast (Sylhet + Mymensingh),2025-06,2025-06-01,497.65
+Central,Central (Dhaka),2025-06,2025-06-01,371.58
+SW,Southwest (Khulna + Barishal),2025-06,2025-06-01,457.45
+SE,Southeast (Chattogram),2025-06,2025-06-01,768.25
+National,National (All Bangladesh),2025-06,2025-06-01,473.31
+NW,Northwest (Rajshahi + Rangpur),2025-07,2025-07-01,380.17
+NE,Northeast (Sylhet + Mymensingh),2025-07,2025-07-01,570.97
+Central,Central (Dhaka),2025-07,2025-07-01,598.96
+SW,Southwest (Khulna + Barishal),2025-07,2025-07-01,863.74
+SE,Southeast (Chattogram),2025-07,2025-07-01,1134.25
+National,National (All Bangladesh),2025-07,2025-07-01,708.51
+NW,Northwest (Rajshahi + Rangpur),2025-08,2025-08-01,448.12
+NE,Northeast (Sylhet + Mymensingh),2025-08,2025-08-01,633.97
+Central,Central (Dhaka),2025-08,2025-08-01,397.49
+SW,Southwest (Khulna + Barishal),2025-08,2025-08-01,412.34
+SE,Southeast (Chattogram),2025-08,2025-08-01,644.49
+National,National (All Bangladesh),2025-08,2025-08-01,504.94
+NW,Northwest (Rajshahi + Rangpur),2025-09,2025-09-01,296.52
+NE,Northeast (Sylhet + Mymensingh),2025-09,2025-09-01,404.79
+Central,Central (Dhaka),2025-09,2025-09-01,298.36
+SW,Southwest (Khulna + Barishal),2025-09,2025-09-01,267.58
+SE,Southeast (Chattogram),2025-09,2025-09-01,436.66
+National,National (All Bangladesh),2025-09,2025-09-01,337.38
+NW,Northwest (Rajshahi + Rangpur),2025-10,2025-10-01,202.44
+NE,Northeast (Sylhet + Mymensingh),2025-10,2025-10-01,234.97
+Central,Central (Dhaka),2025-10,2025-10-01,247.69
+SW,Southwest (Khulna + Barishal),2025-10,2025-10-01,245.05
+SE,Southeast (Chattogram),2025-10,2025-10-01,282.1
+National,National (All Bangladesh),2025-10,2025-10-01,240.42
+NW,Northwest (Rajshahi + Rangpur),2025-11,2025-11-01,55.14
+NE,Northeast (Sylhet + Mymensingh),2025-11,2025-11-01,66.68
+Central,Central (Dhaka),2025-11,2025-11-01,65.04
+SW,Southwest (Khulna + Barishal),2025-11,2025-11-01,30.15
+SE,Southeast (Chattogram),2025-11,2025-11-01,58.19
+National,National (All Bangladesh),2025-11,2025-11-01,53.4
+NW,Northwest (Rajshahi + Rangpur),2025-12,2025-12-01,0.13
+NE,Northeast (Sylhet + Mymensingh),2025-12,2025-12-01,0.05
+Central,Central (Dhaka),2025-12,2025-12-01,0.41
+SW,Southwest (Khulna + Barishal),2025-12,2025-12-01,0.61
+SE,Southeast (Chattogram),2025-12,2025-12-01,15.71
+National,National (All Bangladesh),2025-12,2025-12-01,3.43
+NW,Northwest (Rajshahi + Rangpur),2026-01,2026-01-01,3.11
+NE,Northeast (Sylhet + Mymensingh),2026-01,2026-01-01,0.0
+Central,Central (Dhaka),2026-01,2026-01-01,9.64
+SW,Southwest (Khulna + Barishal),2026-01,2026-01-01,24.98
+SE,Southeast (Chattogram),2026-01,2026-01-01,0.0
+National,National (All Bangladesh),2026-01,2026-01-01,7.89
+NW,Northwest (Rajshahi + Rangpur),2026-02,2026-02-01,0.32
+NE,Northeast (Sylhet + Mymensingh),2026-02,2026-02-01,0.69
+Central,Central (Dhaka),2026-02,2026-02-01,0.7
+SW,Southwest (Khulna + Barishal),2026-02,2026-02-01,2.59
+SE,Southeast (Chattogram),2026-02,2026-02-01,1.89
+National,National (All Bangladesh),2026-02,2026-02-01,1.28
+NW,Northwest (Rajshahi + Rangpur),2026-03,2026-03-01,136.27
+NE,Northeast (Sylhet + Mymensingh),2026-03,2026-03-01,242.36
+Central,Central (Dhaka),2026-03,2026-03-01,107.14
+SW,Southwest (Khulna + Barishal),2026-03,2026-03-01,63.82
+SE,Southeast (Chattogram),2026-03,2026-03-01,60.98
+National,National (All Bangladesh),2026-03,2026-03-01,118.59
+NW,Northwest (Rajshahi + Rangpur),2026-04,2026-04-01,209.77
+NE,Northeast (Sylhet + Mymensingh),2026-04,2026-04-01,507.63
+Central,Central (Dhaka),2026-04,2026-04-01,271.52
+SW,Southwest (Khulna + Barishal),2026-04,2026-04-01,190.48
+SE,Southeast (Chattogram),2026-04,2026-04-01,224.4
+National,National (All Bangladesh),2026-04,2026-04-01,268.56
+NW,Northwest (Rajshahi + Rangpur),2026-05,2026-05-01,430.69
+NE,Northeast (Sylhet + Mymensingh),2026-05,2026-05-01,564.39
+Central,Central (Dhaka),2026-05,2026-05-01,420.56
+SW,Southwest (Khulna + Barishal),2026-05,2026-05-01,252.68
+SE,Southeast (Chattogram),2026-05,2026-05-01,388.0
+National,National (All Bangladesh),2026-05,2026-05-01,402.79
+NW,Northwest (Rajshahi + Rangpur),2026-06,2026-06-01,364.41
+NE,Northeast (Sylhet + Mymensingh),2026-06,2026-06-01,589.04
+Central,Central (Dhaka),2026-06,2026-06-01,359.51
+SW,Southwest (Khulna + Barishal),2026-06,2026-06-01,402.81
+SE,Southeast (Chattogram),2026-06,2026-06-01,492.94
+National,National (All Bangladesh),2026-06,2026-06-01,437.62
+NW,Northwest (Rajshahi + Rangpur),2026-07,2026-07-01,413.25
+NE,Northeast (Sylhet + Mymensingh),2026-07,2026-07-01,803.9
+Central,Central (Dhaka),2026-07,2026-07-01,587.41
+SW,Southwest (Khulna + Barishal),2026-07,2026-07-01,778.19
+SE,Southeast (Chattogram),2026-07,2026-07-01,1303.1
+National,National (All Bangladesh),2026-07,2026-07-01,770.28
+NW,Northwest (Rajshahi + Rangpur),2026-08,2026-08-01,252.53
+NE,Northeast (Sylhet + Mymensingh),2026-08,2026-08-01,475.35
+Central,Central (Dhaka),2026-08,2026-08-01,324.06
+SW,Southwest (Khulna + Barishal),2026-08,2026-08-01,426.62
+SE,Southeast (Chattogram),2026-08,2026-08-01,767.14
+National,National (All Bangladesh),2026-08,2026-08-01,445.88
+NW,Northwest (Rajshahi + Rangpur),2026-09,2026-09-01,248.84
+NE,Northeast (Sylhet + Mymensingh),2026-09,2026-09-01,249.88
+Central,Central (Dhaka),2026-09,2026-09-01,291.55
+SW,Southwest (Khulna + Barishal),2026-09,2026-09-01,360.23
+SE,Southeast (Chattogram),2026-09,2026-09-01,441.36
+National,National (All Bangladesh),2026-09,2026-09-01,319.79

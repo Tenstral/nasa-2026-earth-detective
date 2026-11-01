@@ -1,10 +1,22 @@
 {
   "status": "COMPLETED",
-  "timestamp": "2026-11-01T06:05:19.029396",
-  "national_pearson_r": 0.9637,
-  "national_spearman_rho": 0.9803,
-  "national_bias_mbe_mm_mo": -77.92,
-  "national_percent_bias": -27.97,
-  "national_rmse_mm_mo": 121.91,
-  "conclusions": "GPM IMERG strongly correlates with NASA POWER (r > 0.95). IMERG shows a modest positive wet bias during the monsoon crest. Storage depletion in the NW remains physically decoupled from precipitation under both products."
+  "timestamp": "2026-11-01T17:59:15.256414",
+  "primary_dataset": "GPM_IMERG_V07B",
+  "secondary_dataset": "NASA_POWER_PRECTOTCORR",
+  "overlap_months": 285,
+  "overlap_period": "2002-01 to 2025-09",
+  "decision_rule": "GPM IMERG selected as primary based on statistical homogeneity (Pettitt p > 0.05) and consistency with BMD climatology (2,428 mm/yr). NASA POWER rejected as non-homogeneous due to significant post-2018 step inflation (p < 0.0001).",
+  "national_metrics": {
+    "raw_pearson_r": 0.899,
+    "anomaly_pearson_r": 0.6049,
+    "mean_imerg_mm_mo": 198.7,
+    "mean_power_mm_mo": 214.8,
+    "bias_power_minus_imerg": 16.1,
+    "percent_bias_pct": 8.1,
+    "rmse_mm_mo": 99.6
+  },
+  "power_break_date": "2014-12",
+  "power_pettitt_p": 0.0,
+  "diff_break_date": "2015-12",
+  "diff_pettitt_p": 0.0
 }
