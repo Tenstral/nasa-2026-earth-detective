@@ -1,15 +1,17 @@
 """
 NASA Space Apps 2026 – Bengal Hydro Detective
-v3 Seasonal Recharge Dynamics: 24-Season Rebound & Efficiency
-==============================================================
+v3 Seasonal Storage Response Dynamics: 24-Season Rebound & Response Ratio
+========================================================================
 Analyzes hydrological recovery dynamics across 24 monsoon seasons (2002–2025):
   - Pre-monsoon dry season low (Apr/May, or Mar) to post-monsoon peak (Sep/Oct, or Aug/Nov)
     storage rebound alone (Delta TWS, cm) — reported independently so it does not depend
     on the rainfall denominator.
   - Decoupled seasonal monsoon precipitation (P_monsoon, mm) from GPM IMERG V07B (4 complete months Jun-Sep).
-  - Seasonal recharge efficiency ratio: RE = Delta TWS (cm) / (0.1 * P_monsoon, cm).
+  - Seasonal storage response ratio: SRR = Delta TWS (cm) / (0.1 * P_monsoon, cm).
+    Limitation: Reflects bulk total water storage change, integrating unsaturated soil moisture
+    and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient.
   - Explicit flagging of satellite mission gap seasons (2017 lacks post-monsoon peak; 2018 lacks pre-monsoon low).
-  - Trend estimation on both storage rebound alone and recharge efficiency.
+  - Trend estimation on both storage rebound alone and seasonal storage response ratio.
 
 Outputs:
   outputs/v3/full_record/seasonal_recharge_24yr.csv
@@ -119,6 +121,8 @@ def compute_seasonal_recharge_table(reg_df: pd.DataFrame, rain_df: pd.DataFrame)
                 "rebound_cm": round(rebound_cm, 3) if not np.isnan(rebound_cm) else np.nan,
                 "monsoon_precip_imerg_mm": round(imerg_p, 1) if not np.isnan(imerg_p) else np.nan,
                 "monsoon_precip_power_mm": round(power_p, 1) if not np.isnan(power_p) else np.nan,
+                "storage_response_ratio_imerg": round(eff_imerg, 4) if not np.isnan(eff_imerg) else np.nan,
+                "storage_response_ratio_power": round(eff_power, 4) if not np.isnan(eff_power) else np.nan,
                 "recharge_efficiency_imerg": round(eff_imerg, 4) if not np.isnan(eff_imerg) else np.nan,
                 "recharge_efficiency_power": round(eff_power, 4) if not np.isnan(eff_power) else np.nan,
                 "valid": has_rebound,
@@ -190,38 +194,27 @@ def run_seasonal_recharge_analysis():
     table_df.to_csv(CSV_PATH, index=False)
 
     summary_results = []
-    print("\nRunning Seasonal Recharge Dynamics (2002–2025)...")
+    print("\nRunning Seasonal Storage Response Dynamics (2002–2025)...")
 
+    raw_results = []
     for reg in ["NW", "NE", "Central", "SW", "SE", "National"]:
         sub = table_df[(table_df["region"] == reg) & (table_df["valid"] == True)].copy()
         n_seasons = len(sub)
 
         yrs = sub["year"].values.astype(float)
         rebound = sub["rebound_cm"].values
-        eff_imerg = sub["recharge_efficiency_imerg"].values
-        eff_power = sub["recharge_efficiency_power"].dropna().values
+        eff_imerg = sub["storage_response_ratio_imerg"].values
+        eff_power = sub["storage_response_ratio_power"].dropna().values
 
         # 1. Storage Rebound ALONE (Delta TWS, cm)
         ess_reb = run_ess_mann_kendall(yrs, rebound, alpha=0.05)
-        reb_slope = ess_reb["slope"]
-        reb_ci_low = ess_reb["ci_low"]
-        reb_ci_high = ess_reb["ci_high"]
-        reb_p = ess_reb["p_value"]
-        reb_vrd = "Significant decrease" if (reb_p < 0.05 and reb_slope < 0) else (
-            "Suggestive decrease" if (reb_p < 0.05 and reb_slope < 0) else "No detectable trend"
-        )
 
-        # 2. Recharge Efficiency with IMERG (RE_imerg)
+        # 2. Storage Response Ratio with IMERG
         ess_eff = run_ess_mann_kendall(yrs, eff_imerg, alpha=0.05)
-        eff_slope = ess_eff["slope"]
-        eff_ci_low = ess_eff["ci_low"]
-        eff_ci_high = ess_eff["ci_high"]
-        eff_p = ess_eff["p_value"]
-        eff_vrd = "Declining efficiency" if (eff_p < 0.05 and eff_slope < 0) else "No detectable trend"
 
         # 3. Old POWER Recharge Efficiency (for comparison)
         if len(eff_power) >= 8:
-            yrs_pow = sub.dropna(subset=["recharge_efficiency_power"])["year"].values.astype(float)
+            yrs_pow = sub.dropna(subset=["storage_response_ratio_power"])["year"].values.astype(float)
             ess_pow = run_ess_mann_kendall(yrs_pow, eff_power, alpha=0.05)
             pow_slope = ess_pow["slope"]
             pow_p = ess_pow["p_value"]
@@ -229,35 +222,87 @@ def run_seasonal_recharge_analysis():
         else:
             pow_slope = pow_p = pow_mean = np.nan
 
-        # 4. Exploratory Segmented Regression on IMERG Efficiency
+        # 4. Exploratory Segmented Regression on IMERG Response Ratio
         seg_res = fit_exploratory_segmented_regression(yrs, eff_imerg)
 
-        summary_results.append({
+        raw_results.append({
             "region": reg,
             "region_name": REGIONS[reg]["name_long"],
             "n_valid_seasons": n_seasons,
             "rebound_alone_mean_cm": round(float(np.mean(rebound)), 2),
-            "rebound_alone_slope_cm_yr": round(reb_slope, 4),
-            "rebound_alone_ci95": [round(reb_ci_low, 3), round(reb_ci_high, 3)],
-            "rebound_alone_p_value": round(reb_p, 5),
-            "rebound_alone_verdict": reb_vrd,
-            "efficiency_imerg_mean": round(float(np.mean(eff_imerg)), 4),
-            "efficiency_imerg_slope_per_yr": round(eff_slope, 5),
-            "efficiency_imerg_ci95": [round(eff_ci_low, 4), round(eff_ci_high, 4)],
-            "efficiency_imerg_p_value": round(eff_p, 5),
-            "efficiency_imerg_verdict": eff_vrd,
-            "old_power_efficiency_mean": round(pow_mean, 4) if not np.isnan(pow_mean) else None,
-            "old_power_efficiency_slope_per_yr": round(pow_slope, 5) if not np.isnan(pow_slope) else None,
-            "old_power_efficiency_p_value": round(pow_p, 5) if not np.isnan(pow_p) else None,
+            "rebound_alone_slope_cm_yr": round(ess_reb["slope"], 4),
+            "rebound_alone_ci95": [round(ess_reb["ci_low"], 3), round(ess_reb["ci_high"], 3)],
+            "rebound_alone_p_value": round(ess_reb["p_value"], 5),
+            "response_ratio_mean": round(float(np.mean(eff_imerg)), 4),
+            "response_ratio_slope_per_yr": round(ess_eff["slope"], 5),
+            "response_ratio_ci95": [round(ess_eff["ci_low"], 4), round(ess_eff["ci_high"], 4)],
+            "response_ratio_p_value": round(ess_eff["p_value"], 5),
+            "old_power_response_ratio_mean": round(pow_mean, 4) if not np.isnan(pow_mean) else None,
+            "old_power_response_ratio_slope_per_yr": round(pow_slope, 5) if not np.isnan(pow_slope) else None,
+            "old_power_response_ratio_p_value": round(pow_p, 5) if not np.isnan(pow_p) else None,
             "exploratory_segmented_breakpoint": seg_res["breakpoint_year"],
             "exploratory_slope_before": seg_res["slope_before"],
             "exploratory_slope_after": seg_res["slope_after"],
         })
 
+    # Within-family Benjamini-Hochberg FDR calculation across the 6 entities
+    reb_p_vals = [r["rebound_alone_p_value"] for r in raw_results]
+    eff_p_vals = [r["response_ratio_p_value"] for r in raw_results]
+
+    def calc_bh_fdr(p_values):
+        m = len(p_values)
+        s_idx = np.argsort(p_values)
+        q_vals = np.zeros(m)
+        cummin = 1.0
+        for rank in range(m, 0, -1):
+            idx = s_idx[rank - 1]
+            p = p_values[idx]
+            q = (p * m) / rank
+            cummin = min(cummin, q)
+            q_vals[idx] = min(1.0, cummin)
+        return q_vals
+
+    reb_q_vals = calc_bh_fdr(reb_p_vals)
+    eff_q_vals = calc_bh_fdr(eff_p_vals)
+
+    def assign_verdict(p, q, slope, ci_low, ci_high):
+        ci_excludes_zero = (ci_low > 0 or ci_high < 0)
+        if q < 0.05 and ci_excludes_zero:
+            return "Significant increase" if slope > 0 else "Significant decrease"
+        elif p < 0.05:
+            return "Suggestive increase" if slope > 0 else "Suggestive decrease"
+        else:
+            return "No detectable trend"
+
+    summary_results = []
+    for i, r in enumerate(raw_results):
+        r["rebound_alone_fdr_q"] = round(float(reb_q_vals[i]), 5)
+        r["rebound_alone_verdict"] = assign_verdict(
+            r["rebound_alone_p_value"], reb_q_vals[i],
+            r["rebound_alone_slope_cm_yr"], r["rebound_alone_ci95"][0], r["rebound_alone_ci95"][1]
+        )
+
+        r["response_ratio_fdr_q"] = round(float(eff_q_vals[i]), 5)
+        r["response_ratio_verdict"] = assign_verdict(
+            r["response_ratio_p_value"], eff_q_vals[i],
+            r["response_ratio_slope_per_yr"], r["response_ratio_ci95"][0], r["response_ratio_ci95"][1]
+        )
+
+        # Backward compatibility aliases
+        r["efficiency_imerg_mean"] = r["response_ratio_mean"]
+        r["efficiency_imerg_slope_per_yr"] = r["response_ratio_slope_per_yr"]
+        r["efficiency_imerg_ci95"] = r["response_ratio_ci95"]
+        r["efficiency_imerg_p_value"] = r["response_ratio_p_value"]
+        r["efficiency_imerg_verdict"] = r["response_ratio_verdict"]
+        r["old_power_efficiency_mean"] = r["old_power_response_ratio_mean"]
+        r["old_power_efficiency_slope_per_yr"] = r["old_power_response_ratio_slope_per_yr"]
+        r["old_power_efficiency_p_value"] = r["old_power_response_ratio_p_value"]
+
+        summary_results.append(r)
         print(
-            f"  {reg:10s} (N={n_seasons} seasons): Mean Rebound = {np.mean(rebound):.1f} cm "
-            f"(slope: {reb_slope:+.3f} cm/yr, p={reb_p:.4f}) | "
-            f"IMERG Efficiency = {np.mean(eff_imerg)*100:.1f}% (slope: {eff_slope*100:+.3f}%/yr, p={eff_p:.4f})"
+            f"  {r['region']:10s} (N={r['n_valid_seasons']} seasons): Mean Rebound = {r['rebound_alone_mean_cm']:.1f} cm "
+            f"(slope: {r['rebound_alone_slope_cm_yr']:+.3f} cm/yr, p={r['rebound_alone_p_value']:.4f}, verdict={r['rebound_alone_verdict']}) | "
+            f"Response Ratio = {r['response_ratio_mean']*100:.1f}% (slope: {r['response_ratio_slope_per_yr']*100:+.3f}%/yr, p={r['response_ratio_p_value']:.4f}, q={r['response_ratio_fdr_q']:.4f}, verdict={r['response_ratio_verdict']})"
         )
 
     summary = {
@@ -265,7 +310,8 @@ def run_seasonal_recharge_analysis():
         "period": "2002 to 2025 (24 hydrological monsoon seasons; 22 complete observation pairs)",
         "definitions": {
             "rebound_alone_cm": "TWS_peak (Sep/Oct) minus TWS_pre (Apr/May) in cm (independent of rainfall)",
-            "recharge_efficiency_imerg": "rebound_cm / (0.1 * imerg_monsoon_precip_mm) [fractional recovery]",
+            "seasonal_storage_response_ratio_imerg": "rebound_cm / (0.1 * imerg_monsoon_precip_mm) [fractional bulk storage recovery]",
+            "limitation": "The seasonal storage response ratio (ΔTWS / P_monsoon) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient.",
         },
         "results": summary_results,
     }
@@ -311,17 +357,18 @@ def plot_fig2_recharge_efficiency(df: pd.DataFrame):
     ax1.grid(True, linestyle=":", alpha=0.5)
     ax1.legend(loc="upper right", ncol=3, fontsize=8)
 
-    # Panel 2: Recharge Efficiency Ratio (%) with IMERG
+    # Panel 2: Seasonal Storage Response Ratio (%) with IMERG
     for reg in ["NW", "NE", "Central", "SW", "SE", "National"]:
         sub = valid_df[valid_df["region"] == reg]
-        eff_pct = sub["recharge_efficiency_imerg"] * 100.0
+        eff_pct = sub["storage_response_ratio_imerg"] * 100.0
         ax2.plot(sub["year"], eff_pct, marker="s", color=reg_colors[reg],
-                 label=f"{reg} Efficiency", lw=1.8 if reg != "National" else 2.5,
+                 label=f"{reg} Response Ratio", lw=1.8 if reg != "National" else 2.5,
                  linestyle="-" if reg != "National" else "--")
 
-    ax2.set_title("B. Seasonal Recharge Efficiency Ratio: [ΔTWS (cm) / (0.1 × IMERG Monsoon Precip (cm))] × 100%",
-                  fontsize=12, fontweight="bold")
-    ax2.set_ylabel("Recharge Efficiency (%)", fontsize=10)
+    ax2.set_title("B. Seasonal Storage Response Ratio: [ΔTWS (cm) / (0.1 × IMERG Monsoon Precip (cm))] × 100%\n"
+                  "Limitation: Integrates bulk total water storage (soil moisture + surface water + groundwater), not isolated aquifer recharge",
+                  fontsize=11, fontweight="bold")
+    ax2.set_ylabel("Storage Response Ratio (%)", fontsize=10)
     ax2.set_xlabel("Hydrological Year (2002–2025)", fontsize=11)
     ax2.grid(True, linestyle=":", alpha=0.5)
 

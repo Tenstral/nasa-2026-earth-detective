@@ -55,10 +55,10 @@ Every window is evaluated under its own independent Benjamini-Hochberg False Dis
 ---
 
 ### 2.2 Workstream 0: Full-Record Re-Baselining & Gap Calibration (`outputs/v3/full_record/`)
-- **Gap Calibration**: Synthetic AR(1) red-noise simulation ($B = 1,000$ iterations) verified an empirical false-positive rate of $4.70\%$ under real missing-month geometries (nominal $5.00\%$), proving Hamed-Rao test validity across the 11-month GRACE-1 to GRACE-FO transition gap.
+- **Gap Calibration**: 2,000-run Monte Carlo simulation under real missing-month geometries verified that Effective-Sample-Size (ESS) corrected Mann-Kendall with Hurwicz bias correction achieves empirical false-positive rates of 5.0–5.8% (nominal 5.0%) and 94.2–95.0% CI coverage across empirical regional autocorrelations ($\phi \in [0.45, 0.83]$), establishing it as the primary calibrated significance test. Hamed-Rao (FPR 13–25%) failed calibration and is retained as secondary reference only.
 - **Instrument Offset Test**: Newey-West HAC regression across the June 2017 to June 2018 transition detected no statistically significant artificial step (National offset: $+1.12\text{ cm}, t = 0.58, p = 0.56$; NW offset: $+1.34\text{ cm}, t = 0.69, p = 0.49$).
 - **Epoch Comparison**: Paired circular block-bootstrap tests ($B = 9,999$) confirmed that the rate of storage loss in GRACE-1 vs GRACE-FO is statistically indistinguishable (difference 95% CIs include zero), verifying that northern storage loss has continued unabated across satellite generations.
-- **24-Year Seasonal Recharge Decline**: Across 22 complete monsoon seasons (2002–2025), national seasonal recharge efficiency declined at **$-1.05\%/\text{yr}$ ($p = 0.0007$)**, reflecting altered hydrological partitioning and rapid runoff.
+- **24-Year Seasonal Storage Response Ratio**: Across 22 complete monsoon seasons (2002–2025), decoupled GPM IMERG V07B precipitation confirms the national seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) averages 32.6% (+0.136%/yr, raw p = 0.021, FDR q = 0.111; Suggestive increase), resolving the previous -1.05%/yr decline as a denominator artifact of NASA POWER's post-2015 surge. *Limitation:* reflects bulk total water storage change (soil moisture + surface water + groundwater), not isolated aquifer recharge.
 
 ---
 

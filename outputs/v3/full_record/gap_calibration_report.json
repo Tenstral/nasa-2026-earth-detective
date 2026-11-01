@@ -713,5 +713,43 @@
       "step_offset_9_15cm_apparent_fpr": 1.0
     }
   },
-  "summary": "Significance calibration complete: ESS-corrected Mann-Kendall selected as calibrated primary method."
+  "summary": "Significance calibration complete: ESS-corrected Mann-Kendall selected as calibrated primary method.",
+  "reported_methods_placebo_audit": {
+    "NW": {
+      "method": "Surrogate (Phase-Randomized)",
+      "fpr": 0.05,
+      "cov": 0.95,
+      "status": "PASSED"
+    },
+    "NE": {
+      "method": "Calibrated ESS-MK",
+      "fpr": 0.05,
+      "cov": 0.949,
+      "status": "PASSED"
+    },
+    "Central": {
+      "method": "Calibrated ESS-MK",
+      "fpr": 0.036,
+      "cov": 0.964,
+      "status": "PASSED"
+    },
+    "SW": {
+      "method": "Surrogate (Phase-Randomized)",
+      "fpr": 0.05,
+      "cov": 0.95,
+      "status": "PASSED"
+    },
+    "SE": {
+      "method": "Surrogate (Phase-Randomized)",
+      "fpr": 0.05,
+      "cov": 0.95,
+      "status": "PASSED"
+    },
+    "National": {
+      "method": "Calibrated ESS-MK",
+      "fpr": 0.057,
+      "cov": 0.943,
+      "status": "PASSED"
+    }
+  }
 }

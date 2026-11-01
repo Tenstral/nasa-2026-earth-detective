@@ -1,145 +1,145 @@
-region,region_name,year,pre_monsoon_low_cm,post_monsoon_peak_cm,rebound_cm,monsoon_precip_imerg_mm,monsoon_precip_power_mm,recharge_efficiency_imerg,recharge_efficiency_power,valid,note
-NW,Northwest (Rajshahi + Rangpur),2002,-9.612,40.907,50.519,1830.1,,0.276,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2003,-17.445,30.983,48.428,1332.2,,0.3635,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2004,-20.599,36.731,57.33,1732.1,,0.331,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2005,-15.732,27.216,42.948,1551.2,,0.2769,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2006,-27.359,21.468,48.827,1104.2,,0.4422,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2007,-23.709,47.289,70.999,1732.7,,0.4098,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2008,-22.17,39.247,61.417,1489.5,,0.4123,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2009,-30.199,25.86,56.059,1317.2,,0.4256,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2010,-32.389,21.829,54.218,1229.1,,0.4411,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2011,-34.91,29.269,64.179,1491.3,,0.4304,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2012,-35.543,15.944,51.488,1330.9,,0.3869,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2013,-43.292,4.596,47.888,1117.8,,0.4284,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2014,-41.258,15.386,56.645,1353.1,,0.4186,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2015,-35.168,24.788,59.957,1483.6,,0.4041,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2016,-35.15,16.739,51.889,1329.3,,0.3903,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2017,-28.691,,,1327.0,,,,False,GRACE mission gap: missing post-monsoon peak
-NW,Northwest (Rajshahi + Rangpur),2018,,-14.508,,1031.7,,,,False,GRACE-FO launch: missing pre-monsoon low
-NW,Northwest (Rajshahi + Rangpur),2019,-36.206,6.811,43.017,1350.9,,0.3184,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2020,-43.28,24.681,67.962,1751.5,,0.388,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2021,-48.306,19.519,67.825,1300.2,,0.5216,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2022,-36.818,4.441,41.259,1218.4,,0.3386,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2023,-50.53,-3.022,47.508,1350.0,,0.3519,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2024,-58.502,4.865,63.366,1510.9,,0.4194,,True,Complete seasonal pair
-NW,Northwest (Rajshahi + Rangpur),2025,-54.995,14.563,69.558,1287.7,,0.5402,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2002,-18.983,38.182,57.166,2176.3,,0.2627,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2003,-23.697,30.601,54.297,1854.3,,0.2928,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2004,-26.294,38.089,64.383,2464.0,,0.2613,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2005,-22.566,29.849,52.415,1949.8,,0.2688,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2006,-27.88,24.665,52.544,1668.2,,0.315,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2007,-25.535,42.661,68.196,2472.0,,0.2759,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2008,-22.678,37.167,59.845,2044.4,,0.2927,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2009,-28.231,30.904,59.135,1725.1,,0.3428,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2010,-35.121,26.283,61.404,1953.8,,0.3143,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2011,-28.749,32.787,61.537,1722.0,,0.3574,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2012,-32.591,23.06,55.651,2224.6,,0.2502,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2013,-38.012,9.676,47.688,1386.0,,0.3441,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2014,-35.809,23.348,59.156,2122.1,,0.2788,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2015,-42.565,29.433,71.998,2338.5,,0.3079,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2016,-30.105,17.575,47.68,1651.7,,0.2887,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2017,-26.956,,,2337.0,,,,False,GRACE mission gap: missing post-monsoon peak
-NE,Northeast (Sylhet + Mymensingh),2018,,-0.28,,1624.2,,,,False,GRACE-FO launch: missing pre-monsoon low
-NE,Northeast (Sylhet + Mymensingh),2019,-29.093,17.418,46.512,1890.8,,0.246,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2020,-34.824,29.388,64.213,2445.6,,0.2626,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2021,-40.108,25.401,65.509,1828.9,,0.3582,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2022,-34.577,16.453,51.03,2002.9,,0.2548,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2023,-53.593,14.568,68.161,1996.3,,0.3414,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2024,-46.097,22.759,68.856,2162.2,,0.3185,,True,Complete seasonal pair
-NE,Northeast (Sylhet + Mymensingh),2025,-45.477,21.329,66.806,1764.8,,0.3785,,True,Complete seasonal pair
-Central,Central (Dhaka),2002,-20.682,37.891,58.573,1656.2,,0.3537,,True,Complete seasonal pair
-Central,Central (Dhaka),2003,-25.055,30.652,55.707,1211.1,,0.46,,True,Complete seasonal pair
-Central,Central (Dhaka),2004,-25.089,36.93,62.019,1883.3,,0.3293,,True,Complete seasonal pair
-Central,Central (Dhaka),2005,-22.499,29.632,52.131,1459.4,,0.3572,,True,Complete seasonal pair
-Central,Central (Dhaka),2006,-27.661,27.05,54.711,1383.5,,0.3955,,True,Complete seasonal pair
-Central,Central (Dhaka),2007,-25.748,46.154,71.901,1883.2,,0.3818,,True,Complete seasonal pair
-Central,Central (Dhaka),2008,-22.48,37.792,60.272,1465.4,,0.4113,,True,Complete seasonal pair
-Central,Central (Dhaka),2009,-27.706,30.742,58.449,1462.5,,0.3996,,True,Complete seasonal pair
-Central,Central (Dhaka),2010,-30.446,26.6,57.047,1093.2,,0.5218,,True,Complete seasonal pair
-Central,Central (Dhaka),2011,-29.175,33.486,62.661,1395.3,,0.4491,,True,Complete seasonal pair
-Central,Central (Dhaka),2012,-29.852,25.032,54.884,1224.2,,0.4483,,True,Complete seasonal pair
-Central,Central (Dhaka),2013,-36.115,13.299,49.414,1093.8,,0.4518,,True,Complete seasonal pair
-Central,Central (Dhaka),2014,-36.042,23.515,59.557,1406.8,,0.4234,,True,Complete seasonal pair
-Central,Central (Dhaka),2015,-36.292,29.84,66.132,1715.5,,0.3855,,True,Complete seasonal pair
-Central,Central (Dhaka),2016,-28.986,18.401,47.388,1247.5,,0.3799,,True,Complete seasonal pair
-Central,Central (Dhaka),2017,-27.131,,,1693.6,,,,False,GRACE mission gap: missing post-monsoon peak
-Central,Central (Dhaka),2018,,2.098,,1076.0,,,,False,GRACE-FO launch: missing pre-monsoon low
-Central,Central (Dhaka),2019,-26.598,19.278,45.876,1184.5,,0.3873,,True,Complete seasonal pair
-Central,Central (Dhaka),2020,-32.828,32.01,64.838,1429.0,,0.4537,,True,Complete seasonal pair
-Central,Central (Dhaka),2021,-39.404,26.888,66.293,1527.6,,0.434,,True,Complete seasonal pair
-Central,Central (Dhaka),2022,-32.142,17.989,50.131,1095.8,,0.4575,,True,Complete seasonal pair
-Central,Central (Dhaka),2023,-44.981,15.859,60.84,1260.1,,0.4828,,True,Complete seasonal pair
-Central,Central (Dhaka),2024,-45.189,23.12,68.309,1586.1,,0.4307,,True,Complete seasonal pair
-Central,Central (Dhaka),2025,-44.571,27.493,72.064,1458.2,,0.4942,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2002,-20.671,30.028,50.699,1863.1,,0.2721,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2003,-23.311,26.313,49.624,1304.5,,0.3804,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2004,-23.319,27.958,51.277,1795.2,,0.2856,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2005,-23.158,24.561,47.718,1537.1,,0.3104,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2006,-22.742,24.973,47.716,1606.3,,0.2971,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2007,-25.045,35.522,60.567,1701.2,,0.356,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2008,-15.883,30.795,46.678,1508.9,,0.3094,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2009,-21.08,23.991,45.071,1473.8,,0.3058,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2010,-25.375,27.279,52.654,1157.5,,0.4549,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2011,-20.247,26.406,46.653,1713.4,,0.2723,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2012,-22.688,22.437,45.125,1321.4,,0.3415,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2013,-23.124,18.106,41.23,1414.1,,0.2916,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2014,-27.877,23.899,51.776,1334.4,,0.388,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2015,-27.978,23.845,51.823,1952.0,,0.2655,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2016,-25.156,23.162,48.318,1504.0,,0.3213,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2017,-22.793,,,1658.1,,,,False,GRACE mission gap: missing post-monsoon peak
-SW,Southwest (Khulna + Barishal),2018,,6.705,,1221.5,,,,False,GRACE-FO launch: missing pre-monsoon low
-SW,Southwest (Khulna + Barishal),2019,-24.598,19.372,43.97,1265.6,,0.3474,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2020,-24.983,29.958,54.941,1496.7,,0.3671,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2021,-26.048,26.722,52.771,1844.4,,0.2861,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2022,-24.161,23.548,47.708,1093.7,,0.4362,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2023,-24.786,20.072,44.858,1358.1,,0.3303,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2024,-26.755,25.66,52.415,1837.0,,0.2853,,True,Complete seasonal pair
-SW,Southwest (Khulna + Barishal),2025,-24.335,33.682,58.017,1623.7,,0.3573,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2002,-22.493,30.967,53.46,2049.6,,0.2608,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2003,-24.355,25.783,50.138,2058.0,,0.2436,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2004,-25.805,29.476,55.281,2353.2,,0.2349,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2005,-24.865,24.878,49.744,1903.6,,0.2613,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2006,-25.043,25.671,50.714,1744.2,,0.2908,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2007,-26.256,33.526,59.782,2330.4,,0.2565,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2008,-19.432,31.249,50.682,2106.5,,0.2406,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2009,-23.539,24.535,48.073,1890.2,,0.2543,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2010,-27.883,27.018,54.901,1634.2,,0.336,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2011,-22.095,28.601,50.696,2208.2,,0.2296,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2012,-24.955,23.755,48.71,2005.9,,0.2428,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2013,-25.117,16.981,42.098,1599.8,,0.2631,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2014,-28.278,24.224,52.501,1975.8,,0.2657,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2015,-31.723,24.759,56.482,2780.1,,0.2032,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2016,-26.276,23.861,50.138,1848.1,,0.2713,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2017,-24.614,,,2551.6,,,,False,GRACE mission gap: missing post-monsoon peak
-SE,Southeast (Chattogram),2018,,8.236,,1945.5,,,,False,GRACE-FO launch: missing pre-monsoon low
-SE,Southeast (Chattogram),2019,-25.881,21.913,47.794,1992.6,,0.2399,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2020,-26.817,28.686,55.502,1954.3,,0.284,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2021,-27.121,26.187,53.308,2259.8,,0.2359,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2022,-25.964,23.5,49.464,1489.5,,0.3321,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2023,-29.304,23.17,52.474,1843.6,,0.2846,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2024,-27.425,28.083,55.508,2544.3,,0.2182,,True,Complete seasonal pair
-SE,Southeast (Chattogram),2025,-25.123,31.881,57.003,2050.9,,0.2779,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2002,-17.788,35.333,53.121,1918.0,,0.277,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2003,-22.252,28.286,50.538,1547.0,,0.3267,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2004,-23.608,33.099,56.707,2020.9,,0.2806,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2005,-21.059,26.627,47.686,1675.8,,0.2846,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2006,-25.486,23.066,48.551,1486.7,,0.3266,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2007,-23.818,40.987,64.805,1996.2,,0.3246,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2008,-19.558,35.019,54.578,1712.2,,0.3188,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2009,-25.919,26.396,52.315,1560.8,,0.3352,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2010,-29.794,25.261,55.055,1401.6,,0.3928,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2011,-27.32,29.611,56.932,1714.7,,0.332,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2012,-28.609,21.718,50.328,1605.9,,0.3134,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2013,-33.21,12.296,45.506,1327.1,,0.3429,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2014,-33.712,20.541,54.254,1616.2,,0.3357,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2015,-33.914,26.07,59.984,2035.7,,0.2947,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2016,-29.056,19.717,48.773,1519.4,,0.321,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2017,-25.869,,,1878.6,,,,False,GRACE mission gap: missing post-monsoon peak
-National,National Composite (All 8 Divisions),2018,,-0.139,,1370.1,,,,False,GRACE-FO launch: missing pre-monsoon low
-National,National Composite (All 8 Divisions),2019,-28.085,16.233,44.318,1532.1,,0.2893,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2020,-32.605,28.393,60.998,1809.2,,0.3372,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2021,-36.171,24.187,60.358,1744.0,,0.3461,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2022,-30.62,16.427,47.047,1363.6,,0.345,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2023,-39.429,13.101,52.531,1551.7,,0.3385,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2024,-39.976,18.366,58.343,1919.5,,0.3039,,True,Complete seasonal pair
-National,National Composite (All 8 Divisions),2025,-39.132,24.965,64.097,1626.8,,0.394,,True,Complete seasonal pair
+region,region_name,year,pre_monsoon_low_cm,post_monsoon_peak_cm,rebound_cm,monsoon_precip_imerg_mm,monsoon_precip_power_mm,storage_response_ratio_imerg,storage_response_ratio_power,recharge_efficiency_imerg,recharge_efficiency_power,valid,note
+NW,Northwest (Rajshahi + Rangpur),2002,-9.612,40.907,50.519,1830.1,,0.276,,0.276,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2003,-17.445,30.983,48.428,1332.2,,0.3635,,0.3635,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2004,-20.599,36.731,57.33,1732.1,,0.331,,0.331,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2005,-15.732,27.216,42.948,1551.2,,0.2769,,0.2769,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2006,-27.359,21.468,48.827,1104.2,,0.4422,,0.4422,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2007,-23.709,47.289,70.999,1732.7,,0.4098,,0.4098,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2008,-22.17,39.247,61.417,1489.5,,0.4123,,0.4123,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2009,-30.199,25.86,56.059,1317.2,,0.4256,,0.4256,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2010,-32.389,21.829,54.218,1229.1,,0.4411,,0.4411,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2011,-34.91,29.269,64.179,1491.3,,0.4304,,0.4304,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2012,-35.543,15.944,51.488,1330.9,,0.3869,,0.3869,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2013,-43.292,4.596,47.888,1117.8,,0.4284,,0.4284,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2014,-41.258,15.386,56.645,1353.1,,0.4186,,0.4186,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2015,-35.168,24.788,59.957,1483.6,,0.4041,,0.4041,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2016,-35.15,16.739,51.889,1329.3,,0.3903,,0.3903,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2017,-28.691,,,1327.0,,,,,,False,GRACE mission gap: missing post-monsoon peak
+NW,Northwest (Rajshahi + Rangpur),2018,,-14.508,,1031.7,,,,,,False,GRACE-FO launch: missing pre-monsoon low
+NW,Northwest (Rajshahi + Rangpur),2019,-36.206,6.811,43.017,1350.9,,0.3184,,0.3184,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2020,-43.28,24.681,67.962,1751.5,,0.388,,0.388,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2021,-48.306,19.519,67.825,1300.2,,0.5216,,0.5216,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2022,-36.818,4.441,41.259,1218.4,,0.3386,,0.3386,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2023,-50.53,-3.022,47.508,1350.0,,0.3519,,0.3519,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2024,-58.502,4.865,63.366,1510.9,,0.4194,,0.4194,,True,Complete seasonal pair
+NW,Northwest (Rajshahi + Rangpur),2025,-54.995,14.563,69.558,1287.7,,0.5402,,0.5402,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2002,-18.983,38.182,57.166,2176.3,,0.2627,,0.2627,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2003,-23.697,30.601,54.297,1854.3,,0.2928,,0.2928,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2004,-26.294,38.089,64.383,2464.0,,0.2613,,0.2613,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2005,-22.566,29.849,52.415,1949.8,,0.2688,,0.2688,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2006,-27.88,24.665,52.544,1668.2,,0.315,,0.315,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2007,-25.535,42.661,68.196,2472.0,,0.2759,,0.2759,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2008,-22.678,37.167,59.845,2044.4,,0.2927,,0.2927,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2009,-28.231,30.904,59.135,1725.1,,0.3428,,0.3428,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2010,-35.121,26.283,61.404,1953.8,,0.3143,,0.3143,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2011,-28.749,32.787,61.537,1722.0,,0.3574,,0.3574,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2012,-32.591,23.06,55.651,2224.6,,0.2502,,0.2502,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2013,-38.012,9.676,47.688,1386.0,,0.3441,,0.3441,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2014,-35.809,23.348,59.156,2122.1,,0.2788,,0.2788,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2015,-42.565,29.433,71.998,2338.5,,0.3079,,0.3079,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2016,-30.105,17.575,47.68,1651.7,,0.2887,,0.2887,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2017,-26.956,,,2337.0,,,,,,False,GRACE mission gap: missing post-monsoon peak
+NE,Northeast (Sylhet + Mymensingh),2018,,-0.28,,1624.2,,,,,,False,GRACE-FO launch: missing pre-monsoon low
+NE,Northeast (Sylhet + Mymensingh),2019,-29.093,17.418,46.512,1890.8,,0.246,,0.246,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2020,-34.824,29.388,64.213,2445.6,,0.2626,,0.2626,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2021,-40.108,25.401,65.509,1828.9,,0.3582,,0.3582,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2022,-34.577,16.453,51.03,2002.9,,0.2548,,0.2548,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2023,-53.593,14.568,68.161,1996.3,,0.3414,,0.3414,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2024,-46.097,22.759,68.856,2162.2,,0.3185,,0.3185,,True,Complete seasonal pair
+NE,Northeast (Sylhet + Mymensingh),2025,-45.477,21.329,66.806,1764.8,,0.3785,,0.3785,,True,Complete seasonal pair
+Central,Central (Dhaka),2002,-20.682,37.891,58.573,1656.2,,0.3537,,0.3537,,True,Complete seasonal pair
+Central,Central (Dhaka),2003,-25.055,30.652,55.707,1211.1,,0.46,,0.46,,True,Complete seasonal pair
+Central,Central (Dhaka),2004,-25.089,36.93,62.019,1883.3,,0.3293,,0.3293,,True,Complete seasonal pair
+Central,Central (Dhaka),2005,-22.499,29.632,52.131,1459.4,,0.3572,,0.3572,,True,Complete seasonal pair
+Central,Central (Dhaka),2006,-27.661,27.05,54.711,1383.5,,0.3955,,0.3955,,True,Complete seasonal pair
+Central,Central (Dhaka),2007,-25.748,46.154,71.901,1883.2,,0.3818,,0.3818,,True,Complete seasonal pair
+Central,Central (Dhaka),2008,-22.48,37.792,60.272,1465.4,,0.4113,,0.4113,,True,Complete seasonal pair
+Central,Central (Dhaka),2009,-27.706,30.742,58.449,1462.5,,0.3996,,0.3996,,True,Complete seasonal pair
+Central,Central (Dhaka),2010,-30.446,26.6,57.047,1093.2,,0.5218,,0.5218,,True,Complete seasonal pair
+Central,Central (Dhaka),2011,-29.175,33.486,62.661,1395.3,,0.4491,,0.4491,,True,Complete seasonal pair
+Central,Central (Dhaka),2012,-29.852,25.032,54.884,1224.2,,0.4483,,0.4483,,True,Complete seasonal pair
+Central,Central (Dhaka),2013,-36.115,13.299,49.414,1093.8,,0.4518,,0.4518,,True,Complete seasonal pair
+Central,Central (Dhaka),2014,-36.042,23.515,59.557,1406.8,,0.4234,,0.4234,,True,Complete seasonal pair
+Central,Central (Dhaka),2015,-36.292,29.84,66.132,1715.5,,0.3855,,0.3855,,True,Complete seasonal pair
+Central,Central (Dhaka),2016,-28.986,18.401,47.388,1247.5,,0.3799,,0.3799,,True,Complete seasonal pair
+Central,Central (Dhaka),2017,-27.131,,,1693.6,,,,,,False,GRACE mission gap: missing post-monsoon peak
+Central,Central (Dhaka),2018,,2.098,,1076.0,,,,,,False,GRACE-FO launch: missing pre-monsoon low
+Central,Central (Dhaka),2019,-26.598,19.278,45.876,1184.5,,0.3873,,0.3873,,True,Complete seasonal pair
+Central,Central (Dhaka),2020,-32.828,32.01,64.838,1429.0,,0.4537,,0.4537,,True,Complete seasonal pair
+Central,Central (Dhaka),2021,-39.404,26.888,66.293,1527.6,,0.434,,0.434,,True,Complete seasonal pair
+Central,Central (Dhaka),2022,-32.142,17.989,50.131,1095.8,,0.4575,,0.4575,,True,Complete seasonal pair
+Central,Central (Dhaka),2023,-44.981,15.859,60.84,1260.1,,0.4828,,0.4828,,True,Complete seasonal pair
+Central,Central (Dhaka),2024,-45.189,23.12,68.309,1586.1,,0.4307,,0.4307,,True,Complete seasonal pair
+Central,Central (Dhaka),2025,-44.571,27.493,72.064,1458.2,,0.4942,,0.4942,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2002,-20.671,30.028,50.699,1863.1,,0.2721,,0.2721,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2003,-23.311,26.313,49.624,1304.5,,0.3804,,0.3804,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2004,-23.319,27.958,51.277,1795.2,,0.2856,,0.2856,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2005,-23.158,24.561,47.718,1537.1,,0.3104,,0.3104,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2006,-22.742,24.973,47.716,1606.3,,0.2971,,0.2971,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2007,-25.045,35.522,60.567,1701.2,,0.356,,0.356,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2008,-15.883,30.795,46.678,1508.9,,0.3094,,0.3094,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2009,-21.08,23.991,45.071,1473.8,,0.3058,,0.3058,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2010,-25.375,27.279,52.654,1157.5,,0.4549,,0.4549,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2011,-20.247,26.406,46.653,1713.4,,0.2723,,0.2723,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2012,-22.688,22.437,45.125,1321.4,,0.3415,,0.3415,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2013,-23.124,18.106,41.23,1414.1,,0.2916,,0.2916,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2014,-27.877,23.899,51.776,1334.4,,0.388,,0.388,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2015,-27.978,23.845,51.823,1952.0,,0.2655,,0.2655,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2016,-25.156,23.162,48.318,1504.0,,0.3213,,0.3213,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2017,-22.793,,,1658.1,,,,,,False,GRACE mission gap: missing post-monsoon peak
+SW,Southwest (Khulna + Barishal),2018,,6.705,,1221.5,,,,,,False,GRACE-FO launch: missing pre-monsoon low
+SW,Southwest (Khulna + Barishal),2019,-24.598,19.372,43.97,1265.6,,0.3474,,0.3474,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2020,-24.983,29.958,54.941,1496.7,,0.3671,,0.3671,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2021,-26.048,26.722,52.771,1844.4,,0.2861,,0.2861,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2022,-24.161,23.548,47.708,1093.7,,0.4362,,0.4362,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2023,-24.786,20.072,44.858,1358.1,,0.3303,,0.3303,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2024,-26.755,25.66,52.415,1837.0,,0.2853,,0.2853,,True,Complete seasonal pair
+SW,Southwest (Khulna + Barishal),2025,-24.335,33.682,58.017,1623.7,,0.3573,,0.3573,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2002,-22.493,30.967,53.46,2049.6,,0.2608,,0.2608,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2003,-24.355,25.783,50.138,2058.0,,0.2436,,0.2436,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2004,-25.805,29.476,55.281,2353.2,,0.2349,,0.2349,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2005,-24.865,24.878,49.744,1903.6,,0.2613,,0.2613,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2006,-25.043,25.671,50.714,1744.2,,0.2908,,0.2908,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2007,-26.256,33.526,59.782,2330.4,,0.2565,,0.2565,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2008,-19.432,31.249,50.682,2106.5,,0.2406,,0.2406,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2009,-23.539,24.535,48.073,1890.2,,0.2543,,0.2543,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2010,-27.883,27.018,54.901,1634.2,,0.336,,0.336,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2011,-22.095,28.601,50.696,2208.2,,0.2296,,0.2296,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2012,-24.955,23.755,48.71,2005.9,,0.2428,,0.2428,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2013,-25.117,16.981,42.098,1599.8,,0.2631,,0.2631,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2014,-28.278,24.224,52.501,1975.8,,0.2657,,0.2657,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2015,-31.723,24.759,56.482,2780.1,,0.2032,,0.2032,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2016,-26.276,23.861,50.138,1848.1,,0.2713,,0.2713,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2017,-24.614,,,2551.6,,,,,,False,GRACE mission gap: missing post-monsoon peak
+SE,Southeast (Chattogram),2018,,8.236,,1945.5,,,,,,False,GRACE-FO launch: missing pre-monsoon low
+SE,Southeast (Chattogram),2019,-25.881,21.913,47.794,1992.6,,0.2399,,0.2399,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2020,-26.817,28.686,55.502,1954.3,,0.284,,0.284,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2021,-27.121,26.187,53.308,2259.8,,0.2359,,0.2359,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2022,-25.964,23.5,49.464,1489.5,,0.3321,,0.3321,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2023,-29.304,23.17,52.474,1843.6,,0.2846,,0.2846,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2024,-27.425,28.083,55.508,2544.3,,0.2182,,0.2182,,True,Complete seasonal pair
+SE,Southeast (Chattogram),2025,-25.123,31.881,57.003,2050.9,,0.2779,,0.2779,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2002,-17.788,35.333,53.121,1918.0,,0.277,,0.277,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2003,-22.252,28.286,50.538,1547.0,,0.3267,,0.3267,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2004,-23.608,33.099,56.707,2020.9,,0.2806,,0.2806,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2005,-21.059,26.627,47.686,1675.8,,0.2846,,0.2846,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2006,-25.486,23.066,48.551,1486.7,,0.3266,,0.3266,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2007,-23.818,40.987,64.805,1996.2,,0.3246,,0.3246,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2008,-19.558,35.019,54.578,1712.2,,0.3188,,0.3188,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2009,-25.919,26.396,52.315,1560.8,,0.3352,,0.3352,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2010,-29.794,25.261,55.055,1401.6,,0.3928,,0.3928,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2011,-27.32,29.611,56.932,1714.7,,0.332,,0.332,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2012,-28.609,21.718,50.328,1605.9,,0.3134,,0.3134,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2013,-33.21,12.296,45.506,1327.1,,0.3429,,0.3429,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2014,-33.712,20.541,54.254,1616.2,,0.3357,,0.3357,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2015,-33.914,26.07,59.984,2035.7,,0.2947,,0.2947,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2016,-29.056,19.717,48.773,1519.4,,0.321,,0.321,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2017,-25.869,,,1878.6,,,,,,False,GRACE mission gap: missing post-monsoon peak
+National,National Composite (All 8 Divisions),2018,,-0.139,,1370.1,,,,,,False,GRACE-FO launch: missing pre-monsoon low
+National,National Composite (All 8 Divisions),2019,-28.085,16.233,44.318,1532.1,,0.2893,,0.2893,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2020,-32.605,28.393,60.998,1809.2,,0.3372,,0.3372,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2021,-36.171,24.187,60.358,1744.0,,0.3461,,0.3461,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2022,-30.62,16.427,47.047,1363.6,,0.345,,0.345,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2023,-39.429,13.101,52.531,1551.7,,0.3385,,0.3385,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2024,-39.976,18.366,58.343,1919.5,,0.3039,,0.3039,,True,Complete seasonal pair
+National,National Composite (All 8 Divisions),2025,-39.132,24.965,64.097,1626.8,,0.394,,0.394,,True,Complete seasonal pair

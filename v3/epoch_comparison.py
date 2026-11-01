@@ -283,8 +283,8 @@ def build_epoch_markdown(epoch_df: pd.DataFrame, three_way_df: pd.DataFrame):
         "",
         "2. **Physical Explanation of the Full-Record Slope Dilution:**",
         "   - In the Northwest, the full-record single-line slope (**-1.25 cm/yr**) is smaller in magnitude than **both** individual epoch slopes (**-1.56 cm/yr** in GRACE-1; **-1.67 cm/yr** in GRACE-FO).",
-        "   - This apparent flattening is driven entirely by an **upward transition step offset of +9.15 cm ($p = 0.028$)** occurring during the 11-month observation gap (2017-06 to 2018-06).",
-        "   - Drawing a single unadjusted regression line through two downward-sloping series separated by an upward jump creates a geometric lever that artificially flattens the long-term trend estimate.",
+        "   - This smaller apparent magnitude is driven entirely by an **upward transition step offset of +9.15 cm ($p = 0.028$)** occurring during the 11-month observation gap (2017-06 to 2018-06).",
+        "   - Drawing a single unadjusted regression line through two downward-sloping series separated by an upward jump creates a geometric lever that artificially attenuates the long-term trend estimate.",
         "   - When a ±6-month buffer around the transition gap is excluded, the step term ceases to be statistically significant (**+7.83 cm, $p = 0.171$**), yielding a transition-excluded slope of **-1.29 cm/yr**.",
         "   - When step-adjusted, the NW depletion velocity is **-1.81 cm/yr**.",
         "",
@@ -348,7 +348,7 @@ def build_epoch_markdown(epoch_df: pd.DataFrame, three_way_df: pd.DataFrame):
         "| `recent_2020` (2020–2026) | 6.5 years (79 valid mo) | **1.28 to 2.34 cm/yr** | Short sensitivity baseline; non-significant trends represent **below detection limit**, not zero change |",
         "",
         "> [!IMPORTANT]",
-        "> In `grace_fo_era` (8.1 years) and `recent_2020` (6.5 years), non-significant trend tests must never be worded as 'no change' or 'flat'. True depletion velocities of -0.5 to -0.8 cm/yr are below the statistical detection threshold of shorter satellite observation lengths.",
+        "> In `grace_fo_era` (8.1 years) and `recent_2020` (6.5 years), non-significant trend tests must never be worded as 'no change'. True depletion velocities of -0.5 to -0.8 cm/yr are below the statistical detection threshold of shorter satellite observation lengths.",
     ])
 
     with open(MD_PATH, "w", encoding="utf-8") as f:

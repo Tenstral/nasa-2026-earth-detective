@@ -197,39 +197,36 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
                 })
                 results.append(pr_res)
 
-    # 3. Apply within-window BH-FDR control
+    # 3. Apply within-window BH-FDR control for regional tests only
+    # Division tests are below GRACE ~300km effective spatial resolution and are descriptive / not independent.
     clean_results = [r for r in results if "error" not in r]
-    m = len(clean_results)
-    p_vals = np.array([float(r["p_value"]) for r in clean_results])
+    reg_results = [r for r in clean_results if r.get("entity_type") == "region"]
+    div_results = [r for r in clean_results if r.get("entity_type") == "division"]
+
+    m_reg = len(reg_results)
+    p_vals_reg = np.array([float(r["p_value"]) for r in reg_results])
     
-    # Sort indices by p-value
-    sort_idx = np.argsort(p_vals)
-    sorted_p = p_vals[sort_idx]
+    sort_idx = np.argsort(p_vals_reg)
+    sorted_p = p_vals_reg[sort_idx]
     
     # BH step-up: q_(k) = min_{j >= k} (m / j * p_(j))
-    q_vals = np.zeros(m)
+    q_vals = np.zeros(m_reg)
     current_min = 1.0
-    for j in range(m - 1, -1, -1):
-        adj = (m / (j + 1)) * sorted_p[j]
+    for j in range(m_reg - 1, -1, -1):
+        adj = (m_reg / (j + 1)) * sorted_p[j]
         current_min = min(current_min, adj)
         q_vals[j] = min(1.0, current_min)
 
-    # Map back to original order
-    orig_q = np.zeros(m)
+    orig_q = np.zeros(m_reg)
     orig_q[sort_idx] = q_vals
 
-    # Assert q >= p for every single test
-    for i, r in enumerate(clean_results):
+    for i, r in enumerate(reg_results):
         p = float(r["p_value"])
         q = float(orig_q[i])
         assert q >= p - 1e-9, f"FDR violation: q ({q}) < p ({p}) for {r['label']}"
-        r["fdr_family_size_m"] = m
+        r["fdr_family_size_m"] = m_reg
         r["bh_fdr_q_value"] = round(q, 5)
 
-        # 3-tiered verdict (PRIMARY: Calibrated ESS Mann-Kendall + Duality Theil-Sen CI)
-        # Significant = passes BH-FDR (q < 0.05) AND calibrated 95% CI excludes zero
-        # Suggestive = raw p < 0.05 only
-        # Else = No detectable trend
         ci_low = float(r["slope_ci_low"])
         ci_high = float(r["slope_ci_high"])
         ci_excludes_zero = (ci_low > 0) or (ci_high < 0)
@@ -246,7 +243,6 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
         else:
             r["verdict_detail"] = r["verdict"]
 
-        # Secondary Hamed-Rao verdict for reference
         hr_p = float(r["hr_p_value"]) if r.get("hr_p_value") is not None else 1.0
         if hr_p < 0.05 and ci_excludes_zero:
             r["verdict_hamed_rao"] = "Significant (HR)"
@@ -255,8 +251,16 @@ def compute_window_trends(window_name: str, win_cfg: dict, reg_df: pd.DataFrame,
         else:
             r["verdict_hamed_rao"] = "No detectable trend (HR)"
 
-    print(f"  FDR Family Size m = {m} | All q >= p assertions PASSED.")
-    return clean_results
+    # Label division results as descriptive and not independent
+    for r in div_results:
+        r["fdr_family_size_m"] = np.nan
+        r["bh_fdr_q_value"] = np.nan
+        r["verdict"] = "Descriptive (not independent)"
+        r["verdict_detail"] = "Descriptive sub-regional indicator (below GRACE ~300km footprint; not statistically independent)"
+        r["verdict_hamed_rao"] = "Descriptive (not independent)"
+
+    print(f"  Regional FDR Family Size m = {m_reg} ({len(div_results)} division indicators labeled descriptive) | All q >= p assertions PASSED.")
+    return reg_results + div_results
 
 
 def generate_old_vs_new_diff(all_results_df: pd.DataFrame) -> tuple[pd.DataFrame, str]:

@@ -59,7 +59,7 @@ def classify_quadrant(tws_verdict: str, tws_slope: float, tws_q: float,
     if is_tws_sig_down and not pre_down:
         q_id = "Q1"
         q_name = "Decoupled Depletion (Bengal Water Storage Paradox)"
-        q_desc = "Total water storage is depleting significantly (FDR q < 0.05, CI excludes zero) despite stable or normal rainfall influx (consistent with human abstraction exceeding recharge)."
+        q_desc = "Total water storage is depleting significantly (FDR q < 0.05, CI excludes zero) without a detected precipitation deficit (consistent with abstraction exceeding recharge)."
     elif is_tws_sug_down and not pre_down:
         q_id = "Suggestive"
         q_name = "Suggestive Depletion / Inconclusive (Fails FDR)"
@@ -70,7 +70,7 @@ def classify_quadrant(tws_verdict: str, tws_slope: float, tws_q: float,
         q_desc = "Storage depletion is accompanied by significant precipitation decline."
     elif (not is_tws_sig_down and not is_tws_sug_down and not is_tws_sig_up and not is_tws_sug_up) and not pre_down and not pre_up:
         q_id = "Q3"
-        q_name = "Hydrologically Steady / Below Detection Limit"
+        q_name = "No Detectable Trend / Below Detection Limit"
         q_desc = "Neither storage nor precipitation exhibits a detectable trend (consistent with hydrologic steady-state or trends below detection limit)."
     elif not is_tws_sig_down and not is_tws_sug_down and pre_down:
         q_id = "Q4"
@@ -82,7 +82,7 @@ def classify_quadrant(tws_verdict: str, tws_slope: float, tws_q: float,
         q_desc = "Both storage and precipitation show significant upward accumulation."
     else:
         q_id = "Q3"
-        q_name = "Hydrologically Steady / Below Detection Limit"
+        q_name = "No Detectable Trend / Below Detection Limit"
         q_desc = "Hydrological metrics remain within normal natural variability bounds."
 
     return q_id, q_name, q_desc
@@ -115,10 +115,19 @@ def run_2x2_analysis():
             rt = sub_t.iloc[0]
             rp = sub_p.iloc[0]
 
-            q_id, q_name, q_desc = classify_quadrant(
-                rt["verdict"], rt["slope"], rt["bh_fdr_q_value"],
-                rp["verdict"], rp["slope"], rp["bh_fdr_q_value"]
-            )
+            if ent_type == "division":
+                q_id = "Descriptive"
+                q_name = "Descriptive (not independent)"
+                q_desc = "Sub-regional indicator below GRACE effective spatial resolution (~300 km); descriptive and not statistically independent."
+                tws_vrd = "Descriptive (not independent)"
+                pre_vrd = "Descriptive (not independent)"
+            else:
+                q_id, q_name, q_desc = classify_quadrant(
+                    rt["verdict"], rt["slope"], rt["bh_fdr_q_value"],
+                    rp["verdict"], rp["slope"], rp["bh_fdr_q_value"]
+                )
+                tws_vrd = rt["verdict"]
+                pre_vrd = rp["verdict"]
 
             records.append({
                 "entity": ent,
@@ -128,15 +137,15 @@ def run_2x2_analysis():
                 "tws_ci_low": rt["slope_ci_low"],
                 "tws_ci_high": rt["slope_ci_high"],
                 "tws_p_value": rt["p_value"],
-                "tws_fdr_q": rt["bh_fdr_q_value"],
-                "tws_verdict": rt["verdict"],
+                "tws_fdr_q": rt["bh_fdr_q_value"] if ent_type == "region" else np.nan,
+                "tws_verdict": tws_vrd,
                 "precip_source": rp.get("precip_source", "GPM_IMERG_V07B"),
                 "precip_slope_mm_yr": rp["slope"],
                 "precip_ci_low": rp["slope_ci_low"],
                 "precip_ci_high": rp["slope_ci_high"],
                 "precip_p_value": rp["p_value"],
-                "precip_fdr_q": rp["bh_fdr_q_value"],
-                "precip_verdict": rp["verdict"],
+                "precip_fdr_q": rp["bh_fdr_q_value"] if ent_type == "region" else np.nan,
+                "precip_verdict": pre_vrd,
                 "quadrant_id": q_id,
                 "quadrant_name": q_name,
                 "quadrant_description": q_desc,
@@ -176,32 +185,34 @@ def run_2x2_analysis():
 
     md.extend([
         "",
-        "## 2. Divisional Annual Classifications",
+        "## 2. Divisional Annual Indicators (Descriptive Only — Not Independent)",
         "",
-        "| Division | TWS Slope (cm/yr) [95% CI] | TWS Verdict | IMERG Rain Slope (mm/yr) [95% CI] | Rain Verdict | Quadrant ID | Coupling Classification |",
-        "|---|---|---|---|---|---|---|",
+        "> [!NOTE]",
+        "> **Spatial Resolution Limitation:** Individual administrative divisions fall below the effective spatial resolution of GRACE gravimetry (~300 km / ~100,000 km²) and exhibit spatial autocorrelation. Division-level series are provided strictly as descriptive, non-independent indicators. Formal trend tests, FDR corrections, and quadrant classifications are made at the 5-region level (+ National) only.",
+        "",
+        "| Division | TWS Slope (cm/yr) [95% CI] | Primary Rain Slope (mm/yr) [95% CI] | Status | Note |",
+        "|---|---|---|---|---|",
     ])
 
     for _, r in ann_div.iterrows():
         t_str = f"{r['tws_slope_cm_yr']:+.2f} [{r['tws_ci_low']:+.2f}, {r['tws_ci_high']:+.2f}]"
         p_str = f"{r['precip_slope_mm_yr']:+.2f} [{r['precip_ci_low']:+.2f}, {r['precip_ci_high']:+.2f}]"
-        badge = f"**`{r['quadrant_id']}`**" if r["quadrant_id"] == "Q1" else f"`{r['quadrant_id']}`"
         md.append(
-            f"| **{r['entity']}** | {t_str} | `{r['tws_verdict']}` | {p_str} | `{r['precip_verdict']}` | {badge} | {r['quadrant_name']} |"
+            f"| **{r['entity']}** | {t_str} | {p_str} | `Descriptive (not independent)` | Below GRACE mascon resolution |"
         )
 
     md.extend([
         "",
         "## 3. Hydrological Interpretation",
         "",
-        "1. **Resolution of the Bengal Water Storage Paradox:**",
+        "1. **Bengal Water Storage Paradox Pattern Observed:**",
         "   - In the **Northwest, Northeast, Central, and National** composite, Total Water Storage exhibits statistically significant multi-decadal depletion (-0.47 to -1.25 cm/yr), while GPM IMERG precipitation shows no detectable trend (-1.9 to +2.0 mm/yr, p >= 0.51).",
-        "   - These regions fall unambiguously into **Quadrant 1: Decoupled Depletion (Bengal Water Storage Paradox)**.",
-        "   - Because precipitation has remained stationary without secular decline, the observed storage depletion cannot be attributed to meteorological drought.",
+        "   - These regions fall into **Quadrant 1: Decoupled Depletion (Bengal Water Storage Paradox)**.",
+        "   - Because precipitation has remained stationary without secular decline, the observed storage depletion occurs in the absence of a detected precipitation deficit.",
         "   - This observation is **consistent with, not proof of**, human water extraction exceeding natural replenishment capacity (such as intensive Boro dry-season groundwater abstraction).",
         "",
-        "2. **Hydrologically Steady Coastal Delta:**",
-        "   - In the **Southwest and Southeast**, both storage and precipitation exhibit no detectable trend over the 24-year satellite record (-0.05 cm/yr TWS; +1.8 to +2.3 mm/yr rain), falling into **Quadrant 3: Hydrologically Steady / Below Detection Limit**.",
+        "2. **Coastal Delta Dynamics (Southwest & Southeast):**",
+        "   - In the **Southwest and Southeast**, both storage and precipitation exhibit no detectable trend over the 24-year satellite record (-0.05 cm/yr TWS; +1.8 to +2.3 mm/yr rain), falling into **Quadrant 3: No Detectable Trend / Below Detection Limit**.",
     ])
 
     with open(OUT_MD, "w", encoding="utf-8") as f:
@@ -244,7 +255,7 @@ def plot_2x2_figure(reg_df: pd.DataFrame, div_df: pd.DataFrame):
                     fontsize=10, fontweight="bold", color=c, xytext=(6, -6), textcoords="offset points")
 
     # Quadrant Labels
-    ax.text(2.5, -2.8, "QUADRANT 1: Decoupled Depletion\n(Bengal Water Storage Paradox)\n• Significant Storage Depletion\n• Stable/Normal Rainfall Influx",
+    ax.text(2.5, -2.8, "QUADRANT 1: Decoupled Depletion\n(Bengal Water Storage Paradox)\n• Significant Storage Depletion\n• Without Detected Rainfall Trend",
             fontsize=9, fontweight="bold", color="#991b1b",
             bbox=dict(boxstyle="round,pad=0.5", facecolor="#ffffff", edgecolor="#f87171", alpha=0.85))
 
@@ -252,7 +263,7 @@ def plot_2x2_figure(reg_df: pd.DataFrame, div_df: pd.DataFrame):
             fontsize=9, color="#92400e",
             bbox=dict(boxstyle="round,pad=0.5", facecolor="#ffffff", edgecolor="#fcd34d", alpha=0.85))
 
-    ax.text(0.8, 0.9, "QUADRANT 3: Steady State\n• Stable Storage & Stable Rain",
+    ax.text(0.8, 0.9, "QUADRANT 3: No Detectable Trend\n• Storage & Rain within Natural Variability",
             fontsize=9, color="#065f46",
             bbox=dict(boxstyle="round,pad=0.5", facecolor="#ffffff", edgecolor="#6ee7b7", alpha=0.85))
 

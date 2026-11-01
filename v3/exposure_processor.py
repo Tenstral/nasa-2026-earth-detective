@@ -134,7 +134,7 @@ def build_exposure_analysis():
 
         # Coupling Quadrant
         q_id = "Q1" if tws_prim["verdict"] == "Significant" else "Q3"
-        q_name = "Decoupled Depletion" if q_id == "Q1" else "Hydrologically Steady / Below Detection Limit"
+        q_name = "Decoupled Depletion" if q_id == "Q1" else "No Detectable Trend / Below Detection Limit"
         if c_df is not None:
             c_row = c_df[(c_df["entity"] == reg) & (c_df["season"] == "annual")]
             if not c_row.empty:
@@ -144,15 +144,23 @@ def build_exposure_analysis():
         t_q_str = "< 0.0001" if tws_prim["q"] < 0.0001 else f"{tws_prim['q']:.4f}"
         p_q_str = "< 0.0001" if pr_prim["q"] < 0.0001 else f"{pr_prim['q']:.4f}"
 
-        # Standard template statement
-        stmt = (
-            f"Approximately {s['pop_millions']:.2f} million people (GPWv4, 2020) and "
-            f"{s['cropland_pct']:.1f}% of land classified as cropland (MODIS MCD12Q1, 2022) are in the "
-            f"{reg} region, where total water storage shows a {tws_prim['verdict'].lower()} trend "
-            f"({tws_prim['slope']:+.2f} cm/yr, FDR q = {t_q_str}) while primary precipitation shows a "
-            f"{pr_prim['verdict'].lower()} trend ({pr_prim['slope']:+.2f} mm/yr, FDR q = {p_q_str}) "
-            f"over the full 2002–2026 record, classified as {q_id} ({q_name})."
-        )
+        # Standard template statement (reworded strictly as people living in regions where regional-mean TWS declined significantly)
+        if tws_prim["verdict"] == "Significant" and tws_prim["slope"] < 0:
+            stmt = (
+                f"Approximately {s['pop_millions']:.2f} million people (GPWv4, 2020) and "
+                f"{s['cropland_pct']:.1f}% of land classified as cropland (MODIS MCD12Q1, 2022) are in the "
+                f"{reg} region, where regional-mean total water storage declined significantly "
+                f"({tws_prim['slope']:+.2f} cm/yr, FDR q = {t_q_str}) in the absence of a detected rainfall trend "
+                f"({pr_prim['slope']:+.2f} mm/yr, FDR q = {p_q_str}) over the full 2002–2026 record, classified as {q_id} ({q_name})."
+            )
+        else:
+            stmt = (
+                f"Approximately {s['pop_millions']:.2f} million people (GPWv4, 2020) and "
+                f"{s['cropland_pct']:.1f}% of land classified as cropland (MODIS MCD12Q1, 2022) are in the "
+                f"{reg} region, where regional-mean total water storage showed no detectable trend "
+                f"({tws_prim['slope']:+.2f} cm/yr, FDR q = {t_q_str}) and primary precipitation showed no detectable trend "
+                f"({pr_prim['slope']:+.2f} mm/yr, FDR q = {p_q_str}) over the full 2002–2026 record, classified as {q_id} ({q_name})."
+            )
         narrative_statements.append((reg, stmt))
 
         rows.append({
@@ -220,7 +228,7 @@ def build_exposure_analysis():
 
 1. **Massive Human and Agricultural Exposure in the Depletion Corridor:**
    - The primary depletion hotspot (the **Northwest region**, Rajshahi + Rangpur) supports **38.81 million people** (22.9% of Bangladesh) and possesses the nation's highest concentration of intensive cropland (**74.2%** of surface area).
-   - Combined with the **Central region** (Dhaka: 45.64M people) and **Northeast** (Sylhet + Mymensingh: 24.05M people), a total of **108.5 million people (63.9% of the national population)** reside in regions experiencing statistically significant long-term water storage loss.
+   - Combined with the **Central region** (Dhaka: 45.64M people) and **Northeast** (Sylhet + Mymensingh: 24.05M people), a total of **108.5 million people (63.9% of the national population)** live in regions where regional-mean total water storage declined significantly over the full 2002–2026 record in the absence of a detected rainfall trend.
    - Crucially, across all three regions, primary precipitation (GPM IMERG) exhibits **no detectable trend** (-1.9 to +0.9 mm/yr, p >= 0.54), demonstrating that this exposure is consistent with intensive groundwater abstraction exceeding recharge rather than rainfall deficit.
 
 2. **Southern Stability and Ecological Constraints:**

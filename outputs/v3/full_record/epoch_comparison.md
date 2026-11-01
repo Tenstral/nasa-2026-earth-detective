@@ -62,4 +62,4 @@ To ensure transparency regarding satellite transition sensitivity, regional stor
 | `recent_2020` (2020–2026) | 6.5 years (79 valid mo) | **1.28 to 2.34 cm/yr** | Short sensitivity baseline; non-significant trends represent **below detection limit**, not zero change |
 
 > [!IMPORTANT]
-> In `grace_fo_era` (8.1 years) and `recent_2020` (6.5 years), non-significant trend tests must never be worded as 'no change' or 'flat'. True depletion velocities of -0.5 to -0.8 cm/yr are below the statistical detection threshold of shorter satellite observation lengths.
+> In `grace_fo_era` (8.1 years) and `recent_2020` (6.5 years), non-significant trend tests must never be worded as 'no change'. True depletion velocities of -0.5 to -0.8 cm/yr are below the statistical detection threshold of shorter satellite observation lengths.

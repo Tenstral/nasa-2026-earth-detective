@@ -148,7 +148,7 @@ def build_three_way_slopes():
         "| `recent_2020` (2020–2026) | 6.5 years (79 valid mo) | **1.28 to 2.34 cm/yr** | Short sensitivity baseline; non-significant trends represent **below detection limit**, not proof of zero change |",
         "",
         "> [!IMPORTANT]",
-        "> In the short recent windows (`grace_fo_era` and `recent_2020`), non-significant trend tests must never be characterized as 'no change' or 'flat'. True depletion rates of -0.5 to -0.8 cm/yr fall entirely below the 80% detection limit of the short-duration satellite sample size.",
+        "> In the short recent windows (`grace_fo_era` and `recent_2020`), non-significant trend tests must never be characterized as 'no change'. True depletion rates of -0.5 to -0.8 cm/yr fall entirely below the 80% detection limit of the short-duration satellite sample size.",
     ])
 
     with open(OUT_MD, "w", encoding="utf-8") as f:
