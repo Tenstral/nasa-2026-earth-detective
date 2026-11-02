@@ -45,15 +45,17 @@ class TestForbiddenPhrases(unittest.TestCase):
     def test_zero_forbidden_phrases_in_outputs_and_readme(self):
         outputs_dir = REPO_ROOT / "outputs"
         readme_file = REPO_ROOT / "README.md"
+        project_status_file = REPO_ROOT / "PROJECT_STATUS.md"
 
         self.assertTrue(outputs_dir.exists(), "outputs directory must exist")
         self.assertTrue(readme_file.exists(), "README.md must exist")
+        self.assertTrue(project_status_file.exists(), "PROJECT_STATUS.md must exist")
 
-        # Scan all .md and .txt files under outputs/ (excluding archived outputs/v2) and README.md
+        # Scan all .md and .txt files under outputs/ (excluding archived outputs/v2), README.md, and PROJECT_STATUS.md
         target_files = [
             f for f in outputs_dir.rglob("*")
             if f.suffix in (".md", ".txt") and "v2" not in f.parts
-        ] + [readme_file]
+        ] + [readme_file, project_status_file]
 
         self.assertGreater(len(target_files), 15, "Expected at least 15 documentation files to scan")
 

@@ -14,10 +14,12 @@
 
 | Region | Lead Evidence: GRACE-Era (2002–2017) | Single-Line Fit (2002–2026) | Step-Adjusted Fit (2002–2026) | Transition Offset (p-value) | Transition-Excluded (±6 mo Buffer) | Reported Depletion Range |
 |---|---|---|---|---|---|---|
-| **NW** | **-1.56 cm/yr** ([-2.03, -1.11]) | -1.25 cm/yr ([-1.54, -0.96]) | -1.81 cm/yr | +9.15 cm (p = 0.0280) | -1.29 cm/yr (p = 0.171) | **-1.81 to -1.25 cm/yr** |
+| **NW** | **-1.56 cm/yr** ([-1.96, -1.17]) | -1.25 cm/yr ([-1.50, -1.02]) | -1.81 cm/yr | +9.15 cm (p = 0.0280) | -1.29 cm/yr (p = 0.171) | **-1.81 to -1.25 cm/yr** |
 | **NE** | **-0.72 cm/yr** ([-0.99, -0.49]) | -0.56 cm/yr ([-0.70, -0.42]) | -1.04 cm/yr | +6.82 cm (p = 0.0511) | -0.65 cm/yr (p = 0.402) | **-1.04 to -0.56 cm/yr** |
 | **Central** | **-0.63 cm/yr** ([-0.86, -0.42]) | -0.47 cm/yr ([-0.62, -0.34]) | -0.98 cm/yr | +6.93 cm (p = 0.0472) | -0.59 cm/yr (p = 0.385) | **-0.98 to -0.47 cm/yr** |
 | **National** | **-0.68 cm/yr** ([-0.92, -0.45]) | -0.51 cm/yr ([-0.66, -0.38]) | -0.91 cm/yr | +5.81 cm (p = 0.0713) | -0.58 cm/yr (p = 0.486) | **-0.91 to -0.51 cm/yr** |
+
+*Note on Confidence Intervals and Methodology:* All reported confidence intervals for single-line fit and GRACE-era lead evidence originate directly from `results_all_windows.csv` and are computed via Calibrated ESS-Mann-Kendall (duality-aligned rank-based Theil-Sen 95% CIs with Hurwicz AR(1) bias correction). Step-adjusted and transition-excluded slopes are estimated via Newey-West HAC regression.
 
 ## 3. Minimum Detectable Slopes (MDS) by Analytical Window
 

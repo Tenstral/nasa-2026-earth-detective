@@ -116,7 +116,7 @@ def build_three_way_slopes():
         "- **Transition Shift:** Between GRACE decommissioning (2017-06) and GRACE-FO initial observation (2018-06), an upward step offset is detected in the raw gravimetric anomaly series (+9.15 cm in NW, p = 0.028; +6.93 cm in Central, p = 0.047; +6.82 cm in NE, p = 0.051).",
         "- **Buffer Sensitivity:** When a ±6-month transition buffer (2017-01 to 2018-11) is excluded, the step term ceases to be statistically significant in all regions (NW: +7.83 cm, p = 0.171; NE: +4.00 cm, p = 0.402; Central: +3.93 cm, p = 0.385; National: +3.09 cm, p = 0.486).",
         "- **Single-Line Underestimation:** Because the +9.15 cm transition step acts as an upward shift midway through the record, a single continuous linear trend line through both satellite missions dilutes the apparent depletion rate (-1.25 cm/yr) relative to the uncorrupted single-satellite epoch (-1.56 cm/yr).",
-        "- **Pure Step Simulation Warning:** Monte Carlo null simulations demonstrate that a pure step offset (+9.15 cm) injected into stationary red noise (AR(1) phi=0.65) is falsely flagged as a statistically significant trend in **93.8% to 100% of simulations** under standard linear trend engines. Therefore, multi-satellite linear trends across unbridged gaps must always be reported alongside step-adjusted and transition-excluded bounds.",
+        "- **Pure Step Simulation Warning:** Monte Carlo null simulations show that a pure step offset (+9.15 cm) injected into stationary red noise (AR(1) phi=0.65) is falsely flagged as a statistically significant trend in **93.8% to 100% of simulations** under standard linear trend engines. Therefore, multi-satellite linear trends across unbridged gaps must always be reported alongside step-adjusted and transition-excluded bounds.",
         "",
         "## 2. Three-Way Slope Comparison Table",
         "",
@@ -136,9 +136,11 @@ def build_three_way_slopes():
 
     md.extend([
         "",
+        "*Note on Confidence Intervals and Methodology:* All reported confidence intervals for single-line fit and GRACE-era lead evidence originate directly from `results_all_windows.csv` and are computed via Calibrated ESS-Mann-Kendall (duality-aligned rank-based Theil-Sen 95% CIs with Hurwicz AR(1) bias correction). Step-adjusted and transition-excluded slopes are estimated via Newey-West HAC regression.",
+        "",
         "## 3. Minimum Detectable Slopes (MDS) by Analytical Window",
         "",
-        "Power analysis with regional residual variance scaling demonstrates that the statistical power to detect subtle trends depends heavily on observation window length:",
+        "Power analysis with regional residual variance scaling shows that the statistical power to detect subtle trends depends heavily on observation window length:",
         "",
         "| Window | Observation Length | Minimum Detectable Slope (MDS, 80% Power) | Interpretation of Null Verdicts |",
         "|---|---|---|---|",
