@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-11-01T04:35:15.378519",
+  "grace_netcdf": "CSR_GRACE_GRACE-FO_RL0603_Mascons_all-corrections.nc",
+  "tws_unique_months": 257,
+  "tws_min_month": "2002-04",
+  "tws_max_month": "2026-07",
+  "precip_unique_months": 297,
+  "precip_min_month": "2002-01",
+  "precip_max_month": "2026-09",
+  "division_rows": 2376,
+  "region_rows": 1542,
+  "regions_covered": [
+    "NW",
+    "NE",
+    "Central",
+    "SW",
+    "SE",
+    "National"
+  ],
+  "divisions_covered": [
+    "Barishal",
+    "Chattogram",
+    "Dhaka",
+    "Khulna",
+    "Mymensingh",
+    "Rajshahi",
+    "Rangpur",
+    "Sylhet"
+  ]
+}

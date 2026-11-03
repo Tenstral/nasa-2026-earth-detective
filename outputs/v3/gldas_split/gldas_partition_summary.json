@@ -1,0 +1,27 @@
+{
+  "status": "COMPLETED",
+  "timestamp": "2026-11-01T07:48:39.902083",
+  "model": "GLDAS_NOAH025_M_v2.1",
+  "soil_depth_meters": 2.0,
+  "layers": [
+    "0-10cm",
+    "10-40cm",
+    "40-100cm",
+    "100-200cm",
+    "Canopy",
+    "SWE"
+  ],
+  "baseline_period": "2004-01 to 2009-12",
+  "residual_label": "groundwater + surface water + model error residual",
+  "nw_statistics_grace_fo": {
+    "tws_slope_cm_yr": -1.67,
+    "sms_slope_cm_yr": 0.05,
+    "sms_p_value": 0.60105,
+    "residual_slope_cm_yr": -1.7,
+    "residual_ci_95": [
+      -2.79,
+      -0.59
+    ]
+  },
+  "findings": "Soil moisture shows no significant long-term trend, confirming that NW storage depletion is driven almost entirely by the subsurface residual (groundwater abstraction)."
+}

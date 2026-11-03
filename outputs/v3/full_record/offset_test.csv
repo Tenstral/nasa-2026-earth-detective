@@ -1,0 +1,7 @@
+region,region_name,n_obs,slope_without_step_cm_yr,slope_with_step_cm_yr,step_delta_cm,step_delta_se,step_delta_ci95_low,step_delta_ci95_high,step_p_value,step_verdict,excl_n_obs,excl_step_delta_cm,excl_step_p_value,excl_step_significant
+NW,Northwest (Rajshahi + Rangpur),257,-1.287,-1.811,9.1514,4.1649,0.9885,17.3144,0.028,Significant Step Offset,248,7.8281,0.17149,False
+NE,Northeast (Sylhet + Mymensingh),257,-0.6483,-1.0387,6.8176,3.4952,-0.0329,13.668,0.05111,No Detectable Offset (p >= 0.05),248,3.9951,0.40164,False
+Central,Central (Dhaka),257,-0.5859,-0.9827,6.9299,3.4925,0.0848,13.7751,0.04723,Significant Step Offset,248,3.9277,0.38534,False
+SW,Southwest (Khulna + Barishal),257,-0.1094,-0.2455,2.3782,3.2798,-4.05,8.8065,0.46838,No Detectable Offset (p >= 0.05),248,-0.8923,0.83004,False
+SE,Southeast (Chattogram),257,-0.1125,-0.2533,2.4581,3.2937,-3.9974,8.9135,0.45548,No Detectable Offset (p >= 0.05),248,-1.2664,0.75649,False
+National,National Composite (All 8 Divisions),257,-0.5805,-0.9132,5.8115,3.2226,-0.5047,12.1276,0.07133,No Detectable Offset (p >= 0.05),248,3.0922,0.48552,False

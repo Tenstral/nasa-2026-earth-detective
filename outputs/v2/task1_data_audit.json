@@ -1,0 +1,187 @@
+{
+  "grace_netcdf": {
+    "file": "C:\\Users\\LEON\\OneDrive\\Documents\\GitHub\\nasa-2026-earth-detective\\CSR_GRACE_GRACE-FO_RL0603_Mascons_all-corrections.nc",
+    "status": "PRESENT",
+    "start_ym": "2002-04",
+    "end_ym": "2026-08",
+    "n_months": 260,
+    "missing_months": [
+      "2002-06",
+      "2002-07",
+      "2003-06",
+      "2011-01",
+      "2011-06",
+      "2011-11",
+      "2012-05",
+      "2012-10",
+      "2013-03",
+      "2013-08",
+      "2013-09",
+      "2014-02",
+      "2014-07",
+      "2014-12",
+      "2015-05",
+      "2015-06",
+      "2015-10",
+      "2015-11",
+      "2016-04",
+      "2016-09",
+      "2016-10",
+      "2017-02",
+      "2017-07",
+      "2017-08",
+      "2017-09",
+      "2017-10",
+      "2017-11",
+      "2017-12",
+      "2018-01",
+      "2018-02",
+      "2018-03",
+      "2018-04",
+      "2018-05",
+      "2018-08",
+      "2018-09"
+    ],
+    "lwe_units": "cm"
+  },
+  "precip_netcdf": {
+    "file": "C:\\Users\\LEON\\OneDrive\\Documents\\GitHub\\nasa-2026-earth-detective\\nasa_precipitation_bangladesh.nc",
+    "source_attr": "NASA POWER (GPM IMERG & GMAO MERRA-2 Agroclimatology)",
+    "corrected_label": "NASA POWER Precipitation (PRECTOTCORR) [mm/month]",
+    "spatial_resolution_deg": "0.5 lat × 0.625 lon",
+    "n_lat": 13,
+    "n_lon": 8,
+    "start_ym": "2018-01",
+    "end_ym": "2026-09",
+    "n_months": 105,
+    "missing_months": [],
+    "nan_cells": 0,
+    "nan_fraction_pct": 0.0
+  },
+  "excel_fallback": {
+    "divisions": {
+      "Barishal": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Chattogram": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Dhaka": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Khulna": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Mymensingh": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Rajshahi": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Rangpur": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      },
+      "Sylhet": {
+        "n_months": 79,
+        "start_ym": "2020-01",
+        "end_ym": "2026-07",
+        "nan_grace": 0,
+        "nan_precip": 0
+      }
+    },
+    "start_ym": "2020-01",
+    "end_ym": "2026-07",
+    "n_months": 79,
+    "missing_months": []
+  },
+  "overlap": {
+    "overlap_start": "2020-01",
+    "overlap_end": "2026-07",
+    "n_overlap_months": 79,
+    "rainfall_only_months": [
+      "2026-08",
+      "2026-09"
+    ]
+  },
+  "analysis_windows": {
+    "primary": {
+      "start": "2020-01",
+      "end": "2026-07",
+      "n_months": 79,
+      "status": "ACTIVE",
+      "note": "Primary analysis window (79 months) with verified complete satellite overlap."
+    },
+    "grace_fo_era": {
+      "start": "2018-06",
+      "end": "2026-07",
+      "n_months_nominal": 98,
+      "status": "ACTIVE (via NetCDF)",
+      "note": "GRACE-FO single-instrument mission era (2018-06 to 2026-07). Active when GRACE NetCDF path is configured; duplicate-window rows prevented when absent."
+    }
+  },
+  "regions": {
+    "NW": {
+      "divisions": [
+        "Rajshahi",
+        "Rangpur"
+      ],
+      "total_area_km2": 30984.4
+    },
+    "NE": {
+      "divisions": [
+        "Sylhet",
+        "Mymensingh"
+      ],
+      "total_area_km2": 21198.4
+    },
+    "Central": {
+      "divisions": [
+        "Dhaka"
+      ],
+      "total_area_km2": 17130.7
+    },
+    "SW": {
+      "divisions": [
+        "Khulna",
+        "Barishal"
+      ],
+      "total_area_km2": 28153.0
+    },
+    "SE": {
+      "divisions": [
+        "Chattogram"
+      ],
+      "total_area_km2": 24886.5
+    }
+  },
+  "generated_at": "2026-10-31T10:54:25.956384",
+  "python_version": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]"
+}

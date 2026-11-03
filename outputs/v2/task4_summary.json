@@ -1,0 +1,131 @@
+{
+  "generated_at": "2026-10-31T10:55:43.389809",
+  "task": "Task 4 - Sensitivity Analysis",
+  "n_boundary_configs": 8,
+  "boundary_configs": [
+    {
+      "name": "Base (2020-01 to 2026-07)",
+      "start": "2020-01",
+      "end": "2026-07",
+      "dt_start": 0,
+      "dt_end": 0
+    },
+    {
+      "name": "Start +1yr (2021-01 to 2026-07)",
+      "start": "2021-01",
+      "end": "2026-07",
+      "dt_start": 1.0,
+      "dt_end": 0
+    },
+    {
+      "name": "End -1yr (2020-01 to 2025-07)",
+      "start": "2020-01",
+      "end": "2025-07",
+      "dt_start": 0,
+      "dt_end": -1.0
+    },
+    {
+      "name": "Start +6mo (2020-07 to 2026-07)",
+      "start": "2020-07",
+      "end": "2026-07",
+      "dt_start": 0.5,
+      "dt_end": 0
+    },
+    {
+      "name": "End -6mo (2020-01 to 2026-01)",
+      "start": "2020-01",
+      "end": "2026-01",
+      "dt_start": 0,
+      "dt_end": -0.5
+    },
+    {
+      "name": "Start +6mo, End -1yr (2020-07 to 2025-07)",
+      "start": "2020-07",
+      "end": "2025-07",
+      "dt_start": 0.5,
+      "dt_end": -1.0
+    },
+    {
+      "name": "Start +1yr, End -6mo (2021-01 to 2026-01)",
+      "start": "2021-01",
+      "end": "2026-01",
+      "dt_start": 1.0,
+      "dt_end": -0.5
+    },
+    {
+      "name": "GRACE-FO era (2018-06 to 2026-07)",
+      "start": "2018-06",
+      "end": "2026-07",
+      "dt_start": -1.58,
+      "dt_end": 0
+    }
+  ],
+  "region_tws_stability": {
+    "NW": {
+      "min_slope_cm_yr": -4.711,
+      "max_slope_cm_yr": -1.6697,
+      "mean_slope_cm_yr": -3.1395,
+      "n_configs": 8,
+      "all_negative": true,
+      "n_negative": 8,
+      "n_significant": 7,
+      "fraction_negative": "8/8",
+      "fraction_significant": "7/8"
+    },
+    "NE": {
+      "min_slope_cm_yr": -2.2937,
+      "max_slope_cm_yr": 0.079,
+      "mean_slope_cm_yr": -1.1539,
+      "n_configs": 8,
+      "all_negative": false,
+      "n_negative": 7,
+      "n_significant": 4,
+      "fraction_negative": "7/8",
+      "fraction_significant": "4/8"
+    },
+    "Central": {
+      "min_slope_cm_yr": -2.3232,
+      "max_slope_cm_yr": -0.2921,
+      "mean_slope_cm_yr": -1.2993,
+      "n_configs": 8,
+      "all_negative": true,
+      "n_negative": 8,
+      "n_significant": 5,
+      "fraction_negative": "8/8",
+      "fraction_significant": "5/8"
+    },
+    "SW": {
+      "min_slope_cm_yr": -0.947,
+      "max_slope_cm_yr": 0.2875,
+      "mean_slope_cm_yr": -0.2186,
+      "n_configs": 8,
+      "all_negative": false,
+      "n_negative": 6,
+      "n_significant": 0,
+      "fraction_negative": "6/8",
+      "fraction_significant": "0/8"
+    },
+    "SE": {
+      "min_slope_cm_yr": -0.246,
+      "max_slope_cm_yr": 0.6695,
+      "mean_slope_cm_yr": 0.2816,
+      "n_configs": 8,
+      "all_negative": false,
+      "n_negative": 2,
+      "n_significant": 0,
+      "fraction_negative": "2/8",
+      "fraction_significant": "0/8"
+    },
+    "National": {
+      "min_slope_cm_yr": -2.1034,
+      "max_slope_cm_yr": -0.3428,
+      "mean_slope_cm_yr": -1.1376,
+      "n_configs": 8,
+      "all_negative": true,
+      "n_negative": 8,
+      "n_significant": 3,
+      "fraction_negative": "8/8",
+      "fraction_significant": "3/8"
+    }
+  }
+}

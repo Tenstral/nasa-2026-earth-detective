@@ -1,0 +1,25 @@
+region,variant,description,n_points,slope_cm_yr,ci95_low,ci95_high,p_value,z_stat
+NW,0_baseline_calendar_axis_ess_mk,Full observed calendar series with exact decimal-year timestamps (Calibrated ESS-MK),257,-1.2547,-1.4978,-1.02,0.0,-7.683
+NW,1_annual_means_ge_9m,Annual mean series requiring >= 9 valid months per year (partial years excluded),20,-1.3389,-2.1995,-0.6312,0.01136,-2.531
+NW,2_single_month_interpolation,Linear interpolation of isolated 1-month gaps only; 11-month transition gap untouched,276,-1.2622,-1.5085,-1.0237,0.0,-7.796
+NW,3_transition_buffer_exclusion,Excluding +/- 6 months around GRACE-to-GRACE-FO gap (2017-01 to 2018-11 excluded),248,-1.278,-1.5246,-1.0357,0.0,-7.542
+NE,0_baseline_calendar_axis_ess_mk,Full observed calendar series with exact decimal-year timestamps (Calibrated ESS-MK),257,-0.5553,-0.7028,-0.4188,0.0,-7.016
+NE,1_annual_means_ge_9m,Annual mean series requiring >= 9 valid months per year (partial years excluded),20,-0.7037,-1.1151,-0.4115,0.00134,-3.207
+NE,2_single_month_interpolation,Linear interpolation of isolated 1-month gaps only; 11-month transition gap untouched,276,-0.5573,-0.7072,-0.4188,0.0,-7.169
+NE,3_transition_buffer_exclusion,Excluding +/- 6 months around GRACE-to-GRACE-FO gap (2017-01 to 2018-11 excluded),248,-0.5714,-0.7213,-0.4298,0.0,-6.988
+Central,0_baseline_calendar_axis_ess_mk,Full observed calendar series with exact decimal-year timestamps (Calibrated ESS-MK),257,-0.4732,-0.6204,-0.3421,0.0,-6.325
+Central,1_annual_means_ge_9m,Annual mean series requiring >= 9 valid months per year (partial years excluded),20,-0.6529,-1.0458,-0.2719,0.00471,-2.826
+Central,2_single_month_interpolation,Linear interpolation of isolated 1-month gaps only; 11-month transition gap untouched,276,-0.4759,-0.6159,-0.3461,0.0,-6.592
+Central,3_transition_buffer_exclusion,Excluding +/- 6 months around GRACE-to-GRACE-FO gap (2017-01 to 2018-11 excluded),248,-0.4895,-0.6435,-0.3529,0.0,-6.257
+SW,0_baseline_calendar_axis_ess_mk,Full observed calendar series with exact decimal-year timestamps (Calibrated ESS-MK),257,-0.047,-0.2037,0.1015,0.54593,-0.604
+SW,1_annual_means_ge_9m,Annual mean series requiring >= 9 valid months per year (partial years excluded),20,-0.1121,-0.3996,0.0841,0.45554,-0.746
+SW,2_single_month_interpolation,Linear interpolation of isolated 1-month gaps only; 11-month transition gap untouched,276,-0.0524,-0.1995,0.0863,0.4755,-0.714
+SW,3_transition_buffer_exclusion,Excluding +/- 6 months around GRACE-to-GRACE-FO gap (2017-01 to 2018-11 excluded),248,-0.0457,-0.2084,0.1102,0.58291,-0.549
+SE,0_baseline_calendar_axis_ess_mk,Full observed calendar series with exact decimal-year timestamps (Calibrated ESS-MK),257,-0.0521,-0.1685,0.0611,0.37541,-0.886
+SE,1_annual_means_ge_9m,Annual mean series requiring >= 9 valid months per year (partial years excluded),20,-0.1495,-0.2519,0.0407,0.11189,-1.59
+SE,2_single_month_interpolation,Linear interpolation of isolated 1-month gaps only; 11-month transition gap untouched,276,-0.0526,-0.1606,0.0488,0.30626,-1.023
+SE,3_transition_buffer_exclusion,Excluding +/- 6 months around GRACE-to-GRACE-FO gap (2017-01 to 2018-11 excluded),248,-0.0525,-0.177,0.0669,0.39561,-0.849
+National,0_baseline_calendar_axis_ess_mk,Full observed calendar series with exact decimal-year timestamps (Calibrated ESS-MK),257,-0.5125,-0.6595,-0.3771,0.0,-6.264
+National,1_annual_means_ge_9m,Annual mean series requiring >= 9 valid months per year (partial years excluded),20,-0.6299,-0.9573,-0.2946,0.00148,-3.179
+National,2_single_month_interpolation,Linear interpolation of isolated 1-month gaps only; 11-month transition gap untouched,276,-0.5141,-0.6529,-0.3835,0.0,-6.684
+National,3_transition_buffer_exclusion,Excluding +/- 6 months around GRACE-to-GRACE-FO gap (2017-01 to 2018-11 excluded),248,-0.5249,-0.6784,-0.3797,0.0,-6.097
