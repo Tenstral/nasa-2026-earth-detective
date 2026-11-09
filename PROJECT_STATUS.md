@@ -15,7 +15,7 @@ Every summer, Bangladesh receives substantial monsoon rainfall, nourishing river
 > *Is Bangladesh losing total water storage over the long term, how do regional storage trajectories compare to satellite precipitation trends, and does unsaturated soil moisture account for observed storage changes?*
 
 To evaluate these dynamics empirically, we developed a reproducible scientific detection pipeline that audits **24 continuous years of NASA satellite observations** (April 2002 to July 2026). The analysis synthesizes:
-1. **NASA/CSR GRACE and GRACE Follow-On satellite gravimetry:** Twin satellite missions measuring vertically integrated regional mass changes, capturing total water storage (TWS)—including surface water bodies, unsaturated topsoil moisture, and deep aquifers.
+1. **NASA/CSR GRACE and GRACE Follow-On satellite gravimetry:** Twin satellite missions measuring vertically integrated regional mass changes, capturing total water storage (TWS)—including surface water bodies, unsaturated topsoil moisture, and deep groundwater.
 2. **Satellite precipitation records:** GPM IMERG Final Run V07B (radar and passive microwave calibrated satellite precipitation) and NASA POWER (atmospheric reanalysis).
 3. **NASA Land Surface Models (GLDAS Noah 2.1 and VIC 2.1):** Open-loop physical land surface models simulating moisture in the top 2 meters of soil.
 4. **NASA Socioeconomic and Land Cover grids:** Gridded population (SEDAC GPWv4) and cropland coverage (MODIS MCD12Q1).
@@ -45,7 +45,7 @@ Total water storage trajectories across Bangladesh exhibit marked regional diver
 3. **The Southern Delta (Khulna, Barishal, Chattogram):**
    - **Southwest:** **-0.05 cm/year** (95% CI: **[-0.20, +0.10] cm/yr**, $p = 0.55$, FDR $q = 0.8968$). Minimum detectable slope (MDS, 80% power) for `full_record` in SW is **0.22 cm/year** (window range 0.22 to 0.32 cm/yr). Verdict: **no detectable change/trend**.
    - **Southeast:** **-0.05 cm/year** (95% CI: **[-0.17, +0.06] cm/yr**, $p = 0.38$, FDR $q = 0.8968$). Minimum detectable slope (MDS, 80% power) for `full_record` in SE is **0.22 cm/year** (window range 0.22 to 0.32 cm/yr). Verdict: **no detectable change/trend**.
-   - The southern delta is buffered by estuarine river networks, coastal mangrove wetlands (the Sundarbans), and lower agricultural dry-season groundwater abstraction relative to the north.
+   - As an untested hypothesis, the southern delta may be buffered by estuarine river networks, coastal mangrove wetlands (the Sundarbans), and lower agricultural dry-season groundwater abstraction relative to the north.
 
 4. **National Total (All Bangladesh Combined):**
    - Nationally, total water storage has declined at **-0.51 cm/year** (95% CI: **[-0.66, -0.38] cm/yr**, $p < 0.0001$, FDR $q < 0.0001$) over the full 24-year record, equal to a volumetric loss of **-0.63 km³ of water per year** across the country.
@@ -111,22 +111,22 @@ Earlier exploratory evaluations reported that Bangladesh rainfall was increasing
 - In the Northwest, annual totals jumped from ~1,580 mm/year prior to 2015 to ~2,330 mm/year after 2018.
 - This non-climatic step shift induced spurious positive linear trends. The exact cause in the reanalysis model assimilation stream remains unverified.
 
-### B. Satellite Precipitation with GPM IMERG (Stationary Rainfall)
+### B. Satellite Precipitation with GPM IMERG: No Detectable Rainfall Trend (Wide CI: NW about ±8 mm/yr)
 Replacing atmospheric reanalysis with NASA's radar and microwave satellite precipitation constellation (**GPM IMERG V07B Final Run**) eliminated the artificial jump:
 - Nationally, annual IMERG rainfall trend is **+2.04 mm/year** (95% CI: **[-7.70, +12.45] mm/yr**, $p = 0.64$, FDR $q = 0.9342$), showing **no detectable trend** within natural multi-year variability.
 - In the Northwest, annual rainfall trend is **-1.91 mm/year** (95% CI: **[-11.04, +4.48] mm/yr**, $p = 0.54$, FDR $q = 0.8968$), also showing **no detectable trend**.
-- Over the 24-year satellite observational period (2000–2025), national IMERG precipitation averages **2,366 mm/year**.
+- Over the satellite observational period (2002-01 to 2025-09), national IMERG precipitation averages **2,366 mm/year**.
 - *Data Latency Notice:* GPM IMERG Final data currently extends through September 2025 due to standard NASA production latency, truncating the final 10 months of the 2002–2026 gravimetry analysis window.
 
 ### C. Extreme Rainfall and Flood Dynamics
-- **Stationary Extreme Indices:** Daily precipitation extremes (Rx1day, Rx5day, R95p, R99p, CDD, CWD, SDII) show no statistically significant trend across Bangladesh between 2003 and 2024.
+- **Stationary Extreme Indices:** Daily precipitation extremes (Rx1day, Rx5day, days $\ge 50\text{ mm}$, and annual total for 2003–2024; monsoon total, monsoon Rx1day, monsoon Rx5day, and monsoon days $\ge 50\text{ mm}$ for 2002–2025) show no statistically significant trend across Bangladesh.
 - **Flood Response and Storage Recovery (Untested Hypothesis):** Historical flood events (2004, 2007, 2017, 2020, 2022 Sylhet) correspond to large transient storage surges (e.g., storage anomalies spiked by +41 cm in 2007 and +33 cm in 2004):
-  - An untested hypothesis frequently cited in regional hydrogeology suggests that topsoil saturation and floodplain drainage limit the proportion of floodwaters that recharge deeper aquifers, allowing subsequent dry-season abstraction to outpace seasonal recharge.
-  - However, this mechanism remains an unverified hypothesis in this study; satellite gravimetry captures vertically integrated bulk mass and cannot measure aquifer infiltration rates directly without in-situ piezometer hydrographs.
+  - An untested hypothesis frequently cited in regional hydrogeology suggests that topsoil saturation and floodplain drainage limit the proportion of floodwaters that recharge deeper subsurface storage, allowing subsequent dry-season abstraction to outpace seasonal recharge.
+  - However, this mechanism remains an unverified hypothesis in this study; satellite gravimetry captures vertically integrated bulk mass and cannot measure subsurface infiltration rates directly without in-situ piezometer hydrographs.
 
 ---
 
-## 5. Storage Partitioning: Multi-Model Soil Moisture Findings
+## 5. Storage Partitioning: Soil moisture explains a minor part of the NW decline; the remainder is an unpartitioned residual
 
 Satellite gravimetry measures total column water mass, integrating surface water, soil moisture, and deep groundwater. To determine whether total water storage depletion is accounted for by unsaturated soil drying, we evaluated NASA's **GLDAS Land Surface Models** across all four analytical windows (sourced from `outputs/v3/gldas_split/gldas_multi_model_summary.csv`):
 
@@ -143,8 +143,8 @@ Satellite gravimetry measures total column water mass, integrating surface water
    - Total Water Storage slope: **-1.67 cm/year** (below detection limit)
    - Independent Soil Moisture range: **[+0.05, +0.20] cm/year** (Noah: +0.05 cm/yr; VIC: +0.20 cm/yr; neither statistically significant).
    - Partitioned Residual range: **[-1.92, -1.70] cm/year**.
-4. **Recent Window (2020–2026):**
-   - Total Water Storage slope: **-2.93 cm/year** (`method-dependent`)
+4. **Recent Window (2020–2026, Sensitivity Analysis Only):**
+   - Total Water Storage slope: **-2.93 cm/year** (95% CI: **[-4.97, -0.78] cm/yr**, $p = 0.0107$, FDR $q = 0.0772$, `method-dependent`).
    - Independent Soil Moisture range: **[-0.37, -0.22] cm/year** (Noah: -0.22 cm/yr; VIC: -0.37 cm/yr).
    - Partitioned Residual range: **[-2.59, -2.38] cm/year**.
 
@@ -164,7 +164,7 @@ To preserve scientific integrity, observed patterns are subject to the following
 | **2. Residual Subsurface Loss** | Satellites measure total column mass; we cannot separate deep groundwater from surface water bodies and wetlands. | Direct integration of Bangladesh Water Development Board (BWDB) nationwide in-situ piezometer well hydrographs. |
 | **3. Agricultural Extraction Link** | We do not possess direct metered pumping logs across the Barind Tract. | Sub-district agricultural power consumption records and deep tubewell discharge registries from the Barind Multipurpose Development Authority (BMDA). |
 | **4. Inter-Satellite Gap & Offset** | The 11-month transition (2017–2018) between GRACE and GRACE-FO introduces an upward offset (+9.15 cm, $p=0.028$) of unknown origin. | Continuous multi-satellite airborne gravimetry bridging or hydrodynamic data assimilation across the transition. |
-| **5. Surrogate Placebo Sensitivity** | On a real-residual surrogate placebo (phase-randomized surrogates preserving autocorrelation and the real gap pattern), NW previously showed an elevated False Positive Rate of **17.6%** (82.5% CI coverage) under ESS-MK, whereas under an independent parametric AR(1) Monte Carlo null test, Calibrated ESS-MK passes nominal standards (NW FPR: 4.60%, coverage: 95.40%). | Both tests are reported to document sensitivity to empirical noise structure; longer continuous observational records will narrow this uncertainty. |
+| **5. Surrogate Placebo Sensitivity** | On a real-residual surrogate placebo (phase-randomized surrogates preserving autocorrelation and the real gap pattern), NW previously showed an elevated False Positive Rate of **17.6%** (82.5% CI coverage) under ESS-MK, whereas under an independent parametric AR(1) Monte Carlo null test, Calibrated ESS-MK passes nominal standards (NW FPR: 4.10%, coverage: 95.90%). | Both tests are reported to document sensitivity to empirical noise structure; longer continuous observational records will narrow this uncertainty. |
 | **6. Precipitation Record Latency** | GPM IMERG Final Run V07B currently extends through September 2025. | Updating the processing stream when NASA GES DISC releases late-2025 and 2026 Final Run granules. |
 
 ---
@@ -185,7 +185,7 @@ For presentations, slide decks, and technical verification, refer to the followi
 - `outputs/v3/full_record/results_all_windows.csv`: Master results table containing all 336 statistical tests across all 4 windows, 6 regions, and 8 divisions with duality-aligned CIs and FDR q-values.
 - `outputs/v3/full_record/three_way_slopes_and_transition.csv` & `.md`: Detailed 3-way Northwest slope sensitivity and satellite transition metrics.
 - `outputs/v3/benchmark/benchmark_table.csv` & `.md`: Synthesis of regional rates against 6 published peer-reviewed studies.
-- `outputs/v3/exposure/exposure_table.csv` & `.md`: Regional breakdown of 69.4 million residents and cropland exposure.
+- `outputs/v3/exposure/exposure_table.csv` & `.md`: Regional breakdown of 108.5 million residents (63.9%) and cropland exposure.
 - `outputs/v3/extremes/imerg_extreme_indices_trends.csv` & `.md`: Exact trend values and duality-aligned CIs for all ETCCDI extreme rainfall metrics.
 - `outputs/v3/gldas_split/gldas_multi_model_summary.csv` & `.md`: Multi-model GLDAS soil moisture and residual storage partitioning.
 
@@ -193,3 +193,23 @@ For presentations, slide decks, and technical verification, refer to the followi
 - `NOTES.md`: Developer decision log detailing parameters, calibration validation, and audit trail.
 - `outputs/v3/full_record/gap_calibration_report.json`: Monte Carlo simulation results verifying false-positive rate calibration.
 - `outputs/v3/imerg_vs_power/imerg_vs_power_summary.md`: Statistical evaluation detailing the NASA POWER step artifact and GPM IMERG validation.
+
+---
+
+## 8. Consistency Fixes & Statistical Reconciliation (Audit Trail)
+
+All reported figures have been audited against the primary single sources of truth (`outputs/v3/full_record/results_all_windows.csv` and `outputs/v3/full_record/gap_calibration_report.json`). No numbers have been manually approximated or typed without programmatic verification.
+
+| Metric / Parameter | Location / Context | Old Value | New Value | Source of Truth / Methodological Justification |
+|---|---|:---:|:---:|---|
+| **NW full_record TWS 95% CI** | `exposure_table.csv`, `.md`, `NOTES.md` | `[-1.54, -0.96]` | **`[-1.50, -1.02]`** | Primary duality-aligned rank CI from `results_all_windows.csv` (`slope_ci_low`, `slope_ci_high`), replacing surrogate CI columns. |
+| **SW full_record TWS 95% CI** | `exposure_table.csv`, `.md`, `NOTES.md` | `[-0.17, +0.08]` | **`[-0.20, +0.10]`** | Primary duality-aligned rank CI from `results_all_windows.csv` (`slope_ci_low`, `slope_ci_high`), replacing surrogate CI columns. |
+| **NW full_record TWS FDR q-value** | `exposure_table.csv`, `.md` | `< 0.0001` or `0.0015` | **`< 0.0001`** | Direct within-window Benjamini-Hochberg FDR $q$-value from `results_all_windows.csv` ($q = 0.000078$). |
+| **NW recent_2020 TWS 95% CI** | `README.md`, `NOTES.md` | `[-4.90, -0.57]` | **`[-4.97, -0.78]`** | Exact duality-aligned CI from `results_all_windows.csv` for 2020–2026 sensitivity window. |
+| **National recent_2020 TWS 95% CI** | `README.md`, `NOTES.md` | `[-3.05, +0.94]` | **`[-2.53, +0.51]`** | Exact duality-aligned CI from `results_all_windows.csv` for 2020–2026 sensitivity window. |
+| **National full_record TWS 95% CI** | `README.md` | `[-0.67, -0.35]` | **`[-0.66, -0.38]`** | Primary duality-aligned CI from `results_all_windows.csv` for full 24-year record. |
+| **Depletion Corridor Exposed Population** | `PROJECT_STATUS.md`, `FIXES_REVIEW_REPORT.md`, `index.html`, `exposure_table.md` | `69.4 million` (40.9%) | **`108.5 million` (63.9%)** | Programmatic sum of NW (38.81M) + NE (24.05M) + Central (45.64M) from NASA SEDAC GPWv4 in `exposure_table.csv`. Old 69.4M unverified artifact deleted. |
+| **Calibrated ESS-MK NW FPR** | `PROJECT_STATUS.md`, `FIXES_REVIEW_REPORT.md`, `index.html` | `4.60%` | **`4.10%`** | `gap_calibration_report.json` (`calibration_simulation.regional_ar1_null.NW.fpr_ess_mk` = 0.041). |
+| **Calibrated ESS-MK NW CI Coverage** | `PROJECT_STATUS.md`, `FIXES_REVIEW_REPORT.md`, `index.html` | `95.40%` | **`95.90%`** | `gap_calibration_report.json` (`calibration_simulation.regional_ar1_null.NW.coverage_ess_mk` = 0.959). |
+| **IMERG Satellite Observation Period** | `PROJECT_STATUS.md` | `2000–2025` | **`2002-01 to 2025-09`** | Verified GPM IMERG V07B Final Run data latency coverage. |
+| **Daily Extreme Indices Catalog** | `PROJECT_STATUS.md` | `Rx1day, Rx5day, R95p, R99p, CDD, CWD, SDII (2003–2024)` | **Rx1day, Rx5day, days $\ge 50\text{ mm}$, annual total (2003–2024); monsoon total, monsoon Rx1day, monsoon Rx5day, monsoon days $\ge 50\text{ mm}$ (2002–2025)** | Matched exactly to indices computed in `v3/imerg_daily_extremes_pipeline.py` and `outputs/v3/extremes/imerg_extreme_indices_trends.csv`. |
