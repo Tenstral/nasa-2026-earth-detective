@@ -49,7 +49,7 @@ SOCIO_DATA = {
         "crop_mosaic_pct": 8.5,
         "total_agri_pct": 82.7,
         "divisions": ["Rajshahi", "Rangpur"],
-        "context": "Primary national food basket; dominant Boro rice cultivation dependent on intensive groundwater irrigation."
+        "context": "Primary national food basket; dominant Boro rice cultivation dependent on intensive irrigation abstraction."
     },
     "NE": {
         "pop_millions": 24.05,
@@ -134,7 +134,7 @@ def build_exposure_analysis():
 
         # Coupling Quadrant
         q_id = "Q1" if tws_prim["verdict"] == "Significant" else "Q3"
-        q_name = "Decoupled Depletion" if q_id == "Q1" else "No Detectable Trend / Below Detection Limit"
+        q_name = "TWS decline, no detectable rainfall trend" if q_id == "Q1" else "No detectable trend (below detection limit)"
         if c_df is not None:
             c_row = c_df[(c_df["entity"] == reg) & (c_df["season"] == "annual")]
             if not c_row.empty:
@@ -191,7 +191,7 @@ def build_exposure_analysis():
     print(f"  [OK] Saved Exposure Table CSV: {csv_path.name}")
 
     # Build Markdown Deliverable
-    md = """# Socioeconomic Exposure Layer: Bangladesh Water Storage Vulnerability & Rainfall Coupling
+    md = """# Socioeconomic Exposure: Bangladesh Water Storage and Rainfall Coupling
 
 > **PRELIMINARY — NASA Space Apps Challenge 2026**
 > **Team Tenstral | Project: Bengal Hydro Detective**
@@ -229,11 +229,11 @@ def build_exposure_analysis():
 1. **Massive Human and Agricultural Exposure in the Depletion Corridor:**
    - The primary depletion hotspot (the **Northwest region**, Rajshahi + Rangpur) supports **38.81 million people** (22.9% of Bangladesh) and possesses the nation's highest concentration of intensive cropland (**74.2%** of surface area).
    - Combined with the **Central region** (Dhaka: 45.64M people) and **Northeast** (Sylhet + Mymensingh: 24.05M people), a total of **108.5 million people (63.9% of the national population)** live in regions where regional-mean total water storage declined significantly over the full 2002–2026 record in the absence of a detected rainfall trend.
-   - Crucially, across all three regions, primary precipitation (GPM IMERG) exhibits **no detectable trend** (-1.9 to +0.9 mm/yr, p >= 0.54), demonstrating that this exposure is consistent with intensive groundwater abstraction exceeding recharge rather than rainfall deficit.
+   - Crucially, across all three regions, primary precipitation (GPM IMERG) exhibits **no detectable trend** (-1.9 to +0.9 mm/yr, p >= 0.54), indicating that this exposure is consistent with intensive irrigation abstraction exceeding recharge rather than rainfall deficit.
 
 2. **Southern Stability and Ecological Constraints:**
    - Southern divisions (Khulna, Barishal, Chattogram) show **no detectable multi-decadal storage trend** (-0.05 cm/yr) and **no detectable rainfall trend** (+1.8 to +2.3 mm/yr).
-   - These regions host substantial non-agricultural ecological reserves (the Sundarbans mangrove wetland in the SW and Chittagong Hill Tracts in the SE), which buffer against the severe unconfined groundwater drawdown seen in the northern Boro rice bowl.
+   - *(Untested hypothesis)*: It has been hypothesized that southern stability is influenced by coastal estuarine buffering and lower dry-season abstraction relative to the north, but this mechanism has not been verified with in-situ data in this study.
 """
     md_path = OUTPUT_DIR / "exposure_table.md"
     md_path.write_text(md, encoding="utf-8")

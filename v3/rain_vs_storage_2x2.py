@@ -8,13 +8,13 @@ quadrants across annual, monsoon, and dry seasons for the primary full record (2
   - Primary Precipitation verdict (calibrated GPM IMERG V07B)
 
 Quadrants:
-  - Q1: Decoupled Depletion (Bengal Water Storage Paradox)
+  - Q1: TWS decline, no detectable rainfall trend
         [TWS Significant Decrease + Precip Stable/Increasing]
   - Suggestive: Suggestive Depletion / Inconclusive (Fails FDR)
         [TWS Suggestive Decrease + Precip Stable/Increasing]
   - Q2: Drought-Driven Depletion
         [TWS Decrease + Precip Decrease]
-  - Q3: Hydrologically Steady / Below Detection Limit
+  - Q3: No detectable trend (below detection limit)
         [TWS No detectable trend + Precip No detectable trend]
   - Q4: Resilient Buffering
         [TWS Stable/Increasing + Precip Decrease]
@@ -58,7 +58,7 @@ def classify_quadrant(tws_verdict: str, tws_slope: float, tws_q: float,
 
     if is_tws_sig_down and not pre_down:
         q_id = "Q1"
-        q_name = "Decoupled Depletion (Bengal Water Storage Paradox)"
+        q_name = "TWS decline, no detectable rainfall trend"
         q_desc = "Total water storage is depleting significantly (FDR q < 0.05, CI excludes zero) without a detected precipitation deficit (consistent with abstraction exceeding recharge)."
     elif is_tws_sug_down and not pre_down:
         q_id = "Suggestive"
@@ -70,7 +70,7 @@ def classify_quadrant(tws_verdict: str, tws_slope: float, tws_q: float,
         q_desc = "Storage depletion is accompanied by significant precipitation decline."
     elif (not is_tws_sig_down and not is_tws_sug_down and not is_tws_sig_up and not is_tws_sug_up) and not pre_down and not pre_up:
         q_id = "Q3"
-        q_name = "No Detectable Trend / Below Detection Limit"
+        q_name = "No detectable trend (below detection limit)"
         q_desc = "Neither storage nor precipitation exhibits a detectable trend (consistent with hydrologic steady-state or trends below detection limit)."
     elif not is_tws_sig_down and not is_tws_sug_down and pre_down:
         q_id = "Q4"
@@ -82,7 +82,7 @@ def classify_quadrant(tws_verdict: str, tws_slope: float, tws_q: float,
         q_desc = "Both storage and precipitation show significant upward accumulation."
     else:
         q_id = "Q3"
-        q_name = "No Detectable Trend / Below Detection Limit"
+        q_name = "No detectable trend (below detection limit)"
         q_desc = "Hydrological metrics remain within normal natural variability bounds."
 
     return q_id, q_name, q_desc
@@ -205,14 +205,14 @@ def run_2x2_analysis():
         "",
         "## 3. Hydrological Interpretation",
         "",
-        "1. **Bengal Water Storage Paradox Pattern Observed:**",
+        "1. **TWS Decline Without Detected Rainfall Trend:**",
         "   - In the **Northwest, Northeast, Central, and National** composite, Total Water Storage exhibits statistically significant multi-decadal depletion (-0.47 to -1.25 cm/yr), while GPM IMERG precipitation shows no detectable trend (-1.9 to +2.0 mm/yr, p >= 0.51).",
-        "   - These regions fall into **Quadrant 1: Decoupled Depletion (Bengal Water Storage Paradox)**.",
-        "   - Because precipitation has remained stationary without secular decline, the observed storage depletion occurs in the absence of a detected precipitation deficit.",
+        "   - These regions fall into **Quadrant 1: TWS decline, no detectable rainfall trend**.",
+        "   - Because precipitation exhibits no detectable trend (-1.9 to +2.0 mm/yr), the observed storage depletion occurs in the absence of a detected precipitation deficit.",
         "   - This observation is **consistent with, not proof of**, human water extraction exceeding natural replenishment capacity (such as intensive Boro dry-season groundwater abstraction).",
         "",
         "2. **Coastal Delta Dynamics (Southwest & Southeast):**",
-        "   - In the **Southwest and Southeast**, both storage and precipitation exhibit no detectable trend over the 24-year satellite record (-0.05 cm/yr TWS; +1.8 to +2.3 mm/yr rain), falling into **Quadrant 3: No Detectable Trend / Below Detection Limit**.",
+        "   - In the **Southwest and Southeast**, both storage and precipitation exhibit no detectable trend over the 24-year satellite record (-0.05 cm/yr TWS; +1.8 to +2.3 mm/yr rain), falling into **Quadrant 3: No detectable trend (below detection limit)**.",
     ])
 
     with open(OUT_MD, "w", encoding="utf-8") as f:
@@ -255,7 +255,7 @@ def plot_2x2_figure(reg_df: pd.DataFrame, div_df: pd.DataFrame):
                     fontsize=10, fontweight="bold", color=c, xytext=(6, -6), textcoords="offset points")
 
     # Quadrant Labels
-    ax.text(2.5, -2.8, "QUADRANT 1: Decoupled Depletion\n(Bengal Water Storage Paradox)\n• Significant Storage Depletion\n• Without Detected Rainfall Trend",
+    ax.text(2.5, -2.8, "QUADRANT 1: TWS decline, no detectable rainfall trend\n• Significant Storage Depletion\n• Without Detected Rainfall Trend",
             fontsize=9, fontweight="bold", color="#991b1b",
             bbox=dict(boxstyle="round,pad=0.5", facecolor="#ffffff", edgecolor="#f87171", alpha=0.85))
 
@@ -263,7 +263,7 @@ def plot_2x2_figure(reg_df: pd.DataFrame, div_df: pd.DataFrame):
             fontsize=9, color="#92400e",
             bbox=dict(boxstyle="round,pad=0.5", facecolor="#ffffff", edgecolor="#fcd34d", alpha=0.85))
 
-    ax.text(0.8, 0.9, "QUADRANT 3: No Detectable Trend\n• Storage & Rain within Natural Variability",
+    ax.text(0.8, 0.9, "QUADRANT 3: No detectable trend (below detection limit)\n• Storage & Rain within Natural Variability",
             fontsize=9, color="#065f46",
             bbox=dict(boxstyle="round,pad=0.5", facecolor="#ffffff", edgecolor="#6ee7b7", alpha=0.85))
 

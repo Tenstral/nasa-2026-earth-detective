@@ -16,7 +16,7 @@ Under NASA POWER, an artificial step shift (+45% to +84%) occurred around 2014-1
 | **NW** | Dry | Inflated (+45% to +84%) | `Artificially High` | **-0.29** [-4.23, +3.62] | 0.9342 | **`No detectable trend`** | Corrected to No Detectable Trend |
 | **NE** | Annual | +61.1 mm/yr | `Suggestive / Significant Increase` | **-0.59** [-15.38, +16.13] | 0.9342 | **`No detectable trend`** | Corrected to No Detectable Trend |
 | **NE** | Monsoon | Inflated (+45% to +84%) | `Artificially High` | **+8.81** [-46.76, +63.93] | 0.9342 | **`No detectable trend`** | Corrected to No Detectable Trend |
-| **NE** | Dry | Inflated (+45% to +84%) | `Artificially High` | **-2.76** [-10.25, +2.28] | 0.6367 | **`No detectable trend`** | Corrected to No Detectable Trend |
+| **NE** | Dry | Inflated (+45% to +84%) | `Artificially High` | **-2.76** [-10.25, +2.28] | 0.6856 | **`No detectable trend`** | Corrected to No Detectable Trend |
 | **Central** | Annual | +47.0 mm/yr | `Suggestive / Significant Increase` | **+0.89** [-9.75, +12.72] | 0.9342 | **`No detectable trend`** | Corrected to No Detectable Trend |
 | **Central** | Monsoon | Inflated (+45% to +84%) | `Artificially High` | **-3.16** [-43.06, +34.33] | 0.9342 | **`No detectable trend`** | Corrected to No Detectable Trend |
 | **Central** | Dry | Inflated (+45% to +84%) | `Artificially High` | **+0.13** [-5.71, +5.58] | 0.9342 | **`No detectable trend`** | Corrected to No Detectable Trend |
@@ -36,12 +36,12 @@ Under NASA POWER, an artificial step shift (+45% to +84%) occurred around 2014-1
 
 | Region | TWS Slope (cm/yr) | TWS Verdict | Old Rain Verdict (POWER) | Old Quadrant Tag | New Rain Verdict (IMERG) | New Calibrated Quadrant | Interpretation |
 |---|---|---|---|---|---|---|---|
-| **NW** | -1.25 | `Significant` | `Suggestive increase` | `Q1 (with +28 mm/yr rain surge)` | `No detectable trend` | **`Q1`**: Decoupled Depletion (Bengal Water Storage Paradox) | Bengal Water Storage Paradox pattern observed (depletion without rain deficit) |
-| **NE** | -0.56 | `Significant` | `Suggestive increase` | `Q3 / Confounded` | `No detectable trend` | **`Q1`**: Decoupled Depletion (Bengal Water Storage Paradox) | Bengal Water Storage Paradox pattern observed (depletion without rain deficit) |
-| **Central** | -0.47 | `Significant` | `Suggestive increase` | `Q3 (obscured by +47 mm/yr rain)` | `No detectable trend` | **`Q1`**: Decoupled Depletion (Bengal Water Storage Paradox) | Bengal Water Storage Paradox pattern observed (depletion without rain deficit) |
-| **SW** | -0.05 | `No detectable trend` | `Suggestive increase` | `Q3 / Confounded` | `No detectable trend` | **`Q3`**: No Detectable Trend / Below Detection Limit | No detectable trend (within natural variability) |
-| **SE** | -0.05 | `No detectable trend` | `Suggestive increase` | `Q3 / Confounded` | `No detectable trend` | **`Q3`**: No Detectable Trend / Below Detection Limit | No detectable trend (within natural variability) |
-| **National** | -0.51 | `Significant` | `Suggestive increase` | `Q3 / Confounded` | `No detectable trend` | **`Q1`**: Decoupled Depletion (Bengal Water Storage Paradox) | Bengal Water Storage Paradox pattern observed (depletion without rain deficit) |
+| **NW** | -1.25 | `Significant` | `Suggestive increase` | `Q1 (with +28 mm/yr rain surge)` | `No detectable trend` | **`Q1`**: TWS decline, no detectable rainfall trend | Storage depletion without detected rainfall trend |
+| **NE** | -0.56 | `Significant` | `Suggestive increase` | `Q3 / Confounded` | `No detectable trend` | **`Q1`**: TWS decline, no detectable rainfall trend | Storage depletion without detected rainfall trend |
+| **Central** | -0.47 | `Significant` | `Suggestive increase` | `Q3 (obscured by +47 mm/yr rain)` | `No detectable trend` | **`Q1`**: TWS decline, no detectable rainfall trend | Storage depletion without detected rainfall trend |
+| **SW** | -0.05 | `No detectable trend` | `Suggestive increase` | `Q3 / Confounded` | `No detectable trend` | **`Q3`**: No detectable trend (below detection limit) | No detectable trend (within natural variability) |
+| **SE** | -0.05 | `No detectable trend` | `Suggestive increase` | `Q3 / Confounded` | `No detectable trend` | **`Q3`**: No detectable trend (below detection limit) | No detectable trend (within natural variability) |
+| **National** | -0.51 | `Significant` | `Suggestive increase` | `Q3 / Confounded` | `No detectable trend` | **`Q1`**: TWS decline, no detectable rainfall trend | Storage depletion without detected rainfall trend |
 
 ---
 
@@ -49,7 +49,7 @@ Under NASA POWER, an artificial step shift (+45% to +84%) occurred around 2014-1
 
 - **Critical Correction:** We now explicitly report **Storage Rebound Alone ($\Delta\text{TWS} = \text{Peak} - \text{Trough}$, cm)** so it does not depend on the rainfall denominator.
 - **Resolution of the Efficiency Drop:** In previous reports, the ratio appeared to decline drastically (-1.05%/yr, p = 0.0007). This audit confirms that the apparent decline was an artifact caused by NASA POWER's post-2015 rainfall step increase in the denominator. With homogeneous GPM IMERG precipitation, the seasonal storage response ratio shows suggestive increase nationally (+0.136%/yr, raw p = 0.021, FDR q = 0.111; Suggestive increase) and in Central (+0.387%/yr, raw p = 0.037, FDR q = 0.111; Suggestive increase), with no detectable trend in NW, NE, SW, and SE. Storage rebound alone shows no detectable trend across all 6 regions.
-- **Limitation:** The seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient.
+- **Limitation:** The seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated subsurface recharge coefficient.
 
 | Region | Valid Seasons | Storage Rebound ALONE Mean (cm) | Rebound Alone Slope (cm/yr) | Rebound Alone Verdict | IMERG Storage Response Ratio Mean | IMERG Response Ratio Slope (%/yr) | IMERG Response Ratio Verdict | Old POWER Response Ratio Slope |
 |---|---|---|---|---|---|---|---|---|
@@ -82,12 +82,12 @@ Under NASA POWER, an artificial step shift (+45% to +84%) occurred around 2014-1
 
 | Region | Population (Millions) | National Pop Share | Cropland (%) | TWS Slope (cm/yr) | TWS Verdict | Primary IMERG Rain Slope (mm/yr) | Rain Verdict | Hydrological Coupling Quadrant |
 |---|---|---|---|---|---|---|---|---|
-| **NW** | 38.81 M | 22.9% | 74.2% | -1.25 | **`Significant`** | -1.91 | **`No detectable trend`** | `Q1: Decoupled Depletion (Bengal Water Storage Paradox)` |
-| **NE** | 24.05 M | 14.2% | 58.6% | -0.56 | **`Significant`** | -0.59 | **`No detectable trend`** | `Q1: Decoupled Depletion (Bengal Water Storage Paradox)` |
-| **Central** | 45.64 M | 26.9% | 56.4% | -0.47 | **`Significant`** | +0.89 | **`No detectable trend`** | `Q1: Decoupled Depletion (Bengal Water Storage Paradox)` |
-| **SW** | 27.14 M | 16.0% | 48.7% | -0.05 | **`No detectable trend`** | +2.25 | **`No detectable trend`** | `Q3: No Detectable Trend / Below Detection Limit` |
-| **SE** | 34.18 M | 20.1% | 32.1% | -0.05 | **`No detectable trend`** | +1.76 | **`No detectable trend`** | `Q3: No Detectable Trend / Below Detection Limit` |
-| **National** | 169.83 M | 100.0% | 57.8% | -0.51 | **`Significant`** | +2.04 | **`No detectable trend`** | `Q1: Decoupled Depletion (Bengal Water Storage Paradox)` |
+| **NW** | 38.81 M | 22.9% | 74.2% | -1.25 | **`Significant`** | -1.91 | **`No detectable trend`** | `Q1: TWS decline, no detectable rainfall trend` |
+| **NE** | 24.05 M | 14.2% | 58.6% | -0.56 | **`Significant`** | -0.59 | **`No detectable trend`** | `Q1: TWS decline, no detectable rainfall trend` |
+| **Central** | 45.64 M | 26.9% | 56.4% | -0.47 | **`Significant`** | +0.89 | **`No detectable trend`** | `Q1: TWS decline, no detectable rainfall trend` |
+| **SW** | 27.14 M | 16.0% | 48.7% | -0.05 | **`No detectable trend`** | +2.25 | **`No detectable trend`** | `Q3: No detectable trend (below detection limit)` |
+| **SE** | 34.18 M | 20.1% | 32.1% | -0.05 | **`No detectable trend`** | +1.76 | **`No detectable trend`** | `Q3: No detectable trend (below detection limit)` |
+| **National** | 169.83 M | 100.0% | 57.8% | -0.51 | **`Significant`** | +2.04 | **`No detectable trend`** | `Q1: TWS decline, no detectable rainfall trend` |
 
 ---
 
@@ -95,7 +95,7 @@ Under NASA POWER, an artificial step shift (+45% to +84%) occurred around 2014-1
 
 1. **Primary Precipitation Source:** Successfully switched from NASA POWER to GPM IMERG V07B Final Run (2002-01 to 2025-09).
 2. **Rainfall Trends:** Artificial upward trends (+28 to +108 mm/yr) eliminated; all regional annual, monsoon, and dry-season IMERG trends show no detectable trend (`No detectable trend`, p >= 0.38).
-3. **Bengal Water Storage Paradox:** The Bengal Water Storage Paradox pattern is observed under homogeneous rainfall — storage depletion in NW (-1.25 cm/yr), NE (-0.56 cm/yr), and Central (-0.47 cm/yr) persists in the absence of a detected rainfall trend.
+3. **Storage Depletion Without Detected Rainfall Deficit:** Storage depletion in NW (-1.25 cm/yr), NE (-0.56 cm/yr), and Central (-0.47 cm/yr) persists in the absence of a detected rainfall trend.
 4. **Seasonal Storage Response Ratio:** Storage rebound ALONE is now explicitly reported (National mean: 54.0 cm, no detectable trend). The previous -1.05%/yr ratio drop was an artifact of POWER's post-2015 surge; IMERG response ratio averages 32.6% nationally.
 5. **Flood Events:** Corrected 2017 monsoon from -53.7% (gap artifact) to +12.8% (complete 4-month IMERG total of 1,879 mm). 2020 corrected from +48.6% to +8.6%. Added localized NE extremes (2017 MAM deluge +49.1%; 2022 June deluge +60.6%).
 6. **Exposure Layer:** Updated with coupled rainfall verdicts; approximately 108.5 million people (63.9% of Bangladesh) live in regions where regional-mean total water storage declined significantly in the absence of a detected rainfall trend.
