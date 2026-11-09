@@ -1,13 +1,14 @@
 """
 Unit and Integration Test: Enforce Zero Forbidden Phrases in Documentation and Reports
 ======================================================================================
-Scans all markdown and text deliverables under outputs/ (excluding archived outputs/v2)
-and root README.md to strictly assert zero occurrences of forbidden, causal, or unscientific wording:
+Scans all markdown and text deliverables under outputs/ (excluding archived outputs/v2),
+demo.html, index.html, README.md, and PROJECT_STATUS.md to strictly assert zero occurrences
+of forbidden, causal, or unscientific wording:
   - "flat" / "Corrected to Flat"
   - "Hydrologically Steady"
   - "proving" / "proven" / "proves"
   - "despite normal rainfall"
-  - "Paradox confirmed" / "Paradox validated"
+  - "paradox"
   - "cannot be attributed"
   - "completely decoupled"
   - "disproving"
@@ -15,6 +16,7 @@ and root README.md to strictly assert zero occurrences of forbidden, causal, or 
   - "demonstrat*"
   - "confirmed"
   - "concentrated in"
+  - "aquifer" (except in quoted source titles, citations, or bibliography entries)
 """
 
 import re
@@ -29,7 +31,7 @@ FORBIDDEN_PATTERNS = [
     (r"\bHydrologically Steady\b", "Hydrologically Steady"),
     (r"\bprov(ing|en|es)\b", "proving/proven/proves"),
     (r"\bdespite normal rainfall\b", "despite normal rainfall"),
-    (r"\bParadox (confirmed|validated)\b", "Paradox confirmed/validated"),
+    (r"\bparadox\w*\b", "paradox"),
     (r"\bcannot be attributed\b", "cannot be attributed"),
     (r"\bcompletely decoupled\b", "completely decoupled"),
     (r"\bdisproving\b", "disproving"),
@@ -46,18 +48,23 @@ class TestForbiddenPhrases(unittest.TestCase):
         outputs_dir = REPO_ROOT / "outputs"
         readme_file = REPO_ROOT / "README.md"
         project_status_file = REPO_ROOT / "PROJECT_STATUS.md"
+        demo_file = REPO_ROOT / "demo.html"
+        index_file = REPO_ROOT / "index.html"
 
         self.assertTrue(outputs_dir.exists(), "outputs directory must exist")
         self.assertTrue(readme_file.exists(), "README.md must exist")
         self.assertTrue(project_status_file.exists(), "PROJECT_STATUS.md must exist")
+        self.assertTrue(demo_file.exists(), "demo.html must exist")
+        self.assertTrue(index_file.exists(), "index.html must exist")
 
-        # Scan all .md and .txt files under outputs/ (excluding archived outputs/v2), README.md, and PROJECT_STATUS.md
+        # Scan all .md, .txt, and .html files under outputs/ (excluding archived outputs/v2),
+        # plus root deliverables: README.md, PROJECT_STATUS.md, demo.html, index.html
         target_files = [
             f for f in outputs_dir.rglob("*")
-            if f.suffix in (".md", ".txt") and "v2" not in f.parts
-        ] + [readme_file, project_status_file]
+            if f.suffix in (".md", ".txt", ".html") and "v2" not in f.parts
+        ] + [readme_file, project_status_file, demo_file, index_file]
 
-        self.assertGreater(len(target_files), 15, "Expected at least 15 documentation files to scan")
+        self.assertGreater(len(target_files), 25, "Expected at least 25 documentation/html files to scan")
 
         violations = []
 
@@ -69,6 +76,22 @@ class TestForbiddenPhrases(unittest.TestCase):
                     rel_path = fpath.relative_to(REPO_ROOT)
                     matched_words = [m.group(0) for m in matches]
                     violations.append(f"{rel_path}: Found {len(matches)} occurrence(s) of '{label}' -> {matched_words}")
+
+            # Check "aquifer" rule: forbidden except in quoted source titles, citations, or bibliography
+            for i, line in enumerate(text.splitlines(), 1):
+                if re.search(r"\baquifers?\b", line, re.IGNORECASE):
+                    is_quoted_or_citation = (
+                        '"' in line or
+                        '\u201c' in line or
+                        '\u201d' in line or
+                        '| **PUB-' in line or
+                        '### [PUB-' in line or
+                        'Taylor' in line or
+                        'Shamsudduha' in line
+                    )
+                    if not is_quoted_or_citation:
+                        rel_path = fpath.relative_to(REPO_ROOT)
+                        violations.append(f"{rel_path}:{i}: Found unquoted 'aquifer' -> {line.strip()}")
 
         if violations:
             msg = "\n".join(["Forbidden phrases detected in deliverables:"] + violations)

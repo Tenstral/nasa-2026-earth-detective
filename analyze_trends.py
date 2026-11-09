@@ -1,5 +1,5 @@
 """
-NASA Space Apps 2026 - Trend Detective: Bengal Water Paradox
+NASA Space Apps 2026 - Trend Detective: Bengal Hydro Detective
 Statistical Engine: Mann-Kendall Trend Test & Theil-Sen Slope Estimator (2020–2026)
 
 Performs non-parametric trend detection and robust rate-of-change estimation
@@ -305,7 +305,7 @@ def plot_trends(trend_summary, div_monthly, time_years, calendar_months, output_
     ax2.axhline(0, color="#94a3b8", linestyle=":", linewidth=1)
     ax2.set_xlabel(f"Observation Year ({start_str[:4]} - {end_str[:4]})", fontsize=11, fontweight="bold")
     ax2.set_ylabel("Deseasonalized TWS Anomaly (cm)", fontsize=11, fontweight="bold")
-    ax2.set_title(f"Deseasonalized Storage Trajectory ({start_str[:4]}–{end_str[:4]})\nPersistent Aquifer Drawdown in Northern Agricultural Belt", fontsize=12, fontweight="bold", pad=10)
+    ax2.set_title(f"Deseasonalized Storage Trajectory ({start_str[:4]}–{end_str[:4]})\nPersistent Total Water Storage Depletion in Northern Agricultural Belt", fontsize=12, fontweight="bold", pad=10)
     ax2.legend(loc="lower left", framealpha=0.9, fontsize=9.5)
     ax2.grid(True, linestyle=":", alpha=0.5)
 

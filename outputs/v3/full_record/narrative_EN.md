@@ -39,7 +39,7 @@ Analysis of GPM IMERG V07B precipitation across 2002–2025 shows stationary ann
 Across 22 complete monsoon cycles:
 - Seasonal storage rebound alone (ΔTWS from pre-monsoon low to post-monsoon peak) averages 54.0 cm nationally and exhibits `No detectable trend` (p = 0.4298).
 - The **seasonal storage response ratio** (rebound / monsoon precipitation) exhibits a suggestive upward slope nationally (+0.136%/yr, raw p = 0.0208, FDR q = 0.1105, classified as `Suggestive increase`), while Northwest response ratio shows `No detectable trend` (p = 0.3784).
-> *Limitations:* The seasonal storage response ratio (ΔTWS / P_monsoon) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient.
+> *Limitations:* The seasonal storage response ratio (ΔTWS / P_monsoon) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated groundwater recharge coefficient.
 
 ## 4. Multi-Model Land Surface Partitioning (GLDAS)
 Evaluating three land surface models (GLDAS Noah 2.1, VIC 2.1, and CLSM 2.2 [labeled *Non-independent / GRACE-assimilated*]):

@@ -5,7 +5,7 @@
 > Grounded in official Annual Flood Reports from the Flood Forecasting and Warning Centre (FFWC, BWDB), decoupled GPM IMERG V07B precipitation, and 24 years of continuous satellite gravimetry.
 >
 > **Status:** Descriptive Only — provides historical context for flood pulses vs. multi-decadal total water storage trends.
-> **Limitations:** The seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient.
+> **Limitations:** The seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated groundwater recharge coefficient.
 
 ---
 

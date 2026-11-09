@@ -221,7 +221,7 @@ def build_extremes_analysis():
 > Grounded in official Annual Flood Reports from the Flood Forecasting and Warning Centre (FFWC, BWDB), decoupled GPM IMERG V07B precipitation, and 24 years of continuous satellite gravimetry.
 >
 > **Status:** Descriptive Only — provides historical context for flood pulses vs. multi-decadal total water storage trends.
-> **Limitations:** The seasonal storage response ratio ($\\Delta\\text{{TWS}} / P_{{\\text{{monsoon}}}}$) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient.
+> **Limitations:** The seasonal storage response ratio ($\\Delta\\text{{TWS}} / P_{{\\text{{monsoon}}}}$) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated groundwater recharge coefficient.
 
 ---
 
@@ -317,9 +317,9 @@ def build_extremes_analysis():
    - The multi-decadal trend engine verifies a statistically significant national decline of **-0.51 cm/yr** (FDR q < 0.0001) over the full 2002–2026 record despite the occurrence of 5 major national flood disasters.
 
 2. **Infiltration Saturation Dynamics:**
-   - Analysis of 22 complete monsoon seasons demonstrates that seasonal storage rebound alone averages **54.0 cm** nationally (slope: +0.235 cm/yr, p = 0.43, No detectable trend), while IMERG-based seasonal storage response ratio averages **32.6%**.
-   - Peak inundation pulses generate overland runoff rather than proportionally increased groundwater infiltration, confirming that seasonal flooding cannot compensate for secular dry-season water abstraction.
-   - *Limitations:* The seasonal storage response ratio (ΔTWS / P_monsoon) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient.
+   - Analysis of 22 complete monsoon seasons shows that seasonal storage rebound alone averages **54.0 cm** nationally (slope: +0.235 cm/yr, p = 0.43, No detectable trend), while IMERG-based seasonal storage response ratio averages **32.6%**.
+   - Peak inundation pulses generate overland runoff rather than proportionally increased groundwater infiltration, indicating that seasonal flooding cannot compensate for secular dry-season water abstraction.
+   - *Limitations:* The seasonal storage response ratio (ΔTWS / P_monsoon) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated groundwater recharge coefficient.
 
 3. **Localized Flash Floods (2017, 2022) vs National Monsoon Totals:**
    - In 2017, pre-monsoon deluge in the Northeast reached 1,091.8 mm (+49.1% above baseline), inundating >70% of Haor basins.
@@ -371,7 +371,7 @@ def plot_extremes_figure(nat_df: pd.DataFrame, events_df: pd.DataFrame):
     ax2.set_ylabel("Storage Response Ratio (%)", fontsize=10)
     ax2.set_xlabel("Monsoon Year", fontsize=10)
     ax2.set_title("B. Seasonal Storage Response Ratio: [ΔTWS / (0.1 × IMERG Monsoon Precip)]\n"
-                  "Limitation: Integrates bulk total water storage (unsaturated soil moisture + surface water + groundwater), not isolated aquifer recharge",
+                  "Limitation: Integrates bulk total water storage (unsaturated soil moisture + surface water + groundwater), not isolated groundwater recharge",
                   fontsize=10, fontweight="bold")
     ax2.grid(True, linestyle=":", alpha=0.4)
     ax2.legend(loc="upper right", fontsize=9)

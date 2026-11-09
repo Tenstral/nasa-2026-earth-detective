@@ -1,5 +1,5 @@
 """
-NASA Space Apps 2026 - Trend Detective: Bengal Water Paradox
+NASA Space Apps 2026 - Trend Detective: Bengal Hydro Detective
 CSR GRACE / GRACE-FO RL06.3 Mascon Downloader
 
 Automates downloading of CSR GRACE/GRACE-FO Mascon NetCDF solutions

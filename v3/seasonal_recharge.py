@@ -9,7 +9,7 @@ Analyzes hydrological recovery dynamics across 24 monsoon seasons (2002–2025):
   - Decoupled seasonal monsoon precipitation (P_monsoon, mm) from GPM IMERG V07B (4 complete months Jun-Sep).
   - Seasonal storage response ratio: SRR = Delta TWS (cm) / (0.1 * P_monsoon, cm).
     Limitation: Reflects bulk total water storage change, integrating unsaturated soil moisture
-    and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient.
+    and surface water bodies alongside groundwater, and does not represent an isolated groundwater recharge coefficient.
   - Explicit flagging of satellite mission gap seasons (2017 lacks post-monsoon peak; 2018 lacks pre-monsoon low).
   - Trend estimation on both storage rebound alone and seasonal storage response ratio.
 
@@ -311,7 +311,7 @@ def run_seasonal_recharge_analysis():
         "definitions": {
             "rebound_alone_cm": "TWS_peak (Sep/Oct) minus TWS_pre (Apr/May) in cm (independent of rainfall)",
             "seasonal_storage_response_ratio_imerg": "rebound_cm / (0.1 * imerg_monsoon_precip_mm) [fractional bulk storage recovery]",
-            "limitation": "The seasonal storage response ratio (ΔTWS / P_monsoon) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient.",
+            "limitation": "The seasonal storage response ratio (ΔTWS / P_monsoon) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated groundwater recharge coefficient.",
         },
         "results": summary_results,
     }
@@ -366,7 +366,7 @@ def plot_fig2_recharge_efficiency(df: pd.DataFrame):
                  linestyle="-" if reg != "National" else "--")
 
     ax2.set_title("B. Seasonal Storage Response Ratio: [ΔTWS (cm) / (0.1 × IMERG Monsoon Precip (cm))] × 100%\n"
-                  "Limitation: Integrates bulk total water storage (soil moisture + surface water + groundwater), not isolated aquifer recharge",
+                  "Limitation: Integrates bulk total water storage (soil moisture + surface water + groundwater), not isolated groundwater recharge",
                   fontsize=11, fontweight="bold")
     ax2.set_ylabel("Storage Response Ratio (%)", fontsize=10)
     ax2.set_xlabel("Hydrological Year (2002–2025)", fontsize=11)

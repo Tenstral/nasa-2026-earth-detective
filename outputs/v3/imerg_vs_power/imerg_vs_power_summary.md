@@ -129,6 +129,6 @@ A precipitation dataset qualifies as the primary rainfall source for water stora
 2. **Correction of Prior Hypotheses:**
    - Earlier draft text conjectured that IMERG showed higher values due to "capturing heavier convective cells with dual-frequency radar". That conjecture was incorrect and is deleted: **IMERG is systematically lower than NASA POWER nationally post-2015**, where POWER exhibits an upward surge of +79.5 mm/month relative to IMERG.
 
-3. **Status of the Bengal Water Storage Paradox:**
-   - Because GPM IMERG confirms that rainfall in the Northwest and Central regions has remained stable without long-term decline or surge, the persistent depletion of Total Water Storage (TWS) in the Northwest (-1.25 to -1.81 cm/yr) and Central divisions occurs without a corresponding decline in rainfall influx.
-   - This pattern is **consistent with, not proof of**, human water extraction (such as intensive Boro dry-season groundwater abstraction).
+3. **Rainfall Coupling and TWS Depletion Dynamics:**
+   - Because GPM IMERG confirms that rainfall in the Northwest and Central regions has remained without detectable long-term decline or surge, the persistent depletion of Total Water Storage (TWS) in the Northwest (-1.25 to -1.81 cm/yr) and Central divisions occurs without a corresponding decline in rainfall influx.
+   - This pattern is **consistent with, not proof of**, human water extraction (such as intensive Boro dry-season irrigation abstraction).

@@ -1,5 +1,5 @@
 """
-NASA Space Apps 2026 - Trend Detective: Bengal Water Paradox
+NASA Space Apps 2026 - Trend Detective: Bengal Hydro Detective
 Official NASA GPM IMERG Downloader (via NASA Earthdata / earthaccess)
 
 Downloads official GPM IMERG Monthly Final Run (GPM_3IMERGM v07B) HDF5/NetCDF files

@@ -455,9 +455,9 @@ def write_summary_report(comp_df: pd.DataFrame, trend_df: pd.DataFrame):
    - Nationally, GPM IMERG estimates higher monthly precipitation than NASA POWER by **{nat_comp['bias_mbe_mm_mo']:+.1f} mm/month ({nat_comp['percent_bias_pct']:+.1f}%)**, with an overall RMSE of **{nat_comp['rmse_mm_mo']:.1f} mm/month**.
    - The bias is concentrated primarily during the peak monsoon season (June–August), where IMERG's dual-frequency precipitation radar and multi-satellite microwave radiometers capture heavier convective rainfall cells over the Bay of Bengal coastal interface and the northeastern Sylhet basin compared to MERRA-2's global assimilation grid.
 
-3. **Trend Consistency & Rainfall Paradox Confirmation:**
+3. **Trend Consistency & Rainfall Coupling Robustness:**
    - Both datasets yield statistically consistent trend conclusions across the 2018–2026 windows: neither product indicates declining rainfall over the northwestern or central divisions.
-   - Crucially, the "Rainfall vs Storage Paradox" remains robust across both independent precipitation products: **storage continues to deplete in the Northwest and Central divisions regardless of whether precipitation is measured via NASA POWER or GPM IMERG**.
+   - Crucially, the decoupling between rainfall and storage trends remains robust across both independent precipitation products: **storage continues to deplete in the Northwest and Central divisions regardless of whether precipitation is measured via NASA POWER or GPM IMERG**.
 """
     rep_path = OUTPUT_DIR / "imerg_vs_power_summary.md"
     rep_path.write_text(md, encoding="utf-8")
