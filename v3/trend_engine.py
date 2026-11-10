@@ -24,7 +24,10 @@ if str(REPO_ROOT) not in sys.path:
 import numpy as np
 import pandas as pd
 from scipy import stats
-import pymannkendall as mk
+try:
+    import pymannkendall as mk
+except ImportError:
+    mk = None
 
 from v2.task3_trend_engine import (
     deseasonalise,
@@ -227,12 +230,17 @@ def run_trend_v3(
         boot_ci_low, boot_ci_high = ci_low, ci_high
 
     # Secondary Reference Test: Hamed-Rao Modified MK
-    try:
-        hr = mk.hamed_rao_modification_test(y_v)
-        hr_p = float(hr.p)
-        hr_z = float(hr.z)
-        hr_tau = float(hr.Tau)
-    except Exception:
+    if mk is not None:
+        try:
+            hr = mk.hamed_rao_modification_test(y_v)
+            hr_p = float(hr.p)
+            hr_z = float(hr.z)
+            hr_tau = float(hr.Tau)
+        except Exception:
+            hr_p = float("nan")
+            hr_z = float("nan")
+            hr_tau = float("nan")
+    else:
         hr_p = float("nan")
         hr_z = float("nan")
         hr_tau = float("nan")

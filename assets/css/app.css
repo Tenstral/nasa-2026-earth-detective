@@ -1065,6 +1065,63 @@ body {
   text-transform: uppercase;
 }
 
+/* Stakeholder Directives Card */
+.stakeholder-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+  box-shadow: var(--shadow-sm);
+  margin-top: 20px;
+}
+
+.stakeholder-header {
+  margin-bottom: 16px;
+}
+
+.directive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.directive-item {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  border-left: 3px solid #2563eb;
+}
+
+.directive-item.mandate {
+  border-left-color: #d97706;
+}
+
+.directive-item.farmer-do {
+  border-left-color: #16a34a;
+}
+
+.directive-item.farmer-dont {
+  border-left-color: #dc2626;
+}
+
+.directive-item.citizen {
+  border-left-color: #0284c7;
+}
+
+.directive-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.directive-text {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+
 .footer-credits {
   margin-top: 24px;
   padding: 20px 0;

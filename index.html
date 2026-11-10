@@ -179,6 +179,8 @@
             <div class="chart-layer-toggles">
               <button class="toggle-pill active" id="toggle-deseason" title="Remove 12-month calendar climatology">Deseasonalized</button>
               <button class="toggle-pill active" id="toggle-trendline" title="Show Theil-Sen regression fit">Trend Line &amp; CI</button>
+              <button class="toggle-pill active" id="toggle-gap" title="Show 2017–2018 inter-satellite mission gap">11-Mo Gap</button>
+              <button class="toggle-pill active" id="toggle-floods" title="Show major historical flood years (FFWC)">🌊 Flood Events</button>
             </div>
           </div>
 
@@ -202,6 +204,14 @@
             <div class="legend-key">
               <span class="legend-dot" style="background:#ea580c;"></span>
               <span>Overlay Series (Right Axis)</span>
+            </div>
+            <div class="legend-key">
+              <span class="legend-box" style="background:rgba(148,163,184,0.3);border:1px dashed #64748b;"></span>
+              <span>2017–18 Gap</span>
+            </div>
+            <div class="legend-key">
+              <span class="legend-dot" style="background:#0284c7;"></span>
+              <span>🌊 Historical Floods</span>
             </div>
           </div>
         </div>
@@ -260,6 +270,18 @@
               </p>
             </div>
           </div>
+        </div>
+
+        <!-- Stakeholder Directives & Practical Impact Card -->
+        <div class="stakeholder-card" id="stakeholder-card">
+          <div class="stakeholder-header">
+            <span class="step-pill" style="margin-bottom:6px;"><span class="step-num">★</span> Practical Action Directives</span>
+            <h3 id="stakeholder-title">Regional Stakeholder Directives</h3>
+            <p id="stakeholder-sub" style="font-size:0.85rem;color:var(--text-muted);margin-top:2px;">
+              Actionable guidance translated from 24-year satellite trends for farmers, planners, and citizens
+            </p>
+          </div>
+          <div class="stakeholder-body" id="stakeholder-body"></div>
         </div>
 
       </div>
@@ -326,12 +348,28 @@
               <td>Strictly labeled 'groundwater + surface water + model error residual'.</td>
             </tr>
             <tr>
-              <td><strong>Aerosol Optical Depth (AOD)</strong></td>
+              <td><strong>Aerosol Optical Depth (AERONET)</strong></td>
               <td>NASA AERONET Ground Sun Photometer</td>
               <td>Point (Dhaka University)</td>
               <td>Dimensionless (550 nm)</td>
               <td>2012-06 to 2024-07</td>
               <td>Level 1.5 cloud-cleared point measurement; urban center exposure.</td>
+            </tr>
+            <tr>
+              <td><strong>Aerosol Optical Depth (MODIS Aqua)</strong></td>
+              <td>MODIS Aqua Level 3 (MYD08_M3 v6.1 via NASA Harmony)</td>
+              <td>1° (~110 km) gridded (Dhaka cell &amp; BD box)</td>
+              <td>Dimensionless (550 nm)</td>
+              <td>2002-07 to 2026-07</td>
+              <td>Satellite pass over Bangladesh at ~13:30 local solar time. Passive optical retrieval.</td>
+            </tr>
+            <tr>
+              <td><strong>Extreme 1-Day Downpours (Rx1day)</strong></td>
+              <td>GPM IMERG Daily Precipitation Derivative</td>
+              <td>Macro-regional aggregate</td>
+              <td>mm/day</td>
+              <td>2003 to 2024 (annual)</td>
+              <td>ETCCDI climate extreme index measuring the single wettest day per calendar year.</td>
             </tr>
           </tbody>
         </table>

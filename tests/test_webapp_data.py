@@ -60,7 +60,8 @@ class TestWebappData(unittest.TestCase):
         self.assertIn("power_precip", var_ids)
         self.assertIn("noah_sms_anom", var_ids)
         self.assertIn("subsurface_residual", var_ids)
-        self.assertIn("aod_550", var_ids)
+        self.assertIn("modis_aod", var_ids)
+        self.assertIn("aeronet_aod", var_ids)
 
         reg_ids = [r["id"] for r in catalog["regions"]]
         self.assertEqual(set(reg_ids), {"NW", "NE", "Central", "SW", "SE", "National"})

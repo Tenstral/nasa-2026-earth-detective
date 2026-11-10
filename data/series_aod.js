@@ -1154,6 +1154,1912 @@ window.ED.seriesAOD = {
       "source": "NASA_AERONET_Dhaka_University_L1.5"
     }
   ],
-  "dhaka_modis": [],
-  "bangladesh_modis": []
+  "dhaka_modis": [
+    {
+      "ym": "2002-07",
+      "year": 2002,
+      "month": 7,
+      "decimal_year": 2002.5417,
+      "aod_550": 1.565,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2002-08",
+      "year": 2002,
+      "month": 8,
+      "decimal_year": 2002.625,
+      "aod_550": 0.557,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2002-09",
+      "year": 2002,
+      "month": 9,
+      "decimal_year": 2002.7083,
+      "aod_550": 0.422,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2002-10",
+      "year": 2002,
+      "month": 10,
+      "decimal_year": 2002.7917,
+      "aod_550": 0.455,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2002-11",
+      "year": 2002,
+      "month": 11,
+      "decimal_year": 2002.875,
+      "aod_550": 0.293,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2002-12",
+      "year": 2002,
+      "month": 12,
+      "decimal_year": 2002.9583,
+      "aod_550": 0.537,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-01",
+      "year": 2003,
+      "month": 1,
+      "decimal_year": 2003.0417,
+      "aod_550": 0.659,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-02",
+      "year": 2003,
+      "month": 2,
+      "decimal_year": 2003.125,
+      "aod_550": 0.578,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-03",
+      "year": 2003,
+      "month": 3,
+      "decimal_year": 2003.2083,
+      "aod_550": 0.52,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-04",
+      "year": 2003,
+      "month": 4,
+      "decimal_year": 2003.2917,
+      "aod_550": 0.656,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-05",
+      "year": 2003,
+      "month": 5,
+      "decimal_year": 2003.375,
+      "aod_550": 0.903,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-06",
+      "year": 2003,
+      "month": 6,
+      "decimal_year": 2003.4583,
+      "aod_550": 0.815,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-07",
+      "year": 2003,
+      "month": 7,
+      "decimal_year": 2003.5417,
+      "aod_550": 0.329,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-08",
+      "year": 2003,
+      "month": 8,
+      "decimal_year": 2003.625,
+      "aod_550": 0.439,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-09",
+      "year": 2003,
+      "month": 9,
+      "decimal_year": 2003.7083,
+      "aod_550": 0.457,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-10",
+      "year": 2003,
+      "month": 10,
+      "decimal_year": 2003.7917,
+      "aod_550": 0.494,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-11",
+      "year": 2003,
+      "month": 11,
+      "decimal_year": 2003.875,
+      "aod_550": 0.449,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2003-12",
+      "year": 2003,
+      "month": 12,
+      "decimal_year": 2003.9583,
+      "aod_550": 0.461,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-01",
+      "year": 2004,
+      "month": 1,
+      "decimal_year": 2004.0417,
+      "aod_550": 0.622,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-02",
+      "year": 2004,
+      "month": 2,
+      "decimal_year": 2004.125,
+      "aod_550": 0.675,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-03",
+      "year": 2004,
+      "month": 3,
+      "decimal_year": 2004.2083,
+      "aod_550": 0.423,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-04",
+      "year": 2004,
+      "month": 4,
+      "decimal_year": 2004.2917,
+      "aod_550": 0.683,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-05",
+      "year": 2004,
+      "month": 5,
+      "decimal_year": 2004.375,
+      "aod_550": 0.657,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-06",
+      "year": 2004,
+      "month": 6,
+      "decimal_year": 2004.4583,
+      "aod_550": 0.706,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-07",
+      "year": 2004,
+      "month": 7,
+      "decimal_year": 2004.5417,
+      "aod_550": 0.547,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-08",
+      "year": 2004,
+      "month": 8,
+      "decimal_year": 2004.625,
+      "aod_550": 0.444,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-09",
+      "year": 2004,
+      "month": 9,
+      "decimal_year": 2004.7083,
+      "aod_550": 0.579,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-10",
+      "year": 2004,
+      "month": 10,
+      "decimal_year": 2004.7917,
+      "aod_550": 0.461,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-11",
+      "year": 2004,
+      "month": 11,
+      "decimal_year": 2004.875,
+      "aod_550": 0.515,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2004-12",
+      "year": 2004,
+      "month": 12,
+      "decimal_year": 2004.9583,
+      "aod_550": 0.538,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2005-01",
+      "year": 2005,
+      "month": 1,
+      "decimal_year": 2005.0417,
+      "aod_550": 0.681,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2005-02",
+      "year": 2005,
+      "month": 2,
+      "decimal_year": 2005.125,
+      "aod_550": 0.522,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2005-03",
+      "year": 2005,
+      "month": 3,
+      "decimal_year": 2005.2083,
+      "aod_550": 0.529,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2005-04",
+      "year": 2005,
+      "month": 4,
+      "decimal_year": 2005.2917,
+      "aod_550": 0.631,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2005-05",
+      "year": 2005,
+      "month": 5,
+      "decimal_year": 2005.375,
+      "aod_550": 0.801,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2005-06",
+      "year": 2005,
+      "month": 6,
+      "decimal_year": 2005.4583,
+      "aod_550": 0.926,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2005-08",
+      "year": 2005,
+      "month": 8,
+      "decimal_year": 2005.625,
+      "aod_550": 0.912,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2005-09",
+      "year": 2005,
+      "month": 9,
+      "decimal_year": 2005.7083,
+      "aod_550": 0.479,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2005-10",
+      "year": 2005,
+      "month": 10,
+      "decimal_year": 2005.7917,
+      "aod_550": 0.378,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2005-11",
+      "year": 2005,
+      "month": 11,
+      "decimal_year": 2005.875,
+      "aod_550": 0.435,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2005-12",
+      "year": 2005,
+      "month": 12,
+      "decimal_year": 2005.9583,
+      "aod_550": 0.355,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-01",
+      "year": 2006,
+      "month": 1,
+      "decimal_year": 2006.0417,
+      "aod_550": 0.657,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-02",
+      "year": 2006,
+      "month": 2,
+      "decimal_year": 2006.125,
+      "aod_550": 0.668,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-03",
+      "year": 2006,
+      "month": 3,
+      "decimal_year": 2006.2083,
+      "aod_550": 0.524,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-04",
+      "year": 2006,
+      "month": 4,
+      "decimal_year": 2006.2917,
+      "aod_550": 0.696,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-05",
+      "year": 2006,
+      "month": 5,
+      "decimal_year": 2006.375,
+      "aod_550": 0.682,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-06",
+      "year": 2006,
+      "month": 6,
+      "decimal_year": 2006.4583,
+      "aod_550": 0.765,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-07",
+      "year": 2006,
+      "month": 7,
+      "decimal_year": 2006.5417,
+      "aod_550": 0.44,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-08",
+      "year": 2006,
+      "month": 8,
+      "decimal_year": 2006.625,
+      "aod_550": 0.49,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-09",
+      "year": 2006,
+      "month": 9,
+      "decimal_year": 2006.7083,
+      "aod_550": 0.37,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-10",
+      "year": 2006,
+      "month": 10,
+      "decimal_year": 2006.7917,
+      "aod_550": 0.465,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-11",
+      "year": 2006,
+      "month": 11,
+      "decimal_year": 2006.875,
+      "aod_550": 0.502,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2006-12",
+      "year": 2006,
+      "month": 12,
+      "decimal_year": 2006.9583,
+      "aod_550": 0.758,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2007-01",
+      "year": 2007,
+      "month": 1,
+      "decimal_year": 2007.0417,
+      "aod_550": 0.903,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2007-03",
+      "year": 2007,
+      "month": 3,
+      "decimal_year": 2007.2083,
+      "aod_550": 0.434,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2007-04",
+      "year": 2007,
+      "month": 4,
+      "decimal_year": 2007.2917,
+      "aod_550": 0.657,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2007-05",
+      "year": 2007,
+      "month": 5,
+      "decimal_year": 2007.375,
+      "aod_550": 0.565,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2007-06",
+      "year": 2007,
+      "month": 6,
+      "decimal_year": 2007.4583,
+      "aod_550": 0.406,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2007-08",
+      "year": 2007,
+      "month": 8,
+      "decimal_year": 2007.625,
+      "aod_550": 0.494,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2007-09",
+      "year": 2007,
+      "month": 9,
+      "decimal_year": 2007.7083,
+      "aod_550": 0.408,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2007-10",
+      "year": 2007,
+      "month": 10,
+      "decimal_year": 2007.7917,
+      "aod_550": 0.47,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2007-11",
+      "year": 2007,
+      "month": 11,
+      "decimal_year": 2007.875,
+      "aod_550": 0.45,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2007-12",
+      "year": 2007,
+      "month": 12,
+      "decimal_year": 2007.9583,
+      "aod_550": 0.661,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2008-01",
+      "year": 2008,
+      "month": 1,
+      "decimal_year": 2008.0417,
+      "aod_550": 0.792,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2008-02",
+      "year": 2008,
+      "month": 2,
+      "decimal_year": 2008.125,
+      "aod_550": 0.822,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2008-03",
+      "year": 2008,
+      "month": 3,
+      "decimal_year": 2008.2083,
+      "aod_550": 0.706,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2008-04",
+      "year": 2008,
+      "month": 4,
+      "decimal_year": 2008.2917,
+      "aod_550": 0.603,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2008-05",
+      "year": 2008,
+      "month": 5,
+      "decimal_year": 2008.375,
+      "aod_550": 0.849,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2008-06",
+      "year": 2008,
+      "month": 6,
+      "decimal_year": 2008.4583,
+      "aod_550": 0.847,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2008-08",
+      "year": 2008,
+      "month": 8,
+      "decimal_year": 2008.625,
+      "aod_550": 0.457,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2008-09",
+      "year": 2008,
+      "month": 9,
+      "decimal_year": 2008.7083,
+      "aod_550": 0.456,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2008-10",
+      "year": 2008,
+      "month": 10,
+      "decimal_year": 2008.7917,
+      "aod_550": 0.47,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2008-11",
+      "year": 2008,
+      "month": 11,
+      "decimal_year": 2008.875,
+      "aod_550": 0.337,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2008-12",
+      "year": 2008,
+      "month": 12,
+      "decimal_year": 2008.9583,
+      "aod_550": 0.715,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2009-01",
+      "year": 2009,
+      "month": 1,
+      "decimal_year": 2009.0417,
+      "aod_550": 0.826,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2009-02",
+      "year": 2009,
+      "month": 2,
+      "decimal_year": 2009.125,
+      "aod_550": 0.591,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2009-03",
+      "year": 2009,
+      "month": 3,
+      "decimal_year": 2009.2083,
+      "aod_550": 0.685,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2009-04",
+      "year": 2009,
+      "month": 4,
+      "decimal_year": 2009.2917,
+      "aod_550": 0.586,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2009-05",
+      "year": 2009,
+      "month": 5,
+      "decimal_year": 2009.375,
+      "aod_550": 0.768,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2009-06",
+      "year": 2009,
+      "month": 6,
+      "decimal_year": 2009.4583,
+      "aod_550": 0.821,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2009-07",
+      "year": 2009,
+      "month": 7,
+      "decimal_year": 2009.5417,
+      "aod_550": 0.438,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2009-09",
+      "year": 2009,
+      "month": 9,
+      "decimal_year": 2009.7083,
+      "aod_550": 0.571,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2009-10",
+      "year": 2009,
+      "month": 10,
+      "decimal_year": 2009.7917,
+      "aod_550": 0.44,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2009-11",
+      "year": 2009,
+      "month": 11,
+      "decimal_year": 2009.875,
+      "aod_550": 0.56,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2009-12",
+      "year": 2009,
+      "month": 12,
+      "decimal_year": 2009.9583,
+      "aod_550": 0.912,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-01",
+      "year": 2010,
+      "month": 1,
+      "decimal_year": 2010.0417,
+      "aod_550": 0.616,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-02",
+      "year": 2010,
+      "month": 2,
+      "decimal_year": 2010.125,
+      "aod_550": 0.776,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-03",
+      "year": 2010,
+      "month": 3,
+      "decimal_year": 2010.2083,
+      "aod_550": 0.591,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-04",
+      "year": 2010,
+      "month": 4,
+      "decimal_year": 2010.2917,
+      "aod_550": 0.75,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-05",
+      "year": 2010,
+      "month": 5,
+      "decimal_year": 2010.375,
+      "aod_550": 0.895,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-06",
+      "year": 2010,
+      "month": 6,
+      "decimal_year": 2010.4583,
+      "aod_550": 0.917,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-07",
+      "year": 2010,
+      "month": 7,
+      "decimal_year": 2010.5417,
+      "aod_550": 0.495,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-08",
+      "year": 2010,
+      "month": 8,
+      "decimal_year": 2010.625,
+      "aod_550": 0.496,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-09",
+      "year": 2010,
+      "month": 9,
+      "decimal_year": 2010.7083,
+      "aod_550": 0.762,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-10",
+      "year": 2010,
+      "month": 10,
+      "decimal_year": 2010.7917,
+      "aod_550": 0.449,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-11",
+      "year": 2010,
+      "month": 11,
+      "decimal_year": 2010.875,
+      "aod_550": 0.624,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2010-12",
+      "year": 2010,
+      "month": 12,
+      "decimal_year": 2010.9583,
+      "aod_550": 0.614,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2011-01",
+      "year": 2011,
+      "month": 1,
+      "decimal_year": 2011.0417,
+      "aod_550": 1.007,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2011-02",
+      "year": 2011,
+      "month": 2,
+      "decimal_year": 2011.125,
+      "aod_550": 0.753,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2011-03",
+      "year": 2011,
+      "month": 3,
+      "decimal_year": 2011.2083,
+      "aod_550": 0.601,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2011-04",
+      "year": 2011,
+      "month": 4,
+      "decimal_year": 2011.2917,
+      "aod_550": 0.69,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2011-05",
+      "year": 2011,
+      "month": 5,
+      "decimal_year": 2011.375,
+      "aod_550": 0.861,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2011-06",
+      "year": 2011,
+      "month": 6,
+      "decimal_year": 2011.4583,
+      "aod_550": 0.774,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2011-07",
+      "year": 2011,
+      "month": 7,
+      "decimal_year": 2011.5417,
+      "aod_550": 0.753,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2011-08",
+      "year": 2011,
+      "month": 8,
+      "decimal_year": 2011.625,
+      "aod_550": 0.431,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2011-09",
+      "year": 2011,
+      "month": 9,
+      "decimal_year": 2011.7083,
+      "aod_550": 0.649,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2011-12",
+      "year": 2011,
+      "month": 12,
+      "decimal_year": 2011.9583,
+      "aod_550": 0.708,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2012-01",
+      "year": 2012,
+      "month": 1,
+      "decimal_year": 2012.0417,
+      "aod_550": 0.947,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2012-05",
+      "year": 2012,
+      "month": 5,
+      "decimal_year": 2012.375,
+      "aod_550": 0.965,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2012-07",
+      "year": 2012,
+      "month": 7,
+      "decimal_year": 2012.5417,
+      "aod_550": 0.648,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2012-10",
+      "year": 2012,
+      "month": 10,
+      "decimal_year": 2012.7917,
+      "aod_550": 0.482,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2012-11",
+      "year": 2012,
+      "month": 11,
+      "decimal_year": 2012.875,
+      "aod_550": 0.604,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2012-12",
+      "year": 2012,
+      "month": 12,
+      "decimal_year": 2012.9583,
+      "aod_550": 0.749,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2013-01",
+      "year": 2013,
+      "month": 1,
+      "decimal_year": 2013.0417,
+      "aod_550": 0.936,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2013-02",
+      "year": 2013,
+      "month": 2,
+      "decimal_year": 2013.125,
+      "aod_550": 0.552,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2013-03",
+      "year": 2013,
+      "month": 3,
+      "decimal_year": 2013.2083,
+      "aod_550": 0.615,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    },
+    {
+      "ym": "2013-07",
+      "year": 2013,
+      "month": 7,
+      "decimal_year": 2013.5417,
+      "aod_550": 0.388,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Dhaka_Box"
+    }
+  ],
+  "bangladesh_modis": [
+    {
+      "ym": "2002-07",
+      "year": 2002,
+      "month": 7,
+      "decimal_year": 2002.5417,
+      "aod_550": 1.018,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2002-08",
+      "year": 2002,
+      "month": 8,
+      "decimal_year": 2002.625,
+      "aod_550": 0.38,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2002-09",
+      "year": 2002,
+      "month": 9,
+      "decimal_year": 2002.7083,
+      "aod_550": 0.336,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2002-10",
+      "year": 2002,
+      "month": 10,
+      "decimal_year": 2002.7917,
+      "aod_550": 0.278,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2002-11",
+      "year": 2002,
+      "month": 11,
+      "decimal_year": 2002.875,
+      "aod_550": 0.183,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2002-12",
+      "year": 2002,
+      "month": 12,
+      "decimal_year": 2002.9583,
+      "aod_550": 0.386,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-01",
+      "year": 2003,
+      "month": 1,
+      "decimal_year": 2003.0417,
+      "aod_550": 0.443,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-02",
+      "year": 2003,
+      "month": 2,
+      "decimal_year": 2003.125,
+      "aod_550": 0.447,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-03",
+      "year": 2003,
+      "month": 3,
+      "decimal_year": 2003.2083,
+      "aod_550": 0.468,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-04",
+      "year": 2003,
+      "month": 4,
+      "decimal_year": 2003.2917,
+      "aod_550": 0.542,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-05",
+      "year": 2003,
+      "month": 5,
+      "decimal_year": 2003.375,
+      "aod_550": 0.767,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-06",
+      "year": 2003,
+      "month": 6,
+      "decimal_year": 2003.4583,
+      "aod_550": 0.679,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-07",
+      "year": 2003,
+      "month": 7,
+      "decimal_year": 2003.5417,
+      "aod_550": 0.287,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-08",
+      "year": 2003,
+      "month": 8,
+      "decimal_year": 2003.625,
+      "aod_550": 0.353,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-09",
+      "year": 2003,
+      "month": 9,
+      "decimal_year": 2003.7083,
+      "aod_550": 0.269,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-10",
+      "year": 2003,
+      "month": 10,
+      "decimal_year": 2003.7917,
+      "aod_550": 0.298,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-11",
+      "year": 2003,
+      "month": 11,
+      "decimal_year": 2003.875,
+      "aod_550": 0.367,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2003-12",
+      "year": 2003,
+      "month": 12,
+      "decimal_year": 2003.9583,
+      "aod_550": 0.279,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-01",
+      "year": 2004,
+      "month": 1,
+      "decimal_year": 2004.0417,
+      "aod_550": 0.443,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-02",
+      "year": 2004,
+      "month": 2,
+      "decimal_year": 2004.125,
+      "aod_550": 0.501,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-03",
+      "year": 2004,
+      "month": 3,
+      "decimal_year": 2004.2083,
+      "aod_550": 0.484,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-04",
+      "year": 2004,
+      "month": 4,
+      "decimal_year": 2004.2917,
+      "aod_550": 0.57,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-05",
+      "year": 2004,
+      "month": 5,
+      "decimal_year": 2004.375,
+      "aod_550": 0.578,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-06",
+      "year": 2004,
+      "month": 6,
+      "decimal_year": 2004.4583,
+      "aod_550": 0.645,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-07",
+      "year": 2004,
+      "month": 7,
+      "decimal_year": 2004.5417,
+      "aod_550": 0.46,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-08",
+      "year": 2004,
+      "month": 8,
+      "decimal_year": 2004.625,
+      "aod_550": 0.346,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-09",
+      "year": 2004,
+      "month": 9,
+      "decimal_year": 2004.7083,
+      "aod_550": 0.276,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-10",
+      "year": 2004,
+      "month": 10,
+      "decimal_year": 2004.7917,
+      "aod_550": 0.29,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-11",
+      "year": 2004,
+      "month": 11,
+      "decimal_year": 2004.875,
+      "aod_550": 0.354,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2004-12",
+      "year": 2004,
+      "month": 12,
+      "decimal_year": 2004.9583,
+      "aod_550": 0.383,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-01",
+      "year": 2005,
+      "month": 1,
+      "decimal_year": 2005.0417,
+      "aod_550": 0.514,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-02",
+      "year": 2005,
+      "month": 2,
+      "decimal_year": 2005.125,
+      "aod_550": 0.406,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-03",
+      "year": 2005,
+      "month": 3,
+      "decimal_year": 2005.2083,
+      "aod_550": 0.525,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-04",
+      "year": 2005,
+      "month": 4,
+      "decimal_year": 2005.2917,
+      "aod_550": 0.559,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-05",
+      "year": 2005,
+      "month": 5,
+      "decimal_year": 2005.375,
+      "aod_550": 0.65,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-06",
+      "year": 2005,
+      "month": 6,
+      "decimal_year": 2005.4583,
+      "aod_550": 0.695,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-07",
+      "year": 2005,
+      "month": 7,
+      "decimal_year": 2005.5417,
+      "aod_550": 0.34,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-08",
+      "year": 2005,
+      "month": 8,
+      "decimal_year": 2005.625,
+      "aod_550": 0.692,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-09",
+      "year": 2005,
+      "month": 9,
+      "decimal_year": 2005.7083,
+      "aod_550": 0.314,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-10",
+      "year": 2005,
+      "month": 10,
+      "decimal_year": 2005.7917,
+      "aod_550": 0.238,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-11",
+      "year": 2005,
+      "month": 11,
+      "decimal_year": 2005.875,
+      "aod_550": 0.307,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2005-12",
+      "year": 2005,
+      "month": 12,
+      "decimal_year": 2005.9583,
+      "aod_550": 0.227,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-01",
+      "year": 2006,
+      "month": 1,
+      "decimal_year": 2006.0417,
+      "aod_550": 0.475,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-02",
+      "year": 2006,
+      "month": 2,
+      "decimal_year": 2006.125,
+      "aod_550": 0.574,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-03",
+      "year": 2006,
+      "month": 3,
+      "decimal_year": 2006.2083,
+      "aod_550": 0.451,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-04",
+      "year": 2006,
+      "month": 4,
+      "decimal_year": 2006.2917,
+      "aod_550": 0.534,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-05",
+      "year": 2006,
+      "month": 5,
+      "decimal_year": 2006.375,
+      "aod_550": 0.467,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-06",
+      "year": 2006,
+      "month": 6,
+      "decimal_year": 2006.4583,
+      "aod_550": 0.634,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-07",
+      "year": 2006,
+      "month": 7,
+      "decimal_year": 2006.5417,
+      "aod_550": 0.364,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-08",
+      "year": 2006,
+      "month": 8,
+      "decimal_year": 2006.625,
+      "aod_550": 0.353,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-09",
+      "year": 2006,
+      "month": 9,
+      "decimal_year": 2006.7083,
+      "aod_550": 0.282,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-10",
+      "year": 2006,
+      "month": 10,
+      "decimal_year": 2006.7917,
+      "aod_550": 0.31,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-11",
+      "year": 2006,
+      "month": 11,
+      "decimal_year": 2006.875,
+      "aod_550": 0.4,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2006-12",
+      "year": 2006,
+      "month": 12,
+      "decimal_year": 2006.9583,
+      "aod_550": 0.52,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2007-01",
+      "year": 2007,
+      "month": 1,
+      "decimal_year": 2007.0417,
+      "aod_550": 0.656,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2007-03",
+      "year": 2007,
+      "month": 3,
+      "decimal_year": 2007.2083,
+      "aod_550": 0.444,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2007-04",
+      "year": 2007,
+      "month": 4,
+      "decimal_year": 2007.2917,
+      "aod_550": 0.562,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2007-05",
+      "year": 2007,
+      "month": 5,
+      "decimal_year": 2007.375,
+      "aod_550": 0.492,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2007-06",
+      "year": 2007,
+      "month": 6,
+      "decimal_year": 2007.4583,
+      "aod_550": 0.511,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2007-07",
+      "year": 2007,
+      "month": 7,
+      "decimal_year": 2007.5417,
+      "aod_550": 0.361,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2007-08",
+      "year": 2007,
+      "month": 8,
+      "decimal_year": 2007.625,
+      "aod_550": 0.348,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2007-09",
+      "year": 2007,
+      "month": 9,
+      "decimal_year": 2007.7083,
+      "aod_550": 0.266,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2007-10",
+      "year": 2007,
+      "month": 10,
+      "decimal_year": 2007.7917,
+      "aod_550": 0.292,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2007-11",
+      "year": 2007,
+      "month": 11,
+      "decimal_year": 2007.875,
+      "aod_550": 0.244,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2007-12",
+      "year": 2007,
+      "month": 12,
+      "decimal_year": 2007.9583,
+      "aod_550": 0.448,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-01",
+      "year": 2008,
+      "month": 1,
+      "decimal_year": 2008.0417,
+      "aod_550": 0.537,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-02",
+      "year": 2008,
+      "month": 2,
+      "decimal_year": 2008.125,
+      "aod_550": 0.618,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-03",
+      "year": 2008,
+      "month": 3,
+      "decimal_year": 2008.2083,
+      "aod_550": 0.626,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-04",
+      "year": 2008,
+      "month": 4,
+      "decimal_year": 2008.2917,
+      "aod_550": 0.545,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-05",
+      "year": 2008,
+      "month": 5,
+      "decimal_year": 2008.375,
+      "aod_550": 0.703,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-06",
+      "year": 2008,
+      "month": 6,
+      "decimal_year": 2008.4583,
+      "aod_550": 0.703,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-07",
+      "year": 2008,
+      "month": 7,
+      "decimal_year": 2008.5417,
+      "aod_550": 0.328,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-08",
+      "year": 2008,
+      "month": 8,
+      "decimal_year": 2008.625,
+      "aod_550": 0.431,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-09",
+      "year": 2008,
+      "month": 9,
+      "decimal_year": 2008.7083,
+      "aod_550": 0.323,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-10",
+      "year": 2008,
+      "month": 10,
+      "decimal_year": 2008.7917,
+      "aod_550": 0.263,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-11",
+      "year": 2008,
+      "month": 11,
+      "decimal_year": 2008.875,
+      "aod_550": 0.217,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2008-12",
+      "year": 2008,
+      "month": 12,
+      "decimal_year": 2008.9583,
+      "aod_550": 0.542,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-01",
+      "year": 2009,
+      "month": 1,
+      "decimal_year": 2009.0417,
+      "aod_550": 0.659,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-02",
+      "year": 2009,
+      "month": 2,
+      "decimal_year": 2009.125,
+      "aod_550": 0.508,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-03",
+      "year": 2009,
+      "month": 3,
+      "decimal_year": 2009.2083,
+      "aod_550": 0.66,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-04",
+      "year": 2009,
+      "month": 4,
+      "decimal_year": 2009.2917,
+      "aod_550": 0.587,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-05",
+      "year": 2009,
+      "month": 5,
+      "decimal_year": 2009.375,
+      "aod_550": 0.62,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-06",
+      "year": 2009,
+      "month": 6,
+      "decimal_year": 2009.4583,
+      "aod_550": 0.72,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-07",
+      "year": 2009,
+      "month": 7,
+      "decimal_year": 2009.5417,
+      "aod_550": 0.356,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-08",
+      "year": 2009,
+      "month": 8,
+      "decimal_year": 2009.625,
+      "aod_550": 0.543,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-09",
+      "year": 2009,
+      "month": 9,
+      "decimal_year": 2009.7083,
+      "aod_550": 0.402,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-10",
+      "year": 2009,
+      "month": 10,
+      "decimal_year": 2009.7917,
+      "aod_550": 0.322,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-11",
+      "year": 2009,
+      "month": 11,
+      "decimal_year": 2009.875,
+      "aod_550": 0.417,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2009-12",
+      "year": 2009,
+      "month": 12,
+      "decimal_year": 2009.9583,
+      "aod_550": 0.597,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-01",
+      "year": 2010,
+      "month": 1,
+      "decimal_year": 2010.0417,
+      "aod_550": 0.401,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-02",
+      "year": 2010,
+      "month": 2,
+      "decimal_year": 2010.125,
+      "aod_550": 0.597,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-03",
+      "year": 2010,
+      "month": 3,
+      "decimal_year": 2010.2083,
+      "aod_550": 0.619,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-04",
+      "year": 2010,
+      "month": 4,
+      "decimal_year": 2010.2917,
+      "aod_550": 0.666,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-05",
+      "year": 2010,
+      "month": 5,
+      "decimal_year": 2010.375,
+      "aod_550": 0.711,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-06",
+      "year": 2010,
+      "month": 6,
+      "decimal_year": 2010.4583,
+      "aod_550": 0.814,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-07",
+      "year": 2010,
+      "month": 7,
+      "decimal_year": 2010.5417,
+      "aod_550": 0.358,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-08",
+      "year": 2010,
+      "month": 8,
+      "decimal_year": 2010.625,
+      "aod_550": 0.354,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-09",
+      "year": 2010,
+      "month": 9,
+      "decimal_year": 2010.7083,
+      "aod_550": 0.393,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-10",
+      "year": 2010,
+      "month": 10,
+      "decimal_year": 2010.7917,
+      "aod_550": 0.309,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-11",
+      "year": 2010,
+      "month": 11,
+      "decimal_year": 2010.875,
+      "aod_550": 0.448,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2010-12",
+      "year": 2010,
+      "month": 12,
+      "decimal_year": 2010.9583,
+      "aod_550": 0.417,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2011-01",
+      "year": 2011,
+      "month": 1,
+      "decimal_year": 2011.0417,
+      "aod_550": 0.685,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2011-02",
+      "year": 2011,
+      "month": 2,
+      "decimal_year": 2011.125,
+      "aod_550": 0.547,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2011-03",
+      "year": 2011,
+      "month": 3,
+      "decimal_year": 2011.2083,
+      "aod_550": 0.53,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2011-04",
+      "year": 2011,
+      "month": 4,
+      "decimal_year": 2011.2917,
+      "aod_550": 0.621,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2011-05",
+      "year": 2011,
+      "month": 5,
+      "decimal_year": 2011.375,
+      "aod_550": 0.678,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2011-06",
+      "year": 2011,
+      "month": 6,
+      "decimal_year": 2011.4583,
+      "aod_550": 0.594,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2011-07",
+      "year": 2011,
+      "month": 7,
+      "decimal_year": 2011.5417,
+      "aod_550": 0.541,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2011-08",
+      "year": 2011,
+      "month": 8,
+      "decimal_year": 2011.625,
+      "aod_550": 0.38,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2011-09",
+      "year": 2011,
+      "month": 9,
+      "decimal_year": 2011.7083,
+      "aod_550": 0.429,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2011-12",
+      "year": 2011,
+      "month": 12,
+      "decimal_year": 2011.9583,
+      "aod_550": 0.488,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2012-01",
+      "year": 2012,
+      "month": 1,
+      "decimal_year": 2012.0417,
+      "aod_550": 0.664,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2012-05",
+      "year": 2012,
+      "month": 5,
+      "decimal_year": 2012.375,
+      "aod_550": 0.788,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2012-07",
+      "year": 2012,
+      "month": 7,
+      "decimal_year": 2012.5417,
+      "aod_550": 0.394,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2012-10",
+      "year": 2012,
+      "month": 10,
+      "decimal_year": 2012.7917,
+      "aod_550": 0.289,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2012-11",
+      "year": 2012,
+      "month": 11,
+      "decimal_year": 2012.875,
+      "aod_550": 0.377,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2012-12",
+      "year": 2012,
+      "month": 12,
+      "decimal_year": 2012.9583,
+      "aod_550": 0.527,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2013-01",
+      "year": 2013,
+      "month": 1,
+      "decimal_year": 2013.0417,
+      "aod_550": 0.646,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2013-02",
+      "year": 2013,
+      "month": 2,
+      "decimal_year": 2013.125,
+      "aod_550": 0.394,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2013-03",
+      "year": 2013,
+      "month": 3,
+      "decimal_year": 2013.2083,
+      "aod_550": 0.566,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    },
+    {
+      "ym": "2013-07",
+      "year": 2013,
+      "month": 7,
+      "decimal_year": 2013.5417,
+      "aod_550": 0.353,
+      "source": "NASA_MODIS_Aqua_MYD08_M3_Bangladesh_National"
+    }
+  ]
 };

@@ -41,7 +41,7 @@ python3 -m http.server 8000
 flowchart TD
     G[CSR GRACE/GRACE-FO Mascons RL06.3<br/>2002-04 to 2026-07] --> TWS[Total Water Storage Anomaly<br/>8 Divisions / 6 Regions]
     P1[NASA POWER PRECTOTCORR<br/>2002-01 to 2026-09] --> PPT[Precipitation Series]
-    P2[GPM IMERG V07B Final Run<br/>2018-01 to 2026-07] --> PPT
+    P2[GPM IMERG V07B Final Run<br/>2002-01 to 2025-09 (285 mo)] --> PPT
     LSM[NASA GLDAS Noah 2.1<br/>0-2.0m Soil + Canopy + SWE] --> SMS[Simulated Soil Moisture<br/>Re-baselined 2004-2009]
     
     TWS --> PART[Storage Partitioning Engine]
@@ -75,9 +75,9 @@ Every window is evaluated under its own independent Benjamini-Hochberg False Dis
 
 ### 2.2 Workstream 0: Full-Record Re-Baselining & Gap Calibration (`outputs/v3/full_record/`)
 - **Gap Calibration**: 2,000-run Monte Carlo simulation under real missing-month geometries verified that Effective-Sample-Size (ESS) corrected Mann-Kendall with Hurwicz bias correction achieves empirical false-positive rates of 5.0–5.8% (nominal 5.0%) and 94.2–95.0% CI coverage across empirical regional autocorrelations ($\phi \in [0.45, 0.83]$), establishing it as the primary calibrated significance test. Hamed-Rao (FPR 13–25%) failed calibration and is retained as secondary reference only.
-- **Instrument Offset Test**: Newey-West HAC regression across the June 2017 to June 2018 transition detected no statistically significant artificial step (National offset: $+1.12\text{ cm}, t = 0.58, p = 0.56$; NW offset: $+1.34\text{ cm}, t = 0.69, p = 0.49$).
-- **Epoch Comparison**: Paired circular block-bootstrap tests ($B = 9,999$) shows that the rate of storage loss in GRACE-1 vs GRACE-FO is statistically indistinguishable (difference 95% CIs include zero), verifying that northern storage loss has continued unabated across satellite generations.
-- **24-Year Seasonal Storage Response Ratio**: Across 22 complete monsoon seasons (2002–2025), decoupled GPM IMERG V07B precipitation confirms the national seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) averages 32.6% (+0.136%/yr, raw p = 0.021, FDR q = 0.111; Suggestive increase), resolving the previous -1.05%/yr decline as a denominator artifact of NASA POWER's post-2015 surge. *Limitation:* reflects bulk total water storage change (soil moisture + surface water + groundwater), not isolated subsurface recharge.
+- **Instrument Offset Sensitivity**: Step-offset analysis across the 11-month GRACE to GRACE-FO transition reveals that step significance is method-dependent: while an unbuffered model suggests a step offset in the Northwest ($+9.15\text{ cm}, p = 0.028$), a 6-month buffered gap model finds no statistically significant step offset ($+7.83\text{ cm}, p = 0.171$; National composite: $+3.09\text{ cm}, p = 0.486$). The 3-way sensitivity models in `outputs/v3/full_record/three_way_slopes_and_transition.md` show that whether the step is omitted, fitted, or gap-buffered, the Northwest long-term rate of decline remains statistically significant ($p < 0.0001$).
+- **Epoch Comparison**: Paired circular block-bootstrap tests ($B = 9,999$) shows that the rate of storage loss in GRACE-1 vs GRACE-FO is statistically indistinguishable (difference 95% CIs include zero), verifying that northern storage loss has continued across satellite generations.
+- **24-Year Seasonal Storage Response Ratio**: Across 22 complete monsoon seasons (2002–2025), decoupled GPM IMERG V07B precipitation indicates the national seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) averages 32.5% (+0.136%/yr, raw p = 0.021, FDR q = 0.111; Suggestive increase), resolving the previous -1.05%/yr decline as a denominator artifact of NASA POWER's post-2015 surge. *Limitation:* reflects bulk total water storage change (soil moisture + surface water + deeper storage), not isolated subsurface recharge.
 
 ---
 
@@ -101,10 +101,10 @@ Every window is evaluated under its own independent Benjamini-Hochberg False Dis
 
 ### 2.5 Workstream C: Socioeconomic Exposure Layer (`outputs/v3/exposure/`)
 - Integrated NASA SEDAC Gridded Population of the World (GPWv4, adjusted to BBS 2022 Census totals: $169.8\text{M}$) and MODIS MCD12Q1 Land Cover Type 1 (cropland classes 12 & 14).
-- **Population at Risk**: **108.5 million people ($63.9\%$)** in Bangladesh live in regions with statistically significant long-term water storage loss (`full_record` Significant decrease):
+- **Population at Risk**: **108.50 million people ($63.9\%$)** in Bangladesh live in regions with statistically significant long-term water storage loss (`full_record` Significant decrease):
   - Northwest: $38.81\text{M}$ ($22.9\%$)
-  - Northeast: $26.68\text{M}$ ($15.7\%$)
-  - Central (Dhaka): $43.01\text{M}$ ($25.3\%$)
+  - Northeast: $24.05\text{M}$ ($14.2\%$)
+  - Central (Dhaka): $45.64\text{M}$ ($26.9\%$)
 - **Agricultural Exposure**: Northwest Bangladesh exhibits a **$74.2\%$ cropland fraction** ($22,990\text{ km}²$), explaining the severe regional sensitivity to irrigation drawdown during dry-season Boro rice cultivation.
 
 ---
@@ -112,7 +112,7 @@ Every window is evaluated under its own independent Benjamini-Hochberg False Dis
 ### 2.6 Workstream D: Hydroclimatic Extremes & Flood Context (`outputs/v3/extremes/`)
 - Contextualized against Bangladesh Water Development Board (BWDB) Flood Forecasting and Warning Centre (FFWC) catastrophic flood reports (2004, 2007, 2017, 2020, 2022).
 - **Transient Flood Storage Crests**: Major flood years generate massive monsoonal storage crests ($+33.1\text{ cm}$ in 2004, $+41.0\text{ cm}$ in 2007, $+28.4\text{ cm}$ in 2020), but anomalies dissipate within 3 to 4 months through rapid river drainage.
-- **Infiltration Saturation Dynamic**: During extreme deluge years (e.g. 2020 with $2,423\text{ mm}$ rainfall), surface saturation and river discharge cause monsoon seasonal storage response ratio to remain bounded at **$27.5\%$** (vs $32.6\%$ long-term mean), consistent with extreme rainfall events failing to compensate for secular subsurface drawdown.
+- **Infiltration Saturation Dynamic**: During extreme deluge years (e.g. 2020 with $2,423\text{ mm}$ rainfall), surface saturation and river discharge cause monsoon seasonal storage response ratio to remain bounded at **$27.5\%$** (vs $32.5\%$ long-term mean), consistent with extreme rainfall events failing to compensate for secular subsurface drawdown.
 
 ---
 
@@ -138,7 +138,7 @@ git checkout v3-expansion
 pip install -r requirements.txt
 ```
 
-### 3.2 Run Unit & Integration Tests (14 Tests)
+### 3.2 Run Unit & Integration Tests (84 Tests)
 ```bash
 python -m unittest discover tests
 ```

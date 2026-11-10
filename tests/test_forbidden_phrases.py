@@ -65,6 +65,9 @@ class TestForbiddenPhrases(unittest.TestCase):
         demo_file = REPO_ROOT / "demo.html"
         index_file = REPO_ROOT / "index.html"
         report_file = REPO_ROOT / "report.html"
+        action_report_file = REPO_ROOT / "regional_action_report.md"
+        cases_js_file = REPO_ROOT / "assets/js/cases.js"
+        catalog_js_file = REPO_ROOT / "data/catalog.js"
 
         self.assertTrue(outputs_dir.exists(), "outputs directory must exist")
         self.assertTrue(readme_file.exists(), "README.md must exist")
@@ -73,13 +76,14 @@ class TestForbiddenPhrases(unittest.TestCase):
         self.assertTrue(demo_file.exists(), "demo.html must exist")
         self.assertTrue(index_file.exists(), "index.html must exist")
         self.assertTrue(report_file.exists(), "report.html must exist")
+        self.assertTrue(action_report_file.exists(), "regional_action_report.md must exist")
 
         # Scan all .md, .txt, and .html files under outputs/ (excluding archived outputs/v2),
-        # plus root deliverables: README.md, NOTES.md, PROJECT_STATUS.md, demo.html, index.html, report.html
+        # plus root deliverables and core webapp metadata files
         target_files = [
             f for f in outputs_dir.rglob("*")
             if f.suffix in (".md", ".txt", ".html") and "v2" not in f.parts
-        ] + [readme_file, notes_file, project_status_file, demo_file, index_file, report_file]
+        ] + [readme_file, notes_file, project_status_file, demo_file, index_file, report_file, action_report_file, cases_js_file, catalog_js_file]
 
         # Explicitly verify the exploratory seasonal extensions and pairwise region comparisons are scanned
         ratio_md = outputs_dir / "v3" / "seasonal" / "ratio_trend.md"
