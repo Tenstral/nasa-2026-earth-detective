@@ -1,5 +1,5 @@
 """
-NASA Space Apps 2026 - Trend Detective: Bengal Water Paradox
+NASA Space Apps 2026 - Trend Detective: Bengal Hydro Detective
 NASA Satellite Precipitation Downloader for Bangladesh
 
 Downloads NASA satellite precipitation grid (derived from GPM IMERG & GMAO MERRA-2)
@@ -115,7 +115,7 @@ def download_nasa_precipitation(output_file: str = "nasa_precipitation_banglades
             "source": "NASA POWER (GPM IMERG & GMAO MERRA-2 Agroclimatology)",
             "spatial_resolution": "0.5 x 0.625 degree",
             "temporal_range": f"{month_keys[0]} to {month_keys[-1]}",
-            "project": "NASA Space Apps 2026 - Trend Detective: Bengal Water Paradox",
+            "project": "NASA Space Apps 2026 - Trend Detective: Bengal Hydro Detective",
             "created_at": datetime.now().isoformat()
         }
     )

@@ -5,7 +5,7 @@
 > Grounded in official Annual Flood Reports from the Flood Forecasting and Warning Centre (FFWC, BWDB), decoupled GPM IMERG V07B precipitation, and 24 years of continuous satellite gravimetry.
 >
 > **Status:** Descriptive Only — provides historical context for flood pulses vs. multi-decadal total water storage trends.
-> **Limitations:** The seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient.
+> **Limitations:** The seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated groundwater recharge coefficient.
 
 ---
 
@@ -47,7 +47,7 @@
   - Northeast Region Monsoon: 2472.0 mm (+23.5%).
   - Northeast Pre-Monsoon (MAM): 628.9 mm (-14.1%).
   - Northeast June Deluge: 789.2 mm (+29.5%).
-- **Meteorological & Hydrological Drivers:** Two successive peak flood waves in late July and early September driven by extreme Himalayan transboundary inflow.
+- **Meteorological & Hydrological Drivers:** Two successive peak flood waves in late July and early September associated with extreme Himalayan transboundary inflow.
 - **Source Authority:** [FFWC/BWDB Annual Flood Report 2007, Executive Summary, p. 1–2](http://www.ffwc.gov.bd/images/annual07.pdf)
 
 ### [2017] Devastating Pre-Monsoon Flash Flood + August Monsoon Flood

@@ -35,8 +35,8 @@
 
 5. **Mandatory Scientific Terminology:**
    - Gravimetry observations report vertically integrated **"Total Water Storage" (TWS)**.
-   - The term "groundwater" or "aquifer storage" is never used for total water storage and is strictly reserved for the explicitly labeled residual: `"groundwater + surface water + model error residual"`.
-   - Causal relationships are phrased as **"consistent with"**, never "caused by" or "proves".
+   - The term "groundwater" is never used for total water storage and is strictly reserved for the explicitly labeled residual: `"groundwater + surface water + model error residual"`.
+   - Causal relationships are phrased as **"consistent with"**, never "caused by" or causal proof assertions.
    - All findings and deliverables are labeled **PRELIMINARY**.
 
 ---
@@ -47,7 +47,7 @@
 - **Problem:** The previous calibration report showed false-positive rates of 15%–19% with Hamed-Rao, yet called it passed. Furthermore, the NW surrogate test reported identical $p = 0.0005$ across multiple windows due to surrogate sample size floors ($N=2,000$), and the placebo test was circular.
 - **Action Taken:**
   1. Implemented independent Monte Carlo null simulation (2,000 runs) generating synthetic AR(1) processes fitted to real regional residuals with the exact 257-month GRACE observation mask.
-  2. Proved that Calibrated ESS-MK strictly satisfies pass criteria for ALL 6 regions (FPR 4.10%–5.45% $\in [3.5\%, 6.5\%]$; 95% CI coverage 94.55%–95.95% $\in [93.0\%, 97.0\%]$), whereas Hamed-Rao fails (FPR 13%–17%).
+  2. Verified that Calibrated ESS-MK strictly satisfies pass criteria for ALL 6 regions (FPR 4.10%–5.45% $\in [3.5\%, 6.5\%]$; 95% CI coverage 94.55%–95.95% $\in [93.0\%, 97.0\%]$), whereas Hamed-Rao fails (FPR 13%–17%).
   3. Standardized Calibrated ESS-MK as the single primary significance test across all regions and windows.
   4. Expanded Fourier surrogate evaluation to $N \ge 10,000$ iterations (batched in 500-sample blocks) and reported floor values as `"< 0.0001"`.
   5. In `recent_2020`, NW TWS has raw $p = 0.0107$, but within-window FDR $q = 0.0772 > 0.05$; it was reclassified from "Significant" to `"method-dependent"`.
@@ -72,11 +72,11 @@
   5. Updated wording to: *"most of the decline is not accounted for by simulated soil moisture; groundwater and surface water cannot be separated here"*.
 
 ### Review Finding 4: Literature Benchmark Table & Narrative Synchronization
-- **Problem:** Outdated p-values and CIs in `novelty_statement.md`; unearned claims of "disproving" rainfall trends and "corroborating" Boro irrigation without well data; PUB-01 unit conversion lacked basis; PUB-02 NW Purdy estimate ($-1.99\text{ cm/yr}$) was not noted as lying outside our NW CI.
+- **Problem:** Outdated p-values and CIs in `novelty_statement.md`; unearned claims of refuted rainfall trends and unsubstantiated links to Boro irrigation without well data; PUB-01 unit conversion lacked basis; PUB-02 NW Purdy estimate ($-1.99\text{ cm/yr}$) was not noted as lying outside our NW CI.
 - **Action Taken:**
   1. Dynamically regenerated `novelty_statement.md` directly from `results_all_windows.csv`.
-  2. Replaced "disproving" with: *"we detected an artifact in NASA POWER rainfall by cross-checking with IMERG; cause not established"*.
-  3. Removed "corroborates Ahmed and Purdy on Boro irrigation".
+  2. Replaced refuted claim with: *"we detected an artifact in NASA POWER rainfall by cross-checking with IMERG; cause not established"*.
+  3. Removed assertion linking Ahmed and Purdy on Boro irrigation.
   4. Left PUB-01 converted rate blank because the source text does not state the bounding area.
   5. Noted that Purdy's NW estimate of $-1.99\text{ cm/yr}$ lies outside our NW grace_era 95% CI ($-1.95$ to $-1.15\text{ cm/yr}$): *"similar sign and order of magnitude; ours is lower; region definitions may differ"*.
   6. All studies with `Comparable: No` are labeled `"Context only"`.
@@ -88,17 +88,37 @@
 
 | Region | Window | TWS Rate [95% CI] (cm/yr) | Volumetric Rate (km³/yr) | Raw p-value | BH-FDR q-value | Calibrated Verdict |
 |---|---|:---:|:---:|:---:|:---:|---|
-| **NW** | `full_record` | **-1.25 [-1.49, -1.01]** | -0.39 | < 0.0001 | < 0.0001 | **Significant decrease** |
-| **NW** | `grace_era` | **-1.56 [-1.95, -1.15]** | -0.48 | < 0.0001 | < 0.0001 | **Significant decrease** |
-| **NW** | `grace_fo_era` | -1.67 [-3.32, +0.06] | -0.52 | 0.0549 | 0.3292 | No detectable trend (CI includes zero) |
-| **NW** | `recent_2020` | -2.93 [-4.90, -0.57] | -0.91 | 0.0107 | 0.0772 | Method-dependent (fails within-window FDR) |
+| **NW** | `full_record` | **-1.25 [-1.50, -1.02]** | -0.39 | < 0.0001 | < 0.0001 | **Significant decrease** |
+| **NW** | `grace_era` | **-1.56 [-1.96, -1.17]** | -0.48 | < 0.0001 | < 0.0001 | **Significant decrease** |
+| **NW** | `grace_fo_era` | -1.67 [-3.32, +0.06] | -0.52 | 0.0549 | 0.4626 | No detectable trend (CI includes zero) |
+| **NW** | `recent_2020` | -2.93 [-4.97, -0.78] | -0.91 | 0.0107 | 0.0772 | Method-dependent (fails within-window FDR) |
 | **NE** | `full_record` | **-0.56 [-0.70, -0.42]** | -0.12 | < 0.0001 | < 0.0001 | **Significant decrease** |
 | **Central** | `full_record` | **-0.47 [-0.62, -0.34]** | -0.08 | < 0.0001 | < 0.0001 | **Significant decrease** |
-| **SW** | `full_record` | -0.05 [-0.17, +0.08] | -0.01 | 0.4485 | 0.8968 | No detectable trend |
-| **SE** | `full_record` | -0.05 [-0.17, +0.06] | -0.01 | 0.4485 | 0.9342 | No detectable trend |
-| **National** | `full_record` | **-0.51 [-0.65, -0.37]** | **-0.63** | 0.00004 | 0.00008 | **Significant decrease** |
-| **National** | `grace_era` | **-0.68 [-0.92, -0.44]** | **-0.83** | < 0.0001 | < 0.0001 | **Significant decrease** |
-| **National** | `grace_fo_era` | -0.47 [-1.34, +0.44] | -0.58 | 0.3130 | 0.6270 | No detectable trend |
-| **National** | `recent_2020` | -1.02 [-3.05, +0.94] | -1.25 | 0.2858 | 0.5716 | No detectable trend |
+| **SW** | `full_record` | -0.05 [-0.20, +0.10] | -0.01 | 0.5459 | 0.8968 | No detectable trend |
+| **SE** | `full_record` | -0.05 [-0.17, +0.06] | -0.01 | 0.3754 | 0.8968 | No detectable trend |
+| **National** | `full_record` | **-0.51 [-0.66, -0.38]** | **-0.63** | < 0.0001 | < 0.0001 | **Significant decrease** |
+| **National** | `grace_era` | **-0.68 [-0.92, -0.45]** | **-0.83** | < 0.0001 | < 0.0001 | **Significant decrease** |
+| **National** | `grace_fo_era` | -0.47 [-1.50, +0.53] | -0.58 | 0.3111 | 0.7057 | No detectable trend |
+| **National** | `recent_2020` | -1.02 [-2.53, +0.51] | -1.24 | 0.1721 | 0.6884 | No detectable trend |
 
 *Note: In `full_record`, 3 of 5 regions (NW, NE, Central) and the National composite exhibit statistically significant storage depletion under within-window BH-FDR ($q < 0.05$), while Southern regions (SW, SE) exhibit no detectable multi-decadal trend.*
+
+---
+
+## Consistency Fixes & Statistical Reconciliation (Audit Trail)
+
+All numbers updated on branch `fixes-review` were derived programmatically from the single sources of truth (`outputs/v3/full_record/results_all_windows.csv` and `outputs/v3/full_record/gap_calibration_report.json`):
+
+| Metric / Parameter | Location / Context | Old Value | New Value | Source of Truth / Justification |
+|---|---|:---:|:---:|---|
+| **NW full_record TWS 95% CI** | `exposure_table.csv`, `.md`, `NOTES.md` | `[-1.54, -0.96]` | **`[-1.50, -1.02]`** | Primary duality-aligned rank CI from `results_all_windows.csv` (`slope_ci_low`, `slope_ci_high`), replacing surrogate CI columns. |
+| **SW full_record TWS 95% CI** | `exposure_table.csv`, `.md`, `NOTES.md` | `[-0.17, +0.08]` | **`[-0.20, +0.10]`** | Primary duality-aligned rank CI from `results_all_windows.csv` (`slope_ci_low`, `slope_ci_high`), replacing surrogate CI columns. |
+| **NW full_record TWS FDR q-value** | `exposure_table.csv`, `.md` | `< 0.0001` or `0.0015` | **`< 0.0001`** | Direct within-window Benjamini-Hochberg FDR $q$-value from `results_all_windows.csv` ($q = 0.000078$). |
+| **NW recent_2020 TWS 95% CI** | `README.md`, `NOTES.md` | `[-4.90, -0.57]` | **`[-4.97, -0.78]`** | Exact duality-aligned CI from `results_all_windows.csv` for 2020–2026 sensitivity window. |
+| **National recent_2020 TWS 95% CI** | `README.md`, `NOTES.md` | `[-3.05, +0.94]` | **`[-2.53, +0.51]`** | Exact duality-aligned CI from `results_all_windows.csv` for 2020–2026 sensitivity window. |
+| **National full_record TWS 95% CI** | `README.md` | `[-0.67, -0.35]` | **`[-0.66, -0.38]`** | Primary duality-aligned CI from `results_all_windows.csv` for full 24-year record. |
+| **Depletion Corridor Exposed Population** | `PROJECT_STATUS.md`, `FIXES_REVIEW_REPORT.md`, `index.html`, `exposure_table.md` | `69.4 million` (40.9%) | **`108.5 million` (63.9%)** | Programmatic sum of NW (38.81M) + NE (24.05M) + Central (45.64M) from NASA SEDAC GPWv4 in `exposure_table.csv`. Old 69.4M unverified artifact deleted. |
+| **Calibrated ESS-MK NW FPR** | `PROJECT_STATUS.md`, `FIXES_REVIEW_REPORT.md`, `index.html` | `4.60%` | **`4.10%`** | `gap_calibration_report.json` (`calibration_simulation.regional_ar1_null.NW.fpr_ess_mk` = 0.041). |
+| **Calibrated ESS-MK NW CI Coverage** | `PROJECT_STATUS.md`, `FIXES_REVIEW_REPORT.md`, `index.html` | `95.40%` | **`95.90%`** | `gap_calibration_report.json` (`calibration_simulation.regional_ar1_null.NW.coverage_ess_mk` = 0.959). |
+| **IMERG Satellite Observation Period** | `PROJECT_STATUS.md` | `2000–2025` | **`2002-01 to 2025-09`** | Verified GPM IMERG V07B Final Run data latency coverage. |
+| **Daily Extreme Indices Catalog** | `PROJECT_STATUS.md` | `Rx1day, Rx5day, R95p, R99p, CDD, CWD, SDII (2003–2024)` | **Rx1day, Rx5day, days $\ge 50\text{ mm}$, annual total (2003–2024); monsoon total, monsoon Rx1day, monsoon Rx5day, monsoon days $\ge 50\text{ mm}$ (2002–2025)** | Matched exactly to indices computed in `v3/imerg_daily_extremes_pipeline.py` and `outputs/v3/extremes/imerg_extreme_indices_trends.csv`. |

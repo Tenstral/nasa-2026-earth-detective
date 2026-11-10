@@ -1,9 +1,19 @@
-CSR_GRACE_GRACE-FO_RL0603_Mascons_all-corrections.nc
-CSR_GRACE_GRACE-FO_RL0602_Mascons_all-corrections.nc
+# Python bytecode & cache
 __pycache__/
 *.pyc
+
+# Local scratch and debug scripts
+scratch/
+
+# Large binary & data formats
+*.nc
+*.xlsx
+
+# Temporary data directories
 data_imerg/
 data_gldas_temp/
+
+# Environment and credentials
 .env
 *.env
 .netrc
@@ -11,3 +21,8 @@ _netrc
 *.netrc
 credentials.json
 
+# Top-level standalone plots
+bangladesh_plot.png
+grace_water_equivalent_plot.png
+grace_water_equivalent_robinson.png
+output_plot.png

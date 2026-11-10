@@ -11,13 +11,13 @@
 ## 1. Spatial Aggregation Protocol
 
 1. **Grid Extraction:**
-   - Daily grid cells ($0.1^\circ 	imes 0.1^\circ$) are extracted via server-side OPeNDAP DAP4 subsetting across Lat $[20.45^\circ, 26.75^\circ]$, Lon $[88.05^\circ, 92.75^\circ]$ (64 latitudes $	imes$ 48 longitudes).
+   - Daily grid cells ($0.1^\circ \times 0.1^\circ$) are extracted via server-side OPeNDAP DAP4 subsetting across Lat $[20.45^\circ, 26.75^\circ]$, Lon $[88.05^\circ, 92.75^\circ]$ (64 latitudes $\times$ 48 longitudes).
 2. **Division-Level Aggregation:**
-   - Grid points within each administrative division polygon are weighted by $\cos(	ext{latitude})$ to compute area-weighted daily mean precipitation for each of the 8 divisions.
+   - Grid points within each administrative division polygon are weighted by $\cos(\text{latitude})$ to compute area-weighted daily mean precipitation for each of the 8 divisions.
 3. **Regional Aggregation:**
    - Division daily means are aggregated to the 5 regions (NW, NE, Central, SW, SE) and National composite using official administrative land areas (`DIV_AREAS`).
 4. **Extreme Index Calculation:**
-   - Hydroclimatic extreme indices (Rx1day, Rx5day, Days $\ge 50	ext{ mm}$, Annual total, Monsoon total) are calculated directly on the area-weighted daily regional time series.
+   - Hydroclimatic extreme indices (Rx1day, Rx5day, Days $\ge 50\text{ mm}$, Annual total, Monsoon total) are calculated directly on the area-weighted daily regional time series.
    - **Annual Calendar Year Indices:** Evaluated across complete calendar years (2003–2024, 22 complete calendar years).
    - **Monsoon Season Indices:** Evaluated across complete June–September seasons (2002–2025, 24 complete monsoon seasons).
 5. **Statistical Significance Testing:**
@@ -31,18 +31,18 @@
 To verify aggregation consistency between the daily pipeline (`GPM_3IMERGDF` v07B) and monthly product (`GPM_3IMERGM` v07B), annual totals were cross-checked for sample complete years:
 
 - **Year 2010:**
-  - **NW Region:** Daily Sum = $2,010.0	ext{ mm}$ vs Monthly Sum = $1,732.8	ext{ mm}$ ($+277.3	ext{ mm}$, $+16.00\%$).
-  - **NE Region:** Daily Sum = $3,675.1	ext{ mm}$ vs Monthly Sum = $3,407.3	ext{ mm}$ ($+267.7	ext{ mm}$, $+7.86\%$).
-  - **Central Region:** Daily Sum = $1,879.1	ext{ mm}$ vs Monthly Sum = $1,792.3	ext{ mm}$ ($+86.7	ext{ mm}$, $+4.84\%$).
-  - **National Composite:** Daily Sum = $2,283.1	ext{ mm}$ vs Monthly Sum = $2,192.0	ext{ mm}$ ($+91.1	ext{ mm}$, $+4.16\%$).
+  - **NW Region:** Daily Sum = $2,010.0\text{ mm}$ vs Monthly Sum = $1,732.8\text{ mm}$ ($+277.3\text{ mm}$, $+16.00\%$).
+  - **NE Region:** Daily Sum = $3,675.1\text{ mm}$ vs Monthly Sum = $3,407.3\text{ mm}$ ($+267.7\text{ mm}$, $+7.86\%$).
+  - **Central Region:** Daily Sum = $1,879.1\text{ mm}$ vs Monthly Sum = $1,792.3\text{ mm}$ ($+86.7\text{ mm}$, $+4.84\%$).
+  - **National Composite:** Daily Sum = $2,283.1\text{ mm}$ vs Monthly Sum = $2,192.0\text{ mm}$ ($+91.1\text{ mm}$, $+4.16\%$).
 - **Year 2020:**
-  - **NW Region:** Daily Sum = $2,703.1	ext{ mm}$ vs Monthly Sum = $2,411.2	ext{ mm}$ ($+291.9	ext{ mm}$, $+12.11\%$).
-  - **NE Region:** Daily Sum = $3,829.3	ext{ mm}$ vs Monthly Sum = $3,503.7	ext{ mm}$ ($+325.6	ext{ mm}$, $+9.29\%$).
-  - **Central Region:** Daily Sum = $2,332.8	ext{ mm}$ vs Monthly Sum = $2,227.5	ext{ mm}$ ($+105.4	ext{ mm}$, $+4.73\%$).
-  - **National Composite:** Daily Sum = $2,720.1	ext{ mm}$ vs Monthly Sum = $2,620.4	ext{ mm}$ ($+99.7	ext{ mm}$, $+3.80\%$).
+  - **NW Region:** Daily Sum = $2,703.1\text{ mm}$ vs Monthly Sum = $2,411.2\text{ mm}$ ($+291.9\text{ mm}$, $+12.11\%$).
+  - **NE Region:** Daily Sum = $3,829.3\text{ mm}$ vs Monthly Sum = $3,503.7\text{ mm}$ ($+325.6\text{ mm}$, $+9.29\%$).
+  - **Central Region:** Daily Sum = $2,332.8\text{ mm}$ vs Monthly Sum = $2,227.5\text{ mm}$ ($+105.4\text{ mm}$, $+4.73\%$).
+  - **National Composite:** Daily Sum = $2,720.1\text{ mm}$ vs Monthly Sum = $2,620.4\text{ mm}$ ($+99.7\text{ mm}$, $+3.80\%$).
 
 **Hydrometeorological Explanation:**  
-Daily IMERG Final (`GPM_3IMERGDF` v07B) accumulates half-hourly microwave and infrared retrievals and calibrates them against monthly GPCC gauge analyses using a daily weighting scheme. In contrast, Monthly IMERG (`GPM_3IMERGM` v07B) applies direct full-month gauge calibration with monthly inverse-distance weighting. Differences of $4\%$ to $16\%$ between integrated daily satellite estimates and monthly gauge-adjusted grids are standard in satellite precipitation climatology. Crucially, neither product exhibits the spurious $+29$ to $+86	ext{ mm/yr}$ multi-decadal step increase present in NASA POWER.
+Daily IMERG Final (`GPM_3IMERGDF` v07B) accumulates half-hourly microwave and infrared retrievals and calibrates them against monthly GPCC gauge analyses using a daily weighting scheme. In contrast, Monthly IMERG (`GPM_3IMERGM` v07B) applies direct full-month gauge calibration with monthly inverse-distance weighting. Differences of $4\%$ to $16\%$ between integrated daily satellite estimates and monthly gauge-adjusted grids are standard in satellite precipitation climatology. Crucially, neither product exhibits the spurious $+29$ to $+86\text{ mm/yr}$ multi-decadal step increase present in NASA POWER.
 
 ---
 
@@ -104,13 +104,13 @@ Daily IMERG Final (`GPM_3IMERGDF` v07B) accumulates half-hourly microwave and in
 ## 4. Key Scientific Findings
 
 1. **Stationarity of National Extreme Indices:**
-   - Nationally, extreme precipitation indices (Rx1day slope $+0.82	ext{ mm/yr}$, $p=0.135$; Rx5day slope $-0.17	ext{ mm/yr}$, $p=0.910$; Days $\ge 50	ext{ mm}$ slope $+0.00	ext{ days/yr}$, $p=0.714$) exhibit **No detectable trend** across complete calendar years (2003–2024).
-   - National Monsoon Total precipitation (JJAS) similarly displays **No detectable trend** (slope $-3.90	ext{ mm/yr}$, $p=0.573$), confirming that multi-decadal water storage changes in the Bengal Basin operate against a stationary precipitation background.
+   - Nationally, extreme precipitation indices (Rx1day slope $+0.82\text{ mm/yr}$, $p=0.135$; Rx5day slope $-0.17\text{ mm/yr}$, $p=0.910$; Days $\ge 50\text{ mm}$ slope $+0.00\text{ days/yr}$, $p=0.714$) exhibit **No detectable trend** across complete calendar years (2003–2024).
+   - National Monsoon Total precipitation (JJAS) similarly displays **No detectable trend** (slope $-3.90\text{ mm/yr}$, $p=0.573$), confirming that multi-decadal water storage changes in the Bengal Basin operate against a background of no detectable precipitation trend.
 
 2. **Mathematical Duality Alignment:**
    - Through the Effective Sample Size Mann-Kendall rank-based confidence interval formulation, confidence intervals strictly adhere to statistical duality: a $95\%$ confidence interval includes zero if and only if raw $p \ge 0.05$.
-   - Annual total and monsoon total slopes are expressed in native $	ext{mm/yr}$, with no artificial scaling multipliers.
+   - Annual total and monsoon total slopes are expressed in native $\text{mm/yr}$, with no artificial scaling multipliers.
 
 3. **Regional Disparities & Localized Deluge Dynamics:**
-   - In the Northeast (Sylhet + Mymensingh), baseline annual maximum 1-day rainfall averages $98.4	ext{ mm/day}$ with Rx5day averaging $291.2	ext{ mm}$, reflecting intense orographic precipitation along the Meghalaya plateau boundary.
+   - In the Northeast (Sylhet + Mymensingh), baseline annual maximum 1-day rainfall averages $98.4\text{ mm/day}$ with Rx5day averaging $291.2\text{ mm}$, reflecting intense orographic precipitation along the Meghalaya plateau boundary.
    - For historic flood deluge years (e.g., 2017 Haor flash flood, 2022 Sylhet inundation), localized extreme rainfall arrives during pre-monsoon (MAM) or early monsoon (June), which national monsoon-averaged figures mask.

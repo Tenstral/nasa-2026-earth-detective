@@ -115,6 +115,34 @@ class TestTask3RainfallDependencies(unittest.TestCase):
             self.assertNotEqual(df.loc[reg, "tws_fdr_q"], "0.0")
             self.assertNotEqual(df.loc[reg, "tws_fdr_q"], "0.0000")
 
+    def test_exposure_table_ci_matches_results_file(self):
+        """Verify that every CI in exposure_table.csv matches results_all_windows.csv."""
+        results_csv = FULL_RECORD_DIR / "results_all_windows.csv"
+        self.assertTrue(results_csv.exists(), "Missing results_all_windows.csv")
+        results_df = pd.read_csv(results_csv)
+        results_full = results_df[results_df["window"] == "full_record"]
+
+        exp_df = pd.read_csv(self.exposure_csv).set_index("region")
+
+        for reg in ["NW", "NE", "Central", "SW", "SE", "National"]:
+            # TWS CI check
+            tws_row = results_full[(results_full["entity"] == reg) & (results_full["variable"] == "tws") & (results_full["season"] == "annual")]
+            self.assertEqual(len(tws_row), 1, f"Expected 1 TWS row for {reg}")
+            tws_ci_low = tws_row.iloc[0]["slope_ci_low"]
+            tws_ci_high = tws_row.iloc[0]["slope_ci_high"]
+            expected_tws_ci = f"[{tws_ci_low:.2f}, {tws_ci_high:+.2f}]" if tws_ci_low < 0 else f"[{tws_ci_low:+.2f}, {tws_ci_high:+.2f}]"
+            actual_tws_ci = exp_df.loc[reg, "tws_ci_95"]
+            self.assertEqual(actual_tws_ci, expected_tws_ci, f"TWS CI mismatch for {reg}: {actual_tws_ci} vs {expected_tws_ci}")
+
+            # Precip CI check
+            precip_row = results_full[(results_full["entity"] == reg) & (results_full["variable"] == "precip") & (results_full["season"] == "annual")]
+            self.assertEqual(len(precip_row), 1, f"Expected 1 Precip row for {reg}")
+            precip_ci_low = precip_row.iloc[0]["slope_ci_low"]
+            precip_ci_high = precip_row.iloc[0]["slope_ci_high"]
+            expected_precip_ci = f"[{precip_ci_low:.2f}, {precip_ci_high:+.2f}]" if precip_ci_low < 0 else f"[{precip_ci_low:+.2f}, {precip_ci_high:+.2f}]"
+            actual_precip_ci = exp_df.loc[reg, "primary_precip_ci_95"]
+            self.assertEqual(actual_precip_ci, expected_precip_ci, f"Precip CI mismatch for {reg}: {actual_precip_ci} vs {expected_precip_ci}")
+
 
 if __name__ == "__main__":
     unittest.main()

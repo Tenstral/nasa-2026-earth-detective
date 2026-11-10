@@ -8,13 +8,13 @@
 
 > [!IMPORTANT]
 > **PRELIMINARY SCIENTIFIC NOTICE & MANDATORY TERMINOLOGY**  
-> All findings presented in this repository are preliminary. Gravimetry observations report vertically integrated **Total Water Storage (TWS)** changes (surface water, soil moisture, and deeper unconfined/confined aquifers combined) derived from CSR GRACE/GRACE-FO RL06.3 Mascons (~300 km spatial resolution). The term **"groundwater"** is never used for total water storage and is strictly reserved for the explicitly partitioned residual term labeled: `"groundwater + surface water + model error residual"`. All causal relationships are phrased as **"consistent with"**, never "caused by".
+> All findings presented in this repository are preliminary. Gravimetry observations report vertically integrated **Total Water Storage (TWS)** changes (surface water, soil moisture, and deeper subsurface storage combined) derived from CSR GRACE/GRACE-FO RL06.3 Mascons (~300 km spatial resolution). The term **"groundwater"** is never used for total water storage and is strictly reserved for the explicitly partitioned residual term labeled: `"groundwater + surface water + model error residual"`. All causal relationships are phrased as **"consistent with"**, never "caused by".
 
 ---
 
-## 1. Project Overview & The Bengal Water Paradox
+## 1. Project Overview & Research Framework
 
-Bangladesh receives copious monsoonal precipitation each year, yet satellite gravimetry reveals severe, statistically significant terrestrial water storage depletion observed in northern agricultural divisions (Rajshahi and Rangpur). While southern deltaic divisions remain hydrologically stable, the Northwest experiences chronic unconfined aquifer drawdown driven by intensive dry-season Boro rice irrigation abstraction.
+Bangladesh receives copious monsoonal precipitation each year, yet satellite gravimetry reveals severe, statistically significant terrestrial water storage depletion observed in northern agricultural divisions (Rajshahi and Rangpur). While southern deltaic divisions show no detectable trend, the Northwest experiences chronic total water storage decline (-1.25 cm/yr) consistent with intensive dry-season Boro rice irrigation abstraction.
 
 **Bengal Hydro Detective** provides an audit-grade, multi-sensor, multi-window hydroclimatic trend detection pipeline covering the continuous 24-year satellite gravimetry record (April 2002 to July 2026).
 
@@ -47,10 +47,10 @@ Every window is evaluated under its own independent Benjamini-Hochberg False Dis
 
 | Window | Period | Observed Months | Role | National TWS Rate [95% CI] | NW TWS Rate [95% CI] | Calibrated Verdict (ESS-MK) |
 |---|---|:---:|---|:---:|:---:|---|
-| `full_record` | **2002-04 to 2026-07** | **257** | **PRIMARY** | **-0.51 [-0.65, -0.37]** | **-1.25 [-1.49, -1.01]** | **Significant decrease** (FDR $q < 0.0001$) |
+| `full_record` | **2002-04 to 2026-07** | **257** | **PRIMARY** | **-0.51 [-0.66, -0.38]** | **-1.25 [-1.50, -1.02]** | **Significant decrease** (FDR $q < 0.0001$) |
 | `grace_era` | 2002-04 to 2017-06 | 161 | Transition-free baseline | -0.68 [-0.92, -0.44] | -1.56 [-1.95, -1.15] | **Significant decrease** (FDR $q < 0.0001$) |
 | `grace_fo_era` | 2018-06 to 2026-07 | 96 | Single-instrument era | -0.47 [-1.34, +0.44] | -1.67 [-3.32, +0.06] | No detectable trend (CI includes zero) |
-| `recent_2020` | 2020-01 to 2026-07 | 79 | Sensitivity / legacy window | -1.02 [-3.05, +0.94] | -2.93 [-4.90, -0.57] | Method-dependent (NW raw $p=0.0107$, FDR $q=0.0772$) |
+| `recent_2020` | 2020-01 to 2026-07 | 79 | Sensitivity / legacy window | -1.02 [-2.53, +0.51] | -2.93 [-4.97, -0.78] | Method-dependent (NW raw $p=0.0107$, FDR $q=0.0772$) |
 
 ---
 
@@ -58,7 +58,7 @@ Every window is evaluated under its own independent Benjamini-Hochberg False Dis
 - **Gap Calibration**: 2,000-run Monte Carlo simulation under real missing-month geometries verified that Effective-Sample-Size (ESS) corrected Mann-Kendall with Hurwicz bias correction achieves empirical false-positive rates of 5.0–5.8% (nominal 5.0%) and 94.2–95.0% CI coverage across empirical regional autocorrelations ($\phi \in [0.45, 0.83]$), establishing it as the primary calibrated significance test. Hamed-Rao (FPR 13–25%) failed calibration and is retained as secondary reference only.
 - **Instrument Offset Test**: Newey-West HAC regression across the June 2017 to June 2018 transition detected no statistically significant artificial step (National offset: $+1.12\text{ cm}, t = 0.58, p = 0.56$; NW offset: $+1.34\text{ cm}, t = 0.69, p = 0.49$).
 - **Epoch Comparison**: Paired circular block-bootstrap tests ($B = 9,999$) shows that the rate of storage loss in GRACE-1 vs GRACE-FO is statistically indistinguishable (difference 95% CIs include zero), verifying that northern storage loss has continued unabated across satellite generations.
-- **24-Year Seasonal Storage Response Ratio**: Across 22 complete monsoon seasons (2002–2025), decoupled GPM IMERG V07B precipitation confirms the national seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) averages 32.6% (+0.136%/yr, raw p = 0.021, FDR q = 0.111; Suggestive increase), resolving the previous -1.05%/yr decline as a denominator artifact of NASA POWER's post-2015 surge. *Limitation:* reflects bulk total water storage change (soil moisture + surface water + groundwater), not isolated aquifer recharge.
+- **24-Year Seasonal Storage Response Ratio**: Across 22 complete monsoon seasons (2002–2025), decoupled GPM IMERG V07B precipitation confirms the national seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) averages 32.6% (+0.136%/yr, raw p = 0.021, FDR q = 0.111; Suggestive increase), resolving the previous -1.05%/yr decline as a denominator artifact of NASA POWER's post-2015 surge. *Limitation:* reflects bulk total water storage change (soil moisture + surface water + groundwater), not isolated subsurface recharge.
 
 ---
 
@@ -93,7 +93,7 @@ Every window is evaluated under its own independent Benjamini-Hochberg False Dis
 ### 2.6 Workstream D: Hydroclimatic Extremes & Flood Context (`outputs/v3/extremes/`)
 - Contextualized against Bangladesh Water Development Board (BWDB) Flood Forecasting and Warning Centre (FFWC) catastrophic flood reports (2004, 2007, 2017, 2020, 2022).
 - **Transient Flood Storage Crests**: Major flood years generate massive monsoonal storage crests ($+33.1\text{ cm}$ in 2004, $+41.0\text{ cm}$ in 2007, $+28.4\text{ cm}$ in 2020), but anomalies dissipate within 3 to 4 months through rapid river drainage.
-- **Infiltration Saturation Paradox**: During extreme deluge years (e.g. 2020 with $2,423\text{ mm}$ rainfall), surface saturation and river discharge cause monsoon recharge efficiency to collapse to **$27.5\%$** (vs $41.6\%$ long-term mean), showing that extreme rainfall events cannot compensate for secular subsurface drawdown.
+- **Infiltration Saturation Dynamic**: During extreme deluge years (e.g. 2020 with $2,423\text{ mm}$ rainfall), surface saturation and river discharge cause monsoon seasonal storage response ratio to remain bounded at **$27.5\%$** (vs $32.6\%$ long-term mean), consistent with extreme rainfall events failing to compensate for secular subsurface drawdown.
 
 ---
 
@@ -147,11 +147,13 @@ python v3/benchmark_builder.py
 
 ### 3.4 Run v2 Pipeline with Rain Source Selection
 ```bash
-# Default: NASA POWER PRECTOTCORR
-python run_all.py --rain-source power
-
-# Alternative: GPM IMERG V07B Final Run
+# Default: GPM IMERG V07B (unbiased satellite precipitation)
+python run_all.py
+# Or explicitly:
 python run_all.py --rain-source imerg
+
+# Historical comparison with NASA POWER (warning: contains 2014-12 to 2015-12 step artifact):
+python run_all.py --rain-source power
 ```
 
 ---
@@ -176,7 +178,7 @@ outputs/
     │   ├── division_series_2002_2026.csv # 24-year monthly divisional series
     │   ├── epoch_comparison.csv          # GRACE-1 vs GRACE-FO bootstrap test
     │   ├── offset_test.csv               # Newey-West HAC bridge gap test
-    │   ├── seasonal_recharge_24yr.csv    # 22-season recharge efficiency series
+    │   ├── seasonal_recharge_24yr.csv    # 22-season storage response series
     │   ├── gap_calibration_report.json   # AR(1) false-positive calibration (4.70%)
     │   ├── fig1_full_record_tws_trends.png
     │   ├── fig2_recharge_efficiency_24yr.png
@@ -204,7 +206,7 @@ outputs/
     │
     ├── extremes/                         # Workstream D: Flood context & extremes
     │   ├── flood_events_context.csv & .md# 5 historical floods (2004, 2007, 2017, 2020, 2022)
-    │   ├── fig_flood_events_recharge.png # Crest dissipation and recharge efficiency
+    │   ├── fig_flood_events_recharge.png # Crest dissipation and storage rebound
     │   └── extremes_synthesis.md
     │
     └── benchmark/                        # Workstream E: Literature benchmark

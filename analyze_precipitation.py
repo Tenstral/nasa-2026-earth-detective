@@ -1,5 +1,5 @@
 """
-NASA Space Apps 2026 - Trend Detective: Bengal Water Paradox
+NASA Space Apps 2026 - Trend Detective: Bengal Hydro Detective
 Divisional Precipitation Analysis Pipeline (GPM IMERG & NASA Satellite Precipitation)
 
 Analyzes and visualizes division-level precipitation across Bangladesh on any fixed month.
@@ -506,7 +506,7 @@ def generate_html_report(date_str: str, prev_date_str: str, results: dict,
         <header>
             <div>
                 <div style="font-family: 'Architects Daughter', cursive; color: #94a3b8; font-size: 1rem;">Case File #026-BD // Atmospheric Precipitation Audit</div>
-                <h1>The Bengal Water Paradox</h1>
+                <h1>Bengal Hydro Detective</h1>
             </div>
             <div style="text-align: right;">
                 <div style="font-size: 0.85rem; color: #94a3b8;">Observation Month</div>

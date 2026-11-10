@@ -86,7 +86,7 @@ def generate_task3_diff():
             "old_verdict": old_quad,
             "new_value_imerg": f"{c_row['quadrant_id']}: {c_row['quadrant_name']}",
             "new_verdict": f"TWS: {c_row['tws_verdict']} | Rain: {c_row['precip_verdict']}",
-            "key_shift_explanation": "Rainfall confirmed stationary; Bengal Water Storage Paradox pattern is observed without spurious rain trend."
+            "key_shift_explanation": "Rainfall exhibits no detectable trend; storage depletion persists in the absence of a detected rainfall trend."
         })
 
     # C. Storage Response Ratio & Rebound Alone
@@ -214,7 +214,7 @@ def generate_task3_diff():
         md.append(
             f"| **{reg}** | {c_row['tws_slope_cm_yr']:+.2f} | `{c_row['tws_verdict']}` | `Suggestive increase` | `{old_tag}` | "
             f"`{c_row['precip_verdict']}` | **`{c_row['quadrant_id']}`**: {c_row['quadrant_name']} | "
-            f"{'Bengal Water Storage Paradox pattern observed (depletion without rain deficit)' if c_row['quadrant_id'] == 'Q1' else 'No detectable trend (within natural variability)'} |"
+            f"{'Storage depletion without detected rainfall trend' if c_row['quadrant_id'] == 'Q1' else 'No detectable trend (within natural variability)'} |"
         )
 
     md.extend([
@@ -225,7 +225,7 @@ def generate_task3_diff():
         "",
         "- **Critical Correction:** We now explicitly report **Storage Rebound Alone ($\\Delta\\text{TWS} = \\text{Peak} - \\text{Trough}$, cm)** so it does not depend on the rainfall denominator.",
         "- **Resolution of the Efficiency Drop:** In previous reports, the ratio appeared to decline drastically (-1.05%/yr, p = 0.0007). This audit confirms that the apparent decline was an artifact caused by NASA POWER's post-2015 rainfall step increase in the denominator. With homogeneous GPM IMERG precipitation, the seasonal storage response ratio shows suggestive increase nationally (+0.136%/yr, raw p = 0.021, FDR q = 0.111; Suggestive increase) and in Central (+0.387%/yr, raw p = 0.037, FDR q = 0.111; Suggestive increase), with no detectable trend in NW, NE, SW, and SE. Storage rebound alone shows no detectable trend across all 6 regions.",
-        "- **Limitation:** The seasonal storage response ratio ($\\Delta\\text{TWS} / P_{\\text{monsoon}}$) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient.",
+        "- **Limitation:** The seasonal storage response ratio ($\\Delta\\text{TWS} / P_{\\text{monsoon}}$) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated subsurface recharge coefficient.",
         "",
         "| Region | Valid Seasons | Storage Rebound ALONE Mean (cm) | Rebound Alone Slope (cm/yr) | Rebound Alone Verdict | IMERG Storage Response Ratio Mean | IMERG Response Ratio Slope (%/yr) | IMERG Response Ratio Verdict | Old POWER Response Ratio Slope |",
         "|---|---|---|---|---|---|---|---|---|",
@@ -300,7 +300,7 @@ def generate_task3_diff():
         "",
         "1. **Primary Precipitation Source:** Successfully switched from NASA POWER to GPM IMERG V07B Final Run (2002-01 to 2025-09).",
         "2. **Rainfall Trends:** Artificial upward trends (+28 to +108 mm/yr) eliminated; all regional annual, monsoon, and dry-season IMERG trends show no detectable trend (`No detectable trend`, p >= 0.38).",
-        "3. **Bengal Water Storage Paradox:** The Bengal Water Storage Paradox pattern is observed under homogeneous rainfall — storage depletion in NW (-1.25 cm/yr), NE (-0.56 cm/yr), and Central (-0.47 cm/yr) persists in the absence of a detected rainfall trend.",
+        "3. **Storage Depletion Without Detected Rainfall Deficit:** Storage depletion in NW (-1.25 cm/yr), NE (-0.56 cm/yr), and Central (-0.47 cm/yr) persists in the absence of a detected rainfall trend.",
         "4. **Seasonal Storage Response Ratio:** Storage rebound ALONE is now explicitly reported (National mean: 54.0 cm, no detectable trend). The previous -1.05%/yr ratio drop was an artifact of POWER's post-2015 surge; IMERG response ratio averages 32.6% nationally.",
         "5. **Flood Events:** Corrected 2017 monsoon from -53.7% (gap artifact) to +12.8% (complete 4-month IMERG total of 1,879 mm). 2020 corrected from +48.6% to +8.6%. Added localized NE extremes (2017 MAM deluge +49.1%; 2022 June deluge +60.6%).",
         "6. **Exposure Layer:** Updated with coupled rainfall verdicts; approximately 108.5 million people (63.9% of Bangladesh) live in regions where regional-mean total water storage declined significantly in the absence of a detected rainfall trend.",

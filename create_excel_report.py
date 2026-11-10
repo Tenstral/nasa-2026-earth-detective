@@ -1,5 +1,5 @@
 """
-NASA Space Apps 2026 - Trend Detective: Bengal Water Paradox
+NASA Space Apps 2026 - Trend Detective: Bengal Hydro Detective
 Excel Detailed Numbers Generator
 
 Compiles all divisional satellite observations (GRACE Water Storage & GPM IMERG Precipitation),
@@ -143,7 +143,7 @@ def generate_excel_workbook(output_xlsx: str = "bangladesh_water_analysis_detail
     ws1.views.sheetView[0].showGridLines = True
 
     # Title block
-    ws1["A1"] = "NASA SPACE APPS 2026 — TREND DETECTIVE: THE BENGAL WATER PARADOX"
+    ws1["A1"] = "NASA SPACE APPS 2026 — TREND DETECTIVE: BENGAL HYDRO DETECTIVE"
     ws1["A1"].font = Font(name="Calibri", size=16, bold=True, color="0284C7")
     ws1["A2"] = "Cross-Comparison Audit: Satellite Precipitation Influx (GPM IMERG) vs. Subsurface Water Storage (GRACE Mascons)"
     ws1["A2"].font = Font(name="Calibri", size=11, italic=True, color="475569")
