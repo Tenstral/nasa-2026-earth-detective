@@ -1194,6 +1194,59 @@
       </div>
     </section>
 
+    <!-- SECTION: PAIRWISE BETWEEN-REGION DIFFERENCES -->
+    <section class="section-card" id="pairwise-differences">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">🌐 Between-Region Differences (2002–2026)</h2>
+          <p class="section-desc">Pairwise secular trend differences using synchronized Paired Moving-Block Bootstrap (B = 9,999) and within-family Benjamini-Hochberg FDR control.</p>
+        </div>
+        <span class="tag" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3);">PRELIMINARY &amp; EXPLORATORY</span>
+      </div>
+
+      <!-- Controls: Variable & Sensitivity Toggles -->
+      <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <span style="font-size: 0.82rem; color: var(--ink-secondary); font-weight: 600;">VARIABLE:</span>
+          <button class="btn btn-secondary active" id="btnPairVarTws" onclick="setPairwiseVariable('tws')">💧 Total Water Storage (cm/yr)</button>
+          <button class="btn btn-secondary" id="btnPairVarPrecip" onclick="setPairwiseVariable('precip')">🌧️ GPM IMERG Rainfall (mm/yr)</button>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <span style="font-size: 0.82rem; color: var(--ink-secondary); font-weight: 600;">RUN / SENSITIVITY:</span>
+          <button class="btn btn-secondary active" id="btnPairRunPrimary" onclick="setPairwiseRun('primary')">Full Record (2002–2026)</button>
+          <button class="btn btn-secondary" id="btnPairRunGrace" onclick="setPairwiseRun('sensitivity_grace_era')">GRACE Era Only (2002–2017)</button>
+          <button class="btn btn-secondary" id="btnPairRunTrans" onclick="setPairwiseRun('sensitivity_transition_excluded')">Transition Excluded (&plusmn;6 mo)</button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Pair (A vs B)</th>
+              <th>Common Months</th>
+              <th>Slope A</th>
+              <th>Slope B</th>
+              <th>&Delta; Slope (A &minus; B)</th>
+              <th>95% Confidence Interval</th>
+              <th>p-value (Bootstrap)</th>
+              <th>FDR q-value</th>
+              <th>MDS (80% Power)</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody id="pairwiseTableBody">
+            <!-- Dynamically populated from DASHBOARD_DATA.pairwise_differences -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Verbatim Limits Text Banner -->
+      <div style="margin-top: 14px; padding: 12px 16px; background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; border-radius: 4px; font-size: 0.84rem; color: #bfdbfe; line-height: 1.55;">
+        <strong>Methodological Limits:</strong> "Regions are adjacent and GRACE resolves a few hundred kilometres, so neighbouring regions share signal and coastal leakage is possible. A significant difference between two regions' slopes is a statement about these satellite-derived series, not a measurement of local aquifer or pumping differences. Recent windows are below the detection limit."
+      </div>
+    </section>
+
     <!-- SECTION 7: RESULTS REGISTRY (336 TESTS) -->
     <section class="section-card" id="registry">
       <div class="section-header">
@@ -35120,7 +35173,7 @@
       "storage_response_ratio_pct": 28.06,
       "response_ratio_anom_pct": -4.49,
       "precip_anomaly_vs_mean_pct": 21.3,
-      "recharge_efficiency_pct": 28.06,
+      "seasonal_storage_response_pct": 28.06,
       "source_document": "FFWC/BWDB Annual Flood Report 2004, Executive Summary, p. 1",
       "source_url": "http://www.ffwc.gov.bd/images/annual04.pdf",
       "meteorological_driver": "Concurrently intense Brahmaputra and Ganges monsoonal flood waves combined with sustained localized rainfall."
@@ -35150,7 +35203,7 @@
       "storage_response_ratio_pct": 32.46,
       "response_ratio_anom_pct": -0.09,
       "precip_anomaly_vs_mean_pct": 19.9,
-      "recharge_efficiency_pct": 32.46,
+      "seasonal_storage_response_pct": 32.46,
       "source_document": "FFWC/BWDB Annual Flood Report 2007, Executive Summary, p. 1\u20132",
       "source_url": "http://www.ffwc.gov.bd/images/annual07.pdf",
       "meteorological_driver": "Two successive peak flood waves in late July and early September associated with extreme Himalayan transboundary inflow."
@@ -35174,13 +35227,13 @@
       "ne_june_anom_pct": 9.8,
       "ne_monsoon_precip_mm": 2337.0,
       "ne_monsoon_anom_pct": 16.7,
-      "post_monsoon_peak_cm": NaN,
-      "peak_anomaly_vs_mean_cm": NaN,
-      "seasonal_rebound_cm": NaN,
-      "storage_response_ratio_pct": NaN,
-      "response_ratio_anom_pct": NaN,
+      "post_monsoon_peak_cm": null,
+      "peak_anomaly_vs_mean_cm": null,
+      "seasonal_rebound_cm": null,
+      "storage_response_ratio_pct": null,
+      "response_ratio_anom_pct": null,
       "precip_anomaly_vs_mean_pct": 12.8,
-      "recharge_efficiency_pct": NaN,
+      "seasonal_storage_response_pct": null,
       "source_document": "FFWC/BWDB Annual Flood Report 2017, Executive Summary, p. 1\u20133",
       "source_url": "http://www.ffwc.gov.bd/images/annual17.pdf",
       "meteorological_driver": "Extreme April rainfall in Meghalaya/Cherrapunji (>1,000 mm in 10 days) submerging standing Boro crops in Sylhet/Sunamganj haors; followed by heavy August northern riverine floods."
@@ -35210,7 +35263,7 @@
       "storage_response_ratio_pct": 33.72,
       "response_ratio_anom_pct": 1.17,
       "precip_anomaly_vs_mean_pct": 8.6,
-      "recharge_efficiency_pct": 33.72,
+      "seasonal_storage_response_pct": 33.72,
       "source_document": "FFWC/BWDB Annual Flood Report 2020, Executive Summary, p. 1\u20133",
       "source_url": "http://www.ffwc.gov.bd/images/annual20.pdf",
       "meteorological_driver": "Record-sustained monsoonal precipitation across the upstream Brahmaputra basin (longest duration above danger level since 1998)."
@@ -35240,7 +35293,7 @@
       "storage_response_ratio_pct": 34.5,
       "response_ratio_anom_pct": 1.95,
       "precip_anomaly_vs_mean_pct": -18.1,
-      "recharge_efficiency_pct": 34.5,
+      "seasonal_storage_response_pct": 34.5,
       "source_document": "FFWC/BWDB Annual Flood Report 2022, Executive Summary / Flash Flood Chapter, p. 1\u20135",
       "source_url": "http://www.ffwc.gov.bd/images/annual22.pdf",
       "meteorological_driver": "Unprecedented extreme rainfall in Meghalaya/Cherrapunji (>972 mm in 24h on 17 June) causing catastrophic rapid flash inundation across Surma-Kushiyara river system."
@@ -36079,6 +36132,1088 @@
       "verdict": "No detectable trend",
       "verdict_detail": "No detectable trend (p=0.7398, q=0.8800; CI is wide relative to slope and spans zero)"
     }
+  ],
+  "pairwise_differences": [
+    {
+      "variable": "tws",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NW",
+      "region_B": "NE",
+      "slope_A": -1.2547,
+      "slope_B": -0.5553,
+      "delta_slope": -0.6994,
+      "ci_low": -0.8001,
+      "ci_high": -0.6,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 257,
+      "block_length": 4,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NW",
+      "region_B": "Central",
+      "slope_A": -1.2547,
+      "slope_B": -0.4732,
+      "delta_slope": -0.7815,
+      "ci_low": -0.8788,
+      "ci_high": -0.6848,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 257,
+      "block_length": 4,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NW",
+      "region_B": "SW",
+      "slope_A": -1.2547,
+      "slope_B": -0.047,
+      "delta_slope": -1.2078,
+      "ci_low": -1.3574,
+      "ci_high": -1.0525,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.354,
+      "n_months": 257,
+      "block_length": 5,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NW",
+      "region_B": "SE",
+      "slope_A": -1.2547,
+      "slope_B": -0.0521,
+      "delta_slope": -1.2026,
+      "ci_low": -1.3499,
+      "ci_high": -1.0574,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.354,
+      "n_months": 257,
+      "block_length": 4,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NE",
+      "region_B": "Central",
+      "slope_A": -0.5553,
+      "slope_B": -0.4732,
+      "delta_slope": -0.0821,
+      "ci_low": -0.1133,
+      "ci_high": -0.0513,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.151,
+      "n_months": 257,
+      "block_length": 3,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NE",
+      "region_B": "SW",
+      "slope_A": -0.5553,
+      "slope_B": -0.047,
+      "delta_slope": -0.5084,
+      "ci_low": -0.6118,
+      "ci_high": -0.4053,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 257,
+      "block_length": 5,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NE",
+      "region_B": "SE",
+      "slope_A": -0.5553,
+      "slope_B": -0.0521,
+      "delta_slope": -0.5032,
+      "ci_low": -0.5871,
+      "ci_high": -0.4211,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 257,
+      "block_length": 4,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "Central",
+      "region_B": "SW",
+      "slope_A": -0.4732,
+      "slope_B": -0.047,
+      "delta_slope": -0.4263,
+      "ci_low": -0.5225,
+      "ci_high": -0.3305,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 257,
+      "block_length": 5,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "Central",
+      "region_B": "SE",
+      "slope_A": -0.4732,
+      "slope_B": -0.0521,
+      "delta_slope": -0.4211,
+      "ci_low": -0.499,
+      "ci_high": -0.3441,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 257,
+      "block_length": 4,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "SW",
+      "region_B": "SE",
+      "slope_A": -0.047,
+      "slope_B": -0.0521,
+      "delta_slope": 0.0052,
+      "ci_low": -0.0325,
+      "ci_high": 0.0436,
+      "p_value": 0.76048,
+      "bh_q_value": 0.83124,
+      "mds_80": 0.151,
+      "n_months": 257,
+      "block_length": 5,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NW",
+      "region_B": "NE",
+      "slope_A": -1.9099,
+      "slope_B": -0.5938,
+      "delta_slope": -1.3161,
+      "ci_low": -12.8447,
+      "ci_high": 10.0933,
+      "p_value": 0.76528,
+      "bh_q_value": 0.83124,
+      "mds_80": 23.559,
+      "n_months": 247,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NW",
+      "region_B": "Central",
+      "slope_A": -1.9099,
+      "slope_B": 0.8912,
+      "delta_slope": -2.8011,
+      "ci_low": -10.7315,
+      "ci_high": 4.8225,
+      "p_value": 0.43604,
+      "bh_q_value": 0.72673,
+      "mds_80": 17.074,
+      "n_months": 247,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NW",
+      "region_B": "SW",
+      "slope_A": -1.9099,
+      "slope_B": 2.2468,
+      "delta_slope": -4.1567,
+      "ci_low": -13.7114,
+      "ci_high": 5.3469,
+      "p_value": 0.35244,
+      "bh_q_value": 0.70488,
+      "mds_80": 25.0,
+      "n_months": 247,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NW",
+      "region_B": "SE",
+      "slope_A": -1.9099,
+      "slope_B": 1.7572,
+      "delta_slope": -3.6671,
+      "ci_low": -13.3228,
+      "ci_high": 6.2411,
+      "p_value": 0.41544,
+      "bh_q_value": 0.72673,
+      "mds_80": 25.0,
+      "n_months": 247,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NE",
+      "region_B": "Central",
+      "slope_A": -0.5938,
+      "slope_B": 0.8912,
+      "delta_slope": -1.485,
+      "ci_low": -11.4776,
+      "ci_high": 8.4831,
+      "p_value": 0.71807,
+      "bh_q_value": 0.83124,
+      "mds_80": 25.0,
+      "n_months": 247,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NE",
+      "region_B": "SW",
+      "slope_A": -0.5938,
+      "slope_B": 2.2468,
+      "delta_slope": -2.8406,
+      "ci_low": -16.6836,
+      "ci_high": 11.4781,
+      "p_value": 0.64246,
+      "bh_q_value": 0.83124,
+      "mds_80": 25.0,
+      "n_months": 247,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "NE",
+      "region_B": "SE",
+      "slope_A": -0.5938,
+      "slope_B": 1.7572,
+      "delta_slope": -2.351,
+      "ci_low": -14.8253,
+      "ci_high": 10.2784,
+      "p_value": 0.66167,
+      "bh_q_value": 0.83124,
+      "mds_80": 25.0,
+      "n_months": 247,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "Central",
+      "region_B": "SW",
+      "slope_A": 0.8912,
+      "slope_B": 2.2468,
+      "delta_slope": -1.3556,
+      "ci_low": -8.2603,
+      "ci_high": 5.6528,
+      "p_value": 0.67567,
+      "bh_q_value": 0.83124,
+      "mds_80": 13.471,
+      "n_months": 247,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "Central",
+      "region_B": "SE",
+      "slope_A": 0.8912,
+      "slope_B": 1.7572,
+      "delta_slope": -0.866,
+      "ci_low": -7.8588,
+      "ci_high": 6.4679,
+      "p_value": 0.78968,
+      "bh_q_value": 0.83124,
+      "mds_80": 22.838,
+      "n_months": 247,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record",
+      "run": "primary",
+      "region_A": "SW",
+      "region_B": "SE",
+      "slope_A": 2.2468,
+      "slope_B": 1.7572,
+      "delta_slope": 0.4896,
+      "ci_low": -7.2545,
+      "ci_high": 8.458,
+      "p_value": 0.89069,
+      "bh_q_value": 0.89069,
+      "mds_80": 21.397,
+      "n_months": 247,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "tws",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NW",
+      "region_B": "NE",
+      "slope_A": -1.5648,
+      "slope_B": -0.7234,
+      "delta_slope": -0.8414,
+      "ci_low": -0.9863,
+      "ci_high": -0.6939,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.354,
+      "n_months": 161,
+      "block_length": 3,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NW",
+      "region_B": "Central",
+      "slope_A": -1.5648,
+      "slope_B": -0.6267,
+      "delta_slope": -0.9381,
+      "ci_low": -1.088,
+      "ci_high": -0.7837,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.354,
+      "n_months": 161,
+      "block_length": 3,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NW",
+      "region_B": "SW",
+      "slope_A": -1.5648,
+      "slope_B": -0.1272,
+      "delta_slope": -1.4376,
+      "ci_low": -1.6752,
+      "ci_high": -1.2039,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.456,
+      "n_months": 161,
+      "block_length": 3,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NW",
+      "region_B": "SE",
+      "slope_A": -1.5648,
+      "slope_B": -0.1222,
+      "delta_slope": -1.4425,
+      "ci_low": -1.672,
+      "ci_high": -1.2165,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.456,
+      "n_months": 161,
+      "block_length": 3,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NE",
+      "region_B": "Central",
+      "slope_A": -0.7234,
+      "slope_B": -0.6267,
+      "delta_slope": -0.0967,
+      "ci_low": -0.1533,
+      "ci_high": -0.0431,
+      "p_value": 0.001,
+      "bh_q_value": 0.00222,
+      "mds_80": 0.151,
+      "n_months": 161,
+      "block_length": 3,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NE",
+      "region_B": "SW",
+      "slope_A": -0.7234,
+      "slope_B": -0.1272,
+      "delta_slope": -0.5961,
+      "ci_low": -0.7387,
+      "ci_high": -0.4592,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.354,
+      "n_months": 161,
+      "block_length": 3,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NE",
+      "region_B": "SE",
+      "slope_A": -0.7234,
+      "slope_B": -0.1222,
+      "delta_slope": -0.6011,
+      "ci_low": -0.7216,
+      "ci_high": -0.4855,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 161,
+      "block_length": 3,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "Central",
+      "region_B": "SW",
+      "slope_A": -0.6267,
+      "slope_B": -0.1272,
+      "delta_slope": -0.4994,
+      "ci_low": -0.6261,
+      "ci_high": -0.3754,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.354,
+      "n_months": 161,
+      "block_length": 3,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "Central",
+      "region_B": "SE",
+      "slope_A": -0.6267,
+      "slope_B": -0.1222,
+      "delta_slope": -0.5044,
+      "ci_low": -0.6094,
+      "ci_high": -0.4037,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 161,
+      "block_length": 3,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "SW",
+      "region_B": "SE",
+      "slope_A": -0.1272,
+      "slope_B": -0.1222,
+      "delta_slope": -0.005,
+      "ci_low": -0.0523,
+      "ci_high": 0.0441,
+      "p_value": 0.83288,
+      "bh_q_value": 0.83288,
+      "mds_80": 0.151,
+      "n_months": 161,
+      "block_length": 3,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NW",
+      "region_B": "NE",
+      "slope_A": -6.3891,
+      "slope_B": 2.9496,
+      "delta_slope": -9.3388,
+      "ci_low": -35.0674,
+      "ci_high": 16.6006,
+      "p_value": 0.37464,
+      "bh_q_value": 0.5352,
+      "mds_80": 25.0,
+      "n_months": 161,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NW",
+      "region_B": "Central",
+      "slope_A": -6.3891,
+      "slope_B": -1.08,
+      "delta_slope": -5.3091,
+      "ci_low": -21.8512,
+      "ci_high": 10.6406,
+      "p_value": 0.43964,
+      "bh_q_value": 0.54955,
+      "mds_80": 25.0,
+      "n_months": 161,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NW",
+      "region_B": "SW",
+      "slope_A": -6.3891,
+      "slope_B": 6.0745,
+      "delta_slope": -12.4636,
+      "ci_low": -29.1228,
+      "ci_high": 3.8789,
+      "p_value": 0.11601,
+      "bh_q_value": 0.19335,
+      "mds_80": 25.0,
+      "n_months": 161,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NW",
+      "region_B": "SE",
+      "slope_A": -6.3891,
+      "slope_B": 11.3298,
+      "delta_slope": -17.7189,
+      "ci_low": -38.5597,
+      "ci_high": 3.5232,
+      "p_value": 0.08681,
+      "bh_q_value": 0.15784,
+      "mds_80": 25.0,
+      "n_months": 161,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NE",
+      "region_B": "Central",
+      "slope_A": 2.9496,
+      "slope_B": -1.08,
+      "delta_slope": 4.0296,
+      "ci_low": -18.6834,
+      "ci_high": 26.0191,
+      "p_value": 0.66027,
+      "bh_q_value": 0.73363,
+      "mds_80": 25.0,
+      "n_months": 161,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NE",
+      "region_B": "SW",
+      "slope_A": 2.9496,
+      "slope_B": 6.0745,
+      "delta_slope": -3.1248,
+      "ci_low": -31.3471,
+      "ci_high": 25.0265,
+      "p_value": 0.74747,
+      "bh_q_value": 0.78681,
+      "mds_80": 25.0,
+      "n_months": 161,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "NE",
+      "region_B": "SE",
+      "slope_A": 2.9496,
+      "slope_B": 11.3298,
+      "delta_slope": -8.3801,
+      "ci_low": -31.6221,
+      "ci_high": 14.9312,
+      "p_value": 0.42304,
+      "bh_q_value": 0.54955,
+      "mds_80": 25.0,
+      "n_months": 161,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "Central",
+      "region_B": "SW",
+      "slope_A": -1.08,
+      "slope_B": 6.0745,
+      "delta_slope": -7.1545,
+      "ci_low": -19.5868,
+      "ci_high": 5.1269,
+      "p_value": 0.21542,
+      "bh_q_value": 0.33142,
+      "mds_80": 25.0,
+      "n_months": 161,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "Central",
+      "region_B": "SE",
+      "slope_A": -1.08,
+      "slope_B": 11.3298,
+      "delta_slope": -12.4098,
+      "ci_low": -26.2298,
+      "ci_high": 1.8984,
+      "p_value": 0.08321,
+      "bh_q_value": 0.15784,
+      "mds_80": 25.0,
+      "n_months": 161,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "grace_era",
+      "run": "sensitivity_grace_era",
+      "region_A": "SW",
+      "region_B": "SE",
+      "slope_A": 6.0745,
+      "slope_B": 11.3298,
+      "delta_slope": -5.2553,
+      "ci_low": -22.1005,
+      "ci_high": 12.2755,
+      "p_value": 0.51425,
+      "bh_q_value": 0.605,
+      "mds_80": 25.0,
+      "n_months": 161,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NW",
+      "region_B": "NE",
+      "slope_A": -1.278,
+      "slope_B": -0.5714,
+      "delta_slope": -0.7066,
+      "ci_low": -0.805,
+      "ci_high": -0.6065,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 248,
+      "block_length": 4,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NW",
+      "region_B": "Central",
+      "slope_A": -1.278,
+      "slope_B": -0.4895,
+      "delta_slope": -0.7885,
+      "ci_low": -0.883,
+      "ci_high": -0.6919,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.151,
+      "n_months": 248,
+      "block_length": 4,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NW",
+      "region_B": "SW",
+      "slope_A": -1.278,
+      "slope_B": -0.0457,
+      "delta_slope": -1.2323,
+      "ci_low": -1.3838,
+      "ci_high": -1.0795,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.354,
+      "n_months": 248,
+      "block_length": 5,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NW",
+      "region_B": "SE",
+      "slope_A": -1.278,
+      "slope_B": -0.0525,
+      "delta_slope": -1.2254,
+      "ci_low": -1.374,
+      "ci_high": -1.0748,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.354,
+      "n_months": 248,
+      "block_length": 4,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NE",
+      "region_B": "Central",
+      "slope_A": -0.5714,
+      "slope_B": -0.4895,
+      "delta_slope": -0.0819,
+      "ci_low": -0.1127,
+      "ci_high": -0.0504,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.151,
+      "n_months": 248,
+      "block_length": 3,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NE",
+      "region_B": "SW",
+      "slope_A": -0.5714,
+      "slope_B": -0.0457,
+      "delta_slope": -0.5257,
+      "ci_low": -0.6312,
+      "ci_high": -0.4225,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 248,
+      "block_length": 5,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NE",
+      "region_B": "SE",
+      "slope_A": -0.5714,
+      "slope_B": -0.0525,
+      "delta_slope": -0.5188,
+      "ci_low": -0.6038,
+      "ci_high": -0.4326,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 248,
+      "block_length": 4,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "Central",
+      "region_B": "SW",
+      "slope_A": -0.4895,
+      "slope_B": -0.0457,
+      "delta_slope": -0.4438,
+      "ci_low": -0.5409,
+      "ci_high": -0.3483,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 248,
+      "block_length": 5,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "Central",
+      "region_B": "SE",
+      "slope_A": -0.4895,
+      "slope_B": -0.0525,
+      "delta_slope": -0.4369,
+      "ci_low": -0.5167,
+      "ci_high": -0.3561,
+      "p_value": 0.0,
+      "bh_q_value": 0.0,
+      "mds_80": 0.253,
+      "n_months": 248,
+      "block_length": 4,
+      "verdict": "Significant difference"
+    },
+    {
+      "variable": "tws",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "SW",
+      "region_B": "SE",
+      "slope_A": -0.0457,
+      "slope_B": -0.0525,
+      "delta_slope": 0.0069,
+      "ci_low": -0.0306,
+      "ci_high": 0.0461,
+      "p_value": 0.70927,
+      "bh_q_value": 0.82508,
+      "mds_80": 0.151,
+      "n_months": 248,
+      "block_length": 5,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NW",
+      "region_B": "NE",
+      "slope_A": -2.0805,
+      "slope_B": -0.29,
+      "delta_slope": -1.7905,
+      "ci_low": -12.7849,
+      "ci_high": 9.5324,
+      "p_value": 0.68947,
+      "bh_q_value": 0.82508,
+      "mds_80": 22.838,
+      "n_months": 238,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NW",
+      "region_B": "Central",
+      "slope_A": -2.0805,
+      "slope_B": 0.732,
+      "delta_slope": -2.8125,
+      "ci_low": -10.535,
+      "ci_high": 4.9235,
+      "p_value": 0.43784,
+      "bh_q_value": 0.72973,
+      "mds_80": 17.074,
+      "n_months": 238,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NW",
+      "region_B": "SW",
+      "slope_A": -2.0805,
+      "slope_B": 2.123,
+      "delta_slope": -4.2036,
+      "ci_low": -13.3151,
+      "ci_high": 4.7974,
+      "p_value": 0.31743,
+      "bh_q_value": 0.63486,
+      "mds_80": 22.838,
+      "n_months": 238,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NW",
+      "region_B": "SE",
+      "slope_A": -2.0805,
+      "slope_B": 1.3418,
+      "delta_slope": -3.4223,
+      "ci_low": -12.5806,
+      "ci_high": 5.6061,
+      "p_value": 0.40124,
+      "bh_q_value": 0.72953,
+      "mds_80": 25.0,
+      "n_months": 238,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NE",
+      "region_B": "Central",
+      "slope_A": -0.29,
+      "slope_B": 0.732,
+      "delta_slope": -1.022,
+      "ci_low": -11.1468,
+      "ci_high": 8.7372,
+      "p_value": 0.78568,
+      "bh_q_value": 0.82508,
+      "mds_80": 25.0,
+      "n_months": 238,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NE",
+      "region_B": "SW",
+      "slope_A": -0.29,
+      "slope_B": 2.123,
+      "delta_slope": -2.413,
+      "ci_low": -16.1632,
+      "ci_high": 11.1171,
+      "p_value": 0.67627,
+      "bh_q_value": 0.82508,
+      "mds_80": 25.0,
+      "n_months": 238,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "NE",
+      "region_B": "SE",
+      "slope_A": -0.29,
+      "slope_B": 1.3418,
+      "delta_slope": -1.6318,
+      "ci_low": -13.6851,
+      "ci_high": 10.2638,
+      "p_value": 0.72887,
+      "bh_q_value": 0.82508,
+      "mds_80": 25.0,
+      "n_months": 238,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "Central",
+      "region_B": "SW",
+      "slope_A": 0.732,
+      "slope_B": 2.123,
+      "delta_slope": -1.391,
+      "ci_low": -8.2736,
+      "ci_high": 5.3939,
+      "p_value": 0.65307,
+      "bh_q_value": 0.82508,
+      "mds_80": 13.471,
+      "n_months": 238,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "Central",
+      "region_B": "SE",
+      "slope_A": 0.732,
+      "slope_B": 1.3418,
+      "delta_slope": -0.6098,
+      "ci_low": -7.4077,
+      "ci_high": 6.3848,
+      "p_value": 0.82508,
+      "bh_q_value": 0.82508,
+      "mds_80": 20.676,
+      "n_months": 238,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    },
+    {
+      "variable": "precip",
+      "window": "full_record_transition_excluded",
+      "run": "sensitivity_transition_excluded",
+      "region_A": "SW",
+      "region_B": "SE",
+      "slope_A": 2.123,
+      "slope_B": 1.3418,
+      "delta_slope": 0.7812,
+      "ci_low": -6.8368,
+      "ci_high": 8.3985,
+      "p_value": 0.80548,
+      "bh_q_value": 0.82508,
+      "mds_80": 20.676,
+      "n_months": 238,
+      "block_length": 1,
+      "verdict": "No detectable difference"
+    }
   ]
 };
   </script>
@@ -36121,6 +37256,7 @@
       populateGldasTable();
       populateExposureTable();
       populateSeasonalExploratoryTables();
+      populatePairwiseDifferencesTable();
       populateResultsTable();
     });
 
@@ -36746,6 +37882,72 @@
           `;
           ddTbody.appendChild(tr);
         }
+      }
+    }
+
+    let currentPairwiseVar = 'tws';
+    let currentPairwiseRun = 'primary';
+
+    function setPairwiseVariable(v) {
+      currentPairwiseVar = v;
+      const btnTws = document.getElementById('btnPairVarTws');
+      const btnPrecip = document.getElementById('btnPairVarPrecip');
+      if (btnTws) btnTws.classList.toggle('active', v === 'tws');
+      if (btnPrecip) btnPrecip.classList.toggle('active', v === 'precip');
+      populatePairwiseDifferencesTable();
+    }
+
+    function setPairwiseRun(r) {
+      currentPairwiseRun = r;
+      const btnPrim = document.getElementById('btnPairRunPrimary');
+      const btnGrace = document.getElementById('btnPairRunGrace');
+      const btnTrans = document.getElementById('btnPairRunTrans');
+      if (btnPrim) btnPrim.classList.toggle('active', r === 'primary');
+      if (btnGrace) btnGrace.classList.toggle('active', r === 'sensitivity_grace_era');
+      if (btnTrans) btnTrans.classList.toggle('active', r === 'sensitivity_transition_excluded');
+      populatePairwiseDifferencesTable();
+    }
+
+    function populatePairwiseDifferencesTable() {
+      const tbody = document.getElementById('pairwiseTableBody');
+      if (!tbody || !DASHBOARD_DATA.pairwise_differences) return;
+      tbody.innerHTML = '';
+
+      const filtered = DASHBOARD_DATA.pairwise_differences.filter(
+        d => d.variable === currentPairwiseVar && d.run === currentPairwiseRun
+      );
+
+      const unit = currentPairwiseVar === 'tws' ? 'cm/yr' : 'mm/yr';
+
+      for (const d of filtered) {
+        const tr = document.createElement('tr');
+        const vrdBadge = d.verdict === 'Significant difference'
+          ? 'badge-sig'
+          : (d.verdict === 'Suggestive' ? 'badge-suggestive' : 'badge-null');
+
+        const slopeAStr = d.slope_A != null ? `${d.slope_A > 0 ? '+' : ''}${d.slope_A.toFixed(3)}` : 'n/a';
+        const slopeBStr = d.slope_B != null ? `${d.slope_B > 0 ? '+' : ''}${d.slope_B.toFixed(3)}` : 'n/a';
+        const deltaStr = d.delta_slope != null ? `${d.delta_slope > 0 ? '+' : ''}${d.delta_slope.toFixed(3)}` : 'n/a';
+        const ciStr = (d.ci_low != null && d.ci_high != null)
+          ? `[${d.ci_low > 0 ? '+' : ''}${d.ci_low.toFixed(3)}, ${d.ci_high > 0 ? '+' : ''}${d.ci_high.toFixed(3)}]`
+          : 'n/a';
+        const pStr = d.p_value != null ? (d.p_value < 0.0001 ? '< 0.0001' : d.p_value.toFixed(4)) : 'n/a';
+        const qStr = d.bh_q_value != null ? (d.bh_q_value < 0.0001 ? '< 0.0001' : d.bh_q_value.toFixed(4)) : 'n/a';
+        const mdsStr = d.mds_80 != null ? `${d.mds_80.toFixed(2)} ${unit}` : 'n/a';
+
+        tr.innerHTML = `
+          <td style="font-weight: 700; color: #fff;">${d.region_A} vs ${d.region_B}</td>
+          <td class="mono">${d.n_months != null ? d.n_months : 'n/a'}</td>
+          <td class="mono">${slopeAStr}</td>
+          <td class="mono">${slopeBStr}</td>
+          <td class="mono" style="font-weight: 700; color: ${Math.abs(d.delta_slope) > 0.4 ? 'var(--accent-red)' : '#cbd5e1'};">${deltaStr}</td>
+          <td class="mono" style="color: var(--ink-secondary);">${ciStr}</td>
+          <td class="mono">${pStr}</td>
+          <td class="mono">${qStr}</td>
+          <td class="mono" style="color: var(--accent-amber);">${mdsStr}</td>
+          <td><span class="${vrdBadge}">${d.verdict}</span></td>
+        `;
+        tbody.appendChild(tr);
       }
     }
 

@@ -175,6 +175,13 @@ def build_dashboard_data(repo_root: Path = REPO_ROOT) -> dict:
     ratio_trend_df = pd.read_csv(repo_root / "outputs/v3/seasonal/ratio_trend.csv")
     drawdown_df = pd.read_csv(repo_root / "outputs/v3/seasonal/dry_season_drawdown.csv")
 
+    # 11. Pairwise Between-Region Differences
+    pairwise_csv = repo_root / "outputs/v3/region_comparison/pairwise_region_differences.csv"
+    pairwise_data = []
+    if pairwise_csv.exists():
+        pairwise_df = pd.read_csv(pairwise_csv)
+        pairwise_data = pairwise_df.to_dict(orient="records")
+
     compiled = {
         "svg_paths": svg_paths,
         "div_centers": div_centers,
@@ -191,8 +198,20 @@ def build_dashboard_data(repo_root: Path = REPO_ROOT) -> dict:
         "mds_by_window": mds_by_window,
         "ratio_trends": ratio_trend_df.to_dict(orient="records"),
         "dry_season_drawdowns": drawdown_df.to_dict(orient="records"),
+        "pairwise_differences": pairwise_data,
     }
     return compiled
+
+
+def sanitize_nans(obj):
+    """Recursively replaces NaN float values with None for compliant JSON serialization."""
+    if isinstance(obj, float) and (np.isnan(obj) or np.isneginf(obj) or np.isposinf(obj)):
+        return None
+    elif isinstance(obj, dict):
+        return {k: sanitize_nans(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [sanitize_nans(v) for v in obj]
+    return obj
 
 
 def generate_updated_html(index_html_path: Path, data: dict) -> str:
@@ -204,7 +223,8 @@ def generate_updated_html(index_html_path: Path, data: dict) -> str:
     if not m:
         raise ValueError("Could not find 'const DASHBOARD_DATA = { ... }; </script>' in index.html")
 
-    data_json_str = json.dumps(data, indent=2)
+    sanitized_data = sanitize_nans(data)
+    data_json_str = json.dumps(sanitized_data, indent=2)
     new_block = f"const DASHBOARD_DATA = {data_json_str};\n  </script>"
     new_content = content[:m.start()] + new_block + content[m.end():]
 
