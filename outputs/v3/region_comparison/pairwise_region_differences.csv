@@ -1,0 +1,61 @@
+variable,window,run,region_A,region_B,slope_A,slope_B,delta_slope,ci_low,ci_high,p_value,bh_q_value,mds_80,n_months,block_length,verdict
+tws,full_record,primary,NW,NE,-1.2547,-0.5553,-0.6994,-0.8001,-0.6,0.0,0.0,0.253,257,4,Significant difference
+tws,full_record,primary,NW,Central,-1.2547,-0.4732,-0.7815,-0.8788,-0.6848,0.0,0.0,0.253,257,4,Significant difference
+tws,full_record,primary,NW,SW,-1.2547,-0.047,-1.2078,-1.3574,-1.0525,0.0,0.0,0.354,257,5,Significant difference
+tws,full_record,primary,NW,SE,-1.2547,-0.0521,-1.2026,-1.3499,-1.0574,0.0,0.0,0.354,257,4,Significant difference
+tws,full_record,primary,NE,Central,-0.5553,-0.4732,-0.0821,-0.1133,-0.0513,0.0,0.0,0.151,257,3,Significant difference
+tws,full_record,primary,NE,SW,-0.5553,-0.047,-0.5084,-0.6118,-0.4053,0.0,0.0,0.253,257,5,Significant difference
+tws,full_record,primary,NE,SE,-0.5553,-0.0521,-0.5032,-0.5871,-0.4211,0.0,0.0,0.253,257,4,Significant difference
+tws,full_record,primary,Central,SW,-0.4732,-0.047,-0.4263,-0.5225,-0.3305,0.0,0.0,0.253,257,5,Significant difference
+tws,full_record,primary,Central,SE,-0.4732,-0.0521,-0.4211,-0.499,-0.3441,0.0,0.0,0.253,257,4,Significant difference
+tws,full_record,primary,SW,SE,-0.047,-0.0521,0.0052,-0.0325,0.0436,0.76048,0.83124,0.151,257,5,No detectable difference
+precip,full_record,primary,NW,NE,-1.9099,-0.5938,-1.3161,-12.8447,10.0933,0.76528,0.83124,23.559,247,1,No detectable difference
+precip,full_record,primary,NW,Central,-1.9099,0.8912,-2.8011,-10.7315,4.8225,0.43604,0.72673,17.074,247,1,No detectable difference
+precip,full_record,primary,NW,SW,-1.9099,2.2468,-4.1567,-13.7114,5.3469,0.35244,0.70488,25.0,247,1,No detectable difference
+precip,full_record,primary,NW,SE,-1.9099,1.7572,-3.6671,-13.3228,6.2411,0.41544,0.72673,25.0,247,1,No detectable difference
+precip,full_record,primary,NE,Central,-0.5938,0.8912,-1.485,-11.4776,8.4831,0.71807,0.83124,25.0,247,1,No detectable difference
+precip,full_record,primary,NE,SW,-0.5938,2.2468,-2.8406,-16.6836,11.4781,0.64246,0.83124,25.0,247,1,No detectable difference
+precip,full_record,primary,NE,SE,-0.5938,1.7572,-2.351,-14.8253,10.2784,0.66167,0.83124,25.0,247,1,No detectable difference
+precip,full_record,primary,Central,SW,0.8912,2.2468,-1.3556,-8.2603,5.6528,0.67567,0.83124,13.471,247,1,No detectable difference
+precip,full_record,primary,Central,SE,0.8912,1.7572,-0.866,-7.8588,6.4679,0.78968,0.83124,22.838,247,1,No detectable difference
+precip,full_record,primary,SW,SE,2.2468,1.7572,0.4896,-7.2545,8.458,0.89069,0.89069,21.397,247,1,No detectable difference
+tws,grace_era,sensitivity_grace_era,NW,NE,-1.5648,-0.7234,-0.8414,-0.9863,-0.6939,0.0,0.0,0.354,161,3,Significant difference
+tws,grace_era,sensitivity_grace_era,NW,Central,-1.5648,-0.6267,-0.9381,-1.088,-0.7837,0.0,0.0,0.354,161,3,Significant difference
+tws,grace_era,sensitivity_grace_era,NW,SW,-1.5648,-0.1272,-1.4376,-1.6752,-1.2039,0.0,0.0,0.456,161,3,Significant difference
+tws,grace_era,sensitivity_grace_era,NW,SE,-1.5648,-0.1222,-1.4425,-1.672,-1.2165,0.0,0.0,0.456,161,3,Significant difference
+tws,grace_era,sensitivity_grace_era,NE,Central,-0.7234,-0.6267,-0.0967,-0.1533,-0.0431,0.001,0.00222,0.151,161,3,Significant difference
+tws,grace_era,sensitivity_grace_era,NE,SW,-0.7234,-0.1272,-0.5961,-0.7387,-0.4592,0.0,0.0,0.354,161,3,Significant difference
+tws,grace_era,sensitivity_grace_era,NE,SE,-0.7234,-0.1222,-0.6011,-0.7216,-0.4855,0.0,0.0,0.253,161,3,Significant difference
+tws,grace_era,sensitivity_grace_era,Central,SW,-0.6267,-0.1272,-0.4994,-0.6261,-0.3754,0.0,0.0,0.354,161,3,Significant difference
+tws,grace_era,sensitivity_grace_era,Central,SE,-0.6267,-0.1222,-0.5044,-0.6094,-0.4037,0.0,0.0,0.253,161,3,Significant difference
+tws,grace_era,sensitivity_grace_era,SW,SE,-0.1272,-0.1222,-0.005,-0.0523,0.0441,0.83288,0.83288,0.151,161,3,No detectable difference
+precip,grace_era,sensitivity_grace_era,NW,NE,-6.3891,2.9496,-9.3388,-35.0674,16.6006,0.37464,0.5352,25.0,161,1,No detectable difference
+precip,grace_era,sensitivity_grace_era,NW,Central,-6.3891,-1.08,-5.3091,-21.8512,10.6406,0.43964,0.54955,25.0,161,1,No detectable difference
+precip,grace_era,sensitivity_grace_era,NW,SW,-6.3891,6.0745,-12.4636,-29.1228,3.8789,0.11601,0.19335,25.0,161,1,No detectable difference
+precip,grace_era,sensitivity_grace_era,NW,SE,-6.3891,11.3298,-17.7189,-38.5597,3.5232,0.08681,0.15784,25.0,161,1,No detectable difference
+precip,grace_era,sensitivity_grace_era,NE,Central,2.9496,-1.08,4.0296,-18.6834,26.0191,0.66027,0.73363,25.0,161,1,No detectable difference
+precip,grace_era,sensitivity_grace_era,NE,SW,2.9496,6.0745,-3.1248,-31.3471,25.0265,0.74747,0.78681,25.0,161,1,No detectable difference
+precip,grace_era,sensitivity_grace_era,NE,SE,2.9496,11.3298,-8.3801,-31.6221,14.9312,0.42304,0.54955,25.0,161,1,No detectable difference
+precip,grace_era,sensitivity_grace_era,Central,SW,-1.08,6.0745,-7.1545,-19.5868,5.1269,0.21542,0.33142,25.0,161,1,No detectable difference
+precip,grace_era,sensitivity_grace_era,Central,SE,-1.08,11.3298,-12.4098,-26.2298,1.8984,0.08321,0.15784,25.0,161,1,No detectable difference
+precip,grace_era,sensitivity_grace_era,SW,SE,6.0745,11.3298,-5.2553,-22.1005,12.2755,0.51425,0.605,25.0,161,1,No detectable difference
+tws,full_record_transition_excluded,sensitivity_transition_excluded,NW,NE,-1.278,-0.5714,-0.7066,-0.805,-0.6065,0.0,0.0,0.253,248,4,Significant difference
+tws,full_record_transition_excluded,sensitivity_transition_excluded,NW,Central,-1.278,-0.4895,-0.7885,-0.883,-0.6919,0.0,0.0,0.151,248,4,Significant difference
+tws,full_record_transition_excluded,sensitivity_transition_excluded,NW,SW,-1.278,-0.0457,-1.2323,-1.3838,-1.0795,0.0,0.0,0.354,248,5,Significant difference
+tws,full_record_transition_excluded,sensitivity_transition_excluded,NW,SE,-1.278,-0.0525,-1.2254,-1.374,-1.0748,0.0,0.0,0.354,248,4,Significant difference
+tws,full_record_transition_excluded,sensitivity_transition_excluded,NE,Central,-0.5714,-0.4895,-0.0819,-0.1127,-0.0504,0.0,0.0,0.151,248,3,Significant difference
+tws,full_record_transition_excluded,sensitivity_transition_excluded,NE,SW,-0.5714,-0.0457,-0.5257,-0.6312,-0.4225,0.0,0.0,0.253,248,5,Significant difference
+tws,full_record_transition_excluded,sensitivity_transition_excluded,NE,SE,-0.5714,-0.0525,-0.5188,-0.6038,-0.4326,0.0,0.0,0.253,248,4,Significant difference
+tws,full_record_transition_excluded,sensitivity_transition_excluded,Central,SW,-0.4895,-0.0457,-0.4438,-0.5409,-0.3483,0.0,0.0,0.253,248,5,Significant difference
+tws,full_record_transition_excluded,sensitivity_transition_excluded,Central,SE,-0.4895,-0.0525,-0.4369,-0.5167,-0.3561,0.0,0.0,0.253,248,4,Significant difference
+tws,full_record_transition_excluded,sensitivity_transition_excluded,SW,SE,-0.0457,-0.0525,0.0069,-0.0306,0.0461,0.70927,0.82508,0.151,248,5,No detectable difference
+precip,full_record_transition_excluded,sensitivity_transition_excluded,NW,NE,-2.0805,-0.29,-1.7905,-12.7849,9.5324,0.68947,0.82508,22.838,238,1,No detectable difference
+precip,full_record_transition_excluded,sensitivity_transition_excluded,NW,Central,-2.0805,0.732,-2.8125,-10.535,4.9235,0.43784,0.72973,17.074,238,1,No detectable difference
+precip,full_record_transition_excluded,sensitivity_transition_excluded,NW,SW,-2.0805,2.123,-4.2036,-13.3151,4.7974,0.31743,0.63486,22.838,238,1,No detectable difference
+precip,full_record_transition_excluded,sensitivity_transition_excluded,NW,SE,-2.0805,1.3418,-3.4223,-12.5806,5.6061,0.40124,0.72953,25.0,238,1,No detectable difference
+precip,full_record_transition_excluded,sensitivity_transition_excluded,NE,Central,-0.29,0.732,-1.022,-11.1468,8.7372,0.78568,0.82508,25.0,238,1,No detectable difference
+precip,full_record_transition_excluded,sensitivity_transition_excluded,NE,SW,-0.29,2.123,-2.413,-16.1632,11.1171,0.67627,0.82508,25.0,238,1,No detectable difference
+precip,full_record_transition_excluded,sensitivity_transition_excluded,NE,SE,-0.29,1.3418,-1.6318,-13.6851,10.2638,0.72887,0.82508,25.0,238,1,No detectable difference
+precip,full_record_transition_excluded,sensitivity_transition_excluded,Central,SW,0.732,2.123,-1.391,-8.2736,5.3939,0.65307,0.82508,13.471,238,1,No detectable difference
+precip,full_record_transition_excluded,sensitivity_transition_excluded,Central,SE,0.732,1.3418,-0.6098,-7.4077,6.3848,0.82508,0.82508,20.676,238,1,No detectable difference
+precip,full_record_transition_excluded,sensitivity_transition_excluded,SW,SE,2.123,1.3418,0.7812,-6.8368,8.3985,0.80548,0.82508,20.676,238,1,No detectable difference

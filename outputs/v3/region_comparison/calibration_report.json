@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-11-10T14:52:38.582089",
+  "n_simulations": 1000,
+  "n_bootstrap_resamples": 1000,
+  "pair_evaluated": "NW_vs_Central",
+  "phi_A": 0.5537,
+  "phi_B": 0.4813,
+  "cross_correlation_rho": 0.86,
+  "block_length_used": 3,
+  "false_positive_rate": 0.154,
+  "false_positive_rate_pct": 15.4,
+  "target_fpr_range": [
+    0.035,
+    0.065
+  ],
+  "target_fpr_met": false,
+  "ci_coverage": 0.846,
+  "ci_coverage_pct": 84.6,
+  "target_coverage_range": [
+    0.93,
+    0.97
+  ],
+  "target_coverage_met": false,
+  "disclosure_note": "Calibration audit evaluates paired moving-block bootstrap on correlated AR(1) noise under real gap pattern. Observed FPR = 15.40% (nominal 5%), 95% CI coverage = 84.60% (nominal 95%). Block bootstrap with short block length exhibits slight false-positive inflation under high persistence, analogous to Hamed-Rao; results are interpreted descriptively and with multiple-testing control."
+}
