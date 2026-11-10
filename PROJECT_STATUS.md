@@ -280,25 +280,29 @@ All reported figures have been audited against the primary single sources of tru
 ## 10. Pairwise Between-Region Slope Comparison (2002–2026)
 
 1. **Evaluation Design & Family Definition:**
-   - Synchronized Paired Moving-Block Bootstrap ($B = 9,999$, seed 42) evaluating whether secular Theil-Sen trend slopes differ between the 5 administrative regions (NW, NE, Central, SW, SE) on common valid observation months ($N = 257$ for TWS; $N = 247$ for IMERG rainfall).
-   - Autocorrelation block lengths are selected by the ESS convention from the larger Hurwicz-bias-corrected lag-1 autocorrelation of the pair ($b = 3$ to $5$ months for TWS; $b = 1$ month for rainfall).
+   - Evaluates whether secular Theil-Sen trend slopes differ between the 5 administrative regions (NW, NE, Central, SW, SE) on common valid observation months (N = 257 for TWS; N = 247 for IMERG rainfall).
+   - Inferences are computed using the calibrated Difference Series Effective-Sample-Size Mann-Kendall engine (`run_ess_mann_kendall`) on the paired difference series $d(t) = y_A(t) - y_B(t)$.
    - Hypothesis family: exactly **20 tests** (10 regional pairs $\times$ 2 variables) with Benjamini-Hochberg False Discovery Rate control applied strictly within this family (independent of the 36-test per-window families).
 
 2. **Summary of Primary Findings (Full Record: 2002-04 to 2026-07):**
-   - **Total Water Storage Trends Differ Significantly Across 9 of 10 Regional Pairs:**
-     * **Northwest (NW) differs significantly from all other regions:** The NW decline (-1.255 cm/yr) is steeper than Northeast ($\Delta = -0.699$ cm/yr, 95% CI [-0.800, -0.600], $q < 0.0001$), Central ($\Delta = -0.781$ cm/yr, 95% CI [-0.879, -0.685], $q < 0.0001$), Southwest ($\Delta = -1.208$ cm/yr, 95% CI [-1.357, -1.052], $q < 0.0001$), and Southeast ($\Delta = -1.203$ cm/yr, 95% CI [-1.350, -1.057], $q < 0.0001$).
-     * **Northeast and Central differ significantly from the South:** NE and Central show steeper declines than SW and SE (each $\Delta \approx -0.42$ to $-0.51$ cm/yr, all $q < 0.0001$). NE and Central also differ slightly from each other ($\Delta = -0.082$ cm/yr, 95% CI [-0.113, -0.051], $q < 0.0001$).
-     * **Southwest vs Southeast show no detectable difference:** SW and SE trends (-0.047 vs -0.052 cm/yr) yield $\Delta = +0.005$ cm/yr (95% CI [-0.033, +0.044] cm/yr, $p = 0.7605$, within-family FDR $q = 0.8312$).
+   - **Total Water Storage Trends Differ Across 9 of 10 Regional Pairs Under Paired Difference Testing:**
+     * **Northwest (NW) differs significantly from all other regions:** The NW decline (-1.255 cm/yr) is steeper than Northeast ($\Delta = -0.653$ cm/yr, 95% CI [-0.763, -0.543], $q < 0.0001$), Central ($\Delta = -0.722$ cm/yr, 95% CI [-0.841, -0.606], $q < 0.0001$), Southwest ($\Delta = -1.205$ cm/yr, 95% CI [-1.402, -1.007], $q < 0.0001$), and Southeast ($\Delta = -1.189$ cm/yr, 95% CI [-1.397, -0.995], $q < 0.0001$).
+     * **Northeast and Central differ significantly from the South:** NE and Central show steeper declines than SW and SE (each $\Delta \approx -0.45$ to $-0.54$ cm/yr, all $q < 0.0001$).
+     * **Northeast vs Central paired difference vs single-region CI overlap:** The paired difference test yields $\Delta = -0.072$ cm/yr (95% CI [-0.101, -0.043], $p < 0.0001$, within-family FDR $q < 0.0001$). However, under conservative independent comparison, their single-region 95% CIs from `results_all_windows.csv` overlap substantially: Northeast [-0.703, -0.419] cm/yr and Central [-0.620, -0.342] cm/yr overlap across [-0.620, -0.419] cm/yr. Because the regions share 94.5% spatial correlation ($\rho = 0.945$), differencing removes shared regional climate variance, making a small differential trend detectable even though their marginal trends cannot be separated.
+     * **Southwest vs Southeast show no detectable difference:** SW and SE trends yield $\Delta = +0.006$ cm/yr (95% CI [-0.033, +0.045], $p = 0.7345$, within-family FDR $q = 0.7731$).
    - **Rainfall Trends Show No Detectable Difference Across ANY Regional Pair:**
-     * All 10 pairs show **no detectable difference** for GPM IMERG rainfall (all $p \ge 0.35$, all within-family FDR $q \ge 0.70$). Minimum detectable slope differences at 80% power range from 13.5 to 25.0 mm/yr; observed differences ($\Delta = -4.16$ to $+0.49$ mm/yr) are well within random noise.
+     * All 10 pairs show **no detectable difference** for GPM IMERG rainfall (all $p \ge 0.14$, all within-family FDR $q \ge 0.28$). Minimum detectable slope differences at 80% power range from 11.2 to 24.3 mm/yr; observed differences are consistent with random variability.
 
 3. **Sensitivity Robustness:**
    - **GRACE Era Only (2002–2017, N = 161 months):** Exactly the same 9 TWS pairs differ significantly, SW vs SE shows no detectable difference, and all 10 rainfall pairs show no detectable difference.
    - **Transition Buffer Excluded (N = 248 months):** Identical pattern holds (9 TWS pairs differ significantly, SW vs SE no detectable difference, 0 rainfall pairs differ).
 
 4. **Calibration Check & Statistical Disclosure:**
-   - 1,000 synthetic correlated AR(1) simulation under null ($\Delta = 0$) with empirical persistence ($\phi_{NW} = 0.554$, $\phi_{Central} = 0.481$, $\rho = 0.860$) and real gap pattern yielded an empirical False Positive Rate of **15.40%** (nominal 5.0%; target 3.5%–6.5%) and 95% CI coverage of **84.60%** (nominal 95.0%; target 93.0%–97.0%).
-   - As disclosed in `calibration_report.json`, moving-block bootstrap with short block length exhibits slight false-positive inflation under high persistence; findings are therefore interpreted descriptively and anchored by within-family FDR control.
+   - **Diagnosis of Initial v1 Failure:** The original v1 paired moving-block bootstrap ($b = 3$) exhibited an empirical False Positive Rate of **15.40%** (target 3.5%–6.5%) and 95% CI coverage of **84.60%** (target 93.0%–97.0%). Under-dispersed bootstrap slope distributions caused inflated false-positive rates under persistent AR(1) noise. The failed report has been preserved in `outputs/v3/region_comparison/calibration_report_v1_bootstrap_failed.json`.
+   - **Method Selection & Calibration Audit:** Candidate A (Difference Series Calibrated ESS-MK) was selected because it passed calibration across 100% of tested pairs:
+     * Benchmark NW vs Central: False Positive Rate = **5.30%** (target 3.5%–6.5%), 95% CI coverage = **94.70%** (target 93.0%–97.0%), mean CI width = 0.236.
+     * Across all 6 tested TWS regional pairs, FPR ranges from 4.60% to 6.40% (mean 5.22%) and 95% CI coverage ranges from 93.60% to 95.40% (mean 94.78%), meeting all pre-specified targets.
+     * Alternative candidate methods failed calibration: Candidate B (moving-block with $b=10$) yielded 12.80% FPR and 87.20% coverage; Candidate C (residual AR(1) bootstrap) yielded 8.80% FPR and 91.20% coverage.
 
 5. **Methodological Limits & Scope:**
    > "Regions are adjacent and GRACE resolves a few hundred kilometres, so neighbouring regions share signal and coastal leakage is possible. A significant difference between two regions' slopes is a statement about these satellite-derived series, not a measurement of local aquifer or pumping differences. Recent windows are below the detection limit."
