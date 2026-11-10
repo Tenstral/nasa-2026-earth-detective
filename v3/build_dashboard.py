@@ -52,46 +52,67 @@ def build_dashboard_data(repo_root: Path = REPO_ROOT) -> dict:
         for feat in gj["features"]
     }
 
-    # Step 2: Seamlessly close internal river voids (e.g. Jamuna, Padma, Meghna unassigned river channels)
-    country_union = shapely.ops.unary_union(list(div_geoms.values()))
-    holes = []
-    if country_union.geom_type == "MultiPolygon":
-        for p in country_union.geoms:
-            for ring in p.interiors:
-                holes.append(shapely.geometry.Polygon(ring))
-    elif country_union.geom_type == "Polygon":
-        for ring in country_union.interiors:
-            holes.append(shapely.geometry.Polygon(ring))
+    # Step 2: Bridge internal coastal tidal creeks (Sundarbans & delta islands into mainland, preserving natural bays)
+    for name in ["Khulna", "Barishal", "Chattogram"]:
+        g = div_geoms[name]
+        c = g.buffer(0.025, join_style=2).buffer(-0.025, join_style=2)
+        if c.geom_type == "MultiPolygon":
+            polys = [shapely.geometry.Polygon(p.exterior) for p in c.geoms if p.area > 0.005]
+            div_geoms[name] = shapely.ops.unary_union(polys)
+        elif c.geom_type == "Polygon":
+            div_geoms[name] = shapely.geometry.Polygon(c.exterior)
 
-    holes.sort(key=lambda x: x.area, reverse=True)
+    # Step 3: National morphological closing to bridge inter-division river corridors (Jamuna, Padma, Meghna, Teesta)
+    country = shapely.ops.unary_union(list(div_geoms.values()))
+    closed_country = country.buffer(0.045, join_style=2).buffer(-0.045, join_style=2)
 
-    for h in holes:
-        hb = h.buffer(0.003)
-        best_div = None
-        best_area = -1
+    if closed_country.geom_type == "MultiPolygon":
+        solid_parts = [shapely.geometry.Polygon(p.exterior) for p in closed_country.geoms if p.area > 0.01]
+        solid_country = shapely.ops.unary_union(solid_parts)
+    else:
+        solid_country = shapely.geometry.Polygon(closed_country.exterior)
+
+    gaps = solid_country.difference(country)
+    gap_pieces = list(gaps.geoms) if gaps.geom_type == "MultiPolygon" else [gaps]
+
+    for piece in gap_pieces:
+        if piece.area < 1e-7:
+            continue
+        pb = piece.buffer(0.003)
+        adj = []
         for name, g in div_geoms.items():
-            inter = hb.intersection(g)
-            if inter.area > best_area:
-                best_area = inter.area
-                best_div = name
-        if best_div:
-            div_geoms[best_div] = shapely.ops.unary_union([div_geoms[best_div], h])
+            inter = pb.intersection(g.boundary)
+            if inter.length > 0:
+                adj.append((name, inter.length))
+        if not adj:
+            pb2 = piece.buffer(0.015)
+            for name, g in div_geoms.items():
+                inter = pb2.intersection(g)
+                if inter.area > 0:
+                    adj.append((name, inter.area))
+        if adj:
+            adj.sort(key=lambda x: x[1], reverse=True)
+            best_name = adj[0][0]
+            div_geoms[best_name] = shapely.ops.unary_union([div_geoms[best_name], piece])
 
-    # Step 3: Remove tiny detached micro-slivers in inland divisions (< 0.0005 deg²)
-    for name in ["Rangpur", "Dhaka", "Rajshahi", "Mymensingh", "Sylhet"]:
+    # Step 4: Strictly eliminate all interior rings and prune tiny fragments (< 0.005 deg²)
+    for name in div_geoms:
         g = div_geoms[name]
         if g.geom_type == "MultiPolygon":
-            parts = [p for p in g.geoms if p.area >= 0.0005]
-            if parts:
-                div_geoms[name] = shapely.geometry.MultiPolygon(parts) if len(parts) > 1 else parts[0]
+            parts = [shapely.geometry.Polygon(p.exterior) for p in g.geoms if p.area > 0.005]
+            div_geoms[name] = shapely.ops.unary_union(parts)
+        elif g.geom_type == "Polygon":
+            div_geoms[name] = shapely.geometry.Polygon(g.exterior)
 
-    # Step 4: Simplify geometries and generate SVG paths & label centers
+    # Step 5: Simplify geometries and generate SVG paths & label centers
     svg_paths = {}
     div_centers = {}
 
     for name, raw_geom in div_geoms.items():
-        geom = raw_geom.simplify(0.012, preserve_topology=True)
+        geom = raw_geom.simplify(0.010, preserve_topology=True)
         c = raw_geom.centroid
+        if not raw_geom.contains(c):
+            c = raw_geom.representative_point()
         cx, cy = project(c.x, c.y)
         div_centers[name] = {"x": cx, "y": cy}
 
