@@ -57,7 +57,7 @@ FFWC_FLOOD_EVENTS = [
         "districts_affected": "40",
         "population_affected_millions": "—",
         "ffwc_classification": "Prolonged Double-Peak Monsoon Flood",
-        "meteorological_driver": "Two successive peak flood waves in late July and early September driven by extreme Himalayan transboundary inflow.",
+        "meteorological_driver": "Two successive peak flood waves in late July and early September associated with extreme Himalayan transboundary inflow.",
         "source_document": "FFWC/BWDB Annual Flood Report 2007, Executive Summary, p. 1–2",
         "source_url": "http://www.ffwc.gov.bd/images/annual07.pdf"
     },
@@ -154,8 +154,8 @@ def build_extremes_analysis():
     mean_rebound = valid_nat["rebound_cm"].mean()
     mean_precip = nat_df["monsoon_precip_imerg_mm"].dropna().mean()
     
-    # Use response ratio column (or fallback to recharge_efficiency_imerg)
-    ratio_col = "storage_response_ratio_imerg" if "storage_response_ratio_imerg" in valid_nat.columns else "recharge_efficiency_imerg"
+    # Use response ratio column
+    ratio_col = "storage_response_ratio_imerg" if "storage_response_ratio_imerg" in valid_nat.columns else "seasonal_storage_response_imerg"
     mean_ratio = valid_nat[ratio_col].mean() * 100.0
 
     baselines_rain, event_rain = compute_flood_rainfall_metrics()
@@ -202,7 +202,7 @@ def build_extremes_analysis():
             "storage_response_ratio_pct": round(ratio, 2) if pd.notnull(ratio) else np.nan,
             "response_ratio_anom_pct": round(ratio - mean_ratio, 2) if pd.notnull(ratio) else np.nan,
             "precip_anomaly_vs_mean_pct": round(er_nat["monsoon_anom_pct"], 1),
-            "recharge_efficiency_pct": round(ratio, 2) if pd.notnull(ratio) else np.nan,
+            "seasonal_storage_response_pct": round(ratio, 2) if pd.notnull(ratio) else np.nan,
             "source_document": ev["source_document"],
             "source_url": ev["source_url"],
             "meteorological_driver": ev["meteorological_driver"]
@@ -292,7 +292,7 @@ def build_extremes_analysis():
 
 3. **Localized Sylhet/Haor Deluges Decoupled from National Monsoon Aggregates:**
    - In **2017**, pre-monsoon rainfall in the Northeast reached **1,091.8 mm (+49.1% above normal)**, generating catastrophic flash flooding across the Haor basin in April before the monsoon onset.
-   - In **2022**, while national monsoon rainfall was below average (1,363.6 mm, -18.1%), June rainfall in the Northeast reached **978.6 mm (+60.6% above baseline)**, submerging 94% of Sunamganj and 84% of Sylhet, demonstrating that regional extremes can diverge sharply from national seasonal statistics.
+   - In **2022**, while national monsoon rainfall was below average (1,363.6 mm, -18.1%), June rainfall in the Northeast reached **978.6 mm (+60.6% above baseline)**, submerging 94% of Sunamganj and 84% of Sylhet, showing that regional extremes can diverge sharply from national seasonal statistics.
 """
     md_path = OUTPUT_DIR / "flood_events_context.md"
     md_path.write_text(md, encoding="utf-8")
@@ -336,7 +336,7 @@ def plot_extremes_figure(nat_df: pd.DataFrame, events_df: pd.DataFrame):
     years = nat_df["year"].values
     precip = nat_df["monsoon_precip_imerg_mm"].values
     crest = nat_df["post_monsoon_peak_cm"].values
-    ratio_col = "storage_response_ratio_imerg" if "storage_response_ratio_imerg" in nat_df.columns else "recharge_efficiency_imerg"
+    ratio_col = "storage_response_ratio_imerg" if "storage_response_ratio_imerg" in nat_df.columns else "seasonal_storage_response_imerg"
     ratio = (nat_df[ratio_col] * 100.0).values
 
     # Panel 1: Monsoon Precipitation & Storage Peak

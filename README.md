@@ -181,7 +181,7 @@ outputs/
     │   ├── seasonal_recharge_24yr.csv    # 22-season storage response series
     │   ├── gap_calibration_report.json   # AR(1) false-positive calibration (4.70%)
     │   ├── fig1_full_record_tws_trends.png
-    │   ├── fig2_recharge_efficiency_24yr.png
+    │   ├── fig2_seasonal_storage_response_24yr.png
     │   ├── fig3_epoch_comparison.png
     │   ├── narrative_EN.md & narrative_BN.md
     │   └── old_vs_new_diff.md

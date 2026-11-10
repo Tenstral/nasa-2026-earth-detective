@@ -16,7 +16,7 @@ Analyzes hydrological recovery dynamics across 24 monsoon seasons (2002–2025):
 Outputs:
   outputs/v3/full_record/seasonal_recharge_24yr.csv
   outputs/v3/full_record/seasonal_recharge_summary.json
-  outputs/v3/full_record/fig2_recharge_efficiency_24yr.png
+  outputs/v3/full_record/fig2_seasonal_storage_response_24yr.png
 """
 
 import json
@@ -40,14 +40,14 @@ from v3.trend_engine import run_ess_mann_kendall
 
 CSV_PATH = OUTPUTS_V3_FULL / "seasonal_recharge_24yr.csv"
 JSON_PATH = OUTPUTS_V3_FULL / "seasonal_recharge_summary.json"
-FIG2_PATH = OUTPUTS_V3_FULL / "fig2_recharge_efficiency_24yr.png"
+FIG2_PATH = OUTPUTS_V3_FULL / "fig2_seasonal_storage_response_24yr.png"
 SEASONAL_RAIN_CSV = REPO_ROOT / "outputs" / "v3" / "imerg_vs_power" / "rainfall_seasonal_regional.csv"
 
 
 def compute_seasonal_recharge_table(reg_df: pd.DataFrame, rain_df: pd.DataFrame) -> pd.DataFrame:
     """
     Computes year-by-year dry-season low, post-monsoon peak, storage rebound alone (Delta TWS),
-    decoupled IMERG monsoon precipitation, and recharge efficiency per region.
+    decoupled IMERG monsoon precipitation, and seasonal storage response ratio per region.
     """
     df = reg_df.copy()
     df["date"] = pd.to_datetime(df["date"])
@@ -123,8 +123,6 @@ def compute_seasonal_recharge_table(reg_df: pd.DataFrame, rain_df: pd.DataFrame)
                 "monsoon_precip_power_mm": round(power_p, 1) if not np.isnan(power_p) else np.nan,
                 "storage_response_ratio_imerg": round(eff_imerg, 4) if not np.isnan(eff_imerg) else np.nan,
                 "storage_response_ratio_power": round(eff_power, 4) if not np.isnan(eff_power) else np.nan,
-                "recharge_efficiency_imerg": round(eff_imerg, 4) if not np.isnan(eff_imerg) else np.nan,
-                "recharge_efficiency_power": round(eff_power, 4) if not np.isnan(eff_power) else np.nan,
                 "valid": has_rebound,
                 "note": note,
             })
@@ -212,7 +210,7 @@ def run_seasonal_recharge_analysis():
         # 2. Storage Response Ratio with IMERG
         ess_eff = run_ess_mann_kendall(yrs, eff_imerg, alpha=0.05)
 
-        # 3. Old POWER Recharge Efficiency (for comparison)
+        # 3. Old POWER Storage Response Ratio (for comparison)
         if len(eff_power) >= 8:
             yrs_pow = sub.dropna(subset=["storage_response_ratio_power"])["year"].values.astype(float)
             ess_pow = run_ess_mann_kendall(yrs_pow, eff_power, alpha=0.05)
@@ -320,7 +318,7 @@ def run_seasonal_recharge_analysis():
         json.dump(summary, f, indent=2)
 
     # Plot Figure 2
-    plot_fig2_recharge_efficiency(table_df)
+    plot_fig2_seasonal_storage_response(table_df)
 
     print(f"\n[OK] Saved seasonal recharge deliverables:")
     print(f"  CSV:    {CSV_PATH.name} ({len(table_df)} rows)")
@@ -329,7 +327,7 @@ def run_seasonal_recharge_analysis():
     return table_df, summary_results
 
 
-def plot_fig2_recharge_efficiency(df: pd.DataFrame):
+def plot_fig2_seasonal_storage_response(df: pd.DataFrame):
     valid_df = df[df["valid"] == True].copy()
 
     reg_colors = {
@@ -381,7 +379,7 @@ def plot_fig2_recharge_efficiency(df: pd.DataFrame):
     ax2.axvspan(2017 - 0.4, 2018 + 0.4, color="#fee2e2", alpha=0.5, zorder=0)
     ax1.text(2017.5, 30, "GRACE/GRACE-FO\nMission Gap", horizontalalignment="center", fontsize=8, color="#b91c1c", fontweight="bold")
 
-    plt.suptitle("Bengal Basin Hydrological Recovery & Recharge Dynamics (2002–2025)\n"
+    plt.suptitle("Bengal Basin Hydrological Recovery & Storage Response Dynamics (2002–2025)\n"
                  "PRELIMINARY — 24 Monsoon Seasons Analysis | Team Tenstral", fontsize=13, fontweight="bold", y=0.98)
     plt.tight_layout()
     plt.savefig(FIG2_PATH, dpi=300)

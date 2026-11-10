@@ -3,7 +3,7 @@ NASA Space Apps 2026 – Bengal Hydro Detective
 v3 Workstream 0: Advanced Publication Figures Suite
 ===================================================
 Generates:
-  1. fig2_recharge_efficiency_24yr.png: 24-Season Rebound & Efficiency Dynamics
+  1. fig2_seasonal_storage_response_24yr.png: 24-Season Rebound & Seasonal Storage Response Ratio Dynamics
   2. fig3_epoch_comparison.png: Forest Plot Comparing Epoch 1 vs Epoch 2 Slopes
 """
 
@@ -27,7 +27,7 @@ RECHARGE_CSV = OUTPUTS_V3_FULL / "seasonal_recharge_24yr.csv"
 EPOCH_CSV = OUTPUTS_V3_FULL / "epoch_comparison.csv"
 
 
-def plot_fig2_recharge_efficiency():
+def plot_fig2_seasonal_storage_response():
     if not RECHARGE_CSV.exists():
         print(f"Skipping Fig 2: {RECHARGE_CSV.name} not found.")
         return
@@ -64,16 +64,16 @@ def plot_fig2_recharge_efficiency():
     ax1.grid(True, linestyle=":", alpha=0.5)
     ax1.legend(loc="upper right", ncol=3, fontsize=8)
 
-    # Panel 2: Recharge Efficiency Ratio (%)
+    # Panel 2: Seasonal Storage Response Ratio (%)
     for reg in ["NW", "NE", "Central", "SW", "SE", "National"]:
         sub = df[df["region"] == reg]
-        eff_pct = sub["recharge_efficiency_ratio"] * 100.0
+        eff_pct = sub["storage_response_ratio_imerg"] * 100.0
         ax2.plot(sub["year"], eff_pct, marker="s", color=reg_colors[reg],
-                 label=f"{reg} Efficiency", lw=1.8 if reg != "National" else 2.5,
+                 label=f"{reg} Response Ratio", lw=1.8 if reg != "National" else 2.5,
                  linestyle="-" if reg != "National" else "--")
 
-    ax2.set_title("B. Seasonal Recharge Efficiency Ratio: [ΔTWS (cm) / (0.1 × Monsoon Precip (cm))] × 100%", fontsize=12, fontweight="bold")
-    ax2.set_ylabel("Recharge Efficiency (%)", fontsize=10)
+    ax2.set_title("B. Seasonal Storage Response Ratio: [ΔTWS (cm) / (0.1 × Monsoon Precip (cm))] × 100%", fontsize=12, fontweight="bold")
+    ax2.set_ylabel("Seasonal Storage Response Ratio (%)", fontsize=10)
     ax2.set_xlabel("Hydrological Year (2002–2025)", fontsize=11)
     ax2.grid(True, linestyle=":", alpha=0.5)
 
@@ -81,10 +81,10 @@ def plot_fig2_recharge_efficiency():
     for fy in flood_years:
         ax1.text(fy, 75, f"{fy} Flood", rotation=90, verticalalignment="bottom", fontsize=8, color="#475569")
 
-    plt.suptitle("Bengal Basin Hydrological Recovery & Recharge Dynamics (2002–2025)\n"
+    plt.suptitle("Bengal Basin Hydrological Recovery & Seasonal Storage Response Dynamics (2002–2025)\n"
                  "PRELIMINARY — 24 Monsoon Seasons Analysis | Team Tenstral", fontsize=13, fontweight="bold", y=0.98)
     plt.tight_layout()
-    fig2_path = OUTPUTS_V3_FULL / "fig2_recharge_efficiency_24yr.png"
+    fig2_path = OUTPUTS_V3_FULL / "fig2_seasonal_storage_response_24yr.png"
     plt.savefig(fig2_path, dpi=300)
     plt.close()
     print(f"  [OK] Saved Figure 2: {fig2_path.name}")
@@ -153,5 +153,5 @@ def plot_fig3_epoch_comparison():
 
 
 if __name__ == "__main__":
-    plot_fig2_recharge_efficiency()
+    plot_fig2_seasonal_storage_response()
     plot_fig3_epoch_comparison()

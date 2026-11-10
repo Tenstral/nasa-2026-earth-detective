@@ -265,7 +265,7 @@ def generate_task3_diff():
         new_anom = f_row["national_monsoon_anom_pct"] if "national_monsoon_anom_pct" in f_row else f_row.get("precip_anomaly_vs_mean_pct")
         peak_str = f"{f_row['post_monsoon_peak_cm']:+.1f} cm" if pd.notnull(f_row["post_monsoon_peak_cm"]) else "N/A (Gap)"
         reb_str = f"{f_row['seasonal_rebound_cm']:.1f} cm" if pd.notnull(f_row["seasonal_rebound_cm"]) else "N/A (Gap)"
-        ratio_val = f_row.get("storage_response_ratio_pct", f_row.get("recharge_efficiency_pct"))
+        ratio_val = f_row.get("storage_response_ratio_pct", f_row.get("seasonal_storage_response_pct"))
         eff_str = f"{ratio_val:.1f}%" if pd.notnull(ratio_val) else "N/A (Gap)"
         note = "Satellite Mission Gap" if y == 2017 else "Complete Observations"
 
