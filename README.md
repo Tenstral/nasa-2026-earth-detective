@@ -147,11 +147,13 @@ python v3/benchmark_builder.py
 
 ### 3.4 Run v2 Pipeline with Rain Source Selection
 ```bash
-# Default: NASA POWER PRECTOTCORR
-python run_all.py --rain-source power
-
-# Alternative: GPM IMERG V07B Final Run
+# Default: GPM IMERG V07B (unbiased satellite precipitation)
+python run_all.py
+# Or explicitly:
 python run_all.py --rain-source imerg
+
+# Historical comparison with NASA POWER (warning: contains 2014-12 to 2015-12 step artifact):
+python run_all.py --rain-source power
 ```
 
 ---
@@ -176,7 +178,7 @@ outputs/
     │   ├── division_series_2002_2026.csv # 24-year monthly divisional series
     │   ├── epoch_comparison.csv          # GRACE-1 vs GRACE-FO bootstrap test
     │   ├── offset_test.csv               # Newey-West HAC bridge gap test
-    │   ├── seasonal_recharge_24yr.csv    # 22-season recharge efficiency series
+    │   ├── seasonal_recharge_24yr.csv    # 22-season storage response series
     │   ├── gap_calibration_report.json   # AR(1) false-positive calibration (4.70%)
     │   ├── fig1_full_record_tws_trends.png
     │   ├── fig2_recharge_efficiency_24yr.png
@@ -204,7 +206,7 @@ outputs/
     │
     ├── extremes/                         # Workstream D: Flood context & extremes
     │   ├── flood_events_context.csv & .md# 5 historical floods (2004, 2007, 2017, 2020, 2022)
-    │   ├── fig_flood_events_recharge.png # Crest dissipation and recharge efficiency
+    │   ├── fig_flood_events_recharge.png # Crest dissipation and storage rebound
     │   └── extremes_synthesis.md
     │
     └── benchmark/                        # Workstream E: Literature benchmark

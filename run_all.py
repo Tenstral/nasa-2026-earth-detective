@@ -77,11 +77,14 @@ def main():
     parser.add_argument(
         "--rain-source",
         type=str,
-        default="power",
+        default="imerg",
         choices=["power", "imerg"],
-        help="Precipitation data source: 'power' (NASA POWER PRECTOTCORR) or 'imerg' (GPM IMERG V07B)"
+        help="Precipitation data source: 'imerg' (GPM IMERG V07B, default) or 'power' (NASA POWER PRECTOTCORR, comparison only)"
     )
     args = parser.parse_args()
+
+    if args.rain_source == "power":
+        print("\n[WARNING] NASA POWER has a step change around 2014-12 to 2015-12 and is retained only for comparison; do not use it for headline results.\n")
 
     try:
         from v2.config_loader import get_grace_netcdf_path
