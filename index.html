@@ -896,7 +896,7 @@
               <button class="pill-btn active" id="btnWinFull" onclick="setTimeSeriesWindow('full_record')">full_record (2002–2026)</button>
               <button class="pill-btn" id="btnWinGrace" onclick="setTimeSeriesWindow('grace_era')">grace_era (2002–2017)</button>
               <button class="pill-btn" id="btnWinFo" onclick="setTimeSeriesWindow('grace_fo_era')">grace_fo_era (2018–2026)</button>
-              <button class="pill-btn" id="btnWinRecent" onclick="setTimeSeriesWindow('recent_2020')">recent_2020 (2020–2026)</button>
+              <button class="pill-btn" id="btnWinRecent" onclick="setTimeSeriesWindow('recent_2020')">recent_2020 (2020–2026; sensitivity: below detection limit)</button>
             </div>
           </div>
 
@@ -1244,10 +1244,9 @@
               <th>Slope B</th>
               <th>&Delta; Slope (A &minus; B)</th>
               <th>95% Confidence Interval</th>
-              <th>p-value (ESS-MK)</th>
-              <th>FDR q-value</th>
               <th>MDS (80% Power)</th>
               <th>Verdict</th>
+              <th>Statistical Note</th>
             </tr>
           </thead>
           <tbody id="pairwiseTableBody">
@@ -1284,7 +1283,7 @@
               <option value="full_record">full_record (2002–2026)</option>
               <option value="grace_era">grace_era (2002–2017)</option>
               <option value="grace_fo_era">grace_fo_era (2018–2026)</option>
-              <option value="recent_2020">recent_2020 (2020–2026)</option>
+              <option value="recent_2020">recent_2020 (2020–2026; sensitivity: below detection limit)</option>
             </select>
           </div>
 
@@ -35104,7 +35103,7 @@
       "tws_slope_cm_yr": -1.25474,
       "tws_ci_95": "[-1.50, -1.02]",
       "tws_verdict": "Significant",
-      "exposure_narrative": "Approximately 38.81 million people (GPWv4, 2020) and 74.2% of land classified as cropland (MODIS MCD12Q1, 2022) are in the NW region, where regional-mean total water storage declined significantly (-1.25 cm/yr, FDR q = < 0.0001) in the absence of a detected rainfall trend (-1.91 mm/yr, FDR q = 0.8968) over the full 2002\u20132026 record, classified as Q1 (TWS decline, no detectable rainfall trend)."
+      "exposure_narrative": "Approximately 38.81 million people (GPWv4, 2020) and 74.2% of land classified as cropland (MODIS MCD12Q1, 2022) are in the NW region, where regional-mean total water storage declined significantly (-1.25 cm/yr, FDR q = < 0.0001) in the absence of a detected rainfall trend (-1.91 mm/yr, FDR q = 0.8968) over the full 2002\u20132026 record, classified as TWS decline, no detectable rainfall trend."
     },
     {
       "region": "NE",
@@ -35115,7 +35114,7 @@
       "tws_slope_cm_yr": -0.55534,
       "tws_ci_95": "[-0.70, -0.42]",
       "tws_verdict": "Significant",
-      "exposure_narrative": "Approximately 24.05 million people (GPWv4, 2020) and 58.6% of land classified as cropland (MODIS MCD12Q1, 2022) are in the NE region, where regional-mean total water storage declined significantly (-0.56 cm/yr, FDR q = < 0.0001) in the absence of a detected rainfall trend (-0.59 mm/yr, FDR q = 0.9342) over the full 2002\u20132026 record, classified as Q1 (TWS decline, no detectable rainfall trend)."
+      "exposure_narrative": "Approximately 24.05 million people (GPWv4, 2020) and 58.6% of land classified as cropland (MODIS MCD12Q1, 2022) are in the NE region, where regional-mean total water storage declined significantly (-0.56 cm/yr, FDR q = < 0.0001) in the absence of a detected rainfall trend (-0.59 mm/yr, FDR q = 0.9342) over the full 2002\u20132026 record, classified as TWS decline, no detectable rainfall trend."
     },
     {
       "region": "Central",
@@ -35126,7 +35125,7 @@
       "tws_slope_cm_yr": -0.47324,
       "tws_ci_95": "[-0.62, -0.34]",
       "tws_verdict": "Significant",
-      "exposure_narrative": "Approximately 45.64 million people (GPWv4, 2020) and 56.4% of land classified as cropland (MODIS MCD12Q1, 2022) are in the Central region, where regional-mean total water storage declined significantly (-0.47 cm/yr, FDR q = < 0.0001) in the absence of a detected rainfall trend (+0.89 mm/yr, FDR q = 0.9342) over the full 2002\u20132026 record, classified as Q1 (TWS decline, no detectable rainfall trend)."
+      "exposure_narrative": "Approximately 45.64 million people (GPWv4, 2020) and 56.4% of land classified as cropland (MODIS MCD12Q1, 2022) are in the Central region, where regional-mean total water storage declined significantly (-0.47 cm/yr, FDR q = < 0.0001) in the absence of a detected rainfall trend (+0.89 mm/yr, FDR q = 0.9342) over the full 2002\u20132026 record, classified as TWS decline, no detectable rainfall trend."
     },
     {
       "region": "SW",
@@ -35137,7 +35136,7 @@
       "tws_slope_cm_yr": -0.04697,
       "tws_ci_95": "[-0.20, +0.10]",
       "tws_verdict": "No detectable trend",
-      "exposure_narrative": "Approximately 27.14 million people (GPWv4, 2020) and 48.7% of land classified as cropland (MODIS MCD12Q1, 2022) are in the SW region, where regional-mean total water storage showed no detectable trend (-0.05 cm/yr, FDR q = 0.8968) and primary precipitation showed no detectable trend (+2.25 mm/yr, FDR q = 0.8968) over the full 2002\u20132026 record, classified as Q3 (No detectable trend (below detection limit))."
+      "exposure_narrative": "Approximately 27.14 million people (GPWv4, 2020) and 48.7% of land classified as cropland (MODIS MCD12Q1, 2022) are in the SW region, where regional-mean total water storage showed no detectable trend (-0.05 cm/yr, FDR q = 0.8968) and primary precipitation showed no detectable trend (+2.25 mm/yr, FDR q = 0.8968) over the full 2002\u20132026 record, classified as No detectable trend (below detection limit)."
     },
     {
       "region": "SE",
@@ -35148,7 +35147,7 @@
       "tws_slope_cm_yr": -0.05213,
       "tws_ci_95": "[-0.17, +0.06]",
       "tws_verdict": "No detectable trend",
-      "exposure_narrative": "Approximately 34.18 million people (GPWv4, 2020) and 32.1% of land classified as cropland (MODIS MCD12Q1, 2022) are in the SE region, where regional-mean total water storage showed no detectable trend (-0.05 cm/yr, FDR q = 0.8968) and primary precipitation showed no detectable trend (+1.76 mm/yr, FDR q = 0.9342) over the full 2002\u20132026 record, classified as Q3 (No detectable trend (below detection limit))."
+      "exposure_narrative": "Approximately 34.18 million people (GPWv4, 2020) and 32.1% of land classified as cropland (MODIS MCD12Q1, 2022) are in the SE region, where regional-mean total water storage showed no detectable trend (-0.05 cm/yr, FDR q = 0.8968) and primary precipitation showed no detectable trend (+1.76 mm/yr, FDR q = 0.9342) over the full 2002\u20132026 record, classified as No detectable trend (below detection limit)."
     },
     {
       "region": "National",
@@ -35159,7 +35158,7 @@
       "tws_slope_cm_yr": -0.51246,
       "tws_ci_95": "[-0.66, -0.38]",
       "tws_verdict": "Significant",
-      "exposure_narrative": "Approximately 169.83 million people (GPWv4, 2020) and 57.8% of land classified as cropland (MODIS MCD12Q1, 2022) are in the National region, where regional-mean total water storage declined significantly (-0.51 cm/yr, FDR q = < 0.0001) in the absence of a detected rainfall trend (+2.04 mm/yr, FDR q = 0.9342) over the full 2002\u20132026 record, classified as Q1 (TWS decline, no detectable rainfall trend)."
+      "exposure_narrative": "Approximately 169.83 million people (GPWv4, 2020) and 57.8% of land classified as cropland (MODIS MCD12Q1, 2022) are in the National region, where regional-mean total water storage declined significantly (-0.51 cm/yr, FDR q = < 0.0001) in the absence of a detected rainfall trend (+2.04 mm/yr, FDR q = 0.9342) over the full 2002\u20132026 record, classified as TWS decline, no detectable rainfall trend."
     }
   ],
   "floods": [
@@ -38813,17 +38812,19 @@
         tr.innerHTML = `
           <td style="font-weight: 700; color: #fff;">
             ${d.region_A} vs ${d.region_B}
-            ${overlapNote}
           </td>
           <td class="mono">${d.n_months != null ? d.n_months : 'n/a'}</td>
           <td class="mono">${slopeAStr}</td>
           <td class="mono">${slopeBStr}</td>
           <td class="mono" style="font-weight: 700; color: ${Math.abs(d.delta_slope) > 0.4 ? 'var(--accent-red)' : '#cbd5e1'};">${deltaStr}</td>
           <td class="mono" style="color: var(--ink-secondary);">${ciStr}</td>
-          <td class="mono">${pStr}</td>
-          <td class="mono">${qStr}</td>
           <td class="mono" style="color: var(--accent-amber);">${mdsStr}</td>
-          <td><span class="${vrdBadge}">${d.verdict}</span>${placeboBadge}</td>
+          <td><span class="${vrdBadge}">${d.verdict}</span></td>
+          <td>
+            <div style="font-size: 0.76rem; color: #94a3b8;">Effect size only (p-values withheld per &sect;10)</div>
+            ${overlapNote}
+            ${placeboBadge}
+          </td>
         `;
         tbody.appendChild(tr);
       }

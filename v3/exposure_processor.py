@@ -151,7 +151,7 @@ def build_exposure_analysis():
                 f"{s['cropland_pct']:.1f}% of land classified as cropland (MODIS MCD12Q1, 2022) are in the "
                 f"{reg} region, where regional-mean total water storage declined significantly "
                 f"({tws_prim['slope']:+.2f} cm/yr, FDR q = {t_q_str}) in the absence of a detected rainfall trend "
-                f"({pr_prim['slope']:+.2f} mm/yr, FDR q = {p_q_str}) over the full 2002–2026 record, classified as {q_id} ({q_name})."
+                f"({pr_prim['slope']:+.2f} mm/yr, FDR q = {p_q_str}) over the full 2002–2026 record, classified as {q_name}."
             )
         else:
             stmt = (
@@ -159,7 +159,7 @@ def build_exposure_analysis():
                 f"{s['cropland_pct']:.1f}% of land classified as cropland (MODIS MCD12Q1, 2022) are in the "
                 f"{reg} region, where regional-mean total water storage showed no detectable trend "
                 f"({tws_prim['slope']:+.2f} cm/yr, FDR q = {t_q_str}) and primary precipitation showed no detectable trend "
-                f"({pr_prim['slope']:+.2f} mm/yr, FDR q = {p_q_str}) over the full 2002–2026 record, classified as {q_id} ({q_name})."
+                f"({pr_prim['slope']:+.2f} mm/yr, FDR q = {p_q_str}) over the full 2002–2026 record, classified as {q_name}."
             )
         narrative_statements.append((reg, stmt))
 
@@ -180,7 +180,7 @@ def build_exposure_analysis():
             "primary_precip_ci_95": f"[{pr_prim['ci_low']:+.2f}, {pr_prim['ci_high']:+.2f}]",
             "primary_precip_fdr_q": p_q_str,
             "primary_precip_verdict": pr_prim["verdict"],
-            "hydrological_quadrant": f"{q_id}: {q_name}",
+            "hydrological_quadrant": q_name,
             "exposure_narrative": stmt,
             "regional_context": s["context"]
         })

@@ -67,6 +67,8 @@ class TestForbiddenPhrases(unittest.TestCase):
         demo_file = REPO_ROOT / "demo.html"
         index_file = REPO_ROOT / "index.html"
         regional_report = REPO_ROOT / "regional_action_report.md"
+        deck_file = REPO_ROOT / "DECK.md"
+        video_script_file = REPO_ROOT / "VIDEO_SCRIPT.md"
 
         self.assertTrue(outputs_dir.exists(), "outputs directory must exist")
         self.assertTrue(readme_file.exists(), "README.md must exist")
@@ -75,13 +77,15 @@ class TestForbiddenPhrases(unittest.TestCase):
         self.assertTrue(demo_file.exists(), "demo.html must exist")
         self.assertTrue(index_file.exists(), "index.html must exist")
         self.assertTrue(regional_report.exists(), "regional_action_report.md must exist")
+        self.assertTrue(deck_file.exists(), "DECK.md must exist")
+        self.assertTrue(video_script_file.exists(), "VIDEO_SCRIPT.md must exist")
 
         # Scan all .md, .txt, and .html files under outputs/ (excluding archived outputs/v2),
-        # plus root deliverables: README.md, NOTES.md, PROJECT_STATUS.md, demo.html, index.html, regional_action_report.md
+        # plus root deliverables: README.md, NOTES.md, PROJECT_STATUS.md, demo.html, index.html, regional_action_report.md, DECK.md, VIDEO_SCRIPT.md
         target_files = [
             f for f in outputs_dir.rglob("*")
             if f.suffix in (".md", ".txt", ".html") and "v2" not in f.parts
-        ] + [readme_file, notes_file, project_status_file, demo_file, index_file, regional_report]
+        ] + [readme_file, notes_file, project_status_file, demo_file, index_file, regional_report, deck_file, video_script_file]
 
         # Explicitly verify the exploratory seasonal extensions and pairwise region comparisons are scanned
         ratio_md = outputs_dir / "v3" / "seasonal" / "ratio_trend.md"
