@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bengal Hydro Detective — Project Status &amp; Findings Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --ink-primary: #0f172a;
+      --ink-secondary: #334155;
+      --ink-muted: #64748b;
+      --accent-blue: #0369a1;
+      --accent-sky: #0284c7;
+      --accent-red: #b91c1c;
+      --accent-amber: #b45309;
+      --accent-emerald: #047857;
+      --accent-purple: #7e22ce;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-page);
+      color: var(--ink-primary);
+      min-height: 100vh;
+      line-height: 1.65;
+      padding-bottom: 90px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    h1, h2, h3, h4, .serif {
+      font-family: 'Source Serif 4', Georgia, serif;
+      letter-spacing: -0.015em;
+      color: var(--ink-primary);
+    }
+
+    .mono {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+    }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0 20px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: var(--ink-secondary);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--accent-blue);
+    }
+
+    .btn-return {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--accent-blue);
+      color: #ffffff;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+
+    .btn-return:hover {
+      background: #0284c7;
+    }
+
+    /* Sticky Quick Table of Contents */
+    .toc-bar {
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .toc-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+      margin-right: 4px;
+      flex-shrink: 0;
+    }
+
+    .toc-pill {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      text-decoration: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--bg-subtle);
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .toc-pill:hover {
+      background: #e2e8f0;
+      color: var(--accent-blue);
+    }
+
+    /* Hero Status Card */
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 32px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-title {
+      font-size: 2.1rem;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: var(--ink-primary);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .meta-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: var(--bg-subtle);
+      color: var(--ink-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-card h2 {
+      font-size: 1.45rem;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .section-card h3 {
+      font-size: 1.15rem;
+      margin: 22px 0 10px 0;
+      color: var(--ink-primary);
+    }
+
+    .section-card p {
+      margin-bottom: 14px;
+      color: var(--ink-secondary);
+      font-size: 0.95rem;
+    }
+
+    .section-card ul, .section-card ol {
+      margin: 0 0 16px 24px;
+      color: var(--ink-secondary);
+      font-size: 0.94rem;
+    }
+
+    .section-card li {
+      margin-bottom: 6px;
+    }
+
+    /* Quote Block */
+    .question-box {
+      background: #f0fdf4;
+      border-left: 4px solid var(--accent-emerald);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 18px 0;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #14532d;
+      line-height: 1.5;
+    }
+
+    .callout-box {
+      background: var(--bg-subtle);
+      border-left: 4px solid var(--accent-blue);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+    }
+
+    .alert-amber {
+      background: #fefce8;
+      border-left: 4px solid var(--accent-amber);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 0.88rem;
+      color: #78350f;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin: 18px 0;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stat-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .stat-card-title {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    .stat-card-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--ink-primary);
+      margin-bottom: 4px;
+    }
+
+    .stat-card-sub {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      line-height: 1.35;
+    }
+
+    /* Clean Styled Data Tables */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 18px 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      text-align: left;
+    }
+
+    th {
+      background: var(--bg-subtle);
+      color: var(--ink-secondary);
+      font-weight: 700;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-strong);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--ink-secondary);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: #f8fafc;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    .badge-sig {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .badge-sug {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+
+    .badge-null {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+
+    .badge-sens {
+      background: #ffedd5;
+      color: #9a3412;
+      border: 1px solid #fed7aa;
+    }
+
+    /* Boxed Tier Cards */
+    .tier-box {
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .tier-sig {
+      border-left: 5px solid var(--accent-emerald);
+      background: #fcfdfc;
+    }
+
+    .tier-sens {
+      border-left: 5px solid var(--accent-amber);
+      background: #fffdf9;
+    }
+
+    .tier-null {
+      border-left: 5px solid var(--ink-muted);
+      background: #fbfcfd;
+    }
+
+    .tier-header {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+      <div class="brand-wrap">
+        <span style="font-weight: 700; font-size: 1.05rem; font-family: 'Source Serif 4', Georgia, serif;">Bengal Hydro Detective</span>
+        <span class="tag-badge">Research Status Guide</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="btn-return">← Interactive Dashboard</a>
+        <a href="PROJECT_STATUS.md" class="nav-link" target="_blank">Raw Markdown ↗</a>
+        <a href="README.md" class="nav-link" target="_blank">README ↗</a>
+      </div>
+    </nav>
+
+    <!-- Sticky Table of Contents Quick Nav -->
+    <div class="toc-bar">
+      <span class="toc-label">Jump to:</span>
+      <a href="#sec1" class="toc-pill">1. Overview</a>
+      <a href="#sec2" class="toc-pill">2. Headline Findings</a>
+      <a href="#sec3" class="toc-pill">3. Certainty Tiers</a>
+      <a href="#sec4" class="toc-pill">4. Rainfall Record</a>
+      <a href="#sec5" class="toc-pill">5. Storage Partitioning</a>
+      <a href="#sec6" class="toc-pill">6. Limitations</a>
+      <a href="#sec7" class="toc-pill">7. Deliverables</a>
+      <a href="#sec8" class="toc-pill">8. Audit Trail</a>
+      <a href="#sec9" class="toc-pill">9. Seasonal Response</a>
+      <a href="#sec10" class="toc-pill">10. Pairwise Comparisons</a>
+    </div>
+
+    <!-- Hero Header -->
+    <div class="hero-card">
+      <div style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-blue); margin-bottom: 8px;">
+        NASA Space Apps Challenge 2026 — Be an Earth System Trend Detective!
+      </div>
+      <h1 class="hero-title">Plain-Language Project Status &amp; Findings Guide</h1>
+      <p style="font-size: 1.05rem; color: var(--ink-secondary); max-width: 900px;">
+        Comprehensive executive synthesis of multi-decadal satellite gravimetry, precipitation constellation audits, and land surface model storage partitioning across Bangladesh (April 2002 to July 2026).
+      </p>
+      <div class="hero-meta">
+        <span class="meta-badge">Team: <strong>Tenstral</strong></span>
+        <span class="meta-badge">Status: <strong>PRELIMINARY — Subject to Peer Review</strong></span>
+        <span class="meta-badge">Audience: <strong>Teammates, Presenters, Reviewers</strong></span>
+        <span class="meta-badge">Audited Tests: <strong>336 Independent &amp; Descriptive Tests</strong></span>
+      </div>
+    </div>
+
+    <!-- Section 1 -->
+    <div class="section-card" id="sec1">
+      <h2>
+        <span>1. What Is This Project and What Question Does It Answer?</span>
+        <span style="font-size: 0.78rem; font-weight: 500; color: var(--ink-muted);">Foundational Scope</span>
+      </h2>
+      <p>
+        Every summer, Bangladesh receives substantial monsoon rainfall, nourishing river networks and occasionally causing major seasonal flooding. Yet farmers and local water managers in the northern agricultural heartland report that tubewells run dry during the pre-monsoon dry season and water tables have declined over recent decades.
+      </p>
+
+      <div class="question-box">
+        "Is Bangladesh losing total water storage over the long term, how do regional storage trajectories compare to satellite precipitation trends, and does unsaturated soil moisture account for observed storage changes?"
+      </div>
+
+      <p>
+        To evaluate these dynamics empirically, we developed a reproducible scientific detection pipeline that audits <strong>24 continuous years of NASA satellite observations</strong> (April 2002 to July 2026). The analysis synthesizes four authoritative pillars:
+      </p>
+
+      <div class="grid-4">
+        <div class="stat-card">
+          <div class="stat-card-title">Pillar 1: Gravimetry</div>
+          <div style="font-size: 0.92rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 4px;">CSR GRACE / GRACE-FO</div>
+          <div class="stat-card-sub">RL06.3 Mascons tracking vertically integrated total water storage mass (April 2002 – July 2026).</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Pillar 2: Precipitation</div>
+          <div style="font-size: 0.92rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 4px;">GPM IMERG V07B Final</div>
+          <div class="stat-card-sub">Dual-frequency radar and passive microwave calibrated satellite precipitation constellation.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Pillar 3: Soil Moisture</div>
+          <div style="font-size: 0.92rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 4px;">GLDAS Land Surface</div>
+          <div class="stat-card-sub">Open-loop physical simulations (Noah 2.1 &amp; VIC 2.1) tracking moisture in the top 2 meters of soil.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Pillar 4: Exposure</div>
+          <div style="font-size: 0.92rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 4px;">SEDAC &amp; MODIS</div>
+          <div class="stat-card-sub">Harmonized Census 2022 population grids (GPWv4) and 500m cropland coverage (MCD12Q1).</div>
+        </div>
+      </div>
+
+      <h3>Spatial Scale &amp; Test Hierarchy</h3>
+      <ul>
+        <li>
+          <strong>Regional vs. Divisional Analysis:</strong> Satellite gravimetry operates at an effective spatial resolution of approximately 300 km. Consequently, individual administrative divisions cannot be treated as statistically independent hydrological catchments. We aggregate data into <strong>5 hydrologically cohesive macro-regions</strong> (Northwest, Northeast, Central, Southwest, Southeast) and a <strong>National</strong> composite. Administrative division series are provided strictly for descriptive and local administrative context.
+        </li>
+        <li>
+          <strong>The 336 Statistical Tests:</strong> The master results file (<span class="mono">results_all_windows.csv</span>) audits exactly 336 individual tests: 4 analytical windows × 14 spatial units (6 macro-regions + 8 administrative divisions) × 2 variables (TWS, IMERG precipitation) × 3 seasonal slices (annual, dry season, monsoon season) = 4 × 14 × 2 × 3 = 336 tests. All formal hypothesis testing and False Discovery Rate (FDR) screening are evaluated at the 5-region and National scale.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section-card" id="sec2">
+      <h2>
+        <span>2. Headline Findings by Region and Window</span>
+        <span style="font-size: 0.78rem; font-weight: 500; color: var(--ink-muted);">Spatial Trajectories</span>
+      </h2>
+
+      <p>
+        <em>Note on Confidence Intervals:</em> All reported 95% confidence intervals and p-values originate directly from <span class="mono">results_all_windows.csv</span> and are computed via <strong>Calibrated ESS-Mann-Kendall</strong> (duality-aligned rank-based Theil-Sen 95% CIs with Hurwicz AR(1) bias-corrected effective sample size).
+      </p>
+
+      <div class="grid-2">
+        <div class="stat-card" style="border-left: 4px solid var(--accent-red); background: #fffdfd;">
+          <div class="stat-card-title" style="color: var(--accent-red);">1. The Northwest Depletion Corridor (Rajshahi &amp; Rangpur)</div>
+          <div class="stat-card-val" style="color: var(--accent-red);">-1.25 cm/year</div>
+          <div class="stat-card-sub" style="font-size: 0.84rem;">
+            <strong>Full 24-Year Record (2002–2026):</strong> 95% CI: <span class="mono">[-1.50, -1.02] cm/yr</span>, <em>p</em> &lt; 0.0001, FDR <em>q</em> &lt; 0.0001.<br>
+            Volumetric loss rate: <strong>-0.39 billion m³ (km³)/yr</strong>.<br>
+            Cumulative 24-year loss: <strong>-9.5 km³ of water</strong>.<br>
+            <em>Historical Baseline (GRACE-1 era, 2002–2017):</em> <strong>-1.56 cm/yr</strong> (95% CI: <span class="mono">[-1.96, -1.17] cm/yr</span>).
+          </div>
+        </div>
+
+        <div class="stat-card" style="border-left: 4px solid var(--accent-amber); background: #fffefa;">
+          <div class="stat-card-title" style="color: var(--accent-amber);">2. Northeast &amp; Central Regions (Dhaka, Sylhet, Mymensingh)</div>
+          <div class="stat-card-val" style="color: var(--accent-amber);">-0.47 to -0.56 cm/yr</div>
+          <div class="stat-card-sub" style="font-size: 0.84rem;">
+            <strong>Central (Dhaka):</strong> Declining at <strong>-0.47 cm/yr</strong> (95% CI: <span class="mono">[-0.62, -0.34] cm/yr</span>, <em>p</em> &lt; 0.0001, -0.08 km³/yr).<br>
+            <strong>Northeast (Sylhet &amp; Mymensingh):</strong> Declining at <strong>-0.56 cm/yr</strong> (95% CI: <span class="mono">[-0.70, -0.42] cm/yr</span>, <em>p</em> &lt; 0.0001, -0.12 km³/yr).
+          </div>
+        </div>
+
+        <div class="stat-card" style="border-left: 4px solid var(--ink-muted); background: #fbfcfd;">
+          <div class="stat-card-title">3. The Southern Delta (Khulna, Barishal, Chattogram)</div>
+          <div class="stat-card-val" style="color: var(--ink-secondary);">-0.05 cm/year</div>
+          <div class="stat-card-sub" style="font-size: 0.84rem;">
+            <strong>Southwest:</strong> -0.05 cm/yr (95% CI: <span class="mono">[-0.20, +0.10] cm/yr</span>, <em>p</em> = 0.55, FDR <em>q</em> = 0.8968).<br>
+            <strong>Southeast:</strong> -0.05 cm/yr (95% CI: <span class="mono">[-0.17, +0.06] cm/yr</span>, <em>p</em> = 0.38, FDR <em>q</em> = 0.8968).<br>
+            Minimum Detectable Slope (MDS, 80% power) = <strong>0.22 cm/yr</strong>. Verdict: <strong>No detectable trend</strong>.
+          </div>
+        </div>
+
+        <div class="stat-card" style="border-left: 4px solid var(--accent-blue); background: #fafdff;">
+          <div class="stat-card-title" style="color: var(--accent-blue);">4. National Total (All Bangladesh Combined)</div>
+          <div class="stat-card-val" style="color: var(--accent-blue);">-0.51 cm/year</div>
+          <div class="stat-card-sub" style="font-size: 0.84rem;">
+            <strong>Full 24-Year Record (2002–2026):</strong> 95% CI: <span class="mono">[-0.66, -0.38] cm/yr</span>, <em>p</em> &lt; 0.0001, FDR <em>q</em> &lt; 0.0001.<br>
+            National net volumetric loss: <strong>-0.63 km³ of water per year</strong> across the country.
+          </div>
+        </div>
+      </div>
+
+      <h3>B. The 3-Way Northwest Slope Transparency</h3>
+      <p>
+        Between the original GRACE mission (decommissioned June 2017) and GRACE Follow-On (operational June 2018), an 11-month observation gap occurred. An upward step offset (+9.15 cm in NW, <em>p</em> = 0.028) of unknown origin is detected across the gap in raw gravimetric anomaly series. Because multi-satellite trends across unbridged gaps can be sensitive to step offsets, we report the Northwest trend across three transparent model specifications:
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Method / Model Specification</th>
+              <th style="text-align: center;">Northwest TWS Slope</th>
+              <th style="text-align: center;">95% Confidence Interval</th>
+              <th>Methodological Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Lead Evidence: GRACE-1 Era (2002–2017)</strong></td>
+              <td style="text-align: center;" class="mono" style="color: var(--accent-red); font-weight: 700;">-1.56 cm/yr</td>
+              <td style="text-align: center;" class="mono">[-1.96, -1.17] cm/yr</td>
+              <td>Transition-free baseline under a single continuous satellite instrument.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Single Continuous Line (2002–2026)</strong></td>
+              <td style="text-align: center;" class="mono" style="color: var(--accent-red); font-weight: 700;">-1.25 cm/yr</td>
+              <td style="text-align: center;" class="mono">[-1.50, -1.02] cm/yr</td>
+              <td>Standard linear trend fit across the full 24-year record under Calibrated ESS-MK.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Step-Adjusted Fit (2002–2026)</strong></td>
+              <td style="text-align: center;" class="mono" style="color: var(--accent-red); font-weight: 700;">-1.81 cm/yr</td>
+              <td style="text-align: center;" class="mono">—</td>
+              <td>Controls for a +9.15 cm upward step offset (<em>p</em> = 0.028) across the 2017–2018 transition.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Transition-Excluded (±6-Month Buffer)</strong></td>
+              <td style="text-align: center;" class="mono" style="color: var(--accent-red); font-weight: 700;">-1.29 cm/yr</td>
+              <td style="text-align: center;" class="mono">—</td>
+              <td>Excludes 2017-01 to 2018-11; the transition step (+7.83 cm, <em>p</em> = 0.171) is not significant.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout-box">
+        <strong>Takeaway:</strong> Across continuous, step-adjusted, and transition-excluded specifications, Northwest multi-satellite total water storage depletion spans an estimated range of <strong>-1.81 to -1.25 cm/year</strong> (with the single-satellite lead benchmark at <strong>-1.56 cm/year</strong>). Pure step simulations show that an unadjusted +9.15 cm step is falsely flagged as a trend in 93.8% to 100% of red-noise simulations under standard linear models, demonstrating why step-adjusted and buffer-excluded bounds are necessary.
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section-card" id="sec3">
+      <h2>
+        <span>3. Evidence Certainty Tiers</span>
+        <span style="font-size: 0.78rem; font-weight: 500; color: var(--ink-muted);">Strict Hypothesis Governance</span>
+      </h2>
+      <p>
+        To prevent false alarms in autocorrelated satellite data, we apply a dual-threshold criterion: a finding is categorized as <strong>Significant</strong> only if it passes within-window False Discovery Rate screening (<em>q</em> &lt; 0.05) AND its duality-aligned 95% confidence interval excludes zero.
+      </p>
+
+      <div class="tier-box tier-sig">
+        <div class="tier-header" style="color: #166534;">
+          <span class="badge badge-sig">TIER 1</span>
+          <span>Statistically Significant Trends (FDR q &lt; 0.05 &amp; CI Excludes Zero)</span>
+        </div>
+        <ul>
+          <li><strong>Northwest Total Water Storage:</strong> Full record (-1.25 cm/yr, <em>q</em> &lt; 0.0001)</li>
+          <li><strong>Northwest Total Water Storage:</strong> Historical era (-1.56 cm/yr, <em>q</em> &lt; 0.0001)</li>
+          <li><strong>Northeast Total Water Storage:</strong> Full record (-0.56 cm/yr, <em>q</em> &lt; 0.0001)</li>
+          <li><strong>Central Total Water Storage:</strong> Full record (-0.47 cm/yr, <em>q</em> &lt; 0.0001)</li>
+          <li><strong>National Total Water Storage:</strong> Full record (-0.51 cm/yr, <em>q</em> &lt; 0.0001)</li>
+          <li><strong>National Total Water Storage:</strong> Historical era (-0.68 cm/yr, <em>q</em> &lt; 0.0001)</li>
+        </ul>
+      </div>
+
+      <div class="tier-box tier-sens">
+        <div class="tier-header" style="color: #92400e;">
+          <span class="badge badge-sens">TIER 2</span>
+          <span>Method-Dependent / Sensitivity Findings</span>
+        </div>
+        <ul>
+          <li>
+            <strong>Northwest in recent_2020 (2020–2026):</strong> Point slope is -2.93 cm/yr (95% CI: <span class="mono">[-4.97, -0.78] cm/yr</span>). Raw <em>p</em> = 0.0107, but within-window FDR <em>q</em> = 0.0772 &gt; 0.05 (fails significance standard). Different statistical tests yield diverging verdicts; labeled <em>METHOD-DEPENDENT</em> rather than Significant.
+          </li>
+        </ul>
+      </div>
+
+      <div class="tier-box tier-null">
+        <div class="tier-header" style="color: #475569;">
+          <span class="badge badge-null">TIER 3</span>
+          <span>Below Detection Limit / No Detectable Trend</span>
+        </div>
+        <ul>
+          <li><strong>Southwest &amp; Southeast Total Water Storage:</strong> Across all analytical windows.</li>
+          <li><strong>Northwest in grace_fo_era (2018–2026):</strong> Slope is -1.67 cm/yr (95% CI: <span class="mono">[-3.32, +0.06] cm/yr</span>, <em>p</em> = 0.0549, FDR <em>q</em> = 0.4626). The CI spans zero; this rate falls below the 80% detection limit (MDS = 1.74 cm/yr) for an 8.1-year window.</li>
+          <li><strong>ALL Regional Precipitation Trends (GPM IMERG):</strong> Rainfall displays no detectable multi-decadal upward or downward trend anywhere in Bangladesh.</li>
+          <li><strong>Extreme Precipitation Indices:</strong> Daily indices (Rx1day, Rx5day, heavy rain days) show no detectable trend.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section-card" id="sec4">
+      <h2>
+        <span>4. The Rainfall Record: Data Artifact vs. Satellite Observation</span>
+        <span style="font-size: 0.78rem; font-weight: 500; color: var(--ink-muted);">Audit &amp; Validation</span>
+      </h2>
+
+      <h3>A. The NASA POWER Reanalysis Artifact</h3>
+      <p>
+        Earlier exploratory evaluations reported that Bangladesh rainfall was increasing rapidly (+29 to +86 mm/year). Systematic data audit identified this as a <strong>reanalysis data artifact</strong>:
+      </p>
+      <ul>
+        <li>Between 2014-12 and 2015-12, NASA POWER's underlying assimilation system (MERRA-2) underwent an abrupt upward step change of <strong>+45% to +84%</strong> across Bangladesh (Pettitt <em>p</em> &lt; 0.0001, SNHT <em>T</em> = 31.94).</li>
+        <li>In the Northwest, annual totals jumped from ~1,580 mm/year prior to 2015 to ~2,330 mm/year after 2018.</li>
+        <li>This non-climatic step shift induced spurious positive linear trends. The exact cause in the reanalysis model assimilation stream remains unverified.</li>
+      </ul>
+
+      <h3>B. Satellite Precipitation with GPM IMERG: No Detectable Rainfall Trend</h3>
+      <p>
+        Replacing atmospheric reanalysis with NASA's radar and microwave satellite precipitation constellation (<strong>GPM IMERG V07B Final Run</strong>) eliminated the artificial jump:
+      </p>
+      <ul>
+        <li><strong>National IMERG Trend:</strong> <strong>+2.04 mm/year</strong> (95% CI: <span class="mono">[-7.70, +12.45] mm/yr</span>, <em>p</em> = 0.64, FDR <em>q</em> = 0.9342) — showing <em>no detectable trend</em> within natural multi-year variability.</li>
+        <li><strong>Northwest IMERG Trend:</strong> <strong>-1.91 mm/year</strong> (95% CI: <span class="mono">[-11.04, +4.48] mm/yr</span>, <em>p</em> = 0.54, FDR <em>q</em> = 0.8968) — showing <em>no detectable trend</em>.</li>
+        <li><strong>Long-Term Mean:</strong> Over the satellite observational period (2002-01 to 2025-09), national IMERG precipitation averages <strong>2,366 mm/year</strong>.</li>
+        <li><em>Data Latency Notice:</em> GPM IMERG Final data currently extends through September 2025 due to standard NASA production latency, truncating the final 10 months of the 2002–2026 gravimetry analysis window.</li>
+      </ul>
+
+      <h3>C. Extreme Rainfall and Flood Dynamics</h3>
+      <ul>
+        <li><strong>No Detectable Trend in Extreme Indices:</strong> Daily precipitation extremes (Rx1day, Rx5day, days ≥ 50 mm, and annual total for 2003–2024; monsoon total, monsoon Rx1day, monsoon Rx5day, and monsoon days ≥ 50 mm for 2002–2025) show no detectable trend across Bangladesh.</li>
+        <li><strong>Flood Response &amp; Storage Recovery (Untested Hypothesis):</strong> Historical flood events (2004, 2007, 2017, 2020, 2022 Sylhet) correspond to large transient storage surges (e.g., storage anomalies spiked by +41 cm in 2007 and +33 cm in 2004). An untested hypothesis frequently cited in regional hydrogeology suggests topsoil saturation and floodplain drainage limit the proportion of floodwaters that recharge deeper subsurface storage. However, satellite gravimetry captures vertically integrated bulk mass and cannot measure subsurface infiltration rates directly without in-situ piezometer hydrographs.</li>
+      </ul>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="section-card" id="sec5">
+      <h2>
+        <span>5. Storage Partitioning: Soil Moisture vs. Unpartitioned Residual</span>
+        <span style="font-size: 0.78rem; font-weight: 500; color: var(--ink-muted);">GLDAS Physical Decomposition</span>
+      </h2>
+
+      <p>
+        Satellite gravimetry measures total column water mass, integrating surface water, soil moisture, and deep groundwater. To determine whether total water storage depletion is accounted for by unsaturated soil drying, we evaluated NASA's <strong>GLDAS Land Surface Models</strong> across all four analytical windows:
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Analytical Window</th>
+              <th style="text-align: center;">TWS Slope</th>
+              <th style="text-align: center;">Independent Soil Moisture (ΔSMS)</th>
+              <th style="text-align: center;">Partitioned Residual</th>
+              <th>Physical Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Full Record (2002–2026)</strong></td>
+              <td style="text-align: center;" class="mono" style="color: var(--accent-red); font-weight: 700;">-1.25 cm/yr</td>
+              <td style="text-align: center;" class="mono">[-0.12, -0.10] cm/yr</td>
+              <td style="text-align: center;" class="mono" style="color: var(--accent-red); font-weight: 700;">[-1.12, -1.11] cm/yr</td>
+              <td><span class="badge badge-sig">Significant Deficit</span></td>
+            </tr>
+            <tr>
+              <td><strong>GRACE-1 Era (2002–2017)</strong></td>
+              <td style="text-align: center;" class="mono" style="color: var(--accent-red); font-weight: 700;">-1.56 cm/yr</td>
+              <td style="text-align: center;" class="mono">[-0.54, -0.28] cm/yr</td>
+              <td style="text-align: center;" class="mono" style="color: var(--accent-red); font-weight: 700;">[-1.26, -1.05] cm/yr</td>
+              <td><span class="badge badge-sig">Lead Baseline Deficit</span></td>
+            </tr>
+            <tr>
+              <td><strong>GRACE-FO Era (2018–2026)</strong></td>
+              <td style="text-align: center;" class="mono">-1.67 cm/yr</td>
+              <td style="text-align: center;" class="mono">[+0.05, +0.20] cm/yr</td>
+              <td style="text-align: center;" class="mono">[-1.92, -1.70] cm/yr</td>
+              <td><span class="badge badge-null">Below Detection Limit</span></td>
+            </tr>
+            <tr>
+              <td><strong>Recent Window (2020–2026)</strong></td>
+              <td style="text-align: center;" class="mono">-2.93 cm/yr</td>
+              <td style="text-align: center;" class="mono">[-0.37, -0.22] cm/yr</td>
+              <td style="text-align: center;" class="mono">[-2.59, -2.38] cm/yr</td>
+              <td><span class="badge badge-sens">Method-Dependent (q = 0.077)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout-box">
+        <strong>Physical Interpretation:</strong> Across all windows, unsaturated root-zone soil moisture decline accounts for only a minor fraction of observed total water storage loss. Most of the decline is not accounted for by simulated soil moisture; groundwater and surface water cannot be separated here. This pattern is <strong>consistent with, not proof of</strong>, dry-season groundwater abstraction for intensive irrigated agriculture.
+      </div>
+
+      <div class="alert-amber">
+        <strong>CLSM 2.2 Methodological Quarantine:</strong> Catchment Land Surface Model (CLSM 2.2) directly assimilates GRACE TWS observations via an Ensemble Kalman Filter (EnKF). In CLSM, simulated soil moisture declines rapidly (-0.94 cm/yr in full_record), artificially compressing the residual to -0.33 cm/yr. Because assimilating GRACE into CLSM to evaluate GRACE involves circular logic, CLSM is reported separately for context and quarantined from the independent physical budget.
+      </div>
+    </div>
+
+    <!-- Section 6 -->
+    <div class="section-card" id="sec6">
+      <h2>
+        <span>6. Honest Limitations &amp; Resolution Pathways</span>
+        <span style="font-size: 0.78rem; font-weight: 500; color: var(--ink-muted);">Scientific Integrity</span>
+      </h2>
+      <p>
+        To preserve scientific integrity, observed patterns are subject to the following limitations:
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Observational Pattern</th>
+              <th>What It Cannot Prove</th>
+              <th>What Would Be Needed to Resolve It</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Regional Water Depletion</strong></td>
+              <td>Coarse gravimetric resolution (~300 km) cannot resolve district, upazila, or municipal drawdown.</td>
+              <td>Satellite radar interferometry (InSAR) ground deformation and sub-basin subsidence modeling.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Residual Subsurface Loss</strong></td>
+              <td>Satellites measure total column mass; we cannot separate deep groundwater from surface water bodies and wetlands.</td>
+              <td>Direct integration of Bangladesh Water Development Board (BWDB) nationwide in-situ piezometer well hydrographs.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Agricultural Extraction Link</strong></td>
+              <td>We do not possess direct metered pumping logs across the Barind Tract.</td>
+              <td>Sub-district agricultural power consumption records and deep tubewell discharge registries from the Barind Multipurpose Development Authority (BMDA).</td>
+            </tr>
+            <tr>
+              <td><strong>4. Inter-Satellite Gap &amp; Offset</strong></td>
+              <td>The 11-month transition (2017–2018) between GRACE and GRACE-FO introduces an upward offset (+9.15 cm, <em>p</em> = 0.028) of unknown origin.</td>
+              <td>Continuous multi-satellite airborne gravimetry bridging or hydrodynamic data assimilation across the transition.</td>
+            </tr>
+            <tr>
+              <td><strong>5. Surrogate Placebo Sensitivity</strong></td>
+              <td>On a real-residual surrogate placebo (phase-randomized surrogates preserving autocorrelation and gap pattern), NW previously showed an elevated False Positive Rate of <strong>17.6%</strong> (82.5% CI coverage) under ESS-MK, whereas under an independent parametric AR(1) Monte Carlo null test, Calibrated ESS-MK passes nominal standards (NW FPR: 4.10%, coverage: 95.90%).</td>
+              <td>Both tests are reported to document sensitivity to empirical noise structure; longer continuous observational records will narrow this uncertainty.</td>
+            </tr>
+            <tr>
+              <td><strong>6. Precipitation Record Latency</strong></td>
+              <td>GPM IMERG Final Run V07B currently extends through September 2025.</td>
+              <td>Updating the processing stream when NASA GES DISC releases late-2025 and 2026 Final Run granules.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 7 -->
+    <div class="section-card" id="sec7">
+      <h2>
+        <span>7. Deliverables &amp; File Directory Guide</span>
+        <span style="font-size: 0.78rem; font-weight: 500; color: var(--ink-muted);">Repository Assets</span>
+      </h2>
+
+      <div class="grid-2">
+        <div class="stat-card">
+          <div class="stat-card-title">A. Presentations &amp; Figures</div>
+          <ul style="margin-left: 18px; font-size: 0.85rem; margin-bottom: 0;">
+            <li><span class="mono">PROJECT_STATUS.md</span>: Plain-language executive guide.</li>
+            <li><span class="mono">README.md</span>: Architectural specification and pipeline execution.</li>
+            <li><span class="mono">outputs/v3/full_record/fig1_full_record_tws_trends.png</span>: 6-panel regional trends with 95% CIs.</li>
+            <li><span class="mono">outputs/v3/exposure/fig_exposure_choropleth.png</span>: Population &amp; cropland exposure maps.</li>
+            <li><span class="mono">outputs/v3/extremes/fig_imerg_extreme_indices_trends.png</span>: Daily extreme rainfall trends.</li>
+            <li><span class="mono">outputs/v3/gldas_split/fig_storage_partition_multi_model.png</span>: Soil moisture vs. residual storage partitioning.</li>
+          </ul>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">B. Master Results Tables (CSV)</div>
+          <ul style="margin-left: 18px; font-size: 0.85rem; margin-bottom: 0;">
+            <li><span class="mono">results_all_windows.csv</span>: Master table containing all 336 statistical tests.</li>
+            <li><span class="mono">three_way_slopes_and_transition.csv</span>: 3-way Northwest slope sensitivity metrics.</li>
+            <li><span class="mono">benchmark_table.csv</span>: Synthesis against 6 peer-reviewed literature studies.</li>
+            <li><span class="mono">exposure_table.csv</span>: Breakdown of 108.5M residents (63.9%) and cropland exposure.</li>
+            <li><span class="mono">gldas_multi_model_summary.csv</span>: Multi-model GLDAS storage partitioning.</li>
+            <li><span class="mono">gap_calibration_report.json</span>: Monte Carlo simulation audit results.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 8 -->
+    <div class="section-card" id="sec8">
+      <h2>
+        <span>8. Consistency Fixes &amp; Statistical Reconciliation</span>
+        <span style="font-size: 0.78rem; font-weight: 500; color: var(--ink-muted);">Audit Trail</span>
+      </h2>
+      <p>
+        All reported figures have been audited against the primary single sources of truth (<span class="mono">results_all_windows.csv</span> and <span class="mono">gap_calibration_report.json</span>). No numbers have been manually approximated:
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Metric / Parameter</th>
+              <th>Location / Context</th>
+              <th style="text-align: center;">Audited Value</th>
+              <th>Source of Truth / Methodological Justification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>NW full_record TWS 95% CI</strong></td>
+              <td><span class="mono">exposure_table.csv</span></td>
+              <td style="text-align: center;" class="mono">[-1.50, -1.02]</td>
+              <td>Primary duality-aligned rank CI from master results file.</td>
+            </tr>
+            <tr>
+              <td><strong>SW full_record TWS 95% CI</strong></td>
+              <td><span class="mono">exposure_table.csv</span></td>
+              <td style="text-align: center;" class="mono">[-0.20, +0.10]</td>
+              <td>Primary duality-aligned rank CI from master results file.</td>
+            </tr>
+            <tr>
+              <td><strong>NW full_record TWS FDR q</strong></td>
+              <td><span class="mono">exposure_table.csv</span></td>
+              <td style="text-align: center;" class="mono">&lt; 0.0001</td>
+              <td>Direct within-window Benjamini-Hochberg FDR <em>q</em> = 0.000078.</td>
+            </tr>
+            <tr>
+              <td><strong>NW recent_2020 TWS 95% CI</strong></td>
+              <td><span class="mono">README.md</span></td>
+              <td style="text-align: center;" class="mono">[-4.97, -0.78]</td>
+              <td>Exact duality-aligned CI for 2020–2026 sensitivity window.</td>
+            </tr>
+            <tr>
+              <td><strong>National full_record TWS 95% CI</strong></td>
+              <td><span class="mono">README.md</span></td>
+              <td style="text-align: center;" class="mono">[-0.66, -0.38]</td>
+              <td>Primary duality-aligned CI for full 24-year record.</td>
+            </tr>
+            <tr>
+              <td><strong>Depletion Exposed Population</strong></td>
+              <td><span class="mono">exposure_table.csv</span></td>
+              <td style="text-align: center;" class="mono">108.5M (63.9%)</td>
+              <td>Programmatic sum of NW (38.81M) + NE (24.05M) + Central (45.64M) from GPWv4.</td>
+            </tr>
+            <tr>
+              <td><strong>Calibrated ESS-MK NW FPR</strong></td>
+              <td><span class="mono">gap_calibration_report.json</span></td>
+              <td style="text-align: center;" class="mono">4.10%</td>
+              <td>Verified nominal false positive rate (target: 3.5%–6.5%).</td>
+            </tr>
+            <tr>
+              <td><strong>Calibrated ESS-MK NW Coverage</strong></td>
+              <td><span class="mono">gap_calibration_report.json</span></td>
+              <td style="text-align: center;" class="mono">95.90%</td>
+              <td>Verified nominal 95% CI coverage (target: 93.0%–97.0%).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 9 -->
+    <div class="section-card" id="sec9">
+      <h2>
+        <span>9. Exploratory Seasonal Storage Response &amp; Dry-Season Drawdown</span>
+        <span style="font-size: 0.78rem; font-weight: 500; color: var(--ink-muted);">Preliminary Extensions</span>
+      </h2>
+
+      <div class="callout-box">
+        <strong>Status Label: PRELIMINARY &amp; EXPLORATORY ONLY.</strong><br>
+        These supplementary analyses test seasonal storage dynamics across multi-decadal observations. To maintain strict statistical governance, all exploratory results are documented separately in <span class="mono">outputs/v3/seasonal/</span> and quarantined from the headline 336-test master table.
+      </div>
+
+      <h3>A. Trend of Seasonal Storage Response Ratio (2002–2025)</h3>
+      <p>
+        Evaluates the multi-decadal stability of the seasonal storage response ratio:
+        <span class="mono" style="display: block; margin: 8px 0; background: var(--bg-subtle); padding: 8px 12px; border-radius: 6px;">
+          Seasonal Storage Response Ratio = [ ΔTWS (cm) / (0.1 × P_monsoon (mm)) ] × 100%
+        </span>
+        Incomplete seasons (2017 &amp; 2018) are dropped directly rather than interpolated, leaving <strong>22 complete seasons</strong> in the main run.
+      </p>
+      <ul>
+        <li><strong>NW:</strong> Mean ratio = 39.6%, Theil-Sen slope = <strong>+0.266 %/yr</strong> (95% CI: <span class="mono">[-0.295, +0.836] %/yr</span>, <em>p</em> = 0.3784, exploratory FDR <em>q</em> = 0.5158) → <em>No detectable trend</em>.</li>
+        <li><strong>Central:</strong> Mean ratio = 42.2%, Theil-Sen slope = <strong>+0.387 %/yr</strong> (95% CI: <span class="mono">[+0.046, +0.712] %/yr</span>, <em>p</em> = 0.0369, exploratory FDR <em>q</em> = 0.1105) → <em>Suggestive</em> (fails FDR control <em>q</em> ≥ 0.05).</li>
+        <li><strong>National:</strong> Mean ratio = 32.5%, Theil-Sen slope = <strong>+0.136 %/yr</strong> (95% CI: <span class="mono">[+0.028, +0.355] %/yr</span>, <em>p</em> = 0.0208, exploratory FDR <em>q</em> = 0.1105) → <em>Suggestive</em>.</li>
+        <li><em>Takeaway:</em> A positive ratio slope means the monsoon storage rebound per mm of rain has not weakened; it does not mean recharge is improving.</li>
+      </ul>
+
+      <h3>B. Dry-Season Storage Drawdown &amp; Cropland Overlay (2002–2026)</h3>
+      <p>
+        Evaluates whether the annual dry-season storage drawdown (<span class="mono">Drawdown = TWS_peak - TWS_min</span>) has expanded over the 24-year satellite record:
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th style="text-align: center;">Cropland (%)</th>
+              <th style="text-align: center;">Population</th>
+              <th style="text-align: center;">TWS Slope</th>
+              <th style="text-align: center;">Mean Drawdown</th>
+              <th style="text-align: center;">Drawdown Slope</th>
+              <th style="text-align: center;">95% Confidence Interval</th>
+              <th style="text-align: center;">Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>NW</strong></td>
+              <td style="text-align: center;">74.2%</td>
+              <td style="text-align: center;">38.81M</td>
+              <td style="text-align: center;" class="mono">-1.25 cm/yr</td>
+              <td style="text-align: center;" class="mono">55.23 cm</td>
+              <td style="text-align: center;" class="mono">+0.011 cm/yr</td>
+              <td style="text-align: center;" class="mono">[-0.895, +0.813]</td>
+              <td style="text-align: center;"><span class="badge badge-null">No detectable trend</span></td>
+            </tr>
+            <tr>
+              <td><strong>NE</strong></td>
+              <td style="text-align: center;">58.6%</td>
+              <td style="text-align: center;">24.05M</td>
+              <td style="text-align: center;" class="mono">-0.56 cm/yr</td>
+              <td style="text-align: center;" class="mono">58.48 cm</td>
+              <td style="text-align: center;" class="mono">+0.086 cm/yr</td>
+              <td style="text-align: center;" class="mono">[-0.784, +0.675]</td>
+              <td style="text-align: center;"><span class="badge badge-null">No detectable trend</span></td>
+            </tr>
+            <tr>
+              <td><strong>Central</strong></td>
+              <td style="text-align: center;">56.4%</td>
+              <td style="text-align: center;">45.64M</td>
+              <td style="text-align: center;" class="mono">-0.47 cm/yr</td>
+              <td style="text-align: center;" class="mono">58.19 cm</td>
+              <td style="text-align: center;" class="mono">-0.014 cm/yr</td>
+              <td style="text-align: center;" class="mono">[-0.994, +0.745]</td>
+              <td style="text-align: center;"><span class="badge badge-null">No detectable trend</span></td>
+            </tr>
+            <tr>
+              <td><strong>SW</strong></td>
+              <td style="text-align: center;">48.7%</td>
+              <td style="text-align: center;">27.14M</td>
+              <td style="text-align: center;" class="mono">-0.05 cm/yr</td>
+              <td style="text-align: center;" class="mono">48.70 cm</td>
+              <td style="text-align: center;" class="mono">-0.095 cm/yr</td>
+              <td style="text-align: center;" class="mono">[-0.472, +0.243]</td>
+              <td style="text-align: center;"><span class="badge badge-null">No detectable trend</span></td>
+            </tr>
+            <tr>
+              <td><strong>SE</strong></td>
+              <td style="text-align: center;">32.1%</td>
+              <td style="text-align: center;">34.18M</td>
+              <td style="text-align: center;" class="mono">-0.05 cm/yr</td>
+              <td style="text-align: center;" class="mono">51.16 cm</td>
+              <td style="text-align: center;" class="mono">-0.055 cm/yr</td>
+              <td style="text-align: center;" class="mono">[-0.353, +0.241]</td>
+              <td style="text-align: center;"><span class="badge badge-null">No detectable trend</span></td>
+            </tr>
+            <tr>
+              <td><strong>National</strong></td>
+              <td style="text-align: center;">57.8%</td>
+              <td style="text-align: center;">169.83M</td>
+              <td style="text-align: center;" class="mono">-0.51 cm/yr</td>
+              <td style="text-align: center;" class="mono">53.24 cm</td>
+              <td style="text-align: center;" class="mono">-0.013 cm/yr</td>
+              <td style="text-align: center;" class="mono">[-0.593, +0.509]</td>
+              <td style="text-align: center;"><span class="badge badge-null">No detectable trend</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout-box">
+        > Gravimetry measures total water storage (groundwater, soil moisture and surface water together). This analysis shows regional patterns that are consistent with dry-season agricultural water use but does not attribute them to irrigation pumping. Testing that would require metered pumping or electricity records (BMDA), BWDB well hydrographs, or irrigated-area mapping.
+      </div>
+    </div>
+
+    <!-- Section 10 -->
+    <div class="section-card" id="sec10">
+      <h2>
+        <span>10. Pairwise Between-Region Slope Comparison (2002–2026)</span>
+        <span style="font-size: 0.78rem; font-weight: 500; color: var(--ink-muted);">Paired Difference Inferences</span>
+      </h2>
+
+      <p>
+        Evaluates whether secular Theil-Sen trend slopes differ between the 5 macro-regions on common valid observation months (N = 257 for TWS; N = 247 for IMERG rainfall) using the calibrated Difference Series Effective-Sample-Size Mann-Kendall engine (<span class="mono">run_ess_mann_kendall</span>).
+      </p>
+
+      <h3>Summary of Primary Findings</h3>
+      <ul>
+        <li>
+          <strong>Total Water Storage Trends Differ Across 9 of 10 Regional Pairs Under Paired Difference Testing:</strong>
+          <ul>
+            <li><strong>Northwest (NW) differs significantly from all other regions:</strong> The NW decline (-1.255 cm/yr) is steeper than Northeast (Δ = -0.653 cm/yr, <em>q</em> &lt; 0.0001), Central (Δ = -0.722 cm/yr, <em>q</em> &lt; 0.0001), Southwest (Δ = -1.205 cm/yr, <em>q</em> &lt; 0.0001), and Southeast (Δ = -1.189 cm/yr, <em>q</em> &lt; 0.0001).</li>
+            <li><strong>Northeast &amp; Central differ significantly from the South:</strong> NE and Central show steeper declines than SW and SE (each Δ ≈ -0.45 to -0.54 cm/yr, all <em>q</em> &lt; 0.0001).</li>
+            <li><strong>Northeast vs Central:</strong> The paired difference test yields Δ = -0.072 cm/yr (95% CI: <span class="mono">[-0.101, -0.043]</span>, <em>p</em> &lt; 0.0001, FDR <em>q</em> &lt; 0.0001). However, under independent comparison, their single-region 95% CIs overlap substantially ([-0.703, -0.419] and [-0.620, -0.342]). Differencing removes shared regional climate variance (ρ = 0.945), making a small differential trend detectable even though marginal trends overlap.</li>
+            <li><strong>Southwest vs Southeast show no detectable difference:</strong> SW and SE trends yield Δ = +0.006 cm/yr (95% CI: <span class="mono">[-0.033, +0.045]</span>, <em>p</em> = 0.7345, FDR <em>q</em> = 0.7731).</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Rainfall Trends Show No Detectable Difference Across ANY Regional Pair:</strong>
+          All 10 pairs show <em>no detectable difference</em> for GPM IMERG rainfall (all <em>p</em> ≥ 0.14, all within-family FDR <em>q</em> ≥ 0.28). Minimum detectable slope differences at 80% power range from 11.2 to 28.7 mm/yr; observed differences are consistent with natural random variability.
+        </li>
+      </ul>
+
+      <h3>Calibration Check &amp; Real-Residual Placebo Audit</h3>
+      <ul>
+        <li><strong>Nominal Calibration Audit:</strong> Candidate A (Difference Series Calibrated ESS-MK) passed calibration across 100% of tested pairs. Across all 20 tested pairs (10 TWS + 10 rainfall), False Positive Rate ranges from <strong>3.60% to 6.50%</strong> (mean 4.93%) and 95% CI coverage ranges from <strong>93.50% to 96.40%</strong>, meeting all pre-specified targets.</li>
+        <li><strong>Real-Residual Placebo Audit:</strong> Under Synchronized Circular Shift (preserving contemporaneous cross-correlation ρ), Central vs SW (FPR = 5.90%, coverage = 94.10%) and SW vs SE (FPR = 5.00%, coverage = 95.00%) pass nominal standards. Eight pairs fail due to empirical multi-annual excursions and carry the flag <em>Fails real-residual placebo</em> alongside their existing verdicts.</li>
+      </ul>
+
+      <div class="callout-box" style="margin-top: 20px;">
+        <strong>Methodological Limits &amp; Scope:</strong> "Regions are adjacent and GRACE resolves a few hundred kilometres, so neighbouring regions share signal and coastal leakage is possible. A significant difference between two regions' slopes is a statement about these satellite-derived series, not a measurement of local aquifer or pumping differences. Recent windows are below the detection limit."
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-subtle); text-align: center; font-size: 0.82rem; color: var(--ink-muted);">
+      Bengal Hydro Detective &bull; NASA Space Apps Challenge 2026 &bull; Team Tenstral &bull; Reproducible Earth Observation Audit
+    </footer>
+
+  </div>
+
+</body>
+</html>
