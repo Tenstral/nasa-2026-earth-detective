@@ -175,12 +175,24 @@ def build_dashboard_data(repo_root: Path = REPO_ROOT) -> dict:
     ratio_trend_df = pd.read_csv(repo_root / "outputs/v3/seasonal/ratio_trend.csv")
     drawdown_df = pd.read_csv(repo_root / "outputs/v3/seasonal/dry_season_drawdown.csv")
 
-    # 11. Pairwise Between-Region Differences
+    # 11. Pairwise Between-Region Differences & Calibration Audit
     pairwise_csv = repo_root / "outputs/v3/region_comparison/pairwise_region_differences.csv"
     pairwise_data = []
     if pairwise_csv.exists():
         pairwise_df = pd.read_csv(pairwise_csv)
         pairwise_data = pairwise_df.to_dict(orient="records")
+
+    calib_json = repo_root / "outputs/v3/region_comparison/calibration_report.json"
+    calib_data = {}
+    if calib_json.exists():
+        with open(calib_json, "r", encoding="utf-8") as f:
+            calib_data = json.load(f)
+
+    placebo_json = repo_root / "outputs/v3/region_comparison/real_residual_placebo.json"
+    placebo_data = {}
+    if placebo_json.exists():
+        with open(placebo_json, "r", encoding="utf-8") as f:
+            placebo_data = json.load(f)
 
     compiled = {
         "svg_paths": svg_paths,
@@ -199,6 +211,8 @@ def build_dashboard_data(repo_root: Path = REPO_ROOT) -> dict:
         "ratio_trends": ratio_trend_df.to_dict(orient="records"),
         "dry_season_drawdowns": drawdown_df.to_dict(orient="records"),
         "pairwise_differences": pairwise_data,
+        "pairwise_calibration": calib_data,
+        "real_residual_placebo": placebo_data,
     }
     return compiled
 

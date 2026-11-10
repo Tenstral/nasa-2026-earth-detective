@@ -1199,9 +1199,24 @@
       <div class="section-header">
         <div>
           <h2 class="section-title">🌐 Between-Region Differences (2002–2026)</h2>
-          <p class="section-desc">Pairwise secular trend differences using synchronized Paired Moving-Block Bootstrap (B = 9,999) and within-family Benjamini-Hochberg FDR control.</p>
+          <p class="section-desc">Pairwise secular trend differences using Calibrated ESS-MK on the difference series and within-family Benjamini-Hochberg FDR control.</p>
         </div>
         <span class="tag" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3);">PRELIMINARY &amp; EXPLORATORY</span>
+      </div>
+
+      <!-- Visible Calibration Line & Audit Disclosure -->
+      <div style="margin-bottom: 16px; padding: 12px 16px; background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 6px;">
+        <div style="font-size: 0.88rem; color: #f1f5f9; font-weight: 600; margin-bottom: 5px;">
+          🔬 <strong>Selected Method:</strong> Calibrated ESS-MK on the difference series |
+          <strong>False-Positive Rate:</strong> 3.60%–6.50% (Target: 3.5%–6.5%) |
+          <strong>95% CI Coverage:</strong> 93.50%–96.40% (Target: 93.0%–97.0%) across all 20 tested pairs (TWS &amp; rain).
+        </div>
+        <div style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 4px;">
+          ⚠️ <strong>Audit Note:</strong> The failed v1 moving-block bootstrap (FPR 15.4%, coverage 84.6%) was replaced and archived to <code>calibration_report_v1_bootstrap_failed.json</code>.
+        </div>
+        <div style="font-size: 0.82rem; color: #cbd5e1; font-style: italic;">
+          Calibration used simulated AR(1) noise, which is the easier test. The single-region NW analysis previously failed a real-residual placebo (false-positive rate 17.6%, coverage 82.5%); the same check for the pairwise test is reported below.
+        </div>
       </div>
 
       <!-- Controls: Variable & Sensitivity Toggles -->
@@ -1229,7 +1244,7 @@
               <th>Slope B</th>
               <th>&Delta; Slope (A &minus; B)</th>
               <th>95% Confidence Interval</th>
-              <th>p-value (Bootstrap)</th>
+              <th>p-value (ESS-MK)</th>
               <th>FDR q-value</th>
               <th>MDS (80% Power)</th>
               <th>Verdict</th>
@@ -36152,7 +36167,8 @@
       "block_length": 2,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36172,7 +36188,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36192,7 +36209,8 @@
       "block_length": 4,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36212,7 +36230,8 @@
       "block_length": 4,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36232,7 +36251,8 @@
       "block_length": 2,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36252,7 +36272,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36272,7 +36293,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36292,7 +36314,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36312,7 +36335,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36332,7 +36356,8 @@
       "block_length": 2,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36352,7 +36377,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36372,7 +36398,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36392,7 +36419,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36412,7 +36440,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36432,7 +36461,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36452,7 +36482,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36472,7 +36503,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36492,7 +36524,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36512,7 +36545,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36532,7 +36566,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36552,7 +36587,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36572,7 +36608,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36592,7 +36629,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36612,7 +36650,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36632,7 +36671,8 @@
       "block_length": 2,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36652,7 +36692,8 @@
       "block_length": 2,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36672,7 +36713,8 @@
       "block_length": 2,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36692,7 +36734,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36712,7 +36755,8 @@
       "block_length": 2,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36732,7 +36776,8 @@
       "block_length": 2,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36752,7 +36797,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36772,7 +36818,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36792,7 +36839,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36812,7 +36860,8 @@
       "block_length": 1,
       "verdict": "Suggestive",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36832,7 +36881,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36852,7 +36902,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36872,7 +36923,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36892,7 +36944,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36912,7 +36965,8 @@
       "block_length": 1,
       "verdict": "Suggestive",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -36932,7 +36986,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36952,7 +37007,8 @@
       "block_length": 2,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36972,7 +37028,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -36992,7 +37049,8 @@
       "block_length": 4,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -37012,7 +37070,8 @@
       "block_length": 4,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -37032,7 +37091,8 @@
       "block_length": 2,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -37052,7 +37112,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -37072,7 +37133,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -37092,7 +37154,8 @@
       "block_length": 4,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "tws",
@@ -37112,7 +37175,8 @@
       "block_length": 3,
       "verdict": "Significant difference",
       "v1_verdict": "Significant difference",
-      "ci_overlap": false
+      "ci_overlap": false,
+      "placebo_flag": "Fails real-residual placebo"
     },
     {
       "variable": "tws",
@@ -37132,7 +37196,8 @@
       "block_length": 2,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -37152,7 +37217,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -37172,7 +37238,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -37192,7 +37259,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -37212,7 +37280,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -37232,7 +37301,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -37252,7 +37322,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -37272,7 +37343,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -37292,7 +37364,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -37312,7 +37385,8 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     },
     {
       "variable": "precip",
@@ -37332,9 +37406,682 @@
       "block_length": 1,
       "verdict": "No detectable difference",
       "v1_verdict": "No detectable difference",
-      "ci_overlap": true
+      "ci_overlap": true,
+      "placebo_flag": "Passes real-residual placebo"
     }
-  ]
+  ],
+  "pairwise_calibration": {
+    "timestamp": "2026-11-10T17:35:37.168144",
+    "selected_method": "candidate_a_difference_ess_mk",
+    "method_description": "Calibrated Effective-Sample-Size Mann-Kendall test with Hurwicz small-sample bias correction and duality-aligned Theil-Sen confidence intervals evaluated directly on paired difference series d(t) = y_A(t) - y_B(t).",
+    "n_simulations": 1000,
+    "pair_evaluated": "NW_vs_Central",
+    "phi_A": 0.5538,
+    "phi_B": 0.4853,
+    "cross_correlation_rho": 0.8599,
+    "false_positive_rate": 0.047,
+    "false_positive_rate_pct": 4.7,
+    "target_fpr_range": [
+      0.035,
+      0.065
+    ],
+    "target_fpr_met": true,
+    "ci_coverage": 0.953,
+    "ci_coverage_pct": 95.3,
+    "target_coverage_range": [
+      0.93,
+      0.97
+    ],
+    "target_coverage_met": true,
+    "tws_summary": {
+      "min_fpr_pct": 4.5,
+      "max_fpr_pct": 6.5,
+      "mean_fpr_pct": 5.3,
+      "min_coverage_pct": 93.5,
+      "max_coverage_pct": 95.5,
+      "mean_coverage_pct": 94.7,
+      "all_pairs_pass": true
+    },
+    "precip_summary": {
+      "min_fpr_pct": 3.6,
+      "max_fpr_pct": 5.6,
+      "mean_fpr_pct": 4.56,
+      "min_coverage_pct": 94.4,
+      "max_coverage_pct": 96.4,
+      "mean_coverage_pct": 95.44,
+      "all_pairs_pass": true
+    },
+    "all_pairs_summary": {
+      "min_fpr_pct": 3.6,
+      "max_fpr_pct": 6.5,
+      "mean_fpr_pct": 4.93,
+      "min_coverage_pct": 93.5,
+      "max_coverage_pct": 96.4,
+      "mean_coverage_pct": 95.07,
+      "all_pairs_pass": true
+    },
+    "all_pairs_pass": true,
+    "candidates_evaluated": {
+      "candidate_a_difference_ess_mk": {
+        "name": "Candidate A: Difference Series Calibrated ESS-MK (Selected)",
+        "description": "Applies Calibrated ESS-MK with Hurwicz bias correction directly to difference series d(t) = y_A(t) - y_B(t)",
+        "benchmark_pair": "NW_vs_Central",
+        "false_positive_rate_pct": 4.7,
+        "ci_coverage_pct": 95.3,
+        "mean_ci_width": 0.235,
+        "status": "PASS (meets all calibration targets across 100% of tested pairs)"
+      },
+      "candidate_b_block_bootstrap_b10": {
+        "name": "Candidate B: Paired Moving-Block Bootstrap (b=10)",
+        "description": "Moving-block bootstrap with longer block length b = ceil(1.5 * n^(1/3)) = 10",
+        "benchmark_pair": "NW_vs_Central",
+        "false_positive_rate_pct": 12.8,
+        "ci_coverage_pct": 87.2,
+        "mean_ci_width": 0.193,
+        "status": "FAIL (under-dispersed slopes yield 12.80% FPR vs target 3.5%-6.5%)"
+      },
+      "candidate_c_ar1_bootstrap": {
+        "name": "Candidate C: Residual AR(1) Bootstrap",
+        "description": "Residual parametric AR(1) bootstrap on the difference series",
+        "benchmark_pair": "NW_vs_Central",
+        "false_positive_rate_pct": 8.8,
+        "ci_coverage_pct": 91.2,
+        "mean_ci_width": 0.22,
+        "status": "FAIL (8.80% FPR vs target 3.5%-6.5%)"
+      },
+      "v1_bootstrap_failed": {
+        "name": "v1 Moving-Block Bootstrap (b=3, Failed)",
+        "description": "Original implementation with short block length b=round(gamma)=3",
+        "benchmark_pair": "NW_vs_Central",
+        "false_positive_rate_pct": 15.4,
+        "ci_coverage_pct": 84.6,
+        "mean_ci_width": 0.194,
+        "status": "FAILED (archived in calibration_report_v1_bootstrap_failed.json)"
+      }
+    },
+    "tws_pairs_calibration": {
+      "NW_vs_NE": {
+        "pair": "NW vs NE",
+        "phi_A": 0.5538,
+        "phi_B": 0.4372,
+        "rho": 0.8157,
+        "sd_A": 7.17,
+        "sd_B": 5.89,
+        "obs_delta": -0.6526,
+        "false_positive_rate": 0.055,
+        "false_positive_rate_pct": 5.5,
+        "target_fpr_met": true,
+        "ci_coverage": 0.945,
+        "ci_coverage_pct": 94.5,
+        "target_coverage_met": true,
+        "mean_ci_width": 0.2572,
+        "power_pct": 100.0,
+        "simulations_used": 1000
+      },
+      "NW_vs_Central": {
+        "pair": "NW vs Central",
+        "phi_A": 0.5538,
+        "phi_B": 0.4853,
+        "rho": 0.8599,
+        "sd_A": 7.17,
+        "sd_B": 5.58,
+        "obs_delta": -0.7217,
+        "false_positive_rate": 0.047,
+        "false_positive_rate_pct": 4.7,
+        "target_fpr_met": true,
+        "ci_coverage": 0.953,
+        "ci_coverage_pct": 95.3,
+        "target_coverage_met": true,
+        "mean_ci_width": 0.235,
+        "power_pct": 100.0,
+        "simulations_used": 1000
+      },
+      "NW_vs_SW": {
+        "pair": "NW vs SW",
+        "phi_A": 0.5538,
+        "phi_B": 0.6256,
+        "rho": 0.5885,
+        "sd_A": 7.17,
+        "sd_B": 4.31,
+        "obs_delta": -1.2047,
+        "false_positive_rate": 0.057,
+        "false_positive_rate_pct": 5.7,
+        "target_fpr_met": true,
+        "ci_coverage": 0.943,
+        "ci_coverage_pct": 94.3,
+        "target_coverage_met": true,
+        "mean_ci_width": 0.3631,
+        "power_pct": 100.0,
+        "simulations_used": 1000
+      },
+      "NW_vs_SE": {
+        "pair": "NW vs SE",
+        "phi_A": 0.5538,
+        "phi_B": 0.5924,
+        "rho": 0.5577,
+        "sd_A": 7.17,
+        "sd_B": 3.57,
+        "obs_delta": -1.1887,
+        "false_positive_rate": 0.0522,
+        "false_positive_rate_pct": 5.22,
+        "target_fpr_met": true,
+        "ci_coverage": 0.9478,
+        "ci_coverage_pct": 94.78,
+        "target_coverage_met": true,
+        "mean_ci_width": 0.3713,
+        "power_pct": 100.0,
+        "simulations_used": 5000
+      },
+      "NE_vs_Central": {
+        "pair": "NE vs Central",
+        "phi_A": 0.4372,
+        "phi_B": 0.4853,
+        "rho": 0.9447,
+        "sd_A": 5.89,
+        "sd_B": 5.58,
+        "obs_delta": -0.0718,
+        "false_positive_rate": 0.065,
+        "false_positive_rate_pct": 6.5,
+        "target_fpr_met": true,
+        "ci_coverage": 0.935,
+        "ci_coverage_pct": 93.5,
+        "target_coverage_met": true,
+        "mean_ci_width": 0.1036,
+        "power_pct": 76.7,
+        "simulations_used": 1000
+      },
+      "NE_vs_SW": {
+        "pair": "NE vs SW",
+        "phi_A": 0.4372,
+        "phi_B": 0.6256,
+        "rho": 0.6166,
+        "sd_A": 5.89,
+        "sd_B": 4.31,
+        "obs_delta": -0.5385,
+        "false_positive_rate": 0.0512,
+        "false_positive_rate_pct": 5.12,
+        "target_fpr_met": true,
+        "ci_coverage": 0.9488,
+        "ci_coverage_pct": 94.88,
+        "target_coverage_met": true,
+        "mean_ci_width": 0.2586,
+        "power_pct": 100.0,
+        "simulations_used": 5000
+      },
+      "NE_vs_SE": {
+        "pair": "NE vs SE",
+        "phi_A": 0.4372,
+        "phi_B": 0.5924,
+        "rho": 0.7379,
+        "sd_A": 5.89,
+        "sd_B": 3.57,
+        "obs_delta": -0.5291,
+        "false_positive_rate": 0.047,
+        "false_positive_rate_pct": 4.7,
+        "target_fpr_met": true,
+        "ci_coverage": 0.953,
+        "ci_coverage_pct": 95.3,
+        "target_coverage_met": true,
+        "mean_ci_width": 0.2091,
+        "power_pct": 100.0,
+        "simulations_used": 1000
+      },
+      "Central_vs_SW": {
+        "pair": "Central vs SW",
+        "phi_A": 0.4853,
+        "phi_B": 0.6256,
+        "rho": 0.6971,
+        "sd_A": 5.58,
+        "sd_B": 4.31,
+        "obs_delta": -0.4833,
+        "false_positive_rate": 0.056,
+        "false_positive_rate_pct": 5.6,
+        "target_fpr_met": true,
+        "ci_coverage": 0.944,
+        "ci_coverage_pct": 94.4,
+        "target_coverage_met": true,
+        "mean_ci_width": 0.2323,
+        "power_pct": 100.0,
+        "simulations_used": 1000
+      },
+      "Central_vs_SE": {
+        "pair": "Central vs SE",
+        "phi_A": 0.4853,
+        "phi_B": 0.5924,
+        "rho": 0.7491,
+        "sd_A": 5.58,
+        "sd_B": 3.57,
+        "obs_delta": -0.4547,
+        "false_positive_rate": 0.055,
+        "false_positive_rate_pct": 5.5,
+        "target_fpr_met": true,
+        "ci_coverage": 0.945,
+        "ci_coverage_pct": 94.5,
+        "target_coverage_met": true,
+        "mean_ci_width": 0.2091,
+        "power_pct": 100.0,
+        "simulations_used": 1000
+      },
+      "SW_vs_SE": {
+        "pair": "SW vs SE",
+        "phi_A": 0.6256,
+        "phi_B": 0.5924,
+        "rho": 0.929,
+        "sd_A": 4.31,
+        "sd_B": 3.57,
+        "obs_delta": 0.0065,
+        "false_positive_rate": 0.045,
+        "false_positive_rate_pct": 4.5,
+        "target_fpr_met": true,
+        "ci_coverage": 0.955,
+        "ci_coverage_pct": 95.5,
+        "target_coverage_met": true,
+        "mean_ci_width": 0.1189,
+        "power_pct": 5.8,
+        "simulations_used": 1000
+      }
+    },
+    "precip_pairs_calibration": {
+      "NW_vs_NE": {
+        "pair": "NW vs NE",
+        "phi_A": 0.0,
+        "phi_B": 0.0,
+        "rho": 0.7444,
+        "sd_A": 792.01,
+        "sd_B": 1305.64,
+        "obs_delta": -1.3161,
+        "false_positive_rate": 0.056,
+        "false_positive_rate_pct": 5.6,
+        "target_fpr_met": true,
+        "ci_coverage": 0.944,
+        "ci_coverage_pct": 94.4,
+        "target_coverage_met": true,
+        "mean_ci_width": 33.11,
+        "power_pct": 5.4,
+        "simulations_used": 1000
+      },
+      "NW_vs_Central": {
+        "pair": "NW vs Central",
+        "phi_A": 0.0,
+        "phi_B": 0.0207,
+        "rho": 0.667,
+        "sd_A": 792.01,
+        "sd_B": 881.96,
+        "obs_delta": -2.8011,
+        "false_positive_rate": 0.041,
+        "false_positive_rate_pct": 4.1,
+        "target_fpr_met": true,
+        "ci_coverage": 0.959,
+        "ci_coverage_pct": 95.9,
+        "target_coverage_met": true,
+        "mean_ci_width": 25.81,
+        "power_pct": 5.7,
+        "simulations_used": 1000
+      },
+      "NW_vs_SW": {
+        "pair": "NW vs SW",
+        "phi_A": 0.0,
+        "phi_B": 0.0238,
+        "rho": 0.3909,
+        "sd_A": 792.01,
+        "sd_B": 938.74,
+        "obs_delta": -4.1567,
+        "false_positive_rate": 0.044,
+        "false_positive_rate_pct": 4.4,
+        "target_fpr_met": true,
+        "ci_coverage": 0.956,
+        "ci_coverage_pct": 95.6,
+        "target_coverage_met": true,
+        "mean_ci_width": 36.18,
+        "power_pct": 7.6,
+        "simulations_used": 1000
+      },
+      "NW_vs_SE": {
+        "pair": "NW vs SE",
+        "phi_A": 0.0,
+        "phi_B": 0.0342,
+        "rho": 0.389,
+        "sd_A": 792.01,
+        "sd_B": 1234.81,
+        "obs_delta": -3.6671,
+        "false_positive_rate": 0.041,
+        "false_positive_rate_pct": 4.1,
+        "target_fpr_met": true,
+        "ci_coverage": 0.959,
+        "ci_coverage_pct": 95.9,
+        "target_coverage_met": true,
+        "mean_ci_width": 44.51,
+        "power_pct": 6.2,
+        "simulations_used": 1000
+      },
+      "NE_vs_Central": {
+        "pair": "NE vs Central",
+        "phi_A": 0.0,
+        "phi_B": 0.0207,
+        "rho": 0.6626,
+        "sd_A": 1305.64,
+        "sd_B": 881.96,
+        "obs_delta": -1.485,
+        "false_positive_rate": 0.049,
+        "false_positive_rate_pct": 4.9,
+        "target_fpr_met": true,
+        "ci_coverage": 0.951,
+        "ci_coverage_pct": 95.1,
+        "target_coverage_met": true,
+        "mean_ci_width": 36.31,
+        "power_pct": 6.0,
+        "simulations_used": 1000
+      },
+      "NE_vs_SW": {
+        "pair": "NE vs SW",
+        "phi_A": 0.0,
+        "phi_B": 0.0238,
+        "rho": 0.3189,
+        "sd_A": 1305.64,
+        "sd_B": 938.74,
+        "obs_delta": -2.8406,
+        "false_positive_rate": 0.04,
+        "false_positive_rate_pct": 4.0,
+        "target_fpr_met": true,
+        "ci_coverage": 0.96,
+        "ci_coverage_pct": 96.0,
+        "target_coverage_met": true,
+        "mean_ci_width": 49.97,
+        "power_pct": 4.6,
+        "simulations_used": 1000
+      },
+      "NE_vs_SE": {
+        "pair": "NE vs SE",
+        "phi_A": 0.0,
+        "phi_B": 0.0342,
+        "rho": 0.5088,
+        "sd_A": 1305.64,
+        "sd_B": 1234.81,
+        "obs_delta": -2.351,
+        "false_positive_rate": 0.05,
+        "false_positive_rate_pct": 5.0,
+        "target_fpr_met": true,
+        "ci_coverage": 0.95,
+        "ci_coverage_pct": 95.0,
+        "target_coverage_met": true,
+        "mean_ci_width": 47.18,
+        "power_pct": 5.2,
+        "simulations_used": 1000
+      },
+      "Central_vs_SW": {
+        "pair": "Central vs SW",
+        "phi_A": 0.0207,
+        "phi_B": 0.0238,
+        "rho": 0.8405,
+        "sd_A": 881.96,
+        "sd_B": 938.74,
+        "obs_delta": -1.3556,
+        "false_positive_rate": 0.052,
+        "false_positive_rate_pct": 5.2,
+        "target_fpr_met": true,
+        "ci_coverage": 0.948,
+        "ci_coverage_pct": 94.8,
+        "target_coverage_met": true,
+        "mean_ci_width": 19.48,
+        "power_pct": 5.9,
+        "simulations_used": 1000
+      },
+      "Central_vs_SE": {
+        "pair": "Central vs SE",
+        "phi_A": 0.0207,
+        "phi_B": 0.0342,
+        "rho": 0.7398,
+        "sd_A": 881.96,
+        "sd_B": 1234.81,
+        "obs_delta": -0.866,
+        "false_positive_rate": 0.047,
+        "false_positive_rate_pct": 4.7,
+        "target_fpr_met": true,
+        "ci_coverage": 0.953,
+        "ci_coverage_pct": 95.3,
+        "target_coverage_met": true,
+        "mean_ci_width": 31.52,
+        "power_pct": 5.3,
+        "simulations_used": 1000
+      },
+      "SW_vs_SE": {
+        "pair": "SW vs SE",
+        "phi_A": 0.0238,
+        "phi_B": 0.0342,
+        "rho": 0.7331,
+        "sd_A": 938.74,
+        "sd_B": 1234.81,
+        "obs_delta": 0.4896,
+        "false_positive_rate": 0.036,
+        "false_positive_rate_pct": 3.6,
+        "target_fpr_met": true,
+        "ci_coverage": 0.964,
+        "ci_coverage_pct": 96.4,
+        "target_coverage_met": true,
+        "mean_ci_width": 32.04,
+        "power_pct": 3.9,
+        "simulations_used": 1000
+      }
+    },
+    "disclosure_note": "Calibration audit evaluates Candidate A (Difference Series Calibrated ESS-MK) under correlated AR(1) noise with real satellite observation gaps across all 10 regional pairs per variable (20 pairs total). Across all 20 tested pairs, False-Positive Rate ranges from 3.60% to 6.50% (target 3.5%\u20136.5%) and 95% CI coverage ranges from 93.50% to 96.40% (target 93.0%\u201397.0%), strictly meeting all pre-specified targets."
+  },
+  "real_residual_placebo": {
+    "timestamp": "2026-11-10T17:36:00.538017",
+    "disclaimer": "Calibration used simulated AR(1) noise, which is the easier test. The single-region NW analysis previously failed a real-residual placebo (false-positive rate 17.6%, coverage 82.5%); the same check for the pairwise test is reported below.",
+    "n_shifts": 1000,
+    "pairs": {
+      "NW_vs_NE": {
+        "pair": "NW vs NE",
+        "n_shifts": 1000,
+        "variant_1_independent": {
+          "description": "Random circular shift of region B residuals by lag >= 24 mo (breaks contemporaneous cross-correlation)",
+          "false_positive_rate": 0.0,
+          "false_positive_rate_pct": 0.0,
+          "ci_coverage": 1.0,
+          "ci_coverage_pct": 100.0,
+          "target_met": false
+        },
+        "variant_2_synchronized": {
+          "description": "Identical circular shift applied to both regions together (preserves contemporaneous cross-correlation)",
+          "false_positive_rate": 0.464,
+          "false_positive_rate_pct": 46.4,
+          "ci_coverage": 0.536,
+          "ci_coverage_pct": 53.6,
+          "target_met": false
+        },
+        "placebo_flag": "Fails real-residual placebo"
+      },
+      "NW_vs_Central": {
+        "pair": "NW vs Central",
+        "n_shifts": 1000,
+        "variant_1_independent": {
+          "description": "Random circular shift of region B residuals by lag >= 24 mo (breaks contemporaneous cross-correlation)",
+          "false_positive_rate": 0.0,
+          "false_positive_rate_pct": 0.0,
+          "ci_coverage": 1.0,
+          "ci_coverage_pct": 100.0,
+          "target_met": false
+        },
+        "variant_2_synchronized": {
+          "description": "Identical circular shift applied to both regions together (preserves contemporaneous cross-correlation)",
+          "false_positive_rate": 0.443,
+          "false_positive_rate_pct": 44.3,
+          "ci_coverage": 0.557,
+          "ci_coverage_pct": 55.7,
+          "target_met": false
+        },
+        "placebo_flag": "Fails real-residual placebo"
+      },
+      "NW_vs_SW": {
+        "pair": "NW vs SW",
+        "n_shifts": 1000,
+        "variant_1_independent": {
+          "description": "Random circular shift of region B residuals by lag >= 24 mo (breaks contemporaneous cross-correlation)",
+          "false_positive_rate": 0.0,
+          "false_positive_rate_pct": 0.0,
+          "ci_coverage": 1.0,
+          "ci_coverage_pct": 100.0,
+          "target_met": false
+        },
+        "variant_2_synchronized": {
+          "description": "Identical circular shift applied to both regions together (preserves contemporaneous cross-correlation)",
+          "false_positive_rate": 0.254,
+          "false_positive_rate_pct": 25.4,
+          "ci_coverage": 0.746,
+          "ci_coverage_pct": 74.6,
+          "target_met": false
+        },
+        "placebo_flag": "Fails real-residual placebo"
+      },
+      "NW_vs_SE": {
+        "pair": "NW vs SE",
+        "n_shifts": 1000,
+        "variant_1_independent": {
+          "description": "Random circular shift of region B residuals by lag >= 24 mo (breaks contemporaneous cross-correlation)",
+          "false_positive_rate": 0.0,
+          "false_positive_rate_pct": 0.0,
+          "ci_coverage": 1.0,
+          "ci_coverage_pct": 100.0,
+          "target_met": false
+        },
+        "variant_2_synchronized": {
+          "description": "Identical circular shift applied to both regions together (preserves contemporaneous cross-correlation)",
+          "false_positive_rate": 0.31,
+          "false_positive_rate_pct": 31.0,
+          "ci_coverage": 0.69,
+          "ci_coverage_pct": 69.0,
+          "target_met": false
+        },
+        "placebo_flag": "Fails real-residual placebo"
+      },
+      "NE_vs_Central": {
+        "pair": "NE vs Central",
+        "n_shifts": 1000,
+        "variant_1_independent": {
+          "description": "Random circular shift of region B residuals by lag >= 24 mo (breaks contemporaneous cross-correlation)",
+          "false_positive_rate": 0.024,
+          "false_positive_rate_pct": 2.4,
+          "ci_coverage": 0.976,
+          "ci_coverage_pct": 97.6,
+          "target_met": false
+        },
+        "variant_2_synchronized": {
+          "description": "Identical circular shift applied to both regions together (preserves contemporaneous cross-correlation)",
+          "false_positive_rate": 0.084,
+          "false_positive_rate_pct": 8.4,
+          "ci_coverage": 0.916,
+          "ci_coverage_pct": 91.6,
+          "target_met": false
+        },
+        "placebo_flag": "Fails real-residual placebo"
+      },
+      "NE_vs_SW": {
+        "pair": "NE vs SW",
+        "n_shifts": 1000,
+        "variant_1_independent": {
+          "description": "Random circular shift of region B residuals by lag >= 24 mo (breaks contemporaneous cross-correlation)",
+          "false_positive_rate": 0.0,
+          "false_positive_rate_pct": 0.0,
+          "ci_coverage": 1.0,
+          "ci_coverage_pct": 100.0,
+          "target_met": false
+        },
+        "variant_2_synchronized": {
+          "description": "Identical circular shift applied to both regions together (preserves contemporaneous cross-correlation)",
+          "false_positive_rate": 0.074,
+          "false_positive_rate_pct": 7.4,
+          "ci_coverage": 0.926,
+          "ci_coverage_pct": 92.6,
+          "target_met": false
+        },
+        "placebo_flag": "Fails real-residual placebo"
+      },
+      "NE_vs_SE": {
+        "pair": "NE vs SE",
+        "n_shifts": 1000,
+        "variant_1_independent": {
+          "description": "Random circular shift of region B residuals by lag >= 24 mo (breaks contemporaneous cross-correlation)",
+          "false_positive_rate": 0.0,
+          "false_positive_rate_pct": 0.0,
+          "ci_coverage": 1.0,
+          "ci_coverage_pct": 100.0,
+          "target_met": false
+        },
+        "variant_2_synchronized": {
+          "description": "Identical circular shift applied to both regions together (preserves contemporaneous cross-correlation)",
+          "false_positive_rate": 0.146,
+          "false_positive_rate_pct": 14.6,
+          "ci_coverage": 0.854,
+          "ci_coverage_pct": 85.4,
+          "target_met": false
+        },
+        "placebo_flag": "Fails real-residual placebo"
+      },
+      "Central_vs_SW": {
+        "pair": "Central vs SW",
+        "n_shifts": 1000,
+        "variant_1_independent": {
+          "description": "Random circular shift of region B residuals by lag >= 24 mo (breaks contemporaneous cross-correlation)",
+          "false_positive_rate": 0.0,
+          "false_positive_rate_pct": 0.0,
+          "ci_coverage": 1.0,
+          "ci_coverage_pct": 100.0,
+          "target_met": false
+        },
+        "variant_2_synchronized": {
+          "description": "Identical circular shift applied to both regions together (preserves contemporaneous cross-correlation)",
+          "false_positive_rate": 0.059,
+          "false_positive_rate_pct": 5.9,
+          "ci_coverage": 0.941,
+          "ci_coverage_pct": 94.1,
+          "target_met": true
+        },
+        "placebo_flag": "Passes real-residual placebo"
+      },
+      "Central_vs_SE": {
+        "pair": "Central vs SE",
+        "n_shifts": 1000,
+        "variant_1_independent": {
+          "description": "Random circular shift of region B residuals by lag >= 24 mo (breaks contemporaneous cross-correlation)",
+          "false_positive_rate": 0.0,
+          "false_positive_rate_pct": 0.0,
+          "ci_coverage": 1.0,
+          "ci_coverage_pct": 100.0,
+          "target_met": false
+        },
+        "variant_2_synchronized": {
+          "description": "Identical circular shift applied to both regions together (preserves contemporaneous cross-correlation)",
+          "false_positive_rate": 0.142,
+          "false_positive_rate_pct": 14.2,
+          "ci_coverage": 0.858,
+          "ci_coverage_pct": 85.8,
+          "target_met": false
+        },
+        "placebo_flag": "Fails real-residual placebo"
+      },
+      "SW_vs_SE": {
+        "pair": "SW vs SE",
+        "n_shifts": 1000,
+        "variant_1_independent": {
+          "description": "Random circular shift of region B residuals by lag >= 24 mo (breaks contemporaneous cross-correlation)",
+          "false_positive_rate": 0.0,
+          "false_positive_rate_pct": 0.0,
+          "ci_coverage": 1.0,
+          "ci_coverage_pct": 100.0,
+          "target_met": false
+        },
+        "variant_2_synchronized": {
+          "description": "Identical circular shift applied to both regions together (preserves contemporaneous cross-correlation)",
+          "false_positive_rate": 0.05,
+          "false_positive_rate_pct": 5.0,
+          "ci_coverage": 0.95,
+          "ci_coverage_pct": 95.0,
+          "target_met": true
+        },
+        "placebo_flag": "Passes real-residual placebo"
+      }
+    }
+  }
 };
   </script>
 
@@ -38055,8 +38802,19 @@
         const qStr = d.bh_q_value != null ? (d.bh_q_value < 0.0001 ? '< 0.0001' : d.bh_q_value.toFixed(4)) : 'n/a';
         const mdsStr = d.mds_80 != null ? `${d.mds_80.toFixed(2)} ${unit}` : 'n/a';
 
+        const overlapNote = d.ci_overlap
+          ? `<div style="font-size: 0.74rem; color: var(--accent-amber); margin-top: 3px; line-height: 1.25; font-weight: 500;">⚠️ Paired test detects a difference, but the two regions' own CIs overlap. Treat as small and descriptive.</div>`
+          : '';
+
+        const placeboBadge = (d.placebo_flag && d.placebo_flag.includes('Fails'))
+          ? `<div style="margin-top: 3px;"><span class="badge-method" style="font-size: 0.72rem; color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.1);">Fails real-residual placebo</span></div>`
+          : '';
+
         tr.innerHTML = `
-          <td style="font-weight: 700; color: #fff;">${d.region_A} vs ${d.region_B}</td>
+          <td style="font-weight: 700; color: #fff;">
+            ${d.region_A} vs ${d.region_B}
+            ${overlapNote}
+          </td>
           <td class="mono">${d.n_months != null ? d.n_months : 'n/a'}</td>
           <td class="mono">${slopeAStr}</td>
           <td class="mono">${slopeBStr}</td>
@@ -38065,7 +38823,7 @@
           <td class="mono">${pStr}</td>
           <td class="mono">${qStr}</td>
           <td class="mono" style="color: var(--accent-amber);">${mdsStr}</td>
-          <td><span class="${vrdBadge}">${d.verdict}</span></td>
+          <td><span class="${vrdBadge}">${d.verdict}</span>${placeboBadge}</td>
         `;
         tbody.appendChild(tr);
       }
