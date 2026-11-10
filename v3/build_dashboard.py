@@ -25,6 +25,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import shapely.geometry
+import shapely.ops
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -45,14 +46,51 @@ def build_dashboard_data(repo_root: Path = REPO_ROOT) -> dict:
         y = (max_lat - lat) / (max_lat - min_lat) * height
         return round(x, 1), round(y, 1)
 
+    # Step 1: Unify each division (fixes inner enclaves such as Dhaka North/Mirpur cutout hole)
+    div_geoms = {
+        feat["properties"]["name"]: shapely.ops.unary_union(shapely.geometry.shape(feat["geometry"]))
+        for feat in gj["features"]
+    }
+
+    # Step 2: Seamlessly close internal river voids (e.g. Jamuna, Padma, Meghna unassigned river channels)
+    country_union = shapely.ops.unary_union(list(div_geoms.values()))
+    holes = []
+    if country_union.geom_type == "MultiPolygon":
+        for p in country_union.geoms:
+            for ring in p.interiors:
+                holes.append(shapely.geometry.Polygon(ring))
+    elif country_union.geom_type == "Polygon":
+        for ring in country_union.interiors:
+            holes.append(shapely.geometry.Polygon(ring))
+
+    holes.sort(key=lambda x: x.area, reverse=True)
+
+    for h in holes:
+        hb = h.buffer(0.003)
+        best_div = None
+        best_area = -1
+        for name, g in div_geoms.items():
+            inter = hb.intersection(g)
+            if inter.area > best_area:
+                best_area = inter.area
+                best_div = name
+        if best_div:
+            div_geoms[best_div] = shapely.ops.unary_union([div_geoms[best_div], h])
+
+    # Step 3: Remove tiny detached micro-slivers in inland divisions (< 0.0005 deg²)
+    for name in ["Rangpur", "Dhaka", "Rajshahi", "Mymensingh", "Sylhet"]:
+        g = div_geoms[name]
+        if g.geom_type == "MultiPolygon":
+            parts = [p for p in g.geoms if p.area >= 0.0005]
+            if parts:
+                div_geoms[name] = shapely.geometry.MultiPolygon(parts) if len(parts) > 1 else parts[0]
+
+    # Step 4: Simplify geometries and generate SVG paths & label centers
     svg_paths = {}
     div_centers = {}
 
-    for feat in gj["features"]:
-        name = feat["properties"]["name"]
-        raw_geom = shapely.geometry.shape(feat["geometry"])
+    for name, raw_geom in div_geoms.items():
         geom = raw_geom.simplify(0.012, preserve_topology=True)
-
         c = raw_geom.centroid
         cx, cy = project(c.x, c.y)
         div_centers[name] = {"x": cx, "y": cy}
