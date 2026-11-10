@@ -1,7 +1,7 @@
 # Exploratory Dry-Season Drawdown Trends & Cropland Overlay (2002–2026)
 
 **Status:** PRELIMINARY & EXPLORATORY ONLY
-**Generated:** 2026-11-10 07:42:22
+**Generated:** 2026-11-10 11:04:19
 **Methodology:** Calibrated ESS-MK Theil-Sen regression with duality-aligned 95% CIs and descriptive overlay.
 
 ---

@@ -233,13 +233,12 @@ def run_drawdown_analysis():
         q = round(float(main_q_vals[i]), 5)
         r["exploratory_fdr_q"] = q
         ci_excludes_zero = (r["drawdown_ci_low_cm_yr"] > 0 or r["drawdown_ci_high_cm_yr"] < 0)
-        if r["p_value"] < 0.05 and ci_excludes_zero:
-            if q < 0.05:
-                r["verdict"] = "Exploratory: trend detected"
-                r["verdict_detail"] = f"Exploratory trend detected (p={r['p_value']:.4f}, q={q:.4f}); CI excludes zero"
-            else:
-                r["verdict"] = "No detectable trend"
-                r["verdict_detail"] = f"Suggestive slope ({r['drawdown_slope_cm_yr']:+.3f} cm/yr, p={r['p_value']:.4f}), but fails exploratory FDR control (q={q:.4f} >= 0.05)"
+        if q < 0.05 and ci_excludes_zero:
+            r["verdict"] = "Exploratory: trend detected"
+            r["verdict_detail"] = f"Exploratory trend detected (p={r['p_value']:.4f}, q={q:.4f}); CI excludes zero"
+        elif r["p_value"] < 0.05:
+            r["verdict"] = "Suggestive"
+            r["verdict_detail"] = f"Suggestive slope ({r['drawdown_slope_cm_yr']:+.3f} cm/yr, p={r['p_value']:.4f}), but fails exploratory FDR control (q={q:.4f} >= 0.05)"
         else:
             r["verdict"] = "No detectable trend"
             ci_note = "CI is wide relative to slope and spans zero" if r["is_ci_wide"] else "slope is below detection threshold"
@@ -299,13 +298,12 @@ def run_drawdown_analysis():
         q = round(float(sens_q_vals[i]), 5)
         r["exploratory_fdr_q"] = q
         ci_excludes_zero = (r["drawdown_ci_low_cm_yr"] > 0 or r["drawdown_ci_high_cm_yr"] < 0)
-        if r["p_value"] < 0.05 and ci_excludes_zero:
-            if q < 0.05:
-                r["verdict"] = "Exploratory: trend detected"
-                r["verdict_detail"] = f"Exploratory trend detected (p={r['p_value']:.4f}, q={q:.4f}); CI excludes zero"
-            else:
-                r["verdict"] = "No detectable trend"
-                r["verdict_detail"] = f"Suggestive slope ({r['drawdown_slope_cm_yr']:+.3f} cm/yr, p={r['p_value']:.4f}), but fails exploratory FDR control (q={q:.4f} >= 0.05)"
+        if q < 0.05 and ci_excludes_zero:
+            r["verdict"] = "Exploratory: trend detected"
+            r["verdict_detail"] = f"Exploratory trend detected (p={r['p_value']:.4f}, q={q:.4f}); CI excludes zero"
+        elif r["p_value"] < 0.05:
+            r["verdict"] = "Suggestive"
+            r["verdict_detail"] = f"Suggestive slope ({r['drawdown_slope_cm_yr']:+.3f} cm/yr, p={r['p_value']:.4f}), but fails exploratory FDR control (q={q:.4f} >= 0.05)"
         else:
             r["verdict"] = "No detectable trend"
             ci_note = "CI is wide relative to slope and spans zero" if r["is_ci_wide"] else "slope is below detection threshold"
