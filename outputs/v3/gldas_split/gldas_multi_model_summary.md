@@ -5,11 +5,11 @@
 **Status:** PRELIMINARY  
 **Primary Gravimetry:** CSR GRACE / GRACE-FO RL0603 Mascons (2002–2026)  
 **Models Evaluated:**
-1. **GLDAS-2.1 Noah Land Surface Model L4 monthly 0.25°** (`GLDAS_NOAH025_M` v2.1, **Independent**): $2.0	ext{ m}$ root-zone depth (4 layers: $0–10	ext{ cm}$, $10–40	ext{ cm}$, $40–100	ext{ cm}$, $100–200	ext{ cm}$) + Canopy + Snow.
+1. **GLDAS-2.1 Noah Land Surface Model L4 monthly 0.25°** (`GLDAS_NOAH025_M` v2.1, **Independent**): $2.0\text{ m}$ root-zone depth (4 layers: $0–10\text{ cm}$, $10–40\text{ cm}$, $40–100\text{ cm}$, $100–200\text{ cm}$) + Canopy + Snow.
 2. **GLDAS-2.1 Variable Infiltration Capacity (VIC) L4 monthly 1.0°** (`GLDAS_VIC10_M` v2.1, **Independent**): 3 soil moisture layers + Canopy + Snow.
 3. **GLDAS-2.2 Catchment Land Surface Model (CLSM) L4 daily 0.25°** (`GLDAS_CLSM025_DA1_D` v2.2, **Non-independent / GRACE-assimilated**): Profile soil moisture + Canopy + Snow (assimilates GRACE TWSA via EnKF; record starts 2003-02).
-- **Reference Baseline:** All models re-baselined to 2004-01 to 2009-12 (mean anomaly $\equiv 0.0	ext{ cm}$).
-- **Residual Storage Definition:** $	ext{Residual} = 	ext{TWS} - \Delta	ext{SMS} - \Delta	ext{SWE}$, strictly labeled as `groundwater + surface water + model error residual`.
+- **Reference Baseline:** All models re-baselined to 2004-01 to 2009-12 (mean anomaly $\equiv 0.0\text{ cm}$).
+- **Residual Storage Definition:** $\text{Residual} = \text{TWS} - \Delta\text{SMS} - \Delta\text{SWE}$, strictly labeled as `groundwater + surface water + model error residual`.
 - **Partitioning Principle:** Noah and VIC represent independent open-loop land surface physics. CLSM 2.2 assimilates GRACE observations directly, creating circularity if used to partition GRACE, and is therefore reported separately for diagnostic context only.
 
 ---
@@ -82,7 +82,7 @@
 Across both independent open-loop land surface models (Noah 2.1 and VIC 2.1), simulated unsaturated zone soil moisture exhibits no statistically significant secular decline in the Northwest region (Noah: +0.05 cm/yr, $p = 0.6010$; VIC: +0.20 cm/yr; independent range: [+0.05, +0.20] cm/yr). In contrast, total water storage declines across the record (GRACE-FO: -1.67 cm/yr; full record: -1.25 cm/yr). The resulting residual storage ('groundwater + surface water + model error residual') spans an estimated rate of [-1.92, -1.70] cm/yr during GRACE-FO and [-1.12, -1.11] cm/yr across the full record across independent models. Most of the decline is not accounted for by simulated soil moisture; groundwater and surface water cannot be separated here. This pattern is consistent with, not proof of, agricultural groundwater extraction from the deep subsurface. CLSM 2.2 is shown separately because it assimilates GRACE observations via EnKF and cannot serve as an independent partition.
 
 **Methodological Limitations:**  
-> *Limitations:* Residual storage is strictly defined as $	ext{Residual} = 	ext{TWS} - \Delta	ext{SMS} - \Delta	ext{SWE}$. It aggregates unmodeled surface water bodies, river stage variations, irrigation return flows, and structural model errors. It should not be interpreted as in-situ piezometric water table depth. GLDAS-2.2 CLSM assimilates GRACE observations and cannot serve as an independent partition.
+> *Limitations:* Residual storage is strictly defined as $\text{Residual} = \text{TWS} - \Delta\text{SMS} - \Delta\text{SWE}$. It aggregates unmodeled surface water bodies, river stage variations, irrigation return flows, and structural model errors. It should not be interpreted as in-situ piezometric water table depth. GLDAS-2.2 CLSM assimilates GRACE observations and cannot serve as an independent partition.
 
 ---
 

@@ -176,13 +176,12 @@ def run_ratio_trend_analysis():
         r["exploratory_fdr_q"] = q
         # Duality: CI excludes zero iff p < 0.05
         ci_excludes_zero = (r["slope_ci_low_pct_yr"] > 0 or r["slope_ci_high_pct_yr"] < 0)
-        if r["p_value"] < 0.05 and ci_excludes_zero:
-            if q < 0.05:
-                r["verdict"] = "Exploratory: trend detected"
-                r["verdict_detail"] = f"Exploratory trend detected (p={r['p_value']:.4f}, q={q:.4f}); CI excludes zero"
-            else:
-                r["verdict"] = "No detectable trend"
-                r["verdict_detail"] = f"Suggestive slope ({r['slope_pct_yr']:+.3f}%/yr, p={r['p_value']:.4f}), but fails exploratory FDR control (q={q:.4f} >= 0.05)"
+        if q < 0.05 and ci_excludes_zero:
+            r["verdict"] = "Exploratory: trend detected"
+            r["verdict_detail"] = f"Exploratory trend detected (p={r['p_value']:.4f}, q={q:.4f}); CI excludes zero"
+        elif r["p_value"] < 0.05:
+            r["verdict"] = "Suggestive"
+            r["verdict_detail"] = f"Suggestive slope ({r['slope_pct_yr']:+.3f}%/yr, p={r['p_value']:.4f}), but fails exploratory FDR control (q={q:.4f} >= 0.05)"
         else:
             r["verdict"] = "No detectable trend"
             ci_note = "CI is wide relative to slope and spans zero" if r["is_ci_wide"] else "slope is below detection threshold"
@@ -237,13 +236,12 @@ def run_ratio_trend_analysis():
         q = round(float(sens_q_vals[i]), 5)
         r["exploratory_fdr_q"] = q
         ci_excludes_zero = (r["slope_ci_low_pct_yr"] > 0 or r["slope_ci_high_pct_yr"] < 0)
-        if r["p_value"] < 0.05 and ci_excludes_zero:
-            if q < 0.05:
-                r["verdict"] = "Exploratory: trend detected"
-                r["verdict_detail"] = f"Exploratory trend detected (p={r['p_value']:.4f}, q={q:.4f}); CI excludes zero"
-            else:
-                r["verdict"] = "No detectable trend"
-                r["verdict_detail"] = f"Suggestive slope ({r['slope_pct_yr']:+.3f}%/yr, p={r['p_value']:.4f}), but fails exploratory FDR control (q={q:.4f} >= 0.05)"
+        if q < 0.05 and ci_excludes_zero:
+            r["verdict"] = "Exploratory: trend detected"
+            r["verdict_detail"] = f"Exploratory trend detected (p={r['p_value']:.4f}, q={q:.4f}); CI excludes zero"
+        elif r["p_value"] < 0.05:
+            r["verdict"] = "Suggestive"
+            r["verdict_detail"] = f"Suggestive slope ({r['slope_pct_yr']:+.3f}%/yr, p={r['p_value']:.4f}), but fails exploratory FDR control (q={q:.4f} >= 0.05)"
         else:
             r["verdict"] = "No detectable trend"
             ci_note = "CI is wide relative to slope and spans zero" if r["is_ci_wide"] else "slope is below detection threshold"
@@ -318,7 +316,8 @@ def generate_markdown_report(records: list):
     md.append("## 4. Methodological Limits & Scientific Context")
     md.append("- **Bulk Storage Mass Limitation:** The seasonal storage response ratio reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated groundwater recharge coefficient.")
     md.append("- **Confidence Interval Breadth:** In regions such as the Northwest, the 95% confidence interval ([-0.295, +0.836] %/yr) is wide relative to the point slope (+0.266 %/yr) and spans zero, reflecting substantial interannual variability and confirming that the slope cannot be distinguished from multi-year climate variability.")
-    md.append("- **Exploratory Framing:** Neither Central nor National slopes survive within-family Benjamini-Hochberg FDR control ($q \\ge 0.05$); therefore, all regions are formally classified as `No detectable trend` under multiple-testing standards.")
+    md.append("- **Exploratory Framing:** In the main run (22 seasons) no region passes exploratory FDR control. In the sensitivity run that drops seasons within ±6 months of the GRACE to GRACE-FO transition (20 seasons), Central and National pass (q = 0.021). The result therefore depends on whether the 2016 and 2019 seasons are included and should be treated as fragile and exploratory.")
+    md.append("- **Interpretation:** A positive ratio slope means the monsoon storage rebound per mm of rain has not weakened; it does not mean recharge is improving.")
     md.append("")
 
     with open(OUT_MD, "w", encoding="utf-8") as f:

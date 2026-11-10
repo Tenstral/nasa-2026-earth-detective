@@ -149,5 +149,59 @@ class TestV3SeasonalExtensions(unittest.TestCase):
                 self.assertEqual(len(matches), 0, f"Found forbidden phrase '{label}' in {fpath.name}: {[m.group(0) for m in matches]}")
 
 
+    def test_verdict_labels_follow_project_rule(self):
+        """8. Verify every verdict follows: Significant if q < 0.05 and CI excludes 0; Suggestive if raw p < 0.05; else No detectable trend."""
+        # Test ratio_trend.csv
+        ratio_df = pd.read_csv(self.ratio_csv)
+        for _, row in ratio_df.iterrows():
+            p_val = row["p_value"]
+            q_val = row["exploratory_fdr_q"]
+            ci_low = row["slope_ci_low_pct_yr"]
+            ci_high = row["slope_ci_high_pct_yr"]
+            ci_excludes_zero = (ci_low > 0 or ci_high < 0)
+            verdict = row["verdict"]
+
+            if q_val < 0.05 and ci_excludes_zero:
+                expected = "Exploratory: trend detected"
+            elif p_val < 0.05:
+                expected = "Suggestive"
+            else:
+                expected = "No detectable trend"
+
+            self.assertEqual(verdict, expected,
+                             f"Ratio verdict mismatch for {row['region']} ({row['analysis_type']}): got '{verdict}', expected '{expected}' (p={p_val}, q={q_val})")
+
+        # Test dry_season_drawdown.csv
+        drawdown_df = pd.read_csv(self.drawdown_csv)
+        for _, row in drawdown_df.iterrows():
+            p_val = row["p_value"]
+            q_val = row["exploratory_fdr_q"]
+            ci_low = row["drawdown_ci_low_cm_yr"]
+            ci_high = row["drawdown_ci_high_cm_yr"]
+            ci_excludes_zero = (ci_low > 0 or ci_high < 0)
+            verdict = row["verdict"]
+
+            if q_val < 0.05 and ci_excludes_zero:
+                expected = "Exploratory: trend detected"
+            elif p_val < 0.05:
+                expected = "Suggestive"
+            else:
+                expected = "No detectable trend"
+
+            self.assertEqual(verdict, expected,
+                             f"Drawdown verdict mismatch for {row['region']} ({row['analysis_type']}): got '{verdict}', expected '{expected}' (p={p_val}, q={q_val})")
+
+    def test_no_tab_characters_in_outputs_markdown(self):
+        """9. Verify no markdown file under outputs/ contains literal tab characters."""
+        outputs_dir = REPO_ROOT / "outputs"
+        md_files = list(outputs_dir.rglob("*.md"))
+        self.assertGreater(len(md_files), 10, "Expected at least 10 markdown files under outputs/")
+
+        for md_path in md_files:
+            content = md_path.read_text(encoding="utf-8", errors="ignore")
+            tab_count = content.count("\t")
+            self.assertEqual(tab_count, 0, f"Found {tab_count} tab character(s) in {md_path.relative_to(REPO_ROOT)}")
+
+
 if __name__ == "__main__":
     unittest.main()

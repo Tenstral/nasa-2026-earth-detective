@@ -9,7 +9,7 @@
 To maintain audit-grade scientific integrity, studies must satisfy four mandatory criteria:
 1. Direct inspection of the original published text or DOI source (no memory-based or citation-network citations).
 2. Spatial boundary explicitly covering Bangladesh territory or documented transboundary basins.
-3. Quantitative reporting of water storage rates ($\Delta	ext{TWS}$ or $\Delta	ext{GWS}$) with stated units and analytical timeframes.
+3. Quantitative reporting of water storage rates ($\Delta\text{TWS}$ or $\Delta\text{GWS}$) with stated units and analytical timeframes.
 4. Documented observational or model dataset provenance.
 
 ### Screened and Excluded Candidates:
@@ -22,6 +22,6 @@ To maintain audit-grade scientific integrity, studies must satisfy four mandator
 | **Local In-Situ Piezometer Studies without Volumetric Scaling** | **Excluded** | Studies reporting only point groundwater head variations (meters below ground surface) without specific yield ($S_y$) or spatial kriging cannot be converted to equivalent water thickness (cm/yr or km3/yr) without speculative assumptions. |
 
 ### Notes on Unit Conversion Protocol:
-- Converted rates in equivalent water thickness ($	ext{cm/yr}$) from volumetric rates ($	ext{km}^3/	ext{yr}$) follow:
-  $$	ext{Rate (cm/yr)} = rac{	ext{Rate (km}^3	ext{/yr)} 	imes 10^5}{	ext{Documented Area (km}^2	ext{)}}$$
+- Converted rates in equivalent water thickness ($\text{cm/yr}$) from volumetric rates ($\text{km}^3/\text{yr}$) follow:
+  $$\text{Rate (cm/yr)} = \frac{\text{Rate (km}^3\text{/yr)} \times 10^5}{\text{Documented Area (km}^2\text{)}}$$
 - No cell has been computed where the author's spatial surface area was unstated or ambiguously defined.
