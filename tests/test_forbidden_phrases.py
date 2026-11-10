@@ -45,6 +45,8 @@ FORBIDDEN_PATTERNS = [
     (r"\bconstant\b", "constant"),
     (r"\brecharge_efficiency\b", "recharge_efficiency"),
     (r"\brecharge efficiency\b", "recharge efficiency"),
+    (r"\bthe consequence of\b", "the consequence of"),
+    (r"\bbecause of\b", "because of"),
 ]
 
 # Legitimate technical use allowlist (mathematical/statistical properties of simulation null models)
@@ -64,6 +66,7 @@ class TestForbiddenPhrases(unittest.TestCase):
         project_status_file = REPO_ROOT / "PROJECT_STATUS.md"
         demo_file = REPO_ROOT / "demo.html"
         index_file = REPO_ROOT / "index.html"
+        regional_report = REPO_ROOT / "regional_action_report.md"
 
         self.assertTrue(outputs_dir.exists(), "outputs directory must exist")
         self.assertTrue(readme_file.exists(), "README.md must exist")
@@ -71,13 +74,14 @@ class TestForbiddenPhrases(unittest.TestCase):
         self.assertTrue(project_status_file.exists(), "PROJECT_STATUS.md must exist")
         self.assertTrue(demo_file.exists(), "demo.html must exist")
         self.assertTrue(index_file.exists(), "index.html must exist")
+        self.assertTrue(regional_report.exists(), "regional_action_report.md must exist")
 
         # Scan all .md, .txt, and .html files under outputs/ (excluding archived outputs/v2),
-        # plus root deliverables: README.md, NOTES.md, PROJECT_STATUS.md, demo.html, index.html
+        # plus root deliverables: README.md, NOTES.md, PROJECT_STATUS.md, demo.html, index.html, regional_action_report.md
         target_files = [
             f for f in outputs_dir.rglob("*")
             if f.suffix in (".md", ".txt", ".html") and "v2" not in f.parts
-        ] + [readme_file, notes_file, project_status_file, demo_file, index_file]
+        ] + [readme_file, notes_file, project_status_file, demo_file, index_file, regional_report]
 
         # Explicitly verify the exploratory seasonal extensions and pairwise region comparisons are scanned
         ratio_md = outputs_dir / "v3" / "seasonal" / "ratio_trend.md"
