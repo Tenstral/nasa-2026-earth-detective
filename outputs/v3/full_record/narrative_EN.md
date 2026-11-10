@@ -35,7 +35,7 @@ To test whether the 11-month gap between GRACE and GRACE-FO introduced statistic
 3. **Epoch Invariance:** A paired circular block-bootstrap test between Epoch 1 (2002–2017) and Epoch 2 (2018–2026) confirms the difference CI includes zero (NW difference: -0.10 [-1.60, +1.43] cm/yr; National: +0.21 [-0.71, +1.13] cm/yr), indicating consistent secular depletion rates across satellite generations.
 
 ## 3. Homogenized Precipitation vs. Seasonal Storage Response
-Analysis of GPM IMERG V07B precipitation across 2002–2025 shows stationary annual rainfall nationally (+2.04 mm/yr, p = 0.6395, classified as `No detectable trend`).
+Analysis of GPM IMERG V07B precipitation across 2002–2025 shows no detectable annual rainfall trend nationally (+2.04 mm/yr, p = 0.6395, classified as `No detectable trend`).
 Across 22 complete monsoon cycles:
 - Seasonal storage rebound alone (ΔTWS from pre-monsoon low to post-monsoon peak) averages 54.0 cm nationally and exhibits `No detectable trend` (p = 0.4298).
 - The **seasonal storage response ratio** (rebound / monsoon precipitation) exhibits a suggestive upward slope nationally (+0.136%/yr, raw p = 0.0208, FDR q = 0.1105, classified as `Suggestive increase`), while Northwest response ratio shows `No detectable trend` (p = 0.3784).

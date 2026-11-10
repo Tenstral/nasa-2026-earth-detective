@@ -35,8 +35,8 @@
 
 5. **Mandatory Scientific Terminology:**
    - Gravimetry observations report vertically integrated **"Total Water Storage" (TWS)**.
-   - The term "groundwater" or "aquifer storage" is never used for total water storage and is strictly reserved for the explicitly labeled residual: `"groundwater + surface water + model error residual"`.
-   - Causal relationships are phrased as **"consistent with"**, never "caused by" or "proves".
+   - The term "groundwater" is never used for total water storage and is strictly reserved for the explicitly labeled residual: `"groundwater + surface water + model error residual"`.
+   - Causal relationships are phrased as **"consistent with"**, never "caused by" or causal proof assertions.
    - All findings and deliverables are labeled **PRELIMINARY**.
 
 ---
@@ -47,7 +47,7 @@
 - **Problem:** The previous calibration report showed false-positive rates of 15%–19% with Hamed-Rao, yet called it passed. Furthermore, the NW surrogate test reported identical $p = 0.0005$ across multiple windows due to surrogate sample size floors ($N=2,000$), and the placebo test was circular.
 - **Action Taken:**
   1. Implemented independent Monte Carlo null simulation (2,000 runs) generating synthetic AR(1) processes fitted to real regional residuals with the exact 257-month GRACE observation mask.
-  2. Proved that Calibrated ESS-MK strictly satisfies pass criteria for ALL 6 regions (FPR 4.10%–5.45% $\in [3.5\%, 6.5\%]$; 95% CI coverage 94.55%–95.95% $\in [93.0\%, 97.0\%]$), whereas Hamed-Rao fails (FPR 13%–17%).
+  2. Verified that Calibrated ESS-MK strictly satisfies pass criteria for ALL 6 regions (FPR 4.10%–5.45% $\in [3.5\%, 6.5\%]$; 95% CI coverage 94.55%–95.95% $\in [93.0\%, 97.0\%]$), whereas Hamed-Rao fails (FPR 13%–17%).
   3. Standardized Calibrated ESS-MK as the single primary significance test across all regions and windows.
   4. Expanded Fourier surrogate evaluation to $N \ge 10,000$ iterations (batched in 500-sample blocks) and reported floor values as `"< 0.0001"`.
   5. In `recent_2020`, NW TWS has raw $p = 0.0107$, but within-window FDR $q = 0.0772 > 0.05$; it was reclassified from "Significant" to `"method-dependent"`.
@@ -72,11 +72,11 @@
   5. Updated wording to: *"most of the decline is not accounted for by simulated soil moisture; groundwater and surface water cannot be separated here"*.
 
 ### Review Finding 4: Literature Benchmark Table & Narrative Synchronization
-- **Problem:** Outdated p-values and CIs in `novelty_statement.md`; unearned claims of "disproving" rainfall trends and "corroborating" Boro irrigation without well data; PUB-01 unit conversion lacked basis; PUB-02 NW Purdy estimate ($-1.99\text{ cm/yr}$) was not noted as lying outside our NW CI.
+- **Problem:** Outdated p-values and CIs in `novelty_statement.md`; unearned claims of refuted rainfall trends and unsubstantiated links to Boro irrigation without well data; PUB-01 unit conversion lacked basis; PUB-02 NW Purdy estimate ($-1.99\text{ cm/yr}$) was not noted as lying outside our NW CI.
 - **Action Taken:**
   1. Dynamically regenerated `novelty_statement.md` directly from `results_all_windows.csv`.
-  2. Replaced "disproving" with: *"we detected an artifact in NASA POWER rainfall by cross-checking with IMERG; cause not established"*.
-  3. Removed "corroborates Ahmed and Purdy on Boro irrigation".
+  2. Replaced refuted claim with: *"we detected an artifact in NASA POWER rainfall by cross-checking with IMERG; cause not established"*.
+  3. Removed assertion linking Ahmed and Purdy on Boro irrigation.
   4. Left PUB-01 converted rate blank because the source text does not state the bounding area.
   5. Noted that Purdy's NW estimate of $-1.99\text{ cm/yr}$ lies outside our NW grace_era 95% CI ($-1.95$ to $-1.15\text{ cm/yr}$): *"similar sign and order of magnitude; ours is lower; region definitions may differ"*.
   6. All studies with `Comparable: No` are labeled `"Context only"`.

@@ -39,6 +39,17 @@ FORBIDDEN_PATTERNS = [
     (r"\bdemonstrat\w*", "demonstrat*"),
     (r"\bconfirmed\b", "confirmed"),
     (r"\bconcentrated in\b", "concentrated in"),
+    (r"\bstationary\b", "stationary"),
+    (r"\bstable\b", "stable"),
+    (r"\bunchanged\b", "unchanged"),
+    (r"\bconstant\b", "constant"),
+]
+
+# Legitimate technical use allowlist (mathematical/statistical properties of simulation null models)
+TECHNICAL_ALLOWLIST = [
+    # Describes the stationary AR(1) null hypothesis noise process in Monte Carlo step-offset simulation
+    ("outputs/v3/full_record/epoch_comparison.md", "stationary red noise"),
+    ("outputs/v3/full_record/three_way_slopes_and_transition.md", "stationary red noise"),
 ]
 
 
@@ -47,22 +58,24 @@ class TestForbiddenPhrases(unittest.TestCase):
     def test_zero_forbidden_phrases_in_outputs_and_readme(self):
         outputs_dir = REPO_ROOT / "outputs"
         readme_file = REPO_ROOT / "README.md"
+        notes_file = REPO_ROOT / "NOTES.md"
         project_status_file = REPO_ROOT / "PROJECT_STATUS.md"
         demo_file = REPO_ROOT / "demo.html"
         index_file = REPO_ROOT / "index.html"
 
         self.assertTrue(outputs_dir.exists(), "outputs directory must exist")
         self.assertTrue(readme_file.exists(), "README.md must exist")
+        self.assertTrue(notes_file.exists(), "NOTES.md must exist")
         self.assertTrue(project_status_file.exists(), "PROJECT_STATUS.md must exist")
         self.assertTrue(demo_file.exists(), "demo.html must exist")
         self.assertTrue(index_file.exists(), "index.html must exist")
 
         # Scan all .md, .txt, and .html files under outputs/ (excluding archived outputs/v2),
-        # plus root deliverables: README.md, PROJECT_STATUS.md, demo.html, index.html
+        # plus root deliverables: README.md, NOTES.md, PROJECT_STATUS.md, demo.html, index.html
         target_files = [
             f for f in outputs_dir.rglob("*")
             if f.suffix in (".md", ".txt", ".html") and "v2" not in f.parts
-        ] + [readme_file, project_status_file, demo_file, index_file]
+        ] + [readme_file, notes_file, project_status_file, demo_file, index_file]
 
         # Explicitly verify the exploratory seasonal extensions are scanned
         ratio_md = outputs_dir / "v3" / "seasonal" / "ratio_trend.md"
@@ -76,12 +89,23 @@ class TestForbiddenPhrases(unittest.TestCase):
 
         for fpath in target_files:
             text = fpath.read_text(encoding="utf-8", errors="ignore")
+            rel_path_str = str(fpath.relative_to(REPO_ROOT)).replace("\\", "/")
+
             for pattern, label in FORBIDDEN_PATTERNS:
-                matches = list(re.finditer(pattern, text, re.IGNORECASE))
-                if matches:
-                    rel_path = fpath.relative_to(REPO_ROOT)
-                    matched_words = [m.group(0) for m in matches]
-                    violations.append(f"{rel_path}: Found {len(matches)} occurrence(s) of '{label}' -> {matched_words}")
+                for m in re.finditer(pattern, text, re.IGNORECASE):
+                    # Check technical allowlist
+                    start = max(0, m.start() - 30)
+                    end = min(len(text), m.end() + 30)
+                    context_snippet = text[start:end].lower()
+
+                    is_allowed = False
+                    for allowed_file, allowed_phrase in TECHNICAL_ALLOWLIST:
+                        if rel_path_str == allowed_file and allowed_phrase.lower() in context_snippet:
+                            is_allowed = True
+                            break
+
+                    if not is_allowed:
+                        violations.append(f"{rel_path_str}: Found '{label}' -> {m.group(0)} (context: {repr(text[start:end])})")
 
             # Check "aquifer" rule: forbidden except in quoted source titles, citations, or bibliography
             for i, line in enumerate(text.splitlines(), 1):

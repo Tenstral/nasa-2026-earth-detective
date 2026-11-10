@@ -119,7 +119,7 @@ Replacing atmospheric reanalysis with NASA's radar and microwave satellite preci
 - *Data Latency Notice:* GPM IMERG Final data currently extends through September 2025 due to standard NASA production latency, truncating the final 10 months of the 2002–2026 gravimetry analysis window.
 
 ### C. Extreme Rainfall and Flood Dynamics
-- **Stationary Extreme Indices:** Daily precipitation extremes (Rx1day, Rx5day, days $\ge 50\text{ mm}$, and annual total for 2003–2024; monsoon total, monsoon Rx1day, monsoon Rx5day, and monsoon days $\ge 50\text{ mm}$ for 2002–2025) show no statistically significant trend across Bangladesh.
+- **No Detectable Trend in Extreme Indices:** Daily precipitation extremes (Rx1day, Rx5day, days $\ge 50\text{ mm}$, and annual total for 2003–2024; monsoon total, monsoon Rx1day, monsoon Rx5day, and monsoon days $\ge 50\text{ mm}$ for 2002–2025) show no detectable trend across Bangladesh.
 - **Flood Response and Storage Recovery (Untested Hypothesis):** Historical flood events (2004, 2007, 2017, 2020, 2022 Sylhet) correspond to large transient storage surges (e.g., storage anomalies spiked by +41 cm in 2007 and +33 cm in 2004):
   - An untested hypothesis frequently cited in regional hydrogeology suggests that topsoil saturation and floodplain drainage limit the proportion of floodwaters that recharge deeper subsurface storage, allowing subsequent dry-season abstraction to outpace seasonal recharge.
   - However, this mechanism remains an unverified hypothesis in this study; satellite gravimetry captures vertically integrated bulk mass and cannot measure subsurface infiltration rates directly without in-situ piezometer hydrographs.
@@ -178,7 +178,7 @@ For presentations, slide decks, and technical verification, refer to the followi
 - `README.md`: Project specification, architectural summary, and command-line execution instructions.
 - `outputs/v3/full_record/fig1_full_record_tws_trends.png`: 6-panel regional water storage trends across 2002–2026 with 95% confidence bands.
 - `outputs/v3/exposure/fig_exposure_choropleth.png`: Choropleth map illustrating regional population and cropland exposure across the Northwest corridor.
-- `outputs/v3/extremes/fig_imerg_extreme_indices_trends.png`: Multi-index time series showing stationary daily extreme precipitation.
+- `outputs/v3/extremes/fig_imerg_extreme_indices_trends.png`: Multi-index time series showing daily extreme precipitation with no detectable trend.
 - `outputs/v3/gldas_split/fig_storage_partition_multi_model.png`: Multi-model comparison illustrating independent soil moisture vs. deep residual deficit.
 
 ### B. Master Results Tables (For Spreadsheets & Citations)
@@ -214,34 +214,33 @@ All reported figures have been audited against the primary single sources of tru
 | **IMERG Satellite Observation Period** | `PROJECT_STATUS.md` | `2000–2025` | **`2002-01 to 2025-09`** | Verified GPM IMERG V07B Final Run data latency coverage. |
 | **Daily Extreme Indices Catalog** | `PROJECT_STATUS.md` | `Rx1day, Rx5day, R95p, R99p, CDD, CWD, SDII (2003–2024)` | **Rx1day, Rx5day, days $\ge 50\text{ mm}$, annual total (2003–2024); monsoon total, monsoon Rx1day, monsoon Rx5day, monsoon days $\ge 50\text{ mm}$ (2002–2025)** | Matched exactly to indices computed in `v3/imerg_daily_extremes_pipeline.py` and `outputs/v3/extremes/imerg_extreme_indices_trends.csv`. |
 
-
 ---
 
 ## 9. Exploratory Seasonal Storage Response & Dry-Season Drawdown (Preliminary)
 
 > **Status Label:** PRELIMINARY & EXPLORATORY ONLY.  
-> These supplementary analyses test seasonal storage dynamics across multi-decadal observations. To maintain strict statistical governance, all exploratory results are documented separately in outputs/v3/seasonal/ and quarantined from the headline 336-test master table (
-esults_all_windows.csv).
+> These supplementary analyses test seasonal storage dynamics across multi-decadal observations. To maintain strict statistical governance, all exploratory results are documented separately in `outputs/v3/seasonal/` and quarantined from the headline 336-test master table (`results_all_windows.csv`).
 
 ### A. Trend of Seasonal Storage Response Ratio (2002–2025)
 
 1. **Physical Metric & Data Sources:**
    - Evaluates the multi-decadal stability of the seasonal storage response ratio, defined as:
-     \text{Seasonal Storage Response Ratio} = \frac{\Delta\text{TWS}\text{ (cm)}}{0.1 \times P_{\text{monsoon}}\text{ (mm)}} \times 100\%
+     $$\text{Seasonal Storage Response Ratio} = \frac{\Delta\text{TWS}\text{ (cm)}}{0.1 \times P_{\text{monsoon}}\text{ (mm)}} \times 100\%$$
    - **Numerator ($\Delta\text{TWS}$):** Seasonal storage rebound alone, defined as the post-monsoon storage peak (maximum of August–November) minus the pre-monsoon dry season low (minimum of March–May) from CSR GRACE/GRACE-FO RL06.3 gravimetry (cm of total water storage).
-   - **Denominator ({\text{monsoon}}$):** June–September 4-month cumulative rainfall from NASA GPM IMERG V07B Final Run (converted to cm liquid water equivalent).
+   - **Denominator ($P_{\text{monsoon}}$):** June–September 4-month cumulative rainfall from NASA GPM IMERG V07B Final Run (converted to cm liquid water equivalent).
 2. **Satellite Gap Protocol:**
    - Incomplete seasons are dropped directly rather than interpolated. The 2017 season (lacking post-monsoon peak due to GRACE decommissioning) and 2018 season (lacking pre-monsoon low prior to GRACE-FO operations) are excluded, leaving **22 complete seasons** (2002–2016 and 2019–2025) in the main run.
    - A sensitivity run further excludes seasons within $\pm 6$ months of the satellite mission transition (2016–2019), leaving **20 complete seasons**.
 3. **Statistical Findings (Main Run, N = 22 Seasons):**
-   - **Northwest (NW):** Mean ratio = 39.6%, Theil-Sen slope = **+0.266 %/yr**, 95% CI: [-0.295, +0.836] %/yr,  = 0.3784$, exploratory FDR  = 0.5158$, MDS (80% power) = 0.700 %/yr $\rightarrow$ **No detectable trend**. The 95% CI is wide relative to the slope and spans zero.
-   - **Northeast (NE):** Mean ratio = 30.1%, slope = **+0.203 %/yr**, 95% CI: [-0.079, +0.500] %/yr,  = 0.2147$, exploratory FDR  = 0.4294$, MDS = 0.400 %/yr $\rightarrow$ **No detectable trend**.
-   - **Central:** Mean ratio = 42.2%, slope = **+0.387 %/yr**, 95% CI: [+0.046, +0.712] %/yr,  = 0.0369$, exploratory FDR  = 0.1105$, MDS = 0.500 %/yr $\rightarrow$ **No detectable trend** (raw  < 0.05$ does not survive exploratory Benjamini-Hochberg FDR control  < 0.05$).
-   - **Southwest (SW):** Mean ratio = 33.0%, slope = **+0.138 %/yr**, 95% CI: [-0.164, +0.481] %/yr,  = 0.4298$, exploratory FDR  = 0.5158$, MDS = 0.500 %/yr $\rightarrow$ **No detectable trend**.
-   - **Southeast (SE):** Mean ratio = 26.0%, slope = **+0.063 %/yr**, 95% CI: [-0.147, +0.228] %/yr,  = 0.6118$, exploratory FDR  = 0.6118$, MDS = 0.350 %/yr $\rightarrow$ **No detectable trend**.
-   - **National Composite:** Mean ratio = 32.5%, slope = **+0.136 %/yr**, 95% CI: [+0.028, +0.355] %/yr,  = 0.0208$, exploratory FDR  = 0.1105$, MDS = 0.300 %/yr $\rightarrow$ **No detectable trend** (does not survive exploratory FDR control).
-4. **Sensitivity Run (N = 20 Seasons):**
-   - Central shows slope +0.476 %/yr ( = 0.0048$,  = 0.0212$) and National shows slope +0.151 %/yr ( = 0.0071$,  = 0.0212$), while NW, NE, SW, and SE show no detectable trend.
+   - **NW** (Northwest (Rajshahi + Rangpur)): Mean ratio = 39.6%, Theil-Sen slope = **+0.266 %/yr**, 95% CI: `[-0.295, +0.836] %/yr`, $p = 0.3784$, exploratory FDR $q = 0.5158$, MDS (80% power) = 0.700 %/yr $\rightarrow$ **No detectable trend** (CI is wide relative to slope and spans zero).
+   - **NE** (Northeast (Sylhet + Mymensingh)): Mean ratio = 30.1%, Theil-Sen slope = **+0.203 %/yr**, 95% CI: `[-0.079, +0.500] %/yr`, $p = 0.2147$, exploratory FDR $q = 0.4294$, MDS (80% power) = 0.400 %/yr $\rightarrow$ **No detectable trend** (CI is wide relative to slope and spans zero).
+   - **Central** (Central (Dhaka)): Mean ratio = 42.2%, Theil-Sen slope = **+0.387 %/yr**, 95% CI: `[+0.046, +0.712] %/yr`, $p = 0.0369$, exploratory FDR $q = 0.1105$, MDS (80% power) = 0.500 %/yr $\rightarrow$ **Suggestive** (raw $p < 0.05$ does not survive exploratory Benjamini-Hochberg FDR control $q = 0.1105 \ge 0.05$).
+   - **SW** (Southwest (Khulna + Barishal)): Mean ratio = 33.0%, Theil-Sen slope = **+0.138 %/yr**, 95% CI: `[-0.164, +0.481] %/yr`, $p = 0.4298$, exploratory FDR $q = 0.5158$, MDS (80% power) = 0.500 %/yr $\rightarrow$ **No detectable trend** (CI is wide relative to slope and spans zero).
+   - **SE** (Southeast (Chattogram)): Mean ratio = 26.0%, Theil-Sen slope = **+0.063 %/yr**, 95% CI: `[-0.147, +0.228] %/yr`, $p = 0.6118$, exploratory FDR $q = 0.6118$, MDS (80% power) = 0.350 %/yr $\rightarrow$ **No detectable trend** (CI is wide relative to slope and spans zero).
+   - **National** (National Composite (All 8 Divisions)): Mean ratio = 32.5%, Theil-Sen slope = **+0.136 %/yr**, 95% CI: `[+0.028, +0.355] %/yr`, $p = 0.0208$, exploratory FDR $q = 0.1105$, MDS (80% power) = 0.300 %/yr $\rightarrow$ **Suggestive** (raw $p < 0.05$ does not survive exploratory Benjamini-Hochberg FDR control $q = 0.1105 \ge 0.05$).
+4. **Sensitivity Run (Transition-Buffer Excluded, N = 20 Seasons):**
+   - In the sensitivity run that drops seasons within ±6 months of the GRACE to GRACE-FO transition (20 seasons), Central and National pass exploratory FDR control (Central: slope +0.476 %/yr, $p = 0.0048$, $q = 0.0212$; National: slope +0.151 %/yr, $p = 0.0071$, $q = 0.0212$), while NW, NE, SW, and SE show no detectable trend. The result therefore depends on whether the 2016 and 2019 seasons are included and should be treated as fragile and exploratory.
+   - A positive ratio slope means the monsoon storage rebound per mm of rain has not weakened; it does not mean recharge is improving.
 
 ---
 
@@ -249,15 +248,15 @@ esults_all_windows.csv).
 
 1. **Physical Metric & Exact Config Windows:**
    - Evaluates whether the annual dry-season storage drawdown has expanded or contracted over the 24-year satellite record:
-     \text{Drawdown}_{y} = \text{TWS}_{\text{peak}, y} - \text{TWS}_{\text{min}, y+1}
-   - Exact observation windows specified in config.json constants:
-     - monsoon_peak_months: [8, 9, 10, 11] (August–November of year $)
-     - ollowing_pre_monsoon_min_months: [3, 4, 5] (March–May of following year +1$)
+     $$\text{Drawdown}_{y} = \text{TWS}_{\text{peak}, y} - \text{TWS}_{\text{min}, y+1}$$
+   - Exact observation windows specified in `config.json` constants:
+     - `monsoon_peak_months`: `[8, 9, 10, 11]` (August–November of year $y$)
+     - `following_pre_monsoon_min_months`: `[3, 4, 5]` (March–May of following year $y+1$)
 2. **Missing Satellite Endpoint Protocol:**
    - Any annual cycle missing either endpoint is dropped rather than interpolated. The 2017–2018 cycle lacks both autumn 2017 peak and spring 2018 low due to the GRACE to GRACE-FO transition gap; exactly **1 year (2017)** drops out per region, leaving **23 valid observation cycles** (2002–2016 and 2018–2025) in the main run.
    - Sensitivity run excludes cycles touching the $\pm 6$-month buffer (2016–2018), leaving **21 valid cycles**.
 3. **Statistical Trends & Descriptive Cropland Overlay:**
-   - To prevent ecological fallacy and spurious regression across an aggregated sample of 5 regions (=5$), no cross-regional correlation or regression is performed. Regional metrics are reported descriptively alongside agricultural land cover (MODIS MCD12Q1) and population (NASA SEDAC GPWv4):
+   - To prevent ecological fallacy and spurious regression across an aggregated sample of 5 regions ($N=5$), no cross-regional correlation or regression is performed. Regional metrics are reported descriptively alongside agricultural land cover (MODIS MCD12Q1) and population (NASA SEDAC GPWv4):
 
 | Region | Cropland (%) | Population (2020) | Full-Record TWS Slope (cm/yr) | Full-Record TWS 95% CI | Mean Drawdown (cm) | Drawdown Slope (cm/yr) | 95% Confidence Interval | p-value | Exploratory FDR q | MDS (80% Power) | Verdict |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|---|
@@ -269,8 +268,8 @@ esults_all_windows.csv).
 | **National** | 57.8% | 169.83M | -0.51 | [-0.66, -0.38] | 53.24 cm | **-0.013** | [-0.593, +0.509] | 0.9703 | 1.0000 | 1.100 cm/yr | No detectable trend |
 
 4. **Physical Interpretation:**
-   - In all 5 regions and nationally, the annual dry-season drawdown trend shows **no detectable trend** ( \ge 0.50$,  = 1.0000$).
-   - The seasonal cyclic amplitude of water storage (~48 to 58 cm) has remained stationary across 24 years, while the secular baseline total water storage has declined (-1.25 cm/yr in NW).
+   - In all 5 regions and nationally, the annual dry-season drawdown trend shows **no detectable trend** (all $p \ge 0.50$, all exploratory $q = 1.00$ in the main run).
+   - No detectable change in seasonal amplitude (drawdown slope CIs about ±0.9 cm/yr in NW); the baseline total water storage declines (-1.25 cm/yr in NW). A change smaller than the detection limit is not ruled out.
 
 5. **Methodological Limits & Scope:**
    > Gravimetry measures total water storage (groundwater, soil moisture and surface water together). This analysis shows regional patterns that are consistent with dry-season agricultural water use but does not attribute them to irrigation pumping. Testing that would require metered pumping or electricity records (BMDA), BWDB well hydrographs, or irrigated-area mapping.
