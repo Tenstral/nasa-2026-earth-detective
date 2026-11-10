@@ -43,6 +43,8 @@ FORBIDDEN_PATTERNS = [
     (r"\bstable\b", "stable"),
     (r"\bunchanged\b", "unchanged"),
     (r"\bconstant\b", "constant"),
+    (r"\brecharge_efficiency\b", "recharge_efficiency"),
+    (r"\brecharge efficiency\b", "recharge efficiency"),
 ]
 
 # Legitimate technical use allowlist (mathematical/statistical properties of simulation null models)
@@ -77,11 +79,14 @@ class TestForbiddenPhrases(unittest.TestCase):
             if f.suffix in (".md", ".txt", ".html") and "v2" not in f.parts
         ] + [readme_file, notes_file, project_status_file, demo_file, index_file]
 
-        # Explicitly verify the exploratory seasonal extensions are scanned
+        # Explicitly verify the exploratory seasonal extensions and pairwise region comparisons are scanned
         ratio_md = outputs_dir / "v3" / "seasonal" / "ratio_trend.md"
         drawdown_md = outputs_dir / "v3" / "seasonal" / "dry_season_drawdown.md"
+        pairwise_md = outputs_dir / "v3" / "region_comparison" / "pairwise_region_differences.md"
         self.assertIn(ratio_md, target_files, "ratio_trend.md must be included in scan targets")
         self.assertIn(drawdown_md, target_files, "dry_season_drawdown.md must be included in scan targets")
+        if pairwise_md.exists():
+            self.assertIn(pairwise_md, target_files, "pairwise_region_differences.md must be included in scan targets")
 
         self.assertGreater(len(target_files), 25, "Expected at least 25 documentation/html files to scan")
 
