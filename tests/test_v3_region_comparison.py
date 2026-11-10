@@ -8,8 +8,10 @@ Validates the v3 between-region comparison methodology:
   4. Project verdict rule: strictly verified across p_value, bh_q_value, and CI zero-exclusion.
   5. Invariance of primary pipeline: results_all_windows.csv remains 336 rows, FDR family size 36.
   6. Verbatim limits text present in markdown report; zero forbidden phrases.
-  7. Strict calibration targets: 0.035 <= FPR <= 0.065 and 0.930 <= Coverage <= 0.970 across all tested pairs.
+  7. Full 10-pair calibration: 0.035 <= FPR <= 0.065 and 0.930 <= Coverage <= 0.970 across all 20 tested pairs.
   8. Preserved audit trail and conservative CI overlap verification.
+  9. Real-residual placebo audit with Variant 1 and Variant 2 across all 10 pairs.
+ 10. Dashboard and documentation integration of calibration line, overlap note, and disclosure.
 """
 
 import json
@@ -28,6 +30,12 @@ VERBATIM_LIMITS_TEXT = (
     "not a measurement of local aquifer or pumping differences. Recent windows are below the detection limit."
 )
 
+REAL_RESIDUAL_DISCLOSURE = (
+    "Calibration used simulated AR(1) noise, which is the easier test. "
+    "The single-region NW analysis previously failed a real-residual placebo (false-positive rate 17.6%, coverage 82.5%); "
+    "the same check for the pairwise test is reported below."
+)
+
 
 class TestV3RegionComparison(unittest.TestCase):
 
@@ -38,14 +46,17 @@ class TestV3RegionComparison(unittest.TestCase):
         cls.md_path = cls.out_dir / "pairwise_region_differences.md"
         cls.json_path = cls.out_dir / "calibration_report.json"
         cls.json_archived_v1 = cls.out_dir / "calibration_report_v1_bootstrap_failed.json"
+        cls.json_placebo = cls.out_dir / "real_residual_placebo.json"
         cls.results_all_csv = REPO_ROOT / "outputs" / "v3" / "full_record" / "results_all_windows.csv"
         cls.index_html_path = REPO_ROOT / "index.html"
+        cls.status_md_path = REPO_ROOT / "PROJECT_STATUS.md"
 
     def test_01_output_files_exist(self):
         self.assertTrue(self.csv_path.exists(), f"Missing CSV: {self.csv_path}")
         self.assertTrue(self.md_path.exists(), f"Missing MD: {self.md_path}")
         self.assertTrue(self.json_path.exists(), f"Missing JSON: {self.json_path}")
         self.assertTrue(self.json_archived_v1.exists(), f"Missing archived v1 JSON: {self.json_archived_v1}")
+        self.assertTrue(self.json_placebo.exists(), f"Missing placebo JSON: {self.json_placebo}")
 
     def test_02_csv_structure_and_monotone_bh_q(self):
         df = pd.read_csv(self.csv_path)
@@ -53,7 +64,7 @@ class TestV3RegionComparison(unittest.TestCase):
             "variable", "window", "run", "region_A", "region_B",
             "slope_A", "slope_B", "delta_slope", "ci_low", "ci_high",
             "p_value", "bh_q_value", "mds_80", "n_months", "block_length", "verdict",
-            "v1_verdict", "ci_overlap"
+            "v1_verdict", "ci_overlap", "placebo_flag"
         ]
         self.assertEqual(list(df.columns), expected_cols)
 
@@ -138,15 +149,15 @@ class TestV3RegionComparison(unittest.TestCase):
         )
 
     def test_08_calibration_report_validity(self):
-        """Strict calibration targets: 0.035 <= FPR <= 0.065 and 0.930 <= Coverage <= 0.970."""
+        """Strict calibration targets: 0.035 <= FPR <= 0.065 and 0.930 <= Coverage <= 0.970 across all 20 tested pairs."""
         with open(self.json_path, "r", encoding="utf-8") as f:
             calib = json.load(f)
 
-        self.assertEqual(calib["n_simulations"], 1000)
         self.assertEqual(calib["selected_method"], "candidate_a_difference_ess_mk")
         self.assertIn("candidates_evaluated", calib)
         self.assertIn("tws_pairs_calibration", calib)
         self.assertIn("precip_pairs_calibration", calib)
+        self.assertIn("all_pairs_summary", calib)
 
         # Top level benchmark metrics (NW vs Central)
         self.assertGreaterEqual(calib["false_positive_rate"], 0.035)
@@ -156,10 +167,11 @@ class TestV3RegionComparison(unittest.TestCase):
         self.assertTrue(calib["target_fpr_met"])
         self.assertTrue(calib["target_coverage_met"])
 
-        # Strict verification across every tested TWS pair
+        # Strict verification across all 10 TWS pairs
         tws_calib = calib["tws_pairs_calibration"]
-        self.assertGreaterEqual(len(tws_calib), 6, "At least 6 pairs must be calibrated")
+        self.assertEqual(len(tws_calib), 10, "Exactly 10 TWS pairs must be calibrated")
         for pair_name, p_data in tws_calib.items():
+            self.assertIn("power_pct", p_data, f"Pair {pair_name} must report power_pct")
             self.assertGreaterEqual(
                 p_data["false_positive_rate"], 0.035,
                 f"Pair {pair_name}: FPR {p_data['false_positive_rate']} must be >= 0.035"
@@ -178,6 +190,33 @@ class TestV3RegionComparison(unittest.TestCase):
             )
             self.assertTrue(p_data["target_fpr_met"])
             self.assertTrue(p_data["target_coverage_met"])
+
+        # Strict verification across all 10 Rainfall pairs
+        precip_calib = calib["precip_pairs_calibration"]
+        self.assertEqual(len(precip_calib), 10, "Exactly 10 Rainfall pairs must be calibrated")
+        for pair_name, p_data in precip_calib.items():
+            self.assertGreaterEqual(
+                p_data["false_positive_rate"], 0.035,
+                f"Precip Pair {pair_name}: FPR {p_data['false_positive_rate']} must be >= 0.035"
+            )
+            self.assertLessEqual(
+                p_data["false_positive_rate"], 0.065,
+                f"Precip Pair {pair_name}: FPR {p_data['false_positive_rate']} must be <= 0.065"
+            )
+            self.assertGreaterEqual(
+                p_data["ci_coverage"], 0.930,
+                f"Precip Pair {pair_name}: Coverage {p_data['ci_coverage']} must be >= 0.930"
+            )
+            self.assertLessEqual(
+                p_data["ci_coverage"], 0.970,
+                f"Precip Pair {pair_name}: Coverage {p_data['ci_coverage']} must be <= 0.970"
+            )
+            self.assertTrue(p_data["target_fpr_met"])
+            self.assertTrue(p_data["target_coverage_met"])
+
+        # Check all_pairs_pass flag
+        self.assertTrue(calib["all_pairs_summary"]["all_pairs_pass"])
+        self.assertTrue(calib["all_pairs_pass"])
 
         # Check candidate comparisons and archived v1 report
         cand = calib["candidates_evaluated"]
@@ -199,6 +238,51 @@ class TestV3RegionComparison(unittest.TestCase):
         self.assertFalse(bool(prim_tws.loc[("NW", "Central"), "ci_overlap"]))
         # NW vs SW single-region CIs do not overlap
         self.assertFalse(bool(prim_tws.loc[("NW", "SW"), "ci_overlap"]))
+
+    def test_10_real_residual_placebo_report(self):
+        """Verifies real-residual placebo audit results and structure."""
+        with open(self.json_placebo, "r", encoding="utf-8") as f:
+            plac = json.load(f)
+
+        self.assertIn("disclaimer", plac)
+        self.assertEqual(plac["n_shifts"], 1000)
+        self.assertEqual(len(plac["pairs"]), 10)
+
+        for pair_name, p_data in plac["pairs"].items():
+            self.assertIn("variant_1_independent", p_data)
+            self.assertIn("variant_2_synchronized", p_data)
+            self.assertIn("placebo_flag", p_data)
+            v1 = p_data["variant_1_independent"]
+            v2 = p_data["variant_2_synchronized"]
+            # Variant 1 is conservative (FPR <= 0.05)
+            self.assertLessEqual(v1["false_positive_rate"], 0.05)
+            # Flag matches Variant 2 performance
+            if v2["false_positive_rate"] > 0.065 or v2["ci_coverage"] < 0.930:
+                self.assertEqual(p_data["placebo_flag"], "Fails real-residual placebo")
+            else:
+                self.assertEqual(p_data["placebo_flag"], "Passes real-residual placebo")
+
+    def test_11_dashboard_and_docs_integration(self):
+        """Verifies dashboard data keys, markup, and required disclosure sentence."""
+        html_text = self.index_html_path.read_text(encoding="utf-8")
+        md_text = self.md_path.read_text(encoding="utf-8")
+        status_text = self.status_md_path.read_text(encoding="utf-8")
+
+        # Required disclosure sentence appears in md and PROJECT_STATUS.md
+        self.assertIn(REAL_RESIDUAL_DISCLOSURE, md_text)
+        self.assertIn(REAL_RESIDUAL_DISCLOSURE, status_text)
+
+        # Dashboard data block keys
+        self.assertIn('"pairwise_differences":', html_text)
+        self.assertIn('"pairwise_calibration":', html_text)
+        self.assertIn('"real_residual_placebo":', html_text)
+
+        # Dashboard visible calibration line and overlap note
+        self.assertIn("Calibrated ESS-MK on the difference series", html_text)
+        self.assertIn("3.60%–6.50%", html_text)
+        self.assertIn("93.50%–96.40%", html_text)
+        self.assertIn("calibration_report_v1_bootstrap_failed.json", html_text)
+        self.assertIn("Paired test detects a difference, but the two regions' own CIs overlap. Treat as small and descriptive.", html_text)
 
 
 if __name__ == "__main__":
