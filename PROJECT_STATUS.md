@@ -291,18 +291,24 @@ All reported figures have been audited against the primary single sources of tru
      * **Northeast vs Central paired difference vs single-region CI overlap:** The paired difference test yields $\Delta = -0.072$ cm/yr (95% CI [-0.101, -0.043], $p < 0.0001$, within-family FDR $q < 0.0001$). However, under conservative independent comparison, their single-region 95% CIs from `results_all_windows.csv` overlap substantially: Northeast [-0.703, -0.419] cm/yr and Central [-0.620, -0.342] cm/yr overlap across [-0.620, -0.419] cm/yr. Because the regions share 94.5% spatial correlation ($\rho = 0.945$), differencing removes shared regional climate variance, making a small differential trend detectable even though their marginal trends cannot be separated.
      * **Southwest vs Southeast show no detectable difference:** SW and SE trends yield $\Delta = +0.006$ cm/yr (95% CI [-0.033, +0.045], $p = 0.7345$, within-family FDR $q = 0.7731$).
    - **Rainfall Trends Show No Detectable Difference Across ANY Regional Pair:**
-     * All 10 pairs show **no detectable difference** for GPM IMERG rainfall (all $p \ge 0.14$, all within-family FDR $q \ge 0.28$). Minimum detectable slope differences at 80% power range from 11.2 to 24.3 mm/yr; observed differences are consistent with random variability.
+     * All 10 pairs show **no detectable difference** for GPM IMERG rainfall (all $p \ge 0.14$, all within-family FDR $q \ge 0.28$). Minimum detectable slope differences at 80% power range from 11.2 to 28.7 mm/yr; observed differences are consistent with random variability.
 
 3. **Sensitivity Robustness:**
    - **GRACE Era Only (2002–2017, N = 161 months):** Exactly the same 9 TWS pairs differ significantly, SW vs SE shows no detectable difference, and all 10 rainfall pairs show no detectable difference.
    - **Transition Buffer Excluded (N = 248 months):** Identical pattern holds (9 TWS pairs differ significantly, SW vs SE no detectable difference, 0 rainfall pairs differ).
 
 4. **Calibration Check & Statistical Disclosure:**
-   - **Diagnosis of Initial v1 Failure:** The original v1 paired moving-block bootstrap ($b = 3$) exhibited an empirical False Positive Rate of **15.40%** (target 3.5%–6.5%) and 95% CI coverage of **84.60%** (target 93.0%–97.0%). Under-dispersed bootstrap slope distributions caused inflated false-positive rates under persistent AR(1) noise. The failed report has been preserved in `outputs/v3/region_comparison/calibration_report_v1_bootstrap_failed.json`.
    - **Method Selection & Calibration Audit:** Candidate A (Difference Series Calibrated ESS-MK) was selected because it passed calibration across 100% of tested pairs:
-     * Benchmark NW vs Central: False Positive Rate = **5.30%** (target 3.5%–6.5%), 95% CI coverage = **94.70%** (target 93.0%–97.0%), mean CI width = 0.236.
-     * Across all 6 tested TWS regional pairs, FPR ranges from 4.60% to 6.40% (mean 5.22%) and 95% CI coverage ranges from 93.60% to 95.40% (mean 94.78%), meeting all pre-specified targets.
-     * Alternative candidate methods failed calibration: Candidate B (moving-block with $b=10$) yielded 12.80% FPR and 87.20% coverage; Candidate C (residual AR(1) bootstrap) yielded 8.80% FPR and 91.20% coverage.
+     * Benchmark NW vs Central: False Positive Rate = **4.70%** (target 3.5%–6.5%), 95% CI coverage = **95.30%** (target 93.0%–97.0%), mean CI width = 0.235.
+     * Across all 10 TWS regional pairs, FPR ranges from 4.50% to 6.50% (mean 5.30%) and 95% CI coverage ranges from 93.50% to 95.50% (mean 94.70%).
+     * Across all 10 rainfall pairs, FPR ranges from 3.60% to 5.60% (mean 4.56%) and coverage ranges from 94.40% to 96.40% (mean 95.44%).
+     * Across all 20 tested pairs, FPR ranges from **3.60% to 6.50%** and coverage ranges from **93.50% to 96.40%**, meeting all pre-specified targets.
+     * Alternative candidate methods failed calibration: Candidate B (moving-block with $b=10$) yielded 12.80% FPR and 87.20% coverage; Candidate C (residual AR(1) bootstrap) yielded 8.80% FPR and 91.20% coverage; v1 moving-block bootstrap ($b=3$) failed with 15.40% FPR and 84.60% coverage (archived to `calibration_report_v1_bootstrap_failed.json`).
 
-5. **Methodological Limits & Scope:**
+5. **Real-Residual Placebo Audit & Easier-Null Limitation:**
+   - Calibration used simulated AR(1) noise, which is the easier test. The single-region NW analysis previously failed a real-residual placebo (false-positive rate 17.6%, coverage 82.5%); the same check for the pairwise test is reported below.
+   - **Variant 1 (Independent Circular Shift, lag $\ge 24$ mo):** Breaks contemporaneous cross-correlation $\rho$, yielding wide difference CIs and conservative FPR (0.00% to 2.40%, coverage 97.60% to 100.00% across all 10 pairs).
+   - **Variant 2 (Synchronized Circular Shift):** Preserves contemporaneous cross-correlation $\rho$. Two pairs pass: Central vs SW (FPR = 5.90%, coverage = 94.10%) and SW vs SE (FPR = 5.00%, coverage = 95.00%). Eight pairs fail (FPR 7.40% to 46.40%) because multiannual excursions in empirical residuals induce spurious trend rejections when shifted across the timeline boundary. These 8 pairs carry the flag `Fails real-residual placebo` alongside their existing verdicts.
+
+6. **Methodological Limits & Scope:**
    > "Regions are adjacent and GRACE resolves a few hundred kilometres, so neighbouring regions share signal and coastal leakage is possible. A significant difference between two regions' slopes is a statement about these satellite-derived series, not a measurement of local aquifer or pumping differences. Recent windows are below the detection limit."
