@@ -18,6 +18,25 @@ Bangladesh receives copious monsoonal precipitation each year, yet satellite gra
 
 **Bengal Hydro Detective** provides an audit-grade, multi-sensor, multi-window hydroclimatic trend detection pipeline covering the continuous 24-year satellite gravimetry record (April 2002 to July 2026).
 
+### 1.1 Interactive Web Application (Dr. James Acker's 5-Step Workflow)
+
+The project includes a 100% client-side, zero-dependency interactive web application directly implementing Dr. James Acker's 5-step analytical workflow:
+1. **Select Variable(s)**: Choose from GRACE/GRACE-FO Total Water Storage, GPM IMERG satellite precipitation, NASA POWER reanalysis, GLDAS Noah/VIC root-zone soil moisture, partitioned subsurface residual, daily precipitation extremes, and NASA AERONET atmospheric aerosols.
+2. **Define Region**: Interactive vector map covering Bangladesh's 5 macro-regions, National aggregate, and 8 administrative divisions.
+3. **Select Time Window & Season**: Configurable year range (2002–2026), 4 canonical baseline presets, and scientifically valid seasonal aggregation (one observation per year).
+4. **Generate & Inspect Time Series**: Real-time Chart.js canvas rendering observations, fitted Theil-Sen trend line, 95% slope uncertainty bounds, and inter-satellite mission gap shading.
+5. **Test for Statistical Significance**: Calibrated Effective-Sample-Size Mann-Kendall engine executing live in browser JavaScript with $p < 0.05$ challenge standard, within-window Benjamini-Hochberg FDR auditing, and Dr. Acker's window-length lesson.
+
+- **`index.html`**: Interactive Trend Detective Workbench (with 6 guided case files).
+- **`report.html`**: Comprehensive 24-year scientific research report.
+
+**Quick Launch:**
+```bash
+# Launch via standard Python HTTP server
+python3 -m http.server 8000
+# Visit http://localhost:8000 in your browser, or double-click index.html
+```
+
 ```mermaid
 flowchart TD
     G[CSR GRACE/GRACE-FO Mascons RL06.3<br/>2002-04 to 2026-07] --> TWS[Total Water Storage Anomaly<br/>8 Divisions / 6 Regions]

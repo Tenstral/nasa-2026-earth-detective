@@ -48,7 +48,7 @@ class TestV3RegionComparison(unittest.TestCase):
         cls.json_archived_v1 = cls.out_dir / "calibration_report_v1_bootstrap_failed.json"
         cls.json_placebo = cls.out_dir / "real_residual_placebo.json"
         cls.results_all_csv = REPO_ROOT / "outputs" / "v3" / "full_record" / "results_all_windows.csv"
-        cls.index_html_path = REPO_ROOT / "index.html"
+        cls.index_html_path = REPO_ROOT / "report.html"
         cls.status_md_path = REPO_ROOT / "PROJECT_STATUS.md"
 
     def test_01_output_files_exist(self):
