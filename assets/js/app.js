@@ -128,12 +128,21 @@
     el.activeCaseBanner.classList.add('visible');
     el.caseBannerTitle.textContent = `${c.badge}: ${c.title}`;
     el.caseBannerPrompt.innerHTML = `<strong>Detective Mission:</strong> ${c.prompt}`;
-    el.caseBannerTakeaway.innerHTML = `<strong>Scientific Insight:</strong> ${c.takeaway}`;
+    el.caseBannerTakeaway.innerHTML = `<strong>Scientific Insight:</strong> ${c.takeaway} <a href="#dossier-${caseId}" class="case-banner-dossier-link">📖 Read In-Depth Case Dossier ↓</a>`;
 
     syncControls();
     runWorkflow();
     renderCases();
   }
+
+  // Expose globally for interactive dossier buttons
+  window.ED.activateCase = function(caseId) {
+    activateCase(caseId);
+    const wb = document.querySelector('.workbench-layout');
+    if (wb) {
+      wb.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   function closeCase() {
     state.activeCaseId = null;
