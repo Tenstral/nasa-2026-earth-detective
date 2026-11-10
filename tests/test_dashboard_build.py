@@ -14,7 +14,7 @@ from pathlib import Path
 import pandas as pd
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-INDEX_HTML = REPO_ROOT / "index.html"
+INDEX_HTML = REPO_ROOT / "report.html"
 RATIO_CSV = REPO_ROOT / "outputs" / "v3" / "seasonal" / "ratio_trend.csv"
 DRAWDOWN_CSV = REPO_ROOT / "outputs" / "v3" / "seasonal" / "dry_season_drawdown.csv"
 

@@ -30,10 +30,8 @@ import shapely.ops
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
-def build_dashboard_data(repo_root: Path = REPO_ROOT) -> dict:
-    """Reads all primary data files and compiles structured dictionary for DASHBOARD_DATA."""
-    # 1. GeoJSON and SVG paths
-    geojson_path = repo_root / "bangladesh_divisions.geojson"
+def build_map_paths(geojson_path: Path):
+    """Generates cleaned, gap-closed SVG paths and label centers from divisions GeoJSON."""
     with open(geojson_path, "r", encoding="utf-8") as f:
         gj = json.load(f)
 
@@ -136,6 +134,15 @@ def build_dashboard_data(repo_root: Path = REPO_ROOT) -> dict:
             d.append("Z")
             path_d.append(" ".join(d))
         svg_paths[name] = " ".join(path_d)
+
+    return svg_paths, div_centers
+
+
+def build_dashboard_data(repo_root: Path = REPO_ROOT) -> dict:
+    """Reads all primary data files and compiles structured dictionary for DASHBOARD_DATA."""
+    # 1. GeoJSON and SVG paths
+    geojson_path = repo_root / "bangladesh_divisions.geojson"
+    svg_paths, div_centers = build_map_paths(geojson_path)
 
     # 2. Regional and Divisional Series
     reg_df = pd.read_csv(repo_root / "outputs/v3/full_record/region_series_2002_2026.csv")
@@ -312,8 +319,8 @@ def generate_updated_html(index_html_path: Path, data: dict) -> str:
 
 def main():
     data = build_dashboard_data(REPO_ROOT)
-    index_path = REPO_ROOT / "index.html"
-    new_html = generate_updated_html(index_path, data)
+    report_path = REPO_ROOT / "report.html"
+    new_html = generate_updated_html(report_path, data)
 
     # Check for forbidden patterns
     banned = [
@@ -328,10 +335,10 @@ def main():
         if matches:
             raise ValueError(f"Forbidden phrase '{b}' found in updated HTML: {[m.group(0) for m in matches]}")
 
-    with open(index_path, "w", encoding="utf-8") as f:
+    with open(report_path, "w", encoding="utf-8") as f:
         f.write(new_html)
 
-    print(f"[OK] Successfully built dashboard data and updated: {index_path} ({len(new_html)} bytes)")
+    print(f"[OK] Successfully built dashboard data and updated: {report_path} ({len(new_html)} bytes)")
 
 
 if __name__ == "__main__":

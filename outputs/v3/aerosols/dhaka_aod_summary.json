@@ -1,0 +1,53 @@
+{
+  "region": "Dhaka, Bangladesh",
+  "coordinates": {
+    "lat": 23.8103,
+    "lon": 90.4125
+  },
+  "source": "NASA_AERONET_Dhaka_University_L1.5",
+  "total_months": 128,
+  "trends": {
+    "annual": {
+      "season": "annual",
+      "n_years": 13,
+      "start_year": 2012,
+      "end_year": 2024,
+      "theil_sen_slope_per_year": 0.0153,
+      "ci_95": [
+        0.0053,
+        0.0318
+      ],
+      "p_value": 0.0124,
+      "verdict": "Significant increase",
+      "method": "ESS-MK (Calibrated)"
+    },
+    "winter_djf": {
+      "season": "winter_djf",
+      "n_years": 12,
+      "start_year": 2013,
+      "end_year": 2024,
+      "theil_sen_slope_per_year": 0.015,
+      "ci_95": [
+        -0.0073,
+        0.0378
+      ],
+      "p_value": 0.1499,
+      "verdict": "No detectable trend",
+      "method": "ESS-MK (Calibrated)"
+    },
+    "monsoon_jjas": {
+      "season": "monsoon_jjas",
+      "n_years": 11,
+      "start_year": 2012,
+      "end_year": 2024,
+      "theil_sen_slope_per_year": 0.0197,
+      "ci_95": [
+        -0.177,
+        0.145
+      ],
+      "p_value": 0.5561,
+      "verdict": "No detectable trend",
+      "method": "ESS-MK (Calibrated)"
+    }
+  }
+}
