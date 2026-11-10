@@ -213,3 +213,64 @@ All reported figures have been audited against the primary single sources of tru
 | **Calibrated ESS-MK NW CI Coverage** | `PROJECT_STATUS.md`, `FIXES_REVIEW_REPORT.md`, `index.html` | `95.40%` | **`95.90%`** | `gap_calibration_report.json` (`calibration_simulation.regional_ar1_null.NW.coverage_ess_mk` = 0.959). |
 | **IMERG Satellite Observation Period** | `PROJECT_STATUS.md` | `2000–2025` | **`2002-01 to 2025-09`** | Verified GPM IMERG V07B Final Run data latency coverage. |
 | **Daily Extreme Indices Catalog** | `PROJECT_STATUS.md` | `Rx1day, Rx5day, R95p, R99p, CDD, CWD, SDII (2003–2024)` | **Rx1day, Rx5day, days $\ge 50\text{ mm}$, annual total (2003–2024); monsoon total, monsoon Rx1day, monsoon Rx5day, monsoon days $\ge 50\text{ mm}$ (2002–2025)** | Matched exactly to indices computed in `v3/imerg_daily_extremes_pipeline.py` and `outputs/v3/extremes/imerg_extreme_indices_trends.csv`. |
+
+
+---
+
+## 9. Exploratory Seasonal Storage Response & Dry-Season Drawdown (Preliminary)
+
+> **Status Label:** PRELIMINARY & EXPLORATORY ONLY.  
+> These supplementary analyses test seasonal storage dynamics across multi-decadal observations. To maintain strict statistical governance, all exploratory results are documented separately in outputs/v3/seasonal/ and quarantined from the headline 336-test master table (
+esults_all_windows.csv).
+
+### A. Trend of Seasonal Storage Response Ratio (2002–2025)
+
+1. **Physical Metric & Data Sources:**
+   - Evaluates the multi-decadal stability of the seasonal storage response ratio, defined as:
+     \text{Seasonal Storage Response Ratio} = \frac{\Delta\text{TWS}\text{ (cm)}}{0.1 \times P_{\text{monsoon}}\text{ (mm)}} \times 100\%
+   - **Numerator ($\Delta\text{TWS}$):** Seasonal storage rebound alone, defined as the post-monsoon storage peak (maximum of August–November) minus the pre-monsoon dry season low (minimum of March–May) from CSR GRACE/GRACE-FO RL06.3 gravimetry (cm of total water storage).
+   - **Denominator ({\text{monsoon}}$):** June–September 4-month cumulative rainfall from NASA GPM IMERG V07B Final Run (converted to cm liquid water equivalent).
+2. **Satellite Gap Protocol:**
+   - Incomplete seasons are dropped directly rather than interpolated. The 2017 season (lacking post-monsoon peak due to GRACE decommissioning) and 2018 season (lacking pre-monsoon low prior to GRACE-FO operations) are excluded, leaving **22 complete seasons** (2002–2016 and 2019–2025) in the main run.
+   - A sensitivity run further excludes seasons within $\pm 6$ months of the satellite mission transition (2016–2019), leaving **20 complete seasons**.
+3. **Statistical Findings (Main Run, N = 22 Seasons):**
+   - **Northwest (NW):** Mean ratio = 39.6%, Theil-Sen slope = **+0.266 %/yr**, 95% CI: [-0.295, +0.836] %/yr,  = 0.3784$, exploratory FDR  = 0.5158$, MDS (80% power) = 0.700 %/yr $\rightarrow$ **No detectable trend**. The 95% CI is wide relative to the slope and spans zero.
+   - **Northeast (NE):** Mean ratio = 30.1%, slope = **+0.203 %/yr**, 95% CI: [-0.079, +0.500] %/yr,  = 0.2147$, exploratory FDR  = 0.4294$, MDS = 0.400 %/yr $\rightarrow$ **No detectable trend**.
+   - **Central:** Mean ratio = 42.2%, slope = **+0.387 %/yr**, 95% CI: [+0.046, +0.712] %/yr,  = 0.0369$, exploratory FDR  = 0.1105$, MDS = 0.500 %/yr $\rightarrow$ **No detectable trend** (raw  < 0.05$ does not survive exploratory Benjamini-Hochberg FDR control  < 0.05$).
+   - **Southwest (SW):** Mean ratio = 33.0%, slope = **+0.138 %/yr**, 95% CI: [-0.164, +0.481] %/yr,  = 0.4298$, exploratory FDR  = 0.5158$, MDS = 0.500 %/yr $\rightarrow$ **No detectable trend**.
+   - **Southeast (SE):** Mean ratio = 26.0%, slope = **+0.063 %/yr**, 95% CI: [-0.147, +0.228] %/yr,  = 0.6118$, exploratory FDR  = 0.6118$, MDS = 0.350 %/yr $\rightarrow$ **No detectable trend**.
+   - **National Composite:** Mean ratio = 32.5%, slope = **+0.136 %/yr**, 95% CI: [+0.028, +0.355] %/yr,  = 0.0208$, exploratory FDR  = 0.1105$, MDS = 0.300 %/yr $\rightarrow$ **No detectable trend** (does not survive exploratory FDR control).
+4. **Sensitivity Run (N = 20 Seasons):**
+   - Central shows slope +0.476 %/yr ( = 0.0048$,  = 0.0212$) and National shows slope +0.151 %/yr ( = 0.0071$,  = 0.0212$), while NW, NE, SW, and SE show no detectable trend.
+
+---
+
+### B. Dry-Season Storage Drawdown & Cropland Overlay (2002–2026)
+
+1. **Physical Metric & Exact Config Windows:**
+   - Evaluates whether the annual dry-season storage drawdown has expanded or contracted over the 24-year satellite record:
+     \text{Drawdown}_{y} = \text{TWS}_{\text{peak}, y} - \text{TWS}_{\text{min}, y+1}
+   - Exact observation windows specified in config.json constants:
+     - monsoon_peak_months: [8, 9, 10, 11] (August–November of year $)
+     - ollowing_pre_monsoon_min_months: [3, 4, 5] (March–May of following year +1$)
+2. **Missing Satellite Endpoint Protocol:**
+   - Any annual cycle missing either endpoint is dropped rather than interpolated. The 2017–2018 cycle lacks both autumn 2017 peak and spring 2018 low due to the GRACE to GRACE-FO transition gap; exactly **1 year (2017)** drops out per region, leaving **23 valid observation cycles** (2002–2016 and 2018–2025) in the main run.
+   - Sensitivity run excludes cycles touching the $\pm 6$-month buffer (2016–2018), leaving **21 valid cycles**.
+3. **Statistical Trends & Descriptive Cropland Overlay:**
+   - To prevent ecological fallacy and spurious regression across an aggregated sample of 5 regions (=5$), no cross-regional correlation or regression is performed. Regional metrics are reported descriptively alongside agricultural land cover (MODIS MCD12Q1) and population (NASA SEDAC GPWv4):
+
+| Region | Cropland (%) | Population (2020) | Full-Record TWS Slope (cm/yr) | Full-Record TWS 95% CI | Mean Drawdown (cm) | Drawdown Slope (cm/yr) | 95% Confidence Interval | p-value | Exploratory FDR q | MDS (80% Power) | Verdict |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|---|
+| **NW** | 74.2% | 38.81M | -1.25 | [-1.50, -1.02] | 55.23 cm | **+0.011** | [-0.895, +0.813] | 1.0000 | 1.0000 | 1.300 cm/yr | No detectable trend |
+| **NE** | 58.6% | 24.05M | -0.56 | [-0.70, -0.42] | 58.48 cm | **+0.086** | [-0.784, +0.675] | 0.8168 | 1.0000 | 1.300 cm/yr | No detectable trend |
+| **Central** | 56.4% | 45.64M | -0.47 | [-0.62, -0.34] | 58.19 cm | **-0.014** | [-0.994, +0.745] | 0.9444 | 1.0000 | 1.300 cm/yr | No detectable trend |
+| **SW** | 48.7% | 27.14M | -0.05 | [-0.20, +0.10] | 48.70 cm | **-0.095** | [-0.472, +0.243] | 0.5006 | 1.0000 | 0.700 cm/yr | No detectable trend |
+| **SE** | 32.1% | 34.18M | -0.05 | [-0.17, +0.06] | 51.16 cm | **-0.055** | [-0.353, +0.241] | 0.6996 | 1.0000 | 0.550 cm/yr | No detectable trend |
+| **National** | 57.8% | 169.83M | -0.51 | [-0.66, -0.38] | 53.24 cm | **-0.013** | [-0.593, +0.509] | 0.9703 | 1.0000 | 1.100 cm/yr | No detectable trend |
+
+4. **Physical Interpretation:**
+   - In all 5 regions and nationally, the annual dry-season drawdown trend shows **no detectable trend** ( \ge 0.50$,  = 1.0000$).
+   - The seasonal cyclic amplitude of water storage (~48 to 58 cm) has remained stationary across 24 years, while the secular baseline total water storage has declined (-1.25 cm/yr in NW).
+
+5. **Methodological Limits & Scope:**
+   > Gravimetry measures total water storage (groundwater, soil moisture and surface water together). This analysis shows regional patterns that are consistent with dry-season agricultural water use but does not attribute them to irrigation pumping. Testing that would require metered pumping or electricity records (BMDA), BWDB well hydrographs, or irrigated-area mapping.
