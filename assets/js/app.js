@@ -26,6 +26,7 @@
     showTrendLine: true,
     showGap: true,
     showFloodMarkers: true,
+    activePresetId: 'full_record',
     activeCaseId: null
   };
 
@@ -50,6 +51,11 @@
     el.chartSubtitle = document.getElementById('chart-subtitle');
     el.toggleDeseason = document.getElementById('toggle-deseason');
     el.toggleTrendLine = document.getElementById('toggle-trendline');
+    el.toggleGap = document.getElementById('toggle-gap');
+    el.toggleFloods = document.getElementById('toggle-floods');
+    el.stakeholderCard = document.getElementById('stakeholder-card');
+    el.stakeholderTitle = document.getElementById('stakeholder-title');
+    el.stakeholderBody = document.getElementById('stakeholder-body');
     el.verdictBadge = document.getElementById('verdict-badge');
     el.statSlope = document.getElementById('stat-slope');
     el.statCi = document.getElementById('stat-ci');
@@ -128,12 +134,21 @@
     el.activeCaseBanner.classList.add('visible');
     el.caseBannerTitle.textContent = `${c.badge}: ${c.title}`;
     el.caseBannerPrompt.innerHTML = `<strong>Detective Mission:</strong> ${c.prompt}`;
-    el.caseBannerTakeaway.innerHTML = `<strong>Scientific Insight:</strong> ${c.takeaway}`;
+    el.caseBannerTakeaway.innerHTML = `<strong>Scientific Insight:</strong> ${c.takeaway} <a href="#dossier-${caseId}" class="case-banner-dossier-link">📖 Read In-Depth Case Dossier ↓</a>`;
 
     syncControls();
     runWorkflow();
     renderCases();
   }
+
+  // Expose globally for interactive dossier buttons
+  window.ED.activateCase = function(caseId) {
+    activateCase(caseId);
+    const wb = document.querySelector('.workbench-layout');
+    if (wb) {
+      wb.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   function closeCase() {
     state.activeCaseId = null;
@@ -152,7 +167,7 @@
       { name: 'Precipitation & Reanalysis', ids: ['imerg_precip', 'power_precip'] },
       { name: 'Soil & Subsurface', ids: ['noah_sms_anom', 'vic_sms_anom', 'subsurface_residual'] },
       { name: 'Climate Extremes', ids: ['extreme_rx1day', 'extreme_days_ge_50'] },
-      { name: 'Atmospheric Aerosols', ids: ['aod_550'] }
+      { name: 'Atmospheric Aerosols', ids: ['modis_aod', 'aeronet_aod'] }
     ];
 
     domains.forEach(d => {
@@ -241,6 +256,12 @@
     if (isDivision && curVar.id === 'grace_tws') {
       el.regionalCaveat.classList.add('visible');
       el.regionalCaveat.innerHTML = '⚠️ <strong>Coarse Footprint:</strong> GRACE spatial resolution is ~300 km. Divisional estimates share neighboring mascons and are descriptive only.';
+    } else if (curVar.id === 'aeronet_aod') {
+      el.regionalCaveat.classList.add('visible');
+      el.regionalCaveat.innerHTML = '📍 <strong>Ground Station:</strong> AERONET data is recorded by the NASA sun photometer at Dhaka University (Central). It represents the greater Dhaka urban plume.';
+    } else if (curVar.id === 'modis_aod' && state.entity !== 'National') {
+      el.regionalCaveat.classList.add('visible');
+      el.regionalCaveat.innerHTML = '🛰️ <strong>Satellite Cell:</strong> MODIS Aqua 1° Level-3 grid cell centered over Dhaka (23.81°N, 90.41°E). Switch to "All Bangladesh (National)" for the nationwide spatial average.';
     } else {
       el.regionalCaveat.classList.remove('visible');
     }
@@ -323,6 +344,13 @@
     });
   }
 
+  function updateActivePresetFromYears() {
+    const match = (window.ED.catalog.canonicalWindows || []).find(w => {
+      return parseInt(w.start.slice(0, 4)) === state.startYear && parseInt(w.end.slice(0, 4)) === state.endYear;
+    });
+    state.activePresetId = match ? match.id : null;
+  }
+
   // 4. Render Time Controls
   function renderTimeControls() {
     // Populate start and end year selects
@@ -343,10 +371,11 @@
     el.timePresets.innerHTML = '';
     window.ED.catalog.canonicalWindows.forEach(w => {
       const btn = document.createElement('button');
-      const isPresetActive = (state.startYear === parseInt(w.start.slice(0, 4)) && state.endYear === parseInt(w.end.slice(0, 4)));
+      const isPresetActive = state.activePresetId === w.id;
       btn.className = `preset-btn ${isPresetActive ? 'selected' : ''}`;
       btn.textContent = w.label;
       btn.addEventListener('click', () => {
+        state.activePresetId = w.id;
         state.startYear = parseInt(w.start.slice(0, 4));
         state.endYear = parseInt(w.end.slice(0, 4));
         state.season = 'annual';
@@ -374,6 +403,18 @@
     } else {
       el.toggleTrendLine.classList.remove('active');
     }
+
+    if (state.showGap) {
+      el.toggleGap.classList.add('active');
+    } else {
+      el.toggleGap.classList.remove('active');
+    }
+
+    if (state.showFloodMarkers) {
+      el.toggleFloods.classList.add('active');
+    } else {
+      el.toggleFloods.classList.remove('active');
+    }
   }
 
   // 5. Data Extraction Helper
@@ -394,9 +435,27 @@
       }));
     }
 
-    // AOD
-    if (varId === 'aod_550') {
+    // AOD: Ground AERONET or Satellite MODIS Aqua
+    if (varId === 'aeronet_aod' || varId === 'aod_550') {
       const aodList = window.ED.seriesAOD.dhaka_aeronet || [];
+      return aodList.map(item => ({
+        ym: item.ym,
+        year: item.year,
+        month: item.month,
+        decimal_year: item.decimal_year,
+        value: item.aod_550
+      }));
+    }
+
+    if (varId === 'modis_aod') {
+      let aodList = [];
+      if (entity === 'National') {
+        aodList = (window.ED.seriesAOD.bangladesh_modis && window.ED.seriesAOD.bangladesh_modis.length > 0)
+          ? window.ED.seriesAOD.bangladesh_modis
+          : window.ED.seriesAOD.dhaka_modis;
+      } else {
+        aodList = window.ED.seriesAOD.dhaka_modis || [];
+      }
       return aodList.map(item => ({
         ym: item.ym,
         year: item.year,
@@ -436,15 +495,44 @@
     return out;
   }
 
+  // Exact surface areas (km²) for regions and divisions from GIS shapefiles (v3/windows.py)
+  const ENTITY_AREAS = {
+    // Macro Regions
+    NW: 30984.4,
+    NE: 21198.4,
+    Central: 17130.7,
+    SW: 28153.0,
+    SE: 24886.5,
+    National: 122353.0,
+    // Administrative Divisions
+    Barishal: 9887.4,
+    Chattogram: 24886.5,
+    Dhaka: 17130.7,
+    Khulna: 18265.6,
+    Mymensingh: 10001.8,
+    Rajshahi: 15816.3,
+    Rangpur: 15168.1,
+    Sylhet: 11196.6
+  };
+
   // 6. Main Workflow Execution (5 Steps)
   function runWorkflow() {
     const isDivision = state.spatialType === 'division';
     const curVar = getVarMeta(state.variable);
     const regMeta = isDivision ? getDivisionMeta(state.entity) : getRegionMeta(state.entity);
 
-    // Filter time bounds
+    // Filter time bounds (exact month filtering when canonical preset is active)
     const rawData = extractSeries(state.variable, state.entity, isDivision);
-    const inWindow = rawData.filter(d => d.year >= state.startYear && d.year <= state.endYear);
+    const activePreset = state.activePresetId
+      ? (window.ED.catalog.canonicalWindows || []).find(w => w.id === state.activePresetId)
+      : null;
+
+    let inWindow = [];
+    if (activePreset && state.season === 'annual') {
+      inWindow = rawData.filter(d => d.ym >= activePreset.start && d.ym <= activePreset.end);
+    } else {
+      inWindow = rawData.filter(d => d.year >= state.startYear && d.year <= state.endYear);
+    }
 
     // Process season & deseasonalization
     let processedPoints = [];
@@ -482,7 +570,13 @@
     if (state.overlayVariable) {
       const oVar = getVarMeta(state.overlayVariable);
       const oRaw = extractSeries(state.overlayVariable, state.entity, isDivision);
-      const oInWin = oRaw.filter(d => d.year >= state.startYear && d.year <= state.endYear);
+      let oInWin = [];
+      if (activePreset && state.season === 'annual') {
+        oInWin = oRaw.filter(d => d.ym >= activePreset.start && d.ym <= activePreset.end);
+      } else {
+        oInWin = oRaw.filter(d => d.year >= state.startYear && d.year <= state.endYear);
+      }
+
       if (isSeasonalMode) {
         overlayPoints = window.Stats.seasonalAggregate(oInWin, state.season, oVar.kind);
       } else {
@@ -512,7 +606,87 @@
 
     // Step 5: Render Verdict Card
     renderVerdict(statResult, processedPoints.length, curVar, regMeta);
+
+    // Step 6: Render Stakeholder Directives Card
+    renderStakeholderDirectives();
   }
+
+  // Chart inline plugins
+  const gapShadingPlugin = {
+    id: 'gapShadingPlugin',
+    beforeDraw(chart) {
+      if (!state.showGap) return;
+      const curVar = getVarMeta(state.variable);
+      if (!curVar || !curVar.has_gap) return;
+      const xAxis = chart.scales.x;
+      const yAxis = chart.scales.y;
+      if (!xAxis || !yAxis) return;
+      // Mission gap spans 2017.50 (July 2017) to 2018.42 (May 2018)
+      const xStart = Math.max(xAxis.left, xAxis.getPixelForValue(2017.50));
+      const xEnd = Math.min(xAxis.right, xAxis.getPixelForValue(2018.42));
+      if (xStart < xAxis.right && xEnd > xAxis.left && xEnd > xStart) {
+        const ctx = chart.ctx;
+        ctx.save();
+        ctx.fillStyle = 'rgba(234, 88, 12, 0.12)';
+        ctx.fillRect(xStart, yAxis.top, xEnd - xStart, yAxis.bottom - yAxis.top);
+        ctx.strokeStyle = 'rgba(234, 88, 12, 0.4)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(xStart, yAxis.top);
+        ctx.lineTo(xStart, yAxis.bottom);
+        ctx.moveTo(xEnd, yAxis.top);
+        ctx.lineTo(xEnd, yAxis.bottom);
+        ctx.stroke();
+
+        ctx.fillStyle = '#c2410c';
+        ctx.font = 'bold 10px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        const midX = (xStart + xEnd) / 2;
+        if (midX >= xAxis.left && midX <= xAxis.right) {
+          ctx.fillText('11-Mo Gap', midX, yAxis.top + 16);
+        }
+        ctx.restore();
+      }
+    }
+  };
+
+  const floodMarkersPlugin = {
+    id: 'floodMarkersPlugin',
+    afterDraw(chart) {
+      if (!state.showFloodMarkers) return;
+      const xAxis = chart.scales.x;
+      const yAxis = chart.scales.y;
+      if (!xAxis || !yAxis) return;
+      // Historical severe flood years in Bangladesh: 2004, 2007, 2017, 2020, 2022 (FFWC / BWDB)
+      const floodYears = [
+        { yr: 2004.58, label: '2004' },
+        { yr: 2007.67, label: '2007' },
+        { yr: 2017.67, label: '2017' },
+        { yr: 2020.58, label: '2020' },
+        { yr: 2022.46, label: '2022' }
+      ];
+      const ctx = chart.ctx;
+      floodYears.forEach(f => {
+        if (f.yr >= xAxis.min && f.yr <= xAxis.max) {
+          const xPos = xAxis.getPixelForValue(f.yr);
+          ctx.save();
+          ctx.beginPath();
+          ctx.setLineDash([3, 3]);
+          ctx.strokeStyle = 'rgba(14, 165, 233, 0.7)';
+          ctx.lineWidth = 1.2;
+          ctx.moveTo(xPos, yAxis.top);
+          ctx.lineTo(xPos, yAxis.bottom);
+          ctx.stroke();
+
+          ctx.fillStyle = '#0284c7';
+          ctx.font = '10px system-ui, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(`🌊 ${f.label}`, xPos, yAxis.top + 28);
+          ctx.restore();
+        }
+      });
+    }
+  };
 
   // 7. Render Chart.js Visualization
   function renderChart(points, statResult, overlayPoints) {
@@ -523,8 +697,16 @@
     el.chartTitle.textContent = `${curVar.name} — ${locName}`;
     el.chartSubtitle.textContent = `${state.startYear} to ${state.endYear} • Season: ${state.season.toUpperCase()} • ${points.length} observations`;
 
-    const labels = points.map(p => p.ym || p.year);
-    const obsData = points.map(p => ({ x: p.decimal_year, y: p.value }));
+    // Build observation points, inserting null across the gap if variable has a gap
+    const obsData = [];
+    for (let i = 0; i < points.length; i++) {
+      obsData.push({ x: points[i].decimal_year, y: points[i].value });
+      if (curVar.has_gap && i < points.length - 1) {
+        if (points[i + 1].decimal_year - points[i].decimal_year > 0.5) {
+          obsData.push({ x: (points[i].decimal_year + points[i + 1].decimal_year) / 2, y: null });
+        }
+      }
+    }
 
     // Theil-Sen regression line points
     let trendLineData = [];
@@ -560,6 +742,7 @@
         pointRadius: points.length > 80 ? 1.5 : 3.5,
         borderWidth: 1.5,
         tension: 0.1,
+        spanGaps: false,
         yAxisID: 'y'
       }
     ];
@@ -618,6 +801,7 @@
     chartInstance = new Chart(el.chartCanvas, {
       type: 'line',
       data: { datasets: datasets },
+      plugins: [gapShadingPlugin, floodMarkersPlugin],
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -700,31 +884,42 @@
 
     // Check for exact canonical preset row (for FDR badge)
     let fdrBadgeHtml = '';
-    const presetKey = `${state.startYear === 2002 && state.endYear === 2026 ? 'full_record' : (state.startYear === 2002 && state.endYear === 2017 ? 'grace_era' : (state.startYear === 2018 ? 'grace_fo_era' : 'recent_2020'))}_${state.entity}_${curVar.id === 'grace_tws' ? 'tws' : 'precip'}`;
-    const presetMatch = window.ED.presets[presetKey];
+    let multipleTestingNotice = '';
+    const isCanonical = !!state.activePresetId && (curVar.id === 'grace_tws' || curVar.id === 'imerg_precip') && state.season === 'annual';
 
-    if (presetMatch && state.season === 'annual') {
-      const qVal = presetMatch.bh_fdr_q_value < 0.0001 ? '< 0.0001' : presetMatch.bh_fdr_q_value.toFixed(4);
-      fdrBadgeHtml = `<span style="display:inline-block;margin-left:8px;background:#e0e7ff;color:#3730a3;font-size:0.75rem;padding:2px 8px;border-radius:10px;font-weight:700;">Within-Window FDR q = ${qVal}</span>`;
+    if (isCanonical) {
+      const presetKey = `${state.activePresetId}_${state.entity}_${curVar.id === 'grace_tws' ? 'tws' : 'precip'}`;
+      const presetMatch = window.ED.presets[presetKey];
+      if (presetMatch) {
+        const qVal = presetMatch.bh_fdr_q_value < 0.0001 ? '< 0.0001' : presetMatch.bh_fdr_q_value.toFixed(4);
+        fdrBadgeHtml = `<span style="display:inline-block;margin-left:8px;background:#e0e7ff;color:#3730a3;font-size:0.75rem;padding:2px 8px;border-radius:10px;font-weight:700;">Within-Window FDR q = ${qVal}</span>`;
+      }
+    } else {
+      multipleTestingNotice = `<div style="margin-top:10px;font-size:0.8rem;color:var(--text-muted);background:var(--bg-subtle);padding:8px 12px;border-radius:6px;border-left:3px solid #6366f1;">
+        <strong>ℹ️ Multiple-Testing Notice:</strong> When evaluating ad-hoc custom windows or exploratory cross-variable queries, nominal p-values are uncorrected for multiplicity. For pre-screened canonical windows with Benjamini–Hochberg False Discovery Rate control (q &lt; 0.05), use the 4 time preset buttons above.
+      </div>`;
     }
 
     // Plain Language Explanation
     let expText = '';
     if (isSignificant) {
-      expText = `This trend meets Dr. James Acker's scientific significance standard (p &lt; 0.05). If there were really no underlying trend, an empirical slope this steep would occur by chance less than <strong>${(stat.p_value * 100).toFixed(1)}% of the time</strong>. ${fdrBadgeHtml}`;
+      expText = `This trend meets Dr. James Acker's scientific significance standard (p &lt; 0.05). If there were really no underlying trend, an empirical slope this steep would occur by chance less than <strong>${(stat.p_value * 100).toFixed(1)}% of the time</strong>. ${fdrBadgeHtml}${multipleTestingNotice}`;
     } else {
-      expText = `This time series does not meet the standard threshold for statistical significance (p &ge; 0.05). As Dr. Acker emphasizes: <em>this does not mean a trend does not exist</em>—natural climate noise can mask gradual changes in short windows.`;
+      expText = `This time series does not meet the standard threshold for statistical significance (p &ge; 0.05). As Dr. Acker emphasizes: <em>this does not mean a trend does not exist</em>—natural climate noise can mask gradual changes in short windows. ${multipleTestingNotice}`;
     }
     el.verdictExplanation.innerHTML = expText;
 
     // Physical Impact Conversion (for TWS)
-    if (curVar.id === 'grace_tws' && regMeta && regMeta.cropland_pct) {
+    if (curVar.id === 'grace_tws') {
       el.impactBox.style.display = 'block';
-      const area = state.entity === 'NW' ? 30984.4 : (state.entity === 'National' ? 148048.2 : 30000);
-      const km3Lost = Math.abs(stat.slope * area * 1e-5);
-      const billionLiters = Math.round(km3Lost * 1000);
-      const pools = Math.round(billionLiters / 2.5); // 2.5 million liters per Olympic pool
-      el.impactBox.innerHTML = `💧 <strong>Physical Water Impact:</strong> A rate of <strong>${stat.slope.toFixed(2)} cm/yr</strong> across ${locName(regMeta)} equates to approximately <strong>${billionLiters.toLocaleString()} billion liters</strong> (~${pools.toLocaleString()} Olympic swimming pools) of total water volume change per year.`;
+      const area = ENTITY_AREAS[state.entity] || 30000;
+      const volCentral = Math.abs(stat.slope * area * 0.01); // 1 cm * 1 km² = 0.01 billion liters
+      const pools = Math.round(volCentral * 400); // 1 pool = 2.5M L = 0.0025 billion L
+      const volLow = Math.min(Math.abs(stat.ci_low), Math.abs(stat.ci_high)) * area * 0.01;
+      const volHigh = Math.max(Math.abs(stat.ci_low), Math.abs(stat.ci_high)) * area * 0.01;
+      const actionWord = stat.slope < 0 ? 'net depletion' : 'net accumulation';
+
+      el.impactBox.innerHTML = `💧 <strong>Physical Water Impact:</strong> A rate of <strong>${stat.slope > 0 ? '+' : ''}${stat.slope.toFixed(2)} cm/yr</strong> across ${locName(regMeta)} (${area.toLocaleString()} km²) equates to approximately <strong>${volCentral.toFixed(1)} billion liters/year</strong> of ${actionWord} (95% CI: <strong>${volLow.toFixed(1)} to ${volHigh.toFixed(1)}</strong> billion L/yr), equivalent to ~<strong>${pools.toLocaleString()}</strong> Olympic swimming pools per year.`;
     } else {
       el.impactBox.style.display = 'none';
     }
@@ -771,11 +966,50 @@
     `;
   }
 
+  // 9. Render Stakeholder Directives Card
+  function renderStakeholderDirectives() {
+    if (!el.stakeholderBody || !window.ED.catalog || !window.ED.catalog.stakeholderDirectives) return;
+    const regKey = state.spatialType === 'division'
+      ? (window.ED.map.divisionToRegion[state.entity] || 'National')
+      : (state.entity || 'National');
+    const dir = window.ED.catalog.stakeholderDirectives[regKey] || window.ED.catalog.stakeholderDirectives['National'];
+    if (!dir) return;
+
+    if (el.stakeholderTitle) {
+      el.stakeholderTitle.textContent = `Directives: ${dir.region_name}`;
+    }
+
+    el.stakeholderBody.innerHTML = `
+      <div class="directive-grid">
+        <div class="directive-item" style="grid-column: 1 / -1; border-left-color: #2563eb;">
+          <div class="directive-label" style="color: #2563eb;">🛰️ 24-Year Satellite Metric &amp; Baseline</div>
+          <div class="directive-text"><strong>${dir.satellite_metric}</strong> ${dir.historical_context}</div>
+        </div>
+        <div class="directive-item mandate">
+          <div class="directive-label" style="color: #d97706;">🏛️ Institutional &amp; Policy Mandate</div>
+          <div class="directive-text">${dir.mandate}</div>
+        </div>
+        <div class="directive-item farmer-do">
+          <div class="directive-label" style="color: #16a34a;">🌾 Farmers: Recommended Actions (DOs)</div>
+          <div class="directive-text">${dir.farmer_dos}</div>
+        </div>
+        <div class="directive-item farmer-dont">
+          <div class="directive-label" style="color: #dc2626;">🚫 Farmers: Practices to Avoid (DON'Ts)</div>
+          <div class="directive-text">${dir.farmer_donts}</div>
+        </div>
+        <div class="directive-item citizen">
+          <div class="directive-label" style="color: #0284c7;">🏡 Community &amp; Citizen Action</div>
+          <div class="directive-text">${dir.citizen_action}</div>
+        </div>
+      </div>
+    `;
+  }
+
   function locName(regMeta) {
     return regMeta ? (regMeta.name || regMeta.id) : state.entity;
   }
 
-  // 9. Event Listeners & Bootstrapping
+  // 10. Event Listeners & Bootstrapping
   function bindEvents() {
     el.overlaySelect.addEventListener('change', (e) => {
       state.overlayVariable = e.target.value || null;
@@ -805,6 +1039,8 @@
         state.endYear = state.startYear;
         el.endYear.value = state.endYear;
       }
+      updateActivePresetFromYears();
+      syncControls();
       runWorkflow();
     });
 
@@ -814,6 +1050,8 @@
         state.startYear = state.endYear;
         el.startYear.value = state.startYear;
       }
+      updateActivePresetFromYears();
+      syncControls();
       runWorkflow();
     });
 
@@ -830,6 +1068,18 @@
 
     el.toggleTrendLine.addEventListener('click', () => {
       state.showTrendLine = !state.showTrendLine;
+      syncControls();
+      runWorkflow();
+    });
+
+    el.toggleGap.addEventListener('click', () => {
+      state.showGap = !state.showGap;
+      syncControls();
+      runWorkflow();
+    });
+
+    el.toggleFloods.addEventListener('click', () => {
+      state.showFloodMarkers = !state.showFloodMarkers;
       syncControls();
       runWorkflow();
     });

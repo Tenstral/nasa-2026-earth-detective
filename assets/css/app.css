@@ -1065,6 +1065,63 @@ body {
   text-transform: uppercase;
 }
 
+/* Stakeholder Directives Card */
+.stakeholder-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+  box-shadow: var(--shadow-sm);
+  margin-top: 20px;
+}
+
+.stakeholder-header {
+  margin-bottom: 16px;
+}
+
+.directive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.directive-item {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  border-left: 3px solid #2563eb;
+}
+
+.directive-item.mandate {
+  border-left-color: #d97706;
+}
+
+.directive-item.farmer-do {
+  border-left-color: #16a34a;
+}
+
+.directive-item.farmer-dont {
+  border-left-color: #dc2626;
+}
+
+.directive-item.citizen {
+  border-left-color: #0284c7;
+}
+
+.directive-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.directive-text {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+
 .footer-credits {
   margin-top: 24px;
   padding: 20px 0;
@@ -1073,3 +1130,188 @@ body {
   font-size: 0.82rem;
   color: var(--text-muted);
 }
+
+/* ==========================================================================
+   Case Dossiers Section (Expanded Scientific Investigations)
+   ========================================================================== */
+.case-dossiers-section {
+  margin: 36px 0;
+  padding: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.case-dossiers-header {
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+
+.case-dossiers-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.case-dossiers-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.dossier-card {
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 28px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.dossier-card:hover {
+  border-color: var(--accent-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.dossier-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dossier-title-area {
+  flex: 1;
+  min-width: 260px;
+}
+
+.dossier-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.dossier-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: var(--accent-blue-light);
+  color: var(--accent-blue);
+}
+
+.dossier-domain {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.dossier-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.dossier-tagline {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+  margin-top: 2px;
+}
+
+.dossier-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-blue);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.dossier-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.dossier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.dossier-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+
+.dossier-block-full {
+  grid-column: 1 / -1;
+}
+
+.dossier-block-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dossier-block-content {
+  font-size: 0.88rem;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.dossier-block-content p {
+  margin-bottom: 8px;
+}
+
+.dossier-block-content p:last-child {
+  margin-bottom: 0;
+}
+
+.dossier-stat-highlight {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg-subtle);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+}
+
+.case-banner-dossier-link {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+

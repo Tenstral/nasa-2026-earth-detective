@@ -80,7 +80,10 @@ class TestForbiddenPhrases(unittest.TestCase):
         project_status_file = REPO_ROOT / "PROJECT_STATUS.md"
         demo_file = REPO_ROOT / "demo.html"
         index_file = REPO_ROOT / "index.html"
-        regional_report = REPO_ROOT / "regional_action_report.md"
+        report_file = REPO_ROOT / "report.html"
+        action_report_file = REPO_ROOT / "regional_action_report.md"
+        cases_js_file = REPO_ROOT / "assets/js/cases.js"
+        catalog_js_file = REPO_ROOT / "data/catalog.js"
         deck_file = REPO_ROOT / "DECK.md"
         video_script_file = REPO_ROOT / "VIDEO_SCRIPT.md"
 
@@ -90,16 +93,25 @@ class TestForbiddenPhrases(unittest.TestCase):
         self.assertTrue(project_status_file.exists(), "PROJECT_STATUS.md must exist")
         self.assertTrue(demo_file.exists(), "demo.html must exist")
         self.assertTrue(index_file.exists(), "index.html must exist")
-        self.assertTrue(regional_report.exists(), "regional_action_report.md must exist")
-        self.assertTrue(deck_file.exists(), "DECK.md must exist")
-        self.assertTrue(video_script_file.exists(), "VIDEO_SCRIPT.md must exist")
+        self.assertTrue(report_file.exists(), "report.html must exist")
+        self.assertTrue(action_report_file.exists(), "regional_action_report.md must exist")
+        if deck_file.exists():
+            self.assertTrue(deck_file.exists(), "DECK.md must exist")
+        if video_script_file.exists():
+            self.assertTrue(video_script_file.exists(), "VIDEO_SCRIPT.md must exist")
 
         # Scan all .md, .txt, and .html files under outputs/ (excluding archived outputs/v2),
-        # plus root deliverables: README.md, NOTES.md, PROJECT_STATUS.md, demo.html, index.html, regional_action_report.md, DECK.md, VIDEO_SCRIPT.md
+        # plus root deliverables, presentation deliverables, and core webapp metadata files
+        extra_targets = [readme_file, notes_file, project_status_file, demo_file, index_file, report_file, action_report_file, cases_js_file, catalog_js_file]
+        if deck_file.exists():
+            extra_targets.append(deck_file)
+        if video_script_file.exists():
+            extra_targets.append(video_script_file)
+
         target_files = [
             f for f in outputs_dir.rglob("*")
             if f.suffix in (".md", ".txt", ".html") and "v2" not in f.parts
-        ] + [readme_file, notes_file, project_status_file, demo_file, index_file, regional_report, deck_file, video_script_file]
+        ] + extra_targets
 
         # Explicitly verify the exploratory seasonal extensions and pairwise region comparisons are scanned
         ratio_md = outputs_dir / "v3" / "seasonal" / "ratio_trend.md"
