@@ -12,5 +12,20 @@
     "end": "2026-07",
     "description": "GRACE-FO single-instrument mission era (98 months), robustness window"
   },
-  "random_seed": 42
+  "random_seed": 42,
+  "seasonal_storage_response_ratio": {
+    "pre_monsoon_months": [3, 4, 5],
+    "post_monsoon_months": [8, 9, 10, 11],
+    "monsoon_rain_months": [6, 7, 8, 9],
+    "transition_gap_years": [2017, 2018],
+    "transition_buffer_months": 6,
+    "description": "Config constants for exploratory seasonal storage response ratio analysis"
+  },
+  "dry_season_drawdown": {
+    "monsoon_peak_months": [8, 9, 10, 11],
+    "following_pre_monsoon_min_months": [3, 4, 5],
+    "transition_gap_years": [2017, 2018],
+    "transition_buffer_months": 6,
+    "description": "Config constants for exploratory dry-season drawdown analysis"
+  }
 }

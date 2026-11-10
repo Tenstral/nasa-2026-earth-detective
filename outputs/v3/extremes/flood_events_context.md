@@ -47,7 +47,7 @@
   - Northeast Region Monsoon: 2472.0 mm (+23.5%).
   - Northeast Pre-Monsoon (MAM): 628.9 mm (-14.1%).
   - Northeast June Deluge: 789.2 mm (+29.5%).
-- **Meteorological & Hydrological Drivers:** Two successive peak flood waves in late July and early September driven by extreme Himalayan transboundary inflow.
+- **Meteorological & Hydrological Drivers:** Two successive peak flood waves in late July and early September associated with extreme Himalayan transboundary inflow.
 - **Source Authority:** [FFWC/BWDB Annual Flood Report 2007, Executive Summary, p. 1–2](http://www.ffwc.gov.bd/images/annual07.pdf)
 
 ### [2017] Devastating Pre-Monsoon Flash Flood + August Monsoon Flood
