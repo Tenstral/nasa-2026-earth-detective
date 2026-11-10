@@ -273,3 +273,42 @@ All reported figures have been audited against the primary single sources of tru
 
 5. **Methodological Limits & Scope:**
    > Gravimetry measures total water storage (groundwater, soil moisture and surface water together). This analysis shows regional patterns that are consistent with dry-season agricultural water use but does not attribute them to irrigation pumping. Testing that would require metered pumping or electricity records (BMDA), BWDB well hydrographs, or irrigated-area mapping.
+
+
+---
+
+## 10. Pairwise Between-Region Slope Comparison (2002–2026)
+
+1. **Evaluation Design & Family Definition:**
+   - Evaluates whether secular Theil-Sen trend slopes differ between the 5 administrative regions (NW, NE, Central, SW, SE) on common valid observation months (N = 257 for TWS; N = 247 for IMERG rainfall).
+   - Inferences are computed using the calibrated Difference Series Effective-Sample-Size Mann-Kendall engine (`run_ess_mann_kendall`) on the paired difference series $d(t) = y_A(t) - y_B(t)$.
+   - Hypothesis family: exactly **20 tests** (10 regional pairs $\times$ 2 variables) with Benjamini-Hochberg False Discovery Rate control applied strictly within this family (independent of the 36-test per-window families).
+
+2. **Summary of Primary Findings (Full Record: 2002-04 to 2026-07):**
+   - **Total Water Storage Trends Differ Across 9 of 10 Regional Pairs Under Paired Difference Testing:**
+     * **Northwest (NW) differs significantly from all other regions:** The NW decline (-1.255 cm/yr) is steeper than Northeast ($\Delta = -0.653$ cm/yr, 95% CI [-0.763, -0.543], $q < 0.0001$), Central ($\Delta = -0.722$ cm/yr, 95% CI [-0.841, -0.606], $q < 0.0001$), Southwest ($\Delta = -1.205$ cm/yr, 95% CI [-1.402, -1.007], $q < 0.0001$), and Southeast ($\Delta = -1.189$ cm/yr, 95% CI [-1.397, -0.995], $q < 0.0001$).
+     * **Northeast and Central differ significantly from the South:** NE and Central show steeper declines than SW and SE (each $\Delta \approx -0.45$ to $-0.54$ cm/yr, all $q < 0.0001$).
+     * **Northeast vs Central paired difference vs single-region CI overlap:** The paired difference test yields $\Delta = -0.072$ cm/yr (95% CI [-0.101, -0.043], $p < 0.0001$, within-family FDR $q < 0.0001$). However, under conservative independent comparison, their single-region 95% CIs from `results_all_windows.csv` overlap substantially: Northeast [-0.703, -0.419] cm/yr and Central [-0.620, -0.342] cm/yr overlap across [-0.620, -0.419] cm/yr. Because the regions share 94.5% spatial correlation ($\rho = 0.945$), differencing removes shared regional climate variance, making a small differential trend detectable even though their marginal trends cannot be separated.
+     * **Southwest vs Southeast show no detectable difference:** SW and SE trends yield $\Delta = +0.006$ cm/yr (95% CI [-0.033, +0.045], $p = 0.7345$, within-family FDR $q = 0.7731$).
+   - **Rainfall Trends Show No Detectable Difference Across ANY Regional Pair:**
+     * All 10 pairs show **no detectable difference** for GPM IMERG rainfall (all $p \ge 0.14$, all within-family FDR $q \ge 0.28$). Minimum detectable slope differences at 80% power range from 11.2 to 28.7 mm/yr; observed differences are consistent with random variability.
+
+3. **Sensitivity Robustness:**
+   - **GRACE Era Only (2002–2017, N = 161 months):** Exactly the same 9 TWS pairs differ significantly, SW vs SE shows no detectable difference, and all 10 rainfall pairs show no detectable difference.
+   - **Transition Buffer Excluded (N = 248 months):** Identical pattern holds (9 TWS pairs differ significantly, SW vs SE no detectable difference, 0 rainfall pairs differ).
+
+4. **Calibration Check & Statistical Disclosure:**
+   - **Method Selection & Calibration Audit:** Candidate A (Difference Series Calibrated ESS-MK) was selected because it passed calibration across 100% of tested pairs:
+     * Benchmark NW vs Central: False Positive Rate = **4.70%** (target 3.5%–6.5%), 95% CI coverage = **95.30%** (target 93.0%–97.0%), mean CI width = 0.235.
+     * Across all 10 TWS regional pairs, FPR ranges from 4.50% to 6.50% (mean 5.30%) and 95% CI coverage ranges from 93.50% to 95.50% (mean 94.70%).
+     * Across all 10 rainfall pairs, FPR ranges from 3.60% to 5.60% (mean 4.56%) and coverage ranges from 94.40% to 96.40% (mean 95.44%).
+     * Across all 20 tested pairs, FPR ranges from **3.60% to 6.50%** and coverage ranges from **93.50% to 96.40%**, meeting all pre-specified targets.
+     * Alternative candidate methods failed calibration: Candidate B (moving-block with $b=10$) yielded 12.80% FPR and 87.20% coverage; Candidate C (residual AR(1) bootstrap) yielded 8.80% FPR and 91.20% coverage; v1 moving-block bootstrap ($b=3$) failed with 15.40% FPR and 84.60% coverage (archived to `calibration_report_v1_bootstrap_failed.json`).
+
+5. **Real-Residual Placebo Audit & Easier-Null Limitation:**
+   - Calibration used simulated AR(1) noise, which is the easier test. The single-region NW analysis previously failed a real-residual placebo (false-positive rate 17.6%, coverage 82.5%); the same check for the pairwise test is reported below.
+   - **Variant 1 (Independent Circular Shift, lag $\ge 24$ mo):** Breaks contemporaneous cross-correlation $\rho$, yielding wide difference CIs and conservative FPR (0.00% to 2.40%, coverage 97.60% to 100.00% across all 10 pairs).
+   - **Variant 2 (Synchronized Circular Shift):** Preserves contemporaneous cross-correlation $\rho$. Two pairs pass: Central vs SW (FPR = 5.90%, coverage = 94.10%) and SW vs SE (FPR = 5.00%, coverage = 95.00%). Eight pairs fail (FPR 7.40% to 46.40%) because multiannual excursions in empirical residuals induce spurious trend rejections when shifted across the timeline boundary. These 8 pairs carry the flag `Fails real-residual placebo` alongside their existing verdicts.
+
+6. **Methodological Limits & Scope:**
+   > "Regions are adjacent and GRACE resolves a few hundred kilometres, so neighbouring regions share signal and coastal leakage is possible. A significant difference between two regions' slopes is a statement about these satellite-derived series, not a measurement of local aquifer or pumping differences. Recent windows are below the detection limit."

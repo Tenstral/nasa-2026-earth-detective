@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-11-01T19:46:55.987670",
+  "timestamp": "2026-11-10T14:35:47.269982",
   "period": "2002 to 2025 (24 hydrological monsoon seasons; 22 complete observation pairs)",
   "definitions": {
     "rebound_alone_cm": "TWS_peak (Sep/Oct) minus TWS_pre (Apr/May) in cm (independent of rainfall)",
     "seasonal_storage_response_ratio_imerg": "rebound_cm / (0.1 * imerg_monsoon_precip_mm) [fractional bulk storage recovery]",
-    "limitation": "The seasonal storage response ratio (\u0394TWS / P_monsoon) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated aquifer recharge coefficient."
+    "limitation": "The seasonal storage response ratio (\u0394TWS / P_monsoon) reflects bulk total water storage change, integrating unsaturated soil moisture and surface water bodies alongside groundwater, and does not represent an isolated groundwater recharge coefficient."
   },
   "results": [
     {

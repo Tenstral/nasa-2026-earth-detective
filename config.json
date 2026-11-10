@@ -27,5 +27,15 @@
     "transition_gap_years": [2017, 2018],
     "transition_buffer_months": 6,
     "description": "Config constants for exploratory dry-season drawdown analysis"
+  },
+  "pairwise_region_comparison": {
+    "regions": ["NW", "NE", "Central", "SW", "SE"],
+    "variables": ["tws", "precip"],
+    "resamples": 9999,
+    "seed": 42,
+    "alpha": 0.05,
+    "block_length_rule": "ess_inflation_factor",
+    "transition_buffer_months": 6,
+    "description": "Config constants for pairwise between-region slope comparison and paired block bootstrap"
   }
 }
