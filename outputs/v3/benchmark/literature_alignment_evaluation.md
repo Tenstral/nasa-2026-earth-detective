@@ -111,7 +111,7 @@ The discrepancies identified above stem from five fundamental observational and 
 
 ## References Cited
 
-- **Ahmed, S. S., Zzaman, R. U., Jony, S. R., Himel, F. R., Sharmin, A., Rahman, A. H. M. K., Rahman, M. S., & Nowreen, S.** (2025). GroundHog: Revolutionizing GLDAS Groundwater Storage Downscaling for Enhanced Recharge Estimation in Bangladesh. *arXiv preprint arXiv:2503.22771 (preprint, not peer reviewed)*.
+- **Ahmed, S. S., Zzaman, R. U., Jony, S. R., Himel, F. R., Sharmin, A., Rahman, A. H. M. K., Rahman, M. S., & Nowreen, S.** (2025). GroundHog: Revolutionizing GLDAS Groundwater Storage Downscaling for Enhanced Recharge Estimation in Bangladesh. *arXiv preprint arXiv:2503.22771 (preprint, not peer reviewed)*. https://doi.org/10.48550/arXiv.2503.22771
 - **Ouyang, L., Zhao, Z., Zhou, D., Cao, J., Qin, J., Cao, Y., & He, Y.** (2024). Study on the Relationship between Groundwater and Land Subsidence in Bangladesh Combining GRACE and InSAR. *Remote Sensing*, 16(19), 3715. https://doi.org/10.3390/rs16193715
 - **Purdy, A. J., David, C. H., Sikder, M. S., Reager, J. T., Chandanpurkar, H. A., Jones, N. L., & Matin, M. A.** (2019). An Open-Source Tool to Facilitate the Processing of GRACE Observations and GLDAS Outputs: An Evaluation in Bangladesh. *Frontiers in Environmental Science*, 7, 155. https://doi.org/10.3389/fenvs.2019.00155
 - **Rodell, M., Famiglietti, J. S., Wiese, D. N., Reager, J. T., Beaudoing, H. K., Landerer, F. W., & Lo, M. H.** (2018). Emerging trends in global freshwater availability. *Nature*, 557(7707), 651–659. https://doi.org/10.1038/s41586-018-0123-1
