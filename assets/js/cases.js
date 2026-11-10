@@ -77,7 +77,7 @@ window.ED.cases = [
     title: "Soil or Deeper?",
     tagline: "Partitioning Root-Zone Moisture vs. Subsurface Residual",
     domain: "Hydrological Modeling",
-    question: "Can root-zone soil drying explain the regional water decline, or does the loss reside in the deep subsurface?",
+    question: "Can root-zone soil drying explain the regional water decline, or does the loss reside in storage below the root zone?",
     config: {
       variable: "subsurface_residual",
       overlayVariable: "noah_sms_anom",
@@ -88,7 +88,7 @@ window.ED.cases = [
       deseasonalize: true
     },
     prompt: "GLDAS Noah simulates moisture in the top 2 meters of soil (orange). Total satellite water storage drops much faster, leaving a pronounced downward trend in the partitioned subsurface residual.",
-    takeaway: "Root-zone soil moisture (0–2 m) explains only a minor fraction of the total gravimetric storage loss. The deficit is primarily observed in the deep subsurface residual ('groundwater + surface water + model error residual')."
+    takeaway: "Root-zone soil moisture (0–2 m) explains only a minor fraction of the total gravimetric storage loss. The deficit is primarily observed in the partitioned subsurface residual ('groundwater + surface water + model error residual')."
   },
   {
     id: "case-5",
@@ -106,8 +106,8 @@ window.ED.cases = [
       season: "annual",
       deseasonalize: true
     },
-    prompt: "Compare NASA Aqua MODIS satellite observations (blue) directly against NASA AERONET ground-truth sun photometer measurements at Dhaka University (orange dashed). Notice how both track the intense seasonal winter smog spikes.",
-    takeaway: "Both satellite and ground sensors capture elevated winter smog (DJF) regularly exceeding 1.1–1.3 AOD, driven by regional meteorological stagnation and brick kiln emissions."
+    prompt: "Compare NASA MODIS Aqua satellite observations (blue) directly against NASA AERONET ground-truth sun photometer measurements at Dhaka University (orange dashed, 2012–2024). Then widen the window to the full 2002–2026 satellite record to see if a long-term secular trend emerges.",
+    takeaway: "Both satellite and ground sensors faithfully capture intense seasonal winter smog spikes (> 1.2 AOD) associated with brick kiln emissions and atmospheric stagnation. Across the full 24-year satellite record (2002–2026), a statistically significant upward trend is detected (+0.0115 AOD/yr, p < 0.0001), directly mirroring Dr. James Acker's reference case study on MODIS Aqua AOD."
   },
   {
     id: "case-6",

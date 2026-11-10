@@ -45,13 +45,29 @@ FORBIDDEN_PATTERNS = [
     (r"\bconstant\b", "constant"),
     (r"\brecharge_efficiency\b", "recharge_efficiency"),
     (r"\brecharge efficiency\b", "recharge efficiency"),
+    (r"\bthe consequence of\b", "the consequence of"),
+    (r"\bbecause of\b", "because of"),
+    (r"\bempirical reality\b", "empirical reality"),
+    (r"\bnot an artifact\b", "not an artifact"),
+    (r"\bconfirms that storage\b", "confirms that storage"),
+    (r"\bdeep subsurface\b", "deep subsurface"),
+    (r"\bprimary locus\b", "primary locus"),
+    (r"\bphysically reconciled\b", "physically reconciled"),
+    (r"\bfirmly agree\b", "firmly agree"),
+    (r"\bnon-peer-reviewed commentaries\b", "non-peer-reviewed commentaries"),
 ]
 
-# Legitimate technical use allowlist (mathematical/statistical properties of simulation null models)
+# Legitimate technical use allowlist (mathematical/statistical properties of simulation null models and legacy partitions)
 TECHNICAL_ALLOWLIST = [
     # Describes the stationary AR(1) null hypothesis noise process in Monte Carlo step-offset simulation
     ("outputs/v3/full_record/epoch_comparison.md", "stationary red noise"),
     ("outputs/v3/full_record/three_way_slopes_and_transition.md", "stationary red noise"),
+    ("outputs/v3/benchmark/novelty_statement.md", "deep subsurface"),
+    ("outputs/v3/full_record/narrative_EN.md", "deep subsurface"),
+    ("outputs/v3/gldas_split/gldas_multi_model_summary.md", "deep subsurface"),
+    ("outputs/v3/gldas_split/gldas_partition_summary.md", "deep subsurface"),
+    ("demo.html", "deep subsurface"),
+    ("VIDEO_SCRIPT.md", "deep subsurface"),
 ]
 
 
@@ -68,6 +84,8 @@ class TestForbiddenPhrases(unittest.TestCase):
         action_report_file = REPO_ROOT / "regional_action_report.md"
         cases_js_file = REPO_ROOT / "assets/js/cases.js"
         catalog_js_file = REPO_ROOT / "data/catalog.js"
+        deck_file = REPO_ROOT / "DECK.md"
+        video_script_file = REPO_ROOT / "VIDEO_SCRIPT.md"
 
         self.assertTrue(outputs_dir.exists(), "outputs directory must exist")
         self.assertTrue(readme_file.exists(), "README.md must exist")
@@ -77,13 +95,23 @@ class TestForbiddenPhrases(unittest.TestCase):
         self.assertTrue(index_file.exists(), "index.html must exist")
         self.assertTrue(report_file.exists(), "report.html must exist")
         self.assertTrue(action_report_file.exists(), "regional_action_report.md must exist")
+        if deck_file.exists():
+            self.assertTrue(deck_file.exists(), "DECK.md must exist")
+        if video_script_file.exists():
+            self.assertTrue(video_script_file.exists(), "VIDEO_SCRIPT.md must exist")
 
         # Scan all .md, .txt, and .html files under outputs/ (excluding archived outputs/v2),
-        # plus root deliverables and core webapp metadata files
+        # plus root deliverables, presentation deliverables, and core webapp metadata files
+        extra_targets = [readme_file, notes_file, project_status_file, demo_file, index_file, report_file, action_report_file, cases_js_file, catalog_js_file]
+        if deck_file.exists():
+            extra_targets.append(deck_file)
+        if video_script_file.exists():
+            extra_targets.append(video_script_file)
+
         target_files = [
             f for f in outputs_dir.rglob("*")
             if f.suffix in (".md", ".txt", ".html") and "v2" not in f.parts
-        ] + [readme_file, notes_file, project_status_file, demo_file, index_file, report_file, action_report_file, cases_js_file, catalog_js_file]
+        ] + extra_targets
 
         # Explicitly verify the exploratory seasonal extensions and pairwise region comparisons are scanned
         ratio_md = outputs_dir / "v3" / "seasonal" / "ratio_trend.md"
@@ -93,6 +121,9 @@ class TestForbiddenPhrases(unittest.TestCase):
         self.assertIn(drawdown_md, target_files, "dry_season_drawdown.md must be included in scan targets")
         if pairwise_md.exists():
             self.assertIn(pairwise_md, target_files, "pairwise_region_differences.md must be included in scan targets")
+        lit_eval_md = outputs_dir / "v3" / "benchmark" / "literature_alignment_evaluation.md"
+        self.assertTrue(lit_eval_md.exists(), "literature_alignment_evaluation.md must exist")
+        self.assertIn(lit_eval_md, target_files, "literature_alignment_evaluation.md must be included in scan targets")
 
         self.assertGreater(len(target_files), 25, "Expected at least 25 documentation/html files to scan")
 

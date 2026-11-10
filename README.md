@@ -8,7 +8,7 @@
 
 > [!IMPORTANT]
 > **PRELIMINARY SCIENTIFIC NOTICE & MANDATORY TERMINOLOGY**  
-> All findings presented in this repository are preliminary. Gravimetry observations report vertically integrated **Total Water Storage (TWS)** changes (surface water, soil moisture, and deeper subsurface storage combined) derived from CSR GRACE/GRACE-FO RL06.3 Mascons (~300 km spatial resolution). The term **"groundwater"** is never used for total water storage and is strictly reserved for the explicitly partitioned residual term labeled: `"groundwater + surface water + model error residual"`. All causal relationships are phrased as **"consistent with"**, never "caused by".
+> All findings presented in this repository are preliminary. Gravimetry observations report vertically integrated **Total Water Storage (TWS)** changes (surface water, soil moisture, and deeper subsurface storage combined) derived from CSR GRACE/GRACE-FO RL06.3 Mascons (~300 km spatial resolution). The term **"groundwater"** is never used for total water storage and is strictly reserved for the explicitly partitioned residual term labeled: `"unpartitioned residual (groundwater + surface water + biomass + model error)"`. All attribution relationships are phrased as **"consistent with"**, avoiding causal attribution language.
 
 ---
 
@@ -41,14 +41,14 @@ python3 -m http.server 8000
 flowchart TD
     G[CSR GRACE/GRACE-FO Mascons RL06.3<br/>2002-04 to 2026-07] --> TWS[Total Water Storage Anomaly<br/>8 Divisions / 6 Regions]
     P1[NASA POWER PRECTOTCORR<br/>2002-01 to 2026-09] --> PPT[Precipitation Series]
-    P2[GPM IMERG V07B Final Run<br/>2002-01 to 2025-09 (285 mo)] --> PPT
+    P2[GPM IMERG V07B Final Run<br/>2002-01 to 2025-09] --> PPT
     LSM[NASA GLDAS Noah 2.1<br/>0-2.0m Soil + Canopy + SWE] --> SMS[Simulated Soil Moisture<br/>Re-baselined 2004-2009]
     
     TWS --> PART[Storage Partitioning Engine]
     SMS --> PART
-    PART --> RES["Residual Storage Anomaly<br/>(GW + SW + model error)"]
+    PART --> RES["Residual Storage Anomaly<br/>(GW + SW + biomass + model error)"]
     
-    TWS --> ENG[v2/v3 Trend Engine<br/>Hamed-Rao MK + Circular Block Bootstrap<br/>B=9,999, seed=42, BH-FDR q<0.05]
+    TWS --> ENG[v3 Trend Engine<br/>Calibrated ESS-MK Hurwicz Corrected<br/>Theil-Sen 95% CI + BH-FDR q<0.05]
     PPT --> ENG
     RES --> ENG
     
@@ -67,25 +67,25 @@ Every window is evaluated under its own independent Benjamini-Hochberg False Dis
 | Window | Period | Observed Months | Role | National TWS Rate [95% CI] | NW TWS Rate [95% CI] | Calibrated Verdict (ESS-MK) |
 |---|---|:---:|---|:---:|:---:|---|
 | `full_record` | **2002-04 to 2026-07** | **257** | **PRIMARY** | **-0.51 [-0.66, -0.38]** | **-1.25 [-1.50, -1.02]** | **Significant decrease** (FDR $q < 0.0001$) |
-| `grace_era` | 2002-04 to 2017-06 | 161 | Transition-free baseline | -0.68 [-0.92, -0.44] | -1.56 [-1.95, -1.15] | **Significant decrease** (FDR $q < 0.0001$) |
-| `grace_fo_era` | 2018-06 to 2026-07 | 96 | Single-instrument era | -0.47 [-1.34, +0.44] | -1.67 [-3.32, +0.06] | No detectable trend (CI includes zero) |
-| `recent_2020` | 2020-01 to 2026-07 | 79 | Sensitivity / legacy window | -1.02 [-2.53, +0.51] | -2.93 [-4.97, -0.78] | Method-dependent (NW raw $p=0.0107$, FDR $q=0.0772$) |
+| `grace_era` | 2002-04 to 2017-06 | 161 | Transition-free baseline | -0.68 [-0.92, -0.45] | -1.56 [-1.96, -1.17] | **Significant decrease** (FDR $q < 0.0001$) |
+| `grace_fo_era` | 2018-06 to 2026-07 | 96 | Single-instrument era | -0.47 [-1.50, +0.53] | -1.67 [-3.32, +0.06] | No detectable trend (CI includes zero) |
+| `recent_2020` | 2020-01 to 2026-07 | 79 | Sensitivity / legacy window | -1.02 [-2.53, +0.51] | -2.93 [-4.97, -0.78] | Method-dependent (raw $p = 0.0107$, FDR $q = 0.0772$), below the detection limit |
 
 ---
 
 ### 2.2 Workstream 0: Full-Record Re-Baselining & Gap Calibration (`outputs/v3/full_record/`)
 - **Gap Calibration**: 2,000-run Monte Carlo simulation under real missing-month geometries verified that Effective-Sample-Size (ESS) corrected Mann-Kendall with Hurwicz bias correction achieves empirical false-positive rates of 5.0–5.8% (nominal 5.0%) and 94.2–95.0% CI coverage across empirical regional autocorrelations ($\phi \in [0.45, 0.83]$), establishing it as the primary calibrated significance test. Hamed-Rao (FPR 13–25%) failed calibration and is retained as secondary reference only.
-- **Instrument Offset Sensitivity**: Step-offset analysis across the 11-month GRACE to GRACE-FO transition reveals that step significance is method-dependent: while an unbuffered model suggests a step offset in the Northwest ($+9.15\text{ cm}, p = 0.028$), a 6-month buffered gap model finds no statistically significant step offset ($+7.83\text{ cm}, p = 0.171$; National composite: $+3.09\text{ cm}, p = 0.486$). The 3-way sensitivity models in `outputs/v3/full_record/three_way_slopes_and_transition.md` show that whether the step is omitted, fitted, or gap-buffered, the Northwest long-term rate of decline remains statistically significant ($p < 0.0001$).
-- **Epoch Comparison**: Paired circular block-bootstrap tests ($B = 9,999$) shows that the rate of storage loss in GRACE-1 vs GRACE-FO is statistically indistinguishable (difference 95% CIs include zero), verifying that northern storage loss has continued across satellite generations.
-- **24-Year Seasonal Storage Response Ratio**: Across 22 complete monsoon seasons (2002–2025), decoupled GPM IMERG V07B precipitation indicates the national seasonal storage response ratio ($\Delta\text{TWS} / P_{\text{monsoon}}$) averages 32.5% (+0.136%/yr, raw p = 0.021, FDR q = 0.111; Suggestive increase), resolving the previous -1.05%/yr decline as a denominator artifact of NASA POWER's post-2015 surge. *Limitation:* reflects bulk total water storage change (soil moisture + surface water + deeper storage), not isolated subsurface recharge.
+- **Instrument Offset Test**: A step model across the June 2017 to June 2018 transition evaluated with Newey-West HAC standard errors detects significant offsets in NW (+9.15 cm, p = 0.028) and Central (+6.93 cm, p = 0.047); NE (+6.82 cm, p = 0.051), National (+5.81 cm, p = 0.071), SW (+2.38 cm, p = 0.468), and SE (+2.46 cm, p = 0.455) show no detectable offset. When transition months (±6 months around the gap) are excluded, no region is significant (NW +7.83 cm, p = 0.171; NE +4.00 cm, p = 0.402; Central +3.93 cm, p = 0.385; SW -0.89 cm, p = 0.830; SE -1.27 cm, p = 0.756; National +3.09 cm, p = 0.486). Because a mission step looks like part of a trend to the test, we report three NW estimates: single line, step-adjusted and transition-excluded (-1.25, -1.81 and -1.29 cm/yr).
+- **Epoch Comparison**: Paired circular block-bootstrap tests ($B = 9,999$) show that the difference in storage loss rate between GRACE-1 and GRACE-FO is statistically indistinguishable (difference 95% CI includes zero: $+0.21$ [$-0.71, +1.13$] cm/yr), consistent with northern storage loss continuing across satellite generations without detectable secular acceleration or deceleration.
+- **24-Year Seasonal Storage Response Ratio**: Across 22 complete monsoon seasons (2002–2025), GPM IMERG V07B precipitation is consistent with the national seasonal storage response ratio (storage rebound divided by monsoon rain, $\Delta\text{TWS} / P_{\text{monsoon}}$) averaging 32.6% (+0.136%/yr, raw p = 0.021, FDR q = 0.111; Suggestive increase), resolving the previous -1.05%/yr decline as a denominator artifact of NASA POWER's post-2015 surge. *Limitation:* reflects bulk total water storage change (unpartitioned storage), not isolated subsurface recharge.
 
 ---
 
 ### 2.3 Workstream A: GPM IMERG V07B vs NASA POWER Cross-Validation (`outputs/v3/imerg_vs_power/`)
-- Evaluated 93 continuous monthly granules (January 2018 to July 2026) of `GPM_3IMERGM` v07B subsetted to Bangladesh.
+- Evaluated 285 continuous monthly granules (January 2002 to September 2025) of `GPM_3IMERGM` v07B subsetted to Bangladesh territory.
 - Converted precipitation rate ($\text{mm/hr}$) to monthly totals ($\text{mm/month}$) using calendar-exact hours per month (verified via unit tests in `tests/test_imerg_units.py`).
-- **High Correlation**: National monthly correlation reaches $r = 0.9637$ ($\rho = 0.9803$); Northwest reaches $r = 0.9785$ ($\rho = 0.9843$).
-- **100% Trend Verdict Concordance**: In all 12 region-window tests, both GPM IMERG and NASA POWER yield **`No detectable trend`** in precipitation. This confirms that northern storage loss is decoupled from atmospheric rainfall.
+- **Precipitation Correlation**: Across the 285-month overlap period, monthly precipitation series correlate strongly between GPM IMERG and NASA POWER (National raw Pearson $r = 0.8990$, Spearman $\rho = 0.9524$; Northwest raw Pearson $r = 0.9366$, Spearman $\rho = 0.9629$).
+- **100% Trend Verdict Concordance**: In all 12 region-window tests, both GPM IMERG and NASA POWER yield **`No detectable trend`** in precipitation. This is consistent with storage loss occurring independently of atmospheric rainfall trends.
 - **Pipeline Integration**: `run_all.py` accepts `--rain-source {power,imerg}` and tracks source attribution across all rows in `results.csv`.
 
 ---
@@ -95,55 +95,79 @@ Every window is evaluated under its own independent Benjamini-Hochberg False Dis
 - Integrated all 4 soil layers ($0–10, 10–40, 40–100, 100–200\text{ cm}$, total depth $2.0\text{ m}$) plus canopy storage and snow water equivalent.
 - Re-baselined model storage to 2004–2009 to match GRACE reference datum (mean baseline anomaly $\equiv 0.000\text{ cm}$).
 - **Key Finding**: Simulated unsaturated zone soil moisture shows **no secular multi-year trend** (NW slope $+0.05\text{ cm/yr}, p = 0.601$).
-- **Residual Storage**: The partitioned residual anomaly ($\text{Residual} = \text{TWS} - \Delta\text{SMS} - \Delta\text{SWE}$), strictly labeled `"groundwater + surface water + model error residual"`, declines at **$-1.70\text{ cm/yr}$** in `grace_fo_era` and **$-2.59\text{ cm/yr}$** ($p = 0.00001$, CI $[-3.87, -1.22]\text{ cm/yr}$) in `recent_2020`, accounting for virtually all observed terrestrial water loss.
+- **Residual Storage**: The partitioned residual anomaly ($\text{Residual} = \text{TWS} - \Delta\text{SMS} - \Delta\text{SWE}$), strictly labeled `"unpartitioned residual (groundwater + surface water + biomass + model error)"`, declines at **$-1.70\text{ cm/yr}$** in `grace_fo_era` and **$-2.59\text{ cm/yr}$** ($p = 0.00001$, CI $[-3.87, -1.22]\text{ cm/yr}$) in `recent_2020`, accounting for virtually all observed terrestrial water loss.
 
 ---
 
 ### 2.5 Workstream C: Socioeconomic Exposure Layer (`outputs/v3/exposure/`)
 - Integrated NASA SEDAC Gridded Population of the World (GPWv4, adjusted to BBS 2022 Census totals: $169.8\text{M}$) and MODIS MCD12Q1 Land Cover Type 1 (cropland classes 12 & 14).
-- **Population at Risk**: **108.50 million people ($63.9\%$)** in Bangladesh live in regions with statistically significant long-term water storage loss (`full_record` Significant decrease):
+- **Population in Regions with Significant Decline**: **108.5 million people (63.9%)** in Bangladesh are people living in regions with a significant total water storage decline (`full_record` Significant decrease):
   - Northwest: $38.81\text{M}$ ($22.9\%$)
   - Northeast: $24.05\text{M}$ ($14.2\%$)
   - Central (Dhaka): $45.64\text{M}$ ($26.9\%$)
-- **Agricultural Exposure**: Northwest Bangladesh exhibits a **$74.2\%$ cropland fraction** ($22,990\text{ km}²$), explaining the severe regional sensitivity to irrigation drawdown during dry-season Boro rice cultivation.
+  - Southwest: $27.14\text{M}$ ($16.0\%$, no detectable storage trend)
+  - Southeast: $34.18\text{M}$ ($20.1\%$, no detectable storage trend)
+- **Agricultural Cropland Fraction**: Northwest Bangladesh exhibits a **$74.2\%$ cropland fraction** ($22,990\text{ km}²$), alongside intensive dry-season Boro rice cultivation.
 
 ---
 
 ### 2.6 Workstream D: Hydroclimatic Extremes & Flood Context (`outputs/v3/extremes/`)
 - Contextualized against Bangladesh Water Development Board (BWDB) Flood Forecasting and Warning Centre (FFWC) catastrophic flood reports (2004, 2007, 2017, 2020, 2022).
 - **Transient Flood Storage Crests**: Major flood years generate massive monsoonal storage crests ($+33.1\text{ cm}$ in 2004, $+41.0\text{ cm}$ in 2007, $+28.4\text{ cm}$ in 2020), but anomalies dissipate within 3 to 4 months through rapid river drainage.
-- **Infiltration Saturation Dynamic**: During extreme deluge years (e.g. 2020 with $2,423\text{ mm}$ rainfall), surface saturation and river discharge cause monsoon seasonal storage response ratio to remain bounded at **$27.5\%$** (vs $32.5\%$ long-term mean), consistent with extreme rainfall events failing to compensate for secular subsurface drawdown.
+- **Seasonal Storage Response During Wet Years**: In the wettest monsoon seasons (e.g., 2004, 2007, 2015 with national monsoon rainfall around 2,000–2,036 mm), the national storage response ratio (storage rebound divided by monsoon rain) remains between 28% and 32% compared to the long-term mean of 32.6%; this analysis does not identify why.
 
 ---
 
 ### 2.7 Workstream E: Literature Benchmark Synthesizer (`outputs/v3/benchmark/`)
-- Verified and benchmarked against 6 peer-reviewed studies with direct DOI links and quoted excerpts:
-  1. *Shamsudduha et al. (2012)*, HESS (DOI: 10.5194/hess-16-997-2012)
-  2. *Purdy et al. (2019)*, J. Hydrol. (DOI: 10.1016/j.jhydrol.2019.04.053)
-  3. *Ouyang et al. (2024)*, Remote Sens. (DOI: 10.3390/rs16142646)
-  4. *Shamsudduha & Taylor (2020)*, Sci. Total Environ. (DOI: 10.1016/j.scitotenv.2020.140853)
-  5. *Ahmed et al. (2025)*, Sci. Total Environ. (DOI: 10.1016/j.scitotenv.2025.178891)
-  6. *Rodell et al. (2018)*, Nature (DOI: 10.1038/s41586-018-0123-1)
-- **Novelty Statement**: *Bengal Hydro Detective* provides the first continuous 24-year, multi-window, multi-sensor gravimetry-LSM-precipitation synthesis at sub-basin resolution with closed False Discovery Rate control.
+- Verified and benchmarked against 6 published studies with direct DOI links and quoted excerpts:
+  1. *Shamsudduha, Taylor, & Longuevergne (2012)*, *Water Resour. Res.* (DOI: [10.1029/2011WR010993](https://doi.org/10.1029/2011WR010993))
+  2. *Purdy et al. (2019)*, *Front. Environ. Sci.* (DOI: [10.3389/fenvs.2019.00155](https://doi.org/10.3389/fenvs.2019.00155))
+  3. *Ouyang et al. (2024)*, *Remote Sens.* (DOI: [10.3390/rs16193715](https://doi.org/10.3390/rs16193715))
+  4. *Shamsudduha & Taylor (2020)*, *Earth Syst. Dynam.* (DOI: [10.5194/esd-11-755-2020](https://doi.org/10.5194/esd-11-755-2020))
+  5. *Ahmed et al. (2025)*, *arXiv preprint* (arXiv:2503.22771, preprint, not peer reviewed; DOI: [10.48550/arXiv.2503.22771](https://doi.org/10.48550/arXiv.2503.22771))
+  6. *Rodell et al. (2018)*, *Nature* (DOI: [10.1038/s41586-018-0123-1](https://doi.org/10.1038/s41586-018-0123-1))
+- **Novelty Statement**: *Bengal Hydro Detective* provides a continuous 24-year, multi-window, multi-sensor gravimetry-LSM-precipitation synthesis at sub-basin resolution with closed False Discovery Rate control.
 
 ---
 
 ## 3. How to Run & Reproduce
 
+All pipeline results, summary tables, and figures are committed and ready for inspection under `outputs/v3/`. Rerunning from raw data requires the raw CSR GRACE/GRACE-FO NetCDF file and NASA Earthdata credentials.
+
 ### 3.1 Environment Setup
 ```bash
 git clone https://github.com/Tenstral/nasa-2026-earth-detective.git
 cd nasa-2026-earth-detective
-git checkout v3-expansion
 pip install -r requirements.txt
 ```
 
-### 3.2 Run Unit & Integration Tests (84 Tests)
+### 3.2 Run Automated Tests
 ```bash
-python -m unittest discover tests
+python -m pytest tests -q
 ```
 
-### 3.3 Run Full-Record v3 Pipeline Workstreams
+### 3.3 Configuration and Credentials (For Rerunning from Raw Data)
+- **CSR GRACE NetCDF**: Configure the path to the gitignored CSR GRACE/GRACE-FO Mascon NetCDF file in `config.json` (`data_paths.grace_mascons`) or pass via `--grace-nc <path>`.
+- **NASA Earthdata Credentials**: Store credentials in `~/.netrc` or pass via environment variables (`EARTHDATA_USERNAME` and `EARTHDATA_PASSWORD`). Never commit credentials to git.
+
+### 3.4 Pipeline Execution (`run_all.py`)
+The pipeline runner `run_all.py` provides the following CLI flags:
+- `--rain-source {imerg,power}`: Precipitation data source. Defaults to `imerg` (GPM IMERG V07B). The `power` source is retained only for historical comparison (warning: contains 2014-12 to 2015-12 step artifact).
+- `--start <YYYY-MM>`: Primary start month (default: `2020-01`).
+- `--end <YYYY-MM>`: Primary end month (default: `2026-07`).
+- `--seed <int>`: Random seed for bootstrap replicability (default: `42`).
+- `--grace-nc <path>`: Optional explicit path to CSR GRACE/GRACE-FO Mascon NetCDF.
+
+```bash
+# Default run (GPM IMERG V07B satellite precipitation):
+python run_all.py
+
+# Historical comparison run with NASA POWER:
+python run_all.py --rain-source power
+```
+
+### 3.5 Full-Record v3 Pipeline Workstreams
+To regenerate the full-record multi-decadal analysis workstreams:
 ```bash
 # Workstream 0: Full-record extraction, gap calibration, offset test, trends
 python v3/run_workstream0.py
@@ -162,17 +186,6 @@ python v3/extremes_processor.py
 
 # Workstream E: Literature benchmark synthesis
 python v3/benchmark_builder.py
-```
-
-### 3.4 Run v2 Pipeline with Rain Source Selection
-```bash
-# Default: GPM IMERG V07B (unbiased satellite precipitation)
-python run_all.py
-# Or explicitly:
-python run_all.py --rain-source imerg
-
-# Historical comparison with NASA POWER (warning: contains 2014-12 to 2015-12 step artifact):
-python run_all.py --rain-source power
 ```
 
 ---

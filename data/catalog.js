@@ -363,7 +363,7 @@ window.ED.catalog = {
     "NE": {
       "region_name": "Northeast Haor Basin (Sylhet & Mymensingh)",
       "satellite_metric": "-0.56 cm/year TWS decline. Mean annual dry-season drawdown is massive (58.48 cm).",
-      "historical_context": "Choked river corridors drain summer flash floods rapidly into the Bay of Bengal, leaving deep subsurface storage unrefilled for the dry season.",
+      "historical_context": "Choked river corridors drain summer flash floods rapidly into the Bay of Bengal, leaving subsurface storage unrefilled for the dry season.",
       "mandate": "BWDB must construct and maintain engineered submersible embankments against early April flash floods. Dredge rivers and raise rural homestead mounds.",
       "farmer_dos": "Plant flash-flood-escaping Boro varieties (BRRI dhan110, 28, 58) for early April harvest. In floodplains, plant submergence-tolerant Aman (BRRI dhan51/52).",
       "farmer_donts": "Do not plant long-duration Boro (BRRI dhan29) in deep Haor bowls where April floods destroy unharvested crops. Avoid unlined earthen canals.",

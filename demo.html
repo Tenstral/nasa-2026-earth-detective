@@ -62,7 +62,7 @@
       border: 8px solid #334155;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
       border-radius: 12px;
-      min-height: 600px;
+      min-height: 620px;
       position: relative;
       padding: 36px 40px;
       display: flex;
@@ -130,11 +130,11 @@
       border: 3px solid var(--ink-green);
       color: var(--ink-green);
       font-family: 'Permanent Marker', cursive;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       padding: 6px 14px;
       border-radius: 8px;
       text-transform: uppercase;
-      transform: rotate(-3deg);
+      transform: rotate(-2deg);
     }
 
     .grid-2 {
@@ -258,20 +258,21 @@
 
     .metric-badge {
       font-family: 'Permanent Marker', cursive;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       display: block;
       margin: 8px 0;
     }
 
     .metric-amber { color: var(--ink-amber); }
     .metric-blue { color: var(--ink-blue); }
+    .mono { font-family: monospace; font-size: 0.95em; }
   </style>
 </head>
 <body>
 
   <header class="app-header">
     <div class="app-title">NASA Space Apps 2026 // Trend Detective</div>
-    <div style="font-size: 0.9rem; color: #94a3b8;">Pitch Target: <strong>240 Seconds</strong></div>
+    <div style="font-size: 0.9rem; color: #94a3b8;">Pitch Target: <strong>240 Seconds</strong> | Hub: <strong>tenstral-nasa26.pages.dev</strong></div>
   </header>
 
   <main class="deck-container">
@@ -281,184 +282,215 @@
       <div>
         <span class="case-tag">Case File #026-BD</span>
         <h1 class="sketch-title">Bengal Hydro Detective</h1>
-        <div class="sketch-subtitle">Witness Reports Contradict: Is Bangladesh Drying Out or Drowning?</div>
+        <div class="sketch-subtitle">Witness Reports Contradict: Where Is Bangladesh's Stored Water Going?</div>
       </div>
       <div class="grid-2">
         <div class="sketch-box" style="border-color: var(--ink-amber);">
           <div style="color: var(--ink-amber); font-weight: 700; text-transform: uppercase;">Witness A: Inland Northwest</div>
-          <div class="metric-badge metric-amber">CRACKED SOIL & DROUGHT</div>
-          <p>Local well reports and studies cite dropping water tables, dry suction tubewells in Rajshahi, and desertification risks during the Boro season.</p>
+          <div class="metric-badge metric-amber">FALLING WATER TABLES &amp; STRESS</div>
+          <p>Local well observations cite dropping piezometric levels, dry suction tubewells in Rajshahi and Rangpur, and dry-season Boro rice water stress.</p>
         </div>
         <div class="sketch-box" style="border-color: var(--ink-blue);">
-          <div style="color: var(--ink-blue); font-weight: 700; text-transform: uppercase;">Witness B: Northeast & Coast</div>
-          <div class="metric-badge metric-blue">EXTREME DELUGE & FLOODS</div>
-          <p>Regional papers report intensifying monsoon cloudbursts, severe flash flooding in Sylhet haors, and coastal sea-level inundation.</p>
+          <div style="color: var(--ink-blue); font-weight: 700; text-transform: uppercase;">Witness B: Northeast &amp; Coast</div>
+          <div class="metric-badge metric-blue">EXPANSIVE MONSOON DELUGE</div>
+          <p>Regional reports describe vast wetland inundation in Sylhet haors, severe pre-monsoon flash floods, and coastal tidal surge challenges.</p>
         </div>
       </div>
-      <div style="margin-top: 20px; text-align: center; font-family: 'Architects Daughter', cursive; font-size: 1.1rem; color: var(--ink-red);">
-        ★ The Challenge: Cut through the noise and verify true long-term trends using NASA Earth observations.
+      <div style="margin-top: 16px; text-align: center; font-family: 'Architects Daughter', cursive; font-size: 1.05rem; color: var(--ink-red);">
+        ★ The Question: Under the same South Asian monsoon, does total water storage decline, and do regional trends differ statistically from rainfall?
       </div>
     </section>
 
     <!-- SLIDE 2 -->
     <section class="slide" data-time="0:30 – 1:00">
       <div>
-        <span class="case-tag">Core Hypothesis</span>
-        <h1 class="sketch-title">Where is Bangladesh's Water Going?</h1>
-        <div class="sketch-subtitle">Do rainfall and water-storage trends differ across divisions, and are those differences statistically significant?</div>
+        <span class="case-tag">Earth Observation Data</span>
+        <h1 class="sketch-title">Interrogating Dual Satellite Platforms</h1>
+        <div class="sketch-subtitle">Combining 24-year satellite gravimetry with fine-resolution precipitation and land surface modeling</div>
       </div>
       <div class="grid-2">
         <div class="sketch-box">
-          <h3 style="margin-bottom: 12px;">The Spatial Granularity Rule</h3>
+          <div style="color: var(--ink-amber); font-weight: 700; text-transform: uppercase;">1. CSR GRACE / GRACE-FO Mascons</div>
+          <div style="font-size: 1.05rem; font-weight: 600; margin: 6px 0;">Total Water Storage (2002-04 to 2026-07)</div>
           <ul class="sketch-list">
-            <li>National averages hide regional catastrophe by cancelling out opposite dynamics.</li>
-            <li>Dividing analysis across all <strong>8 Administrative Divisions</strong> balances physical precision with sensor limits.</li>
-            <li>Northwest vs Northeast divergence under the same monsoon system.</li>
+            <li><strong>Measurement:</strong> Vertically integrated mass anomaly (groundwater, soil moisture, surface water, biomass).</li>
+            <li><strong>Footprint:</strong> Coarse spatial resolution (~300 km), strictly evaluated at macro-regional boundaries.</li>
+            <li><strong>Dataset:</strong> 257 monthly solutions across 24 complete years.</li>
           </ul>
         </div>
-        <div class="sketch-box" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-style: dashed;">
-          <div style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; margin-bottom: 12px;">8 Divisions Analyzed</div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 320px;">
-            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Rajshahi</span>
-            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Rangpur</span>
-            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Dhaka</span>
-            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Mymensingh</span>
-            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Sylhet</span>
-            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Chattogram</span>
-            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Khulna</span>
-            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Barishal</span>
-          </div>
+        <div class="sketch-box">
+          <div style="color: var(--ink-blue); font-weight: 700; text-transform: uppercase;">2. NASA GPM IMERG V07B &amp; GLDAS</div>
+          <div style="font-size: 1.05rem; font-weight: 600; margin: 6px 0;">Rainfall Ground Truth (2002-01 to 2025-09)</div>
+          <ul class="sketch-list">
+            <li><strong>Rainfall:</strong> GPM IMERG Final Run at fine 0.1° grid serves as primary precipitation baseline.</li>
+            <li><strong>Independent Partitioning:</strong> NASA GLDAS Noah 2.1 and VIC 4.1.2 simulate unsaturated soil moisture (0–2 m).</li>
+            <li><strong>Quarantine:</strong> CLSM 2.2 assimilates GRACE and is quarantined to prevent circular reasoning.</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <!-- SLIDE 3 -->
-    <section class="slide" data-time="1:00 – 1:40">
+    <section class="slide" data-time="1:00 – 1:30">
       <div>
-        <span class="case-tag">Evidence Sources</span>
-        <h1 class="sketch-title">Interrogating the Satellite Data</h1>
-        <div class="sketch-subtitle">Selecting two distinct NASA observational platforms</div>
-      </div>
-      <div class="grid-2">
-        <div class="sketch-box">
-          <div style="color: var(--ink-blue); font-weight: 700; text-transform: uppercase;">1. GPM IMERG</div>
-          <div style="font-size: 1.1rem; font-weight: 600; margin: 6px 0;">Precipitation Trends (2000–Present)</div>
-          <ul class="sketch-list">
-            <li><strong>Resolution:</strong> Fine spatial grid (~0.1°), ideal for regional maps.</li>
-            <li><strong>Role:</strong> Measures incoming atmospheric water volume and extreme precipitation frequency.</li>
-          </ul>
-        </div>
-        <div class="sketch-box">
-          <div style="color: var(--ink-amber); font-weight: 700; text-transform: uppercase;">2. GRACE / GRACE-FO</div>
-          <div style="font-size: 1.1rem; font-weight: 600; margin: 6px 0;">Terrestrial Water Storage (TWS) (2002–Present)</div>
-          <ul class="sketch-list">
-            <li><strong>Resolution:</strong> Coarse spatial footprint (~300 km).</li>
-            <li><strong>Methodological Rigor:</strong> Aggregated strictly to division-level boundaries to prevent false localized claims.</li>
-            <li><strong>Role:</strong> Directly measures terrestrial water storage anomaly mass and total basin moisture change.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 4 -->
-    <section class="slide" data-time="1:40 – 2:20">
-      <div>
-        <span class="case-tag">Statistical Engine</span>
-        <h1 class="sketch-title">Filtering Noise from Climate Signal</h1>
-        <div class="sketch-subtitle">Answering NASA's core challenge: evaluating statistical significance across all 8 divisions</div>
+        <span class="case-tag">Statistical Architecture</span>
+        <h1 class="sketch-title">Calibrated Trend Engine &amp; Multi-Window Framework</h1>
+        <div class="sketch-subtitle">Filtering cyclical monsoon noise with rigorous autocorrelation correction and FDR control</div>
       </div>
       <div class="grid-3">
         <div class="sketch-box">
           <div style="font-weight: 700; color: #64748b;">STEP 1</div>
-          <h4 style="margin: 8px 0;">STL Decomposition</h4>
-          <p style="font-size: 0.9rem;">Strips out the overwhelming annual monsoon waveform to uncover underlying secular trends.</p>
+          <h4 style="margin: 8px 0;">Monsoon De-seasonalization</h4>
+          <p style="font-size: 0.85rem;">Strips the cyclical annual monsoon amplitude (32% to 42% seasonal rebound) to isolate underlying multi-decadal trajectories.</p>
         </div>
         <div class="sketch-box">
           <div style="font-weight: 700; color: #64748b;">STEP 2</div>
-          <h4 style="margin: 8px 0;">Sen's Slope Estimator</h4>
-          <p style="font-size: 0.9rem;">Calculates robust rate of change: <strong>-0.69 cm/yr</strong> in Mymensingh, <strong>-1.61 cm/yr</strong> in Rangpur.</p>
+          <h4 style="margin: 8px 0;">Theil-Sen Slopes</h4>
+          <p style="font-size: 0.85rem;">Computes median slopes with 95% confidence intervals, resistant to sensor noise, outlier months, and inter-satellite transitions.</p>
         </div>
         <div class="sketch-box">
           <div style="font-weight: 700; color: #64748b;">STEP 3</div>
-          <h4 style="margin: 8px 0;">Mann-Kendall Test</h4>
-          <p style="font-size: 0.9rem;">Evaluates monotonic trajectory significance: Mymensingh Z = -12.13, p &lt; 0.001 (target: p &lt; 0.05).</p>
+          <h4 style="margin: 8px 0;">Calibrated ESS-MK</h4>
+          <p style="font-size: 0.85rem;">Effective Sample Size Mann-Kendall with AR(1) correction and Benjamini-Hochberg FDR control across families of m = 36 tests per window.</p>
         </div>
       </div>
-      <div style="margin-top: 24px; text-align: center;">
-        <span class="stamp">Verified: p &lt; 0.001 Across Northern Agricultural Belt</span>
+      <div style="margin-top: 16px; text-align: center;">
+        <span class="stamp">4 Windows Audited: Full Record (2002–2026), GRACE Era, GRACE-FO Era, Recent 2020 Sensitivity</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 -->
+    <section class="slide" data-time="1:30 – 2:00">
+      <div>
+        <span class="case-tag">Empirical Findings</span>
+        <h1 class="sketch-title">Macro-Regional Storage vs. Rainfall Trajectories</h1>
+        <div class="sketch-subtitle">Full Record (2002-04 to 2026-07) — All Findings PRELIMINARY</div>
+      </div>
+      <div class="grid-3">
+        <div class="sketch-box" style="border-left: 6px solid var(--ink-amber);">
+          <h3 style="color: var(--ink-amber);">Northwest (Rajshahi + Rangpur)</h3>
+          <div class="metric-badge metric-amber">-1.25 cm/yr</div>
+          <div style="font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 6px;">95% CI: [-1.50, -1.02] | -0.39 km³/yr</div>
+          <p style="font-size: 0.82rem; line-height: 1.45;"><strong>TWS:</strong> Significant decline (FDR q &lt; 0.0001). <strong>Rainfall:</strong> -1.9 mm/yr (95% CI: [-11.0, +4.5]; No detectable trend). 3-way step handling spans -1.81 to -1.25 cm/yr.</p>
+        </div>
+        <div class="sketch-box" style="border-left: 6px solid #8b5cf6;">
+          <h3 style="color: #7c3aed;">Northeast &amp; Central</h3>
+          <div class="metric-badge" style="color: #7c3aed;">NE: -0.56 | Cent: -0.47</div>
+          <div style="font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 6px;">Significant TWS Depletion (cm/yr)</div>
+          <p style="font-size: 0.82rem; line-height: 1.45;"><strong>Northeast:</strong> -0.56 cm/yr [-0.70, -0.42], rain -0.6 mm/yr (no detectable trend). <strong>Central:</strong> -0.47 cm/yr [-0.62, -0.34], rain +0.9 mm/yr (no detectable trend).</p>
+        </div>
+        <div class="sketch-box" style="border-left: 6px solid var(--ink-blue);">
+          <h3 style="color: var(--ink-blue);">Southwest &amp; Southeast</h3>
+          <div class="metric-badge metric-blue">-0.05 cm/yr</div>
+          <div style="font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 6px;">No Detectable Storage Trend</div>
+          <p style="font-size: 0.82rem; line-height: 1.45;"><strong>SW &amp; SE:</strong> Both show -0.05 cm/yr (95% CIs cross zero). <strong>Rainfall:</strong> +2.2 mm/yr (SW) and +1.8 mm/yr (SE) with wide CIs (no detectable trend). National: -0.51 cm/yr (-0.63 km³/yr).</p>
+        </div>
       </div>
     </section>
 
     <!-- SLIDE 5 -->
-    <section class="slide" data-time="2:20 – 3:00">
+    <section class="slide" data-time="2:00 – 2:30">
       <div>
-        <span class="case-tag">The Verdict</span>
-        <h1 class="sketch-title">The Detective's Findings</h1>
-        <div class="sketch-subtitle">The contradiction is resolved: Groundwater overdraft vs. Rainfall flash flood volatility</div>
+        <span class="case-tag">Physical &amp; Human Dimension</span>
+        <h1 class="sketch-title">Partitioning, Human Exposure &amp; Seasonal Baseline</h1>
+        <div class="sketch-subtitle">Unpacking where the water is lost, who lives there, and how the seasons behave</div>
       </div>
       <div class="grid-3">
-        <div class="sketch-box" style="border-left: 6px solid var(--ink-amber);">
-          <h3 style="color: var(--ink-amber);">Northwest (Rangpur & Rajshahi)</h3>
-          <div class="metric-badge metric-amber">Δ Storage: -0.90 to -1.61 cm/yr</div>
-          <div style="font-size: 0.85rem; font-weight: 700; color: var(--ink-green); margin-bottom: 8px;">SIGNIFICANT: p &lt; 0.001</div>
-          <p style="font-size: 0.85rem;">Rainfall shows no detectable trend, but terrestrial storage suffers continuous monotonic decline. <strong>Verdict:</strong> Chronic agricultural irrigation crisis.</p>
+        <div class="sketch-box">
+          <h3 style="color: var(--ink-dark); margin-bottom: 8px;">Topsoil vs. Subsurface</h3>
+          <div class="metric-badge" style="font-size: 1.15rem; color: #d97706;">Soil Moisture: Minor Part</div>
+          <p style="font-size: 0.82rem; line-height: 1.45;">NASA GLDAS Noah &amp; VIC models show unsaturated soil moisture trends explain only <strong>-0.12 to -0.10 cm/yr</strong> (~8% to 10% of NW decline). The remaining <strong>-1.12 to -1.11 cm/yr</strong> is an unpartitioned deep subsurface and surface residual.</p>
         </div>
-        <div class="sketch-box" style="border-left: 6px solid #8b5cf6;">
-          <h3 style="color: #7c3aed;">North-Central (Mymensingh)</h3>
-          <div class="metric-badge" style="background: rgba(139, 92, 246, 0.15); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">Δ Storage: -0.69 cm/yr (95% CI)</div>
-          <div style="font-size: 0.85rem; font-weight: 700; color: var(--ink-green); margin-bottom: 8px;">SIGNIFICANT: p &lt; 0.001 (Z = -12.1)</div>
-          <p style="font-size: 0.85rem;">Dry-season storage exhibits strong seasonal drawdown (-0.63 cm/yr multi-decadal slope), reflecting intensive irrigation demand across the Old Brahmaputra basin.</p>
+        <div class="sketch-box">
+          <h3 style="color: var(--ink-dark); margin-bottom: 8px;">Socioeconomic Exposure</h3>
+          <div class="metric-badge" style="font-size: 1.15rem; color: #dc2626;">108.5 Million People</div>
+          <p style="font-size: 0.82rem; line-height: 1.45;"><strong>63.9% of Bangladesh's population</strong> (2020 GPWv4) reside in the three regions with significant total water storage decline (NW: 38.8M; Central: 45.6M; NE: 24.1M). NW cropland fraction is 74.2% (MODIS MCD12Q1).</p>
         </div>
-        <div class="sketch-box" style="border-left: 6px solid var(--ink-blue);">
-          <h3 style="color: var(--ink-blue);">Northeast & Coast (Sylhet, Chattogram)</h3>
-          <div class="metric-badge metric-blue">Rain Spikes (+169 to +340 mm)</div>
-          <div style="font-size: 0.85rem; font-weight: 700; color: var(--ink-green); margin-bottom: 8px;">VOLATILITY: p &lt; 0.05</div>
-          <p style="font-size: 0.85rem;">Precipitation is concentrating into higher-intensity bursts. <strong>Verdict:</strong> Flash flood exposure is surging while long-term storage remains non-significant.</p>
+        <div class="sketch-box">
+          <h3 style="color: var(--ink-dark); margin-bottom: 8px;">Seasonal Storage Baseline</h3>
+          <div class="metric-badge" style="font-size: 1.15rem; color: #0284c7;">49–58 cm Annual Swing</div>
+          <p style="font-size: 0.82rem; line-height: 1.45;">Mean annual dry-season drawdown is 49 to 58 cm across all regions with no detectable trend. The ongoing storage depletion is an ongoing downward shift in the multi-decadal baseline, not an expanding seasonal drop.</p>
         </div>
       </div>
     </section>
 
     <!-- SLIDE 6 -->
-    <section class="slide" data-time="3:00 – 3:35">
+    <section class="slide" data-time="2:30 – 3:00">
       <div>
-        <span class="case-tag">Interactive Product</span>
-        <h1 class="sketch-title">HydroDetective: Bangladesh</h1>
-        <div class="sketch-subtitle">A decision-support tool for water planners and agricultural authorities</div>
+        <span class="case-tag">Cross-Region Rigor</span>
+        <h1 class="sketch-title">Calibrated Between-Region Comparisons</h1>
+        <div class="sketch-subtitle">Paired difference testing on concurrent satellite series — reporting effect sizes only</div>
       </div>
-      <div class="sketch-box" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-        <div style="display: flex; justify-content: space-between; border-bottom: 2px dashed #94a3b8; padding-bottom: 12px; margin-bottom: 16px;">
-          <div><strong>Feature 1:</strong> All 8 Divisions Audited (Toggle Mymensingh, Rangpur, Sylhet layers)</div>
-          <div><strong>Feature 2:</strong> Significance Mask (Hide divisions where p ≥ 0.05)</div>
-          <div><strong>Feature 3:</strong> Bangla / English Policy Summaries</div>
+      <div class="grid-2">
+        <div class="sketch-box">
+          <h3 style="margin-bottom: 10px;">Pairwise Effect Sizes (TWS &amp; Rainfall)</h3>
+          <ul class="sketch-list">
+            <li><strong>NW vs. SW &amp; SE:</strong> Northwest declines about <strong>1.2 cm/yr faster</strong> than Southwest and Southeast (&Delta; = -1.20 and -1.19 cm/yr; non-overlapping single-region CIs).</li>
+            <li><strong>NE &amp; Central vs. SW &amp; SE:</strong> Decline about <strong>0.5 cm/yr faster</strong> than southern regions (&Delta; = -0.54 to -0.45 cm/yr).</li>
+            <li><strong>SW vs. SE:</strong> Statistically indistinguishable (&Delta; = +0.01 cm/yr; 95% CI: [-0.03, +0.04]).</li>
+            <li><strong>Rainfall Pairs:</strong> Zero pairs differ across the country.</li>
+          </ul>
         </div>
-        <div style="background: #f1f5f9; border-radius: 8px; padding: 20px; text-align: center; border: 2px dashed #64748b;">
-          <div style="font-family: 'Architects Daughter', cursive; font-size: 1.2rem; color: #334155;">
-            [ Interactive Dashboard Mockup: Dual-Axis Graph & Division Map Preview ]
-          </div>
-          <p style="font-size: 0.85rem; color: #64748b; margin-top: 6px;">
-            Allows BWDB planners to pinpoint exactly where Boro rice irrigation must shift to drought-resilient crops.
+        <div class="sketch-box" style="border-left: 6px solid #e11d48;">
+          <h3 style="color: #be123c; margin-bottom: 8px;">Placebo Check &amp; Overlap Precaution</h3>
+          <p style="font-size: 0.85rem; line-height: 1.5; color: #334155;">
+            • <strong>Why no p-values?</strong> A circular-shift placebo test revealed elevated false-positive rates, revealing raw p-values are overconfident. In accordance with honest reporting, exact p-values are withheld.<br><br>
+            • <strong>Descriptive note:</strong> The NE vs. Central paired test detects a small mathematical difference (-0.07 cm/yr), but their individual 95% CIs overlap. It is treated as small and descriptive.
           </p>
         </div>
       </div>
     </section>
 
     <!-- SLIDE 7 -->
-    <section class="slide" data-time="3:35 – 4:00">
+    <section class="slide" data-time="3:00 – 3:30">
       <div>
-        <span class="case-tag">Global Horizon</span>
-        <h1 class="sketch-title">Scalable Across Every River Basin</h1>
-        <div class="sketch-subtitle">Turning raw satellite data into verified environmental truth</div>
+        <span class="case-tag">Epistemic Humility</span>
+        <h1 class="sketch-title">Methodological Limitations &amp; Boundary Conditions</h1>
+        <div class="sketch-subtitle">What satellite gravimetry can and cannot claim</div>
       </div>
       <div class="grid-2">
         <div class="sketch-box">
-          <h3>Universal Architecture</h3>
-          <p style="margin-top: 8px; font-size: 0.9rem;">While tested on the Bengal Basin, the analytical pipeline runs identically on any global watershed (e.g., Indus Basin, California Central Valley, Mekong Delta).</p>
+          <h3 style="color: #b45309; margin-bottom: 10px;">Observational &amp; Spatial Constraints</h3>
+          <ul class="sketch-list">
+            <li><strong>Coarse Resolution:</strong> GRACE resolves mass at ~300 km. It is a regional satellite-derived series, not a measurement of local water tables or village tubewell lift.</li>
+            <li><strong>Signal Adjacency:</strong> Neighbouring macro-regions share boundaries and signal smoothing occurs.</li>
+            <li><strong>Intersatellite Step Offset:</strong> A +9.15 cm step between GRACE and GRACE-FO influences single-line regression; reporting the -1.81 to -1.25 cm/yr range ensures transparency.</li>
+          </ul>
+        </div>
+        <div class="sketch-box">
+          <h3 style="color: #b45309; margin-bottom: 10px;">Ground Truth &amp; Causal Attribution</h3>
+          <ul class="sketch-list">
+            <li><strong>No Well Validation Yet:</strong> Satellite series have not yet been calibrated against in-situ piezometric well networks from the Bangladesh Water Development Board (BWDB).</li>
+            <li><strong>Attribution Boundary:</strong> Storage decline alongside no detectable rainfall trend is consistent with intensive dry-season agricultural water extraction, but is not attributable with satellite data alone.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8 -->
+    <section class="slide" data-time="3:30 – 4:00">
+      <div>
+        <span class="case-tag">Detection Limits &amp; Decision Hub</span>
+        <h1 class="sketch-title">Why "No Detectable Trend" Is Not "No Change"</h1>
+        <div class="sketch-subtitle">Understanding statistical power, temporal duration, and the interactive decision hub</div>
+      </div>
+      <div class="grid-2">
+        <div class="sketch-box">
+          <h3 style="margin-bottom: 8px;">Statistical Power &amp; Minimum Detectable Slopes</h3>
+          <p style="font-size: 0.85rem; line-height: 1.5; color: #334155; margin-bottom: 10px;">
+            "No detectable trend" reflects statistical detection limits, not proof that rainfall or southern storage has zero physical variation. Wide confidence intervals stem from high natural interannual variability in monsoon cloudbursts.
+          </p>
+          <div style="background: #f1f5f9; padding: 10px; border-radius: 6px; font-size: 0.82rem; border-left: 4px solid var(--ink-blue);">
+            • <strong>Full 24-Year Record:</strong> NW TWS MDS = <span class="mono">0.32 cm/yr</span> (high power to detect -1.25 cm/yr).<br>
+            • <strong>Recent 2020–2026 Window:</strong> NW TWS MDS = <span class="mono">2.34 cm/yr</span> (short window below detection threshold).
+          </div>
         </div>
         <div class="sketch-box" style="text-align: center; display: flex; flex-direction: column; justify-content: center;">
-          <div style="font-family: 'Permanent Marker', cursive; font-size: 1.6rem; color: var(--ink-dark);">TEAM TREND DETECTIVES</div>
-          <div style="color: #64748b; font-size: 0.9rem; margin-top: 6px;">AI Research • Data Analytics • Visual UI Design</div>
-          <div style="margin-top: 16px;">
-            <span class="stamp" style="font-size: 0.9rem; padding: 4px 10px;">NASA Space Apps 2026</span>
+          <div style="font-family: 'Permanent Marker', cursive; font-size: 1.3rem; color: var(--ink-dark);">EXPLORE THE LIVE DECISION HUB</div>
+          <div style="color: #0284c7; font-size: 1.05rem; font-weight: 700; margin: 8px 0;">tenstral-nasa26.pages.dev</div>
+          <p style="font-size: 0.82rem; color: #64748b; margin-bottom: 12px;">24-year timeline scrubber, multi-sensor studio, bilingual summaries, and complete 336-test audit registry.</p>
+          <div>
+            <span class="stamp" style="font-size: 0.85rem; padding: 4px 10px;">TEAM TENSTRAL • EAST WEST UNIVERSITY</span>
           </div>
         </div>
       </div>
@@ -490,13 +522,14 @@
     let currentSlide = 0;
 
     const scripts = [
-      "Published literature and ground reports in Bangladesh contradict each other. Some claim our country is rapidly drying, while others report increasing rainfall and flooding. As NASA Trend Detectives, we built an analytical platform to settle this dispute using 20+ years of satellite observations.",
-      "We are not looking at a single national average. We are investigating whether rainfall and water-storage trends diverge across administrative divisions, and whether those regional shifts are genuine long-term changes or mere seasonal noise.",
-      "To investigate, we pair two independent NASA datasets. For precipitation, we use GPM IMERG at fine spatial resolution. For overall water storage—including subsurface storage—we turn to GRACE and GRACE-FO gravity anomalies. Because GRACE data is spatially coarse, we rigorously aggregate our analysis to division levels rather than making inaccurate district-level claims.",
-      "In Bangladesh, the heavy annual monsoon blinds standard trend lines. We apply Seasonal-Trend Decomposition to peel back cyclical monsoon swings. Then, we execute the Mann-Kendall test and compute Theil-Sen Slopes across all 8 divisions. This evaluates what is changing, where, by how much, and whether it is statistically significant.",
-      "The results show that across the Northwest and North-Central belt—Rajshahi, Rangpur, and our newly isolated Mymensingh division—terrestrial water storage is in statistically significant decline at -0.7 to -1.6 cm per year. In Mymensingh, dry-season terrestrial water storage shows persistent multi-decadal decline (-0.63 cm/yr), consistent with dry-season irrigation abstraction exceeding recharge. Meanwhile, the eastern divisions face volatile rainfall spikes.",
-      "We translated this analytical framework into an interactive dashboard. Planners can select any division, inspect deseasonalized trends, and toggle on our significance filter so only statistically significant shifts guide policy—such as reallocating Boro rice irrigation zones.",
-      "While calibrated on the Bengal Basin, our architecture is universally scalable to any river basin facing competing water demands. By anchoring decisions in statistical rigor rather than surface assumptions, we empower communities to protect their water futures. Thank you."
+      "Across Bangladesh, ground reports present a striking contradiction. In the northwest, agricultural wells run dry, suction tubewells fail, and water tables drop during the dry season. Meanwhile, in the northeast, communities face massive monsoon inundation and early flash floods. Both regions exist under the exact same South Asian monsoon system. As NASA Earth System Trend Detectives, we asked: Where is Bangladesh's water going? Do rainfall and total water storage trends diverge across regions, and are those differences statistically detectable? To answer this, we built Bengal Hydro Detective.",
+      "To investigate rigorously, we pair two independent NASA observational platforms. For precipitation, we use NASA's Global Precipitation Measurement IMERG V07B, spanning January 2002 to September 2025 at fine tenth-degree resolution. For total water storage, we use CSR GRACE and GRACE-FO RL0603 Mascons from April 2002 to July 2026. GRACE is the only platform capable of sensing vertically integrated mass anomalies—including deep subsurface water—at a three-hundred-kilometer footprint. To separate unsaturated topsoil from deep storage, we incorporate independent NASA GLDAS Noah and VIC land surface models, quarantining models that assimilate GRACE to prevent circular reasoning.",
+      "In Bangladesh, powerful annual monsoon swings can easily mask subtle multi-decadal trends. Standard linear regression often mistakes seasonal cycles for secular change. We address this through a three-tier statistical protocol. First, we remove the cyclical monsoon amplitude. Second, we estimate robust rates of change using the Theil-Sen slope estimator. Third, we evaluate statistical significance using Calibrated Effective Sample Size Mann-Kendall tests with autoregressive pre-whitening and red-noise null validation. To prevent false discoveries, we enforce Benjamini-Hochberg False Discovery Rate control across families of 36 tests per window across four temporal frameworks: the full 24-year record, the GRACE era, the GRACE-FO era, and recent sensitivity windows.",
+      "Our full 24-year analysis reveals significant regional divergence. In the Northwest, regional-mean total water storage is in significant decline at minus 1.25 centimeters per year, with a 95% confidence interval of minus 1.50 to minus 1.02 centimeters per year, losing approximately 0.39 cubic kilometers of water annually. The Northeast also declines significantly at minus 0.56 centimeters per year, and Central Bangladesh at minus 0.47 centimeters per year. Nationally, storage declines at minus 0.51 centimeters per year, or about 0.63 cubic kilometers per year. In contrast, the Southwest and Southeast show minus 0.05 centimeters per year, with no detectable trend. Crucially, GPM IMERG rainfall shows no detectable trend across any region in the country. In the Northwest, rainfall changes at minus 1.9 millimeters per year, but with a wide confidence interval from minus 11 to plus 4.5 millimeters per year.",
+      "What is driving this water loss? NASA GLDAS soil moisture modeling shows that topsoil drying accounts for only a minor fraction of the decline—between minus 0.12 and minus 0.10 centimeters per year, or about 8 to 10 percent. The remaining minus 1.12 centimeters per year is an unpartitioned residual in deep subsurface and surface storage. This storage depletion directly affects human systems. Approximately 108.5 million people—nearly 64 percent of Bangladesh's population—live in regions experiencing significant storage decline, including the Northwest where 74.2 percent of land is intensively cultivated cropland. Furthermore, our seasonal analysis shows the annual storage swing remains consistent at 49 to 58 centimeters across all regions. The decline is not an expanding seasonal drop, but a downward shift in the long-term baseline.",
+      "To confirm that regions truly diverge, we executed calibrated paired difference tests across all ten regional pairs. We find that the Northwest declines about 1.2 centimeters per year faster than the Southwest and Southeast, with non-overlapping confidence intervals. Northeast and Central decline about 0.5 centimeters per year faster than the southern regions. Southwest and Southeast are statistically indistinguishable, and no rainfall pair differs anywhere in Bangladesh. In accordance with scientific integrity, we report effect sizes and confidence intervals without exact p-values, because our circular-shift placebo checks show that pairwise p-values are overconfident.",
+      "A hallmark of our investigation is explicit scientific humility. First, GRACE integrates mass over footprints of several hundred kilometers. These are regional satellite series, not direct measurements of local water tables or individual village tubewells. Second, adjacent regions share signal boundaries, so spatial smoothing occurs. Third, a positive 9.15 centimeter step offset exists between the GRACE and GRACE-FO satellite missions. Depending on how this transition step is handled, the Northwest full-record slope spans minus 1.81 to minus 1.25 centimeters per year. Fourth, our satellite results have not yet been validated against in-situ well records from the Bangladesh Water Development Board. Finally, while the pattern of storage decline in the absence of rainfall trends is consistent with intensive dry-season agricultural water extraction, this satellite data alone does not prove causal attribution.",
+      "Understanding detection limits is essential: 'no detectable trend' does not mean 'no change'. High natural rainfall variability widens confidence intervals, requiring multi-decadal records to detect trends. While the full 24-year Northwest minimum detectable slope is 0.32 centimeters per year, the threshold expands to 2.34 centimeters per year for recent six-year windows. We deployed these complete findings to our public decision-support hub at tenstral-nasa26.pages.dev. Stakeholders can scrub through 24 years of monthly observations, inspect multi-model partitions, and access bilingual stakeholder summaries in English and Bangla. We are Team Tenstral from East West University. Thank you."
     ];
 
     // Build navigation pills
