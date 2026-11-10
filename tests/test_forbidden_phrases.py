@@ -122,7 +122,9 @@ class TestForbiddenPhrases(unittest.TestCase):
                         '| **PUB-' in line or
                         '### [PUB-' in line or
                         'Taylor' in line or
-                        'Shamsudduha' in line
+                        'Shamsudduha' in line or
+                        # Verbatim limits text allowlist for pairwise region differences (PROJECT_STATUS.md & pairwise_region_differences.md)
+                        'not a measurement of local aquifer or pumping differences' in line
                     )
                     if not is_quoted_or_citation:
                         rel_path = fpath.relative_to(REPO_ROOT)

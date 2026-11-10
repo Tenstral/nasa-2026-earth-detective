@@ -8,7 +8,8 @@ Validates the v3 between-region comparison methodology:
   4. Project verdict rule: strictly verified across p_value, bh_q_value, and CI zero-exclusion.
   5. Invariance of primary pipeline: results_all_windows.csv remains 336 rows, FDR family size 36.
   6. Verbatim limits text present in markdown report; zero forbidden phrases.
-  7. Dashboard zero drift against build_dashboard.py.
+  7. Strict calibration targets: 0.035 <= FPR <= 0.065 and 0.930 <= Coverage <= 0.970 across all tested pairs.
+  8. Preserved audit trail and conservative CI overlap verification.
 """
 
 import json
@@ -36,6 +37,7 @@ class TestV3RegionComparison(unittest.TestCase):
         cls.csv_path = cls.out_dir / "pairwise_region_differences.csv"
         cls.md_path = cls.out_dir / "pairwise_region_differences.md"
         cls.json_path = cls.out_dir / "calibration_report.json"
+        cls.json_archived_v1 = cls.out_dir / "calibration_report_v1_bootstrap_failed.json"
         cls.results_all_csv = REPO_ROOT / "outputs" / "v3" / "full_record" / "results_all_windows.csv"
         cls.index_html_path = REPO_ROOT / "index.html"
 
@@ -43,13 +45,15 @@ class TestV3RegionComparison(unittest.TestCase):
         self.assertTrue(self.csv_path.exists(), f"Missing CSV: {self.csv_path}")
         self.assertTrue(self.md_path.exists(), f"Missing MD: {self.md_path}")
         self.assertTrue(self.json_path.exists(), f"Missing JSON: {self.json_path}")
+        self.assertTrue(self.json_archived_v1.exists(), f"Missing archived v1 JSON: {self.json_archived_v1}")
 
     def test_02_csv_structure_and_monotone_bh_q(self):
         df = pd.read_csv(self.csv_path)
         expected_cols = [
             "variable", "window", "run", "region_A", "region_B",
             "slope_A", "slope_B", "delta_slope", "ci_low", "ci_high",
-            "p_value", "bh_q_value", "mds_80", "n_months", "block_length", "verdict"
+            "p_value", "bh_q_value", "mds_80", "n_months", "block_length", "verdict",
+            "v1_verdict", "ci_overlap"
         ]
         self.assertEqual(list(df.columns), expected_cols)
 
@@ -68,23 +72,23 @@ class TestV3RegionComparison(unittest.TestCase):
                 )
 
     def test_03_antisymmetry_and_duality(self):
-        from v3.region_comparison import paired_block_bootstrap_theilsen
+        from v3.region_comparison import compute_pairwise_difference_trend
 
         t = np.linspace(2002.25, 2026.5, 100)
         rng = np.random.default_rng(123)
         yA = -1.2 * (t - 2002) + rng.normal(0, 1, 100)
         yB = -0.5 * (t - 2002) + rng.normal(0, 1, 100)
 
-        res_AB = paired_block_bootstrap_theilsen(t, yA, yB, block_len=4, n_boot=2000, seed=42)
-        res_BA = paired_block_bootstrap_theilsen(t, yB, yA, block_len=4, n_boot=2000, seed=42)
+        res_AB = compute_pairwise_difference_trend(t, yA, yB)
+        res_BA = compute_pairwise_difference_trend(t, yB, yA)
 
         # Antisymmetry of delta slope
-        self.assertAlmostEqual(res_AB["delta_slope"], -res_BA["delta_slope"], places=3)
+        self.assertAlmostEqual(res_AB["delta_slope"], -res_BA["delta_slope"], places=4)
         # CI bounds negated and swapped
-        self.assertAlmostEqual(res_AB["ci_low"], -res_BA["ci_high"], places=2)
-        self.assertAlmostEqual(res_AB["ci_high"], -res_BA["ci_low"], places=2)
+        self.assertAlmostEqual(res_AB["ci_low"], -res_BA["ci_high"], places=3)
+        self.assertAlmostEqual(res_AB["ci_high"], -res_BA["ci_low"], places=3)
         # Two-sided p-value identical
-        self.assertAlmostEqual(res_AB["p_value"], res_BA["p_value"], places=3)
+        self.assertAlmostEqual(res_AB["p_value"], res_BA["p_value"], places=4)
 
     def test_04_ci_contains_point_estimate_and_excludes_zero_iff_p_less_than_05(self):
         df = pd.read_csv(self.csv_path)
@@ -134,17 +138,67 @@ class TestV3RegionComparison(unittest.TestCase):
         )
 
     def test_08_calibration_report_validity(self):
+        """Strict calibration targets: 0.035 <= FPR <= 0.065 and 0.930 <= Coverage <= 0.970."""
         with open(self.json_path, "r", encoding="utf-8") as f:
             calib = json.load(f)
 
         self.assertEqual(calib["n_simulations"], 1000)
-        self.assertIn("false_positive_rate", calib)
-        self.assertIn("ci_coverage", calib)
-        self.assertIn("disclosure_note", calib)
-        self.assertGreater(calib["false_positive_rate"], 0.0)
-        self.assertLess(calib["false_positive_rate"], 0.30)
-        self.assertGreater(calib["ci_coverage"], 0.70)
-        self.assertLessEqual(calib["ci_coverage"], 1.0)
+        self.assertEqual(calib["selected_method"], "candidate_a_difference_ess_mk")
+        self.assertIn("candidates_evaluated", calib)
+        self.assertIn("tws_pairs_calibration", calib)
+        self.assertIn("precip_pairs_calibration", calib)
+
+        # Top level benchmark metrics (NW vs Central)
+        self.assertGreaterEqual(calib["false_positive_rate"], 0.035)
+        self.assertLessEqual(calib["false_positive_rate"], 0.065)
+        self.assertGreaterEqual(calib["ci_coverage"], 0.930)
+        self.assertLessEqual(calib["ci_coverage"], 0.970)
+        self.assertTrue(calib["target_fpr_met"])
+        self.assertTrue(calib["target_coverage_met"])
+
+        # Strict verification across every tested TWS pair
+        tws_calib = calib["tws_pairs_calibration"]
+        self.assertGreaterEqual(len(tws_calib), 6, "At least 6 pairs must be calibrated")
+        for pair_name, p_data in tws_calib.items():
+            self.assertGreaterEqual(
+                p_data["false_positive_rate"], 0.035,
+                f"Pair {pair_name}: FPR {p_data['false_positive_rate']} must be >= 0.035"
+            )
+            self.assertLessEqual(
+                p_data["false_positive_rate"], 0.065,
+                f"Pair {pair_name}: FPR {p_data['false_positive_rate']} must be <= 0.065"
+            )
+            self.assertGreaterEqual(
+                p_data["ci_coverage"], 0.930,
+                f"Pair {pair_name}: Coverage {p_data['ci_coverage']} must be >= 0.930"
+            )
+            self.assertLessEqual(
+                p_data["ci_coverage"], 0.970,
+                f"Pair {pair_name}: Coverage {p_data['ci_coverage']} must be <= 0.970"
+            )
+            self.assertTrue(p_data["target_fpr_met"])
+            self.assertTrue(p_data["target_coverage_met"])
+
+        # Check candidate comparisons and archived v1 report
+        cand = calib["candidates_evaluated"]
+        self.assertIn("candidate_b_block_bootstrap_b10", cand)
+        self.assertIn("candidate_c_ar1_bootstrap", cand)
+        self.assertIn("v1_bootstrap_failed", cand)
+        self.assertTrue(self.json_archived_v1.exists(), "Archived v1 failed report must exist")
+
+    def test_09_ci_overlap_and_v1_verdict_columns(self):
+        """Verifies v1_verdict and ci_overlap columns and cross-check logic."""
+        df = pd.read_csv(self.csv_path)
+        prim_tws = df[(df["run"] == "primary") & (df["variable"] == "tws")].set_index(["region_A", "region_B"])
+
+        # NE vs Central single-region CIs overlap
+        self.assertTrue(bool(prim_tws.loc[("NE", "Central"), "ci_overlap"]))
+        # SW vs SE single-region CIs overlap
+        self.assertTrue(bool(prim_tws.loc[("SW", "SE"), "ci_overlap"]))
+        # NW vs Central single-region CIs do not overlap
+        self.assertFalse(bool(prim_tws.loc[("NW", "Central"), "ci_overlap"]))
+        # NW vs SW single-region CIs do not overlap
+        self.assertFalse(bool(prim_tws.loc[("NW", "SW"), "ci_overlap"]))
 
 
 if __name__ == "__main__":
