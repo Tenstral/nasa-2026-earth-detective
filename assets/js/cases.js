@@ -77,7 +77,7 @@ window.ED.cases = [
     title: "Soil or Deeper?",
     tagline: "Partitioning Root-Zone Moisture vs. Subsurface Residual",
     domain: "Hydrological Modeling",
-    question: "Can topsoil drying explain the regional water decline, or does the loss reside in the deep subsurface?",
+    question: "Can root-zone soil drying explain the regional water decline, or does the loss reside in storage below the root zone?",
     config: {
       variable: "subsurface_residual",
       overlayVariable: "noah_sms_anom",
@@ -88,7 +88,7 @@ window.ED.cases = [
       deseasonalize: true
     },
     prompt: "GLDAS Noah simulates moisture in the top 2 meters of soil (orange). Total satellite water storage drops much faster, leaving a pronounced downward trend in the partitioned subsurface residual.",
-    takeaway: "Root-zone soil moisture (0–2 m) explains only a minor fraction of the total gravimetric storage loss. The deficit is concentrated in the deep subsurface residual ('groundwater + surface water + model error residual')."
+    takeaway: "Root-zone soil moisture (0–2 m) explains only a minor fraction of the total gravimetric storage loss. The deficit is primarily observed in the partitioned subsurface residual ('groundwater + surface water + model error residual')."
   },
   {
     id: "case-5",
@@ -96,18 +96,18 @@ window.ED.cases = [
     title: "Is Dhaka's Air Getting Hazier?",
     tagline: "NASA AERONET Ground Sun Photometer vs. Satellite Skies",
     domain: "Atmospheric Aerosols",
-    question: "Are atmospheric aerosol levels (smoke, dust, and particulate haze) over Dhaka increasing over time?",
+    question: "Are atmospheric aerosol levels (smoke, dust, and particulate haze) over Dhaka increasing over time when comparing satellite observations to ground-truth monitoring?",
     config: {
-      variable: "aod_550",
-      overlayVariable: null,
-      region: "National",
+      variable: "modis_aod",
+      overlayVariable: "aeronet_aod",
+      region: "Central",
       startYear: 2012,
       endYear: 2024,
       season: "annual",
       deseasonalize: true
     },
-    prompt: "Examine NASA AERONET ground-truth sun photometer measurements at Dhaka University (Level 1.5 cloud-cleared). Notice the positive slope in deseasonalized AOD (+0.012/year, p = 0.014).",
-    takeaway: "Aerosol Optical Depth (AOD) shows an upward trend over central Dhaka across the 12-year ground monitoring record. Winter smog (DJF) regularly exceeds 1.1–1.3 AOD, driven by seasonal brick kiln operations and regional meteorological stagnation."
+    prompt: "Compare NASA MODIS Aqua satellite observations (blue) directly against NASA AERONET ground-truth sun photometer measurements at Dhaka University (orange dashed, 2012–2024). Then widen the window to the full 2002–2026 satellite record to see if a long-term secular trend emerges.",
+    takeaway: "Both satellite and ground sensors faithfully capture intense seasonal winter smog spikes (> 1.2 AOD) associated with brick kiln emissions and atmospheric stagnation. Across the full 24-year satellite record (2002–2026), a statistically significant upward trend is detected (+0.0115 AOD/yr, p < 0.0001), directly mirroring Dr. James Acker's reference case study on MODIS Aqua AOD."
   },
   {
     id: "case-6",
@@ -115,7 +115,7 @@ window.ED.cases = [
     title: "Are Downpours Getting Stronger?",
     tagline: "ETCCDI Extreme 1-Day Downpours (Rx1day)",
     domain: "Climate Extremes",
-    question: "Even if total rainfall is unchanged, are single-day extreme downpours becoming more intense?",
+    question: "Even if total rainfall shows no detectable trend, are single-day extreme downpours becoming more intense?",
     config: {
       variable: "extreme_rx1day",
       overlayVariable: null,
@@ -127,5 +127,24 @@ window.ED.cases = [
     },
     prompt: "Annual maximum 1-day rainfall fluctuates wildly from 50 mm up to > 115 mm in catastrophic flood years (2004, 2007, 2017, 2020, 2022). Test whether a secular trend has emerged.",
     takeaway: "Extreme downpours exhibit intense year-to-year volatility, but the 22-year record falls below the statistical detection threshold for a secular trend (p > 0.05). Trend detectives learn that high-variance extremes require longer observation baselines."
+  },
+  {
+    id: "case-7",
+    badge: "Case File #7",
+    title: "Is Dhaka's Air Getting Dirtier?",
+    tagline: "Combustion Trace Gases (OMI NO₂) vs Total Aerosol Loading (MODIS AOD)",
+    domain: "Atmospheric Composition & Trace Gases",
+    question: "Does satellite monitoring show a rising trend in nitrogen dioxide (NO₂) pollution over Dhaka from fossil fuel and vehicle emissions, and how does it correlate with aerosol haze?",
+    config: {
+      variable: "omi_no2",
+      overlayVariable: "modis_aod",
+      region: "Central",
+      startYear: 2004,
+      endYear: 2026,
+      season: "annual",
+      deseasonalize: true
+    },
+    prompt: "Observe how tropospheric NO₂ column density (blue) tracks fossil fuel combustion, vehicle density, and brick kiln activity over Central Bangladesh (Dhaka), alongside total aerosol optical depth (orange dashed). Note the strong winter boundary layer concentration spikes.",
+    takeaway: "OMI tropospheric NO₂ provides a direct proxy for nitrogen oxide emissions from high-temperature combustion (traffic, brick kilns, diesel generators). Central Bangladesh exhibits elevated NO₂ densities with pronounced winter entrapment beneath thermal inversions, consistent with accelerating urban industrial activity alongside regional aerosol loading."
   }
 ];

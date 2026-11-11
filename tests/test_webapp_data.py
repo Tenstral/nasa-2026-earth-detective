@@ -39,6 +39,8 @@ class TestWebappData(unittest.TestCase):
             "series_divisions.js",
             "series_extremes.js",
             "series_aod.js",
+            "series_airs.js",
+            "series_omi.js",
         ]
         for fname in expected_files:
             fpath = DATA_DIR / fname
@@ -60,7 +62,16 @@ class TestWebappData(unittest.TestCase):
         self.assertIn("power_precip", var_ids)
         self.assertIn("noah_sms_anom", var_ids)
         self.assertIn("subsurface_residual", var_ids)
-        self.assertIn("aod_550", var_ids)
+        self.assertIn("modis_aod", var_ids)
+        self.assertIn("aeronet_aod", var_ids)
+        self.assertIn("airs_temp", var_ids)
+        self.assertIn("airs_h2o", var_ids)
+        self.assertIn("omi_no2", var_ids)
+
+        var_map = {v["id"]: v for v in catalog["variables"]}
+        self.assertFalse(var_map["airs_temp"]["supports_divisions"])
+        self.assertFalse(var_map["airs_h2o"]["supports_divisions"])
+        self.assertTrue(var_map["omi_no2"]["supports_divisions"])
 
         reg_ids = [r["id"] for r in catalog["regions"]]
         self.assertEqual(set(reg_ids), {"NW", "NE", "Central", "SW", "SE", "National"})
@@ -110,6 +121,24 @@ class TestWebappData(unittest.TestCase):
         item_2003 = [x for x in nw_ext if x["year"] == 2003][0]
         self.assertEqual(item_2003["annual_total_mm"], 2296.2)
         self.assertEqual(item_2003["days_ge_50mm"], 3)
+
+    def test_series_atmos_spot_check(self):
+        airs_data = load_js_object(DATA_DIR / "series_airs.js", "seriesAIRS")
+        self.assertIn("National", airs_data)
+        self.assertIn("Central", airs_data)
+        nat_airs = airs_data["National"]
+        self.assertIn("airs_temp", nat_airs)
+        self.assertIn("airs_h2o", nat_airs)
+        self.assertGreaterEqual(len(nat_airs["ym"]), 280)
+        self.assertEqual(len(nat_airs["airs_temp"]), len(nat_airs["ym"]))
+
+        omi_data = load_js_object(DATA_DIR / "series_omi.js", "seriesOMI")
+        self.assertIn("Dhaka", omi_data["divisions"])
+        self.assertIn("Central", omi_data["regions"])
+        dhaka_omi = omi_data["divisions"]["Dhaka"]
+        self.assertIn("omi_no2", dhaka_omi)
+        self.assertGreaterEqual(len(dhaka_omi["ym"]), 250)
+        self.assertEqual(len(dhaka_omi["omi_no2"]), len(dhaka_omi["ym"]))
 
 
 if __name__ == "__main__":
