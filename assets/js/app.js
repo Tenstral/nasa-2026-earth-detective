@@ -245,6 +245,11 @@
     el.evidenceContent = document.getElementById('evidence-content');
     el.evidenceOpenReportLink = document.getElementById('evidence-open-report-link');
 
+    // Header Drawer Shortcuts
+    el.btnHeaderEvidence = document.getElementById('btn-header-evidence');
+    el.btnHeaderDirectives = document.getElementById('btn-header-directives');
+    el.btnHeaderDiagnostics = document.getElementById('btn-header-diagnostics');
+
     // Section 3: Dossier Explorer
     el.dossierTabsList = document.getElementById('dossier-tabs-list');
     el.dossierBadge = document.getElementById('dossier-badge');
@@ -314,14 +319,11 @@
   function jumpToSection(sectionId) {
     const target = document.getElementById(sectionId);
     if (!target) return;
-    if (window.gsap && window.ScrollToPlugin) {
-      window.gsap.to(el.deckViewport, {
-        scrollTo: { y: target.offsetTop, autoKill: false },
-        duration: 0.6,
-        ease: 'power2.out'
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (el.deckNavBtns) {
+      el.deckNavBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-target') === sectionId);
       });
-    } else {
-      el.deckViewport.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
     }
   }
 
@@ -1126,6 +1128,17 @@
       el.evidenceBackdrop.addEventListener('click', closeAllDrawers);
     }
 
+    // Header Drawer Shortcuts
+    if (el.btnHeaderEvidence) {
+      el.btnHeaderEvidence.addEventListener('click', () => openEvidenceDrawer('threeway'));
+    }
+    if (el.btnHeaderDirectives) {
+      el.btnHeaderDirectives.addEventListener('click', openDirectivesDrawer);
+    }
+    if (el.btnHeaderDiagnostics) {
+      el.btnHeaderDiagnostics.addEventListener('click', openDiagnosticsDrawer);
+    }
+
     document.querySelectorAll('.evidence-tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const fragId = btn.getAttribute('data-frag');
@@ -1168,6 +1181,7 @@
       else if (c.id === 'case-4') metricTag = 'Topsoil 10% vs Residual 90%';
       else if (c.id === 'case-5') metricTag = '+0.0115 AOD/yr • p < 0.0001';
       else if (c.id === 'case-6') metricTag = 'ETCCDI Rx1day • p > 0.05';
+      else if (c.id === 'case-7') metricTag = 'OMI NO₂ • 0.25° Grid';
 
       card.innerHTML = `
         <div>
@@ -1181,11 +1195,21 @@
         </div>
         <div class="case-card-footer">
           <span class="case-telemetry-tag">${metricTag}</span>
-          <button class="case-launch-btn">Launch Simulation →</button>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <button class="case-launch-btn" data-action="dossier" style="color:var(--text-muted);font-size:10.5px;">Dossier ↗</button>
+            <button class="case-launch-btn" data-action="workbench">Launch Simulation →</button>
+          </div>
         </div>
       `;
 
-      card.addEventListener('click', () => {
+      card.addEventListener('click', (e) => {
+        const actionBtn = e.target.closest('[data-action]');
+        if (actionBtn && actionBtn.getAttribute('data-action') === 'dossier') {
+          state.activeDossierCaseId = c.id;
+          renderDossierExplorer();
+          jumpToSection('sec-dossiers');
+          return;
+        }
         activateCase(c.id);
         jumpToSection('sec-workbench');
       });
@@ -1212,6 +1236,7 @@
     state.zoomStartRatio = 0;
     state.zoomEndRatio = 1.0;
 
+    syncAppToUrlState();
     syncCommandRibbon();
     runWorkflow();
     renderCasesBentoGrid();
@@ -2438,12 +2463,35 @@
         <p>Even in the absence of a statistically significant monotonic trend, high storm volatility demands robust climate adaptation.</p>
         <p>Municipalities are deploying urban drainage pumping stations, restoring natural retention canals (khals), and implementing automated Flash Flood Early Warning Systems (FFEWS) across vulnerable northeastern Haor districts.</p>
       `
+    },
+    'case-7': {
+      badge: 'Case File #7',
+      title: "Is Dhaka's Air Getting Dirtier?",
+      tagline: 'Combustion Trace Gases (OMI NO₂) vs Total Aerosol Loading (MODIS AOD)',
+      science: `
+        <p>Nitrogen dioxide (NO₂) is a short-lived atmospheric trace gas produced by high-temperature combustion in vehicle engines, brick kilns, and industrial facilities. Because it breaks down within hours to days, satellite NO₂ columns trace active, localized pollution hotspots.</p>
+        <p>NASA's <strong>Ozone Monitoring Instrument (OMI)</strong> aboard Aura observes ultraviolet and visible sunlight backscattered by the atmosphere to quantify boundary-layer NO₂ density across a 0.25° grid.</p>
+      `,
+      findings: `
+        <p>Across 22 years of continuous satellite observation (2004–2026), Central Bangladesh (Dhaka) exhibits strong seasonal winter boundary layer entrapment (&gt; 5.5 × 10¹⁵ molec/cm²).</p>
+        <p>Statistical trend tests reveal a secular upward shift in winter NO₂ over the Dhaka metropolitan belt, tracking the expansion of heavy freight transit, distributed diesel power, and regional brick manufacturing.</p>
+      `,
+      impact: `
+        <p>Over 22 million residents in the capital megacity experience chronic winter exposure to combustion byproducts, driving respiratory ailments and photochemical smog episodes.</p>
+      `,
+      limitations: `
+        <p>Frequent summer monsoon cloud decks limit satellite optical retrievals, creating an inherent clear-sky sampling bias.</p>
+        <p>Aging sensor row anomalies are mitigated through cloud-screened quality filtering.</p>
+      `,
+      outlook: `
+        <p>Transitioning traditional brick kilns to cleaner zigzag/tunnel technologies and expanding electric mass transit (Dhaka Metro Rail) provide targeted avenues to curb combustion emissions.</p>
+      `
     }
   };
 
   function renderDossierExplorer() {
     el.dossierTabsList.innerHTML = '';
-    const caseIds = ['case-1', 'case-2', 'case-3', 'case-4', 'case-5', 'case-6'];
+    const caseIds = Object.keys(DOSSIER_DATA);
 
     caseIds.forEach(cId => {
       const d = DOSSIER_DATA[cId];

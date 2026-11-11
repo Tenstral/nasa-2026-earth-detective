@@ -251,7 +251,6 @@ a:hover {
   bottom: 0;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
 }
 
 /* Custom Scrollbar for Swiss Grid */
@@ -364,14 +363,18 @@ a:hover {
   font-size: 10px;
 }
 
-/* Bento Case Grid (3x2) */
+#sec-cases {
+  overflow-y: auto;
+}
+
+/* Bento Case Grid */
 .cases-bento-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 12px;
   min-height: 0;
+  padding-bottom: 14px;
 }
 
 .bento-case-card {
