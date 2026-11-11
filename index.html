@@ -19,7 +19,7 @@
   <!-- Fixed Top Swiss Command Header (48px) -->
   <header class="swiss-header">
     <div class="brand-cell">
-      <div class="brand-badge">🛰️</div>
+      <div class="brand-badge">[EOS]</div>
       <div class="brand-title-wrap">
         <div class="brand-title">
           Bengal Earth System Trend Detective
@@ -48,11 +48,11 @@
     <!-- Header Actions -->
     <div class="header-actions">
       <button class="header-btn" id="btn-fullscreen-header" title="Toggle Simulation Fullscreen (Key: F)">
-        <span>⛶</span> Fullscreen
+        <span class="header-icon">[F]</span> Fullscreen
       </button>
       <a href="report.html" class="header-btn report-btn" title="View comprehensive 24-year hydroclimatic research report">
-        <span>🔬 Research Report</span>
-        <span>↗</span>
+        <span class="header-icon">[DOCS]</span> Research Report
+        <span>&nearr;</span>
       </a>
     </div>
   </header>
@@ -106,11 +106,6 @@
               <span class="var-spec-chip" id="current-var-chip">TWS</span>
               <span>▾</span>
             </button>
-
-            <!-- Overlay Select -->
-            <select class="cmd-select" id="overlay-select" title="Compare with secondary overlay variable">
-              <option value="">Overlay: None</option>
-            </select>
           </div>
 
           <div class="cmd-divider"></div>
@@ -123,7 +118,7 @@
               <button class="seg-btn" data-type="division">Divisions</button>
             </div>
             <select class="cmd-select" id="region-select"></select>
-            <span id="regional-caveat-pill" style="display:none;" title="Coarse footprint or point observation note">⚠️</span>
+            <span id="regional-caveat-pill" style="display:none;" title="Coarse footprint or point observation note">[NOTE]</span>
           </div>
 
           <div class="cmd-divider"></div>
@@ -141,10 +136,10 @@
           <!-- Right Utility Group -->
           <div class="cmd-group" style="margin-left:auto;">
             <div class="active-mission-pill" id="active-mission-pill" style="display:none;" title="Click to review active investigation mission">
-              <span>📂</span> <span id="mission-pill-label">Case Active</span>
+              <span class="pill-tag">[ACTIVE]</span> <span id="mission-pill-label">Case Active</span>
             </div>
             <button class="fullscreen-btn" id="workbench-fullscreen-btn" title="Toggle Workbench Fullscreen (Key: F)">
-              <span>⛶</span> Fullscreen
+              <span class="fs-icon">[F]</span> Fullscreen
             </button>
           </div>
         </div>
@@ -160,7 +155,7 @@
                 <button class="map-tool-btn active" id="map-toggle-grid" title="Toggle 1.0° / 0.25° satellite graticule">1° Grid</button>
                 <button class="map-tool-btn active" id="map-toggle-station" title="Toggle Dhaka AERONET station beacon">Station</button>
               </div>
-              <button class="map-tool-btn" id="map-reset-zoom" title="Reset camera zoom and pan">⟲ Reset</button>
+              <button class="map-tool-btn" id="map-reset-zoom" title="Reset camera zoom and pan">&olarr; Reset</button>
             </div>
 
             <!-- Map Viewport with GSAP Camera Zoom/Pan -->
@@ -223,21 +218,33 @@
             <div class="lens-bar">
               <div class="lens-tabs">
                 <button class="lens-tab-btn active" id="lens-trend">
-                  <span>📈</span> Trend &amp; 95% CI Fan
+                  Trend &amp; 95% CI Fan
                 </button>
                 <button class="lens-tab-btn" id="lens-seasonal">
-                  <span>🔄</span> Seasonal Cycle Decomposition
+                  Seasonal Climatology Cycle
                 </button>
                 <button class="lens-tab-btn" id="lens-epochs">
-                  <span>📊</span> Multi-Epoch Comparison
+                  Multi-Epoch Comparison
                 </button>
+              </div>
+
+              <!-- Secondary Overlay Comparator Trigger -->
+              <div class="overlay-compare-wrap">
+                <button class="btn-compare-series" id="btn-compare-series" title="Add secondary Earth science series to chart for cross-validation">
+                  <span class="compare-plus">+</span> Compare Series
+                </button>
+                <div class="active-overlay-chip" id="active-overlay-chip" style="display:none;">
+                  <span class="aoc-tag">OVERLAY:</span>
+                  <span class="aoc-name" id="active-overlay-name"></span>
+                  <button class="btn-clear-overlay" id="btn-clear-overlay" title="Remove overlay series">&times;</button>
+                </div>
               </div>
 
               <div class="layer-toggles">
                 <button class="layer-toggle-btn active" id="toggle-deseason" title="Remove 12-month calendar climatology">Deseasonalized</button>
                 <button class="layer-toggle-btn active" id="toggle-trendline" title="Show Theil-Sen fit &amp; 95% duality slope envelope">Trend Line &amp; CI</button>
                 <button class="layer-toggle-btn active" id="toggle-gap" title="Show shaded 2017–2018 GRACE to GRACE-FO bridge gap">11-Mo Gap</button>
-                <button class="layer-toggle-btn active" id="toggle-floods" title="Show FFWC historical flood events (2004, 2007, 2017, 2020, 2022)">🌊 Floods</button>
+                <button class="layer-toggle-btn active" id="toggle-floods" title="Show FFWC historical flood events (2004, 2007, 2017, 2020, 2022)">Historical Floods</button>
               </div>
             </div>
 
@@ -284,10 +291,10 @@
             <!-- Drawer Triggers Bar -->
             <div class="drawer-trigger-bar">
               <button class="drawer-btn" id="btn-open-diagnostics">
-                <span>🔬</span> Statistical Rigor Diagnostics &amp; Detection Power Drawer
+                Statistical Rigor Diagnostics &amp; Detection Power Drawer
               </button>
               <button class="drawer-btn" id="btn-open-directives">
-                <span>🌾</span> Regional Stakeholder Action Directives Drawer
+                Regional Stakeholder Action Directives Drawer
               </button>
             </div>
 
@@ -307,7 +314,7 @@
         <!-- Left 24% Vertical Tab Rail -->
         <aside class="dossier-rail">
           <div class="dossier-rail-header">
-            <span>📂</span> Guided Case Investigations
+            Guided Case Investigations
           </div>
 
           <div id="dossier-tabs-list" style="display:flex;flex-direction:column;gap:6px;">
@@ -316,7 +323,7 @@
 
           <div class="dossier-rail-action">
             <button class="load-workbench-btn" id="dossier-load-btn">
-              <span>🔍</span> Load Active Case into Workbench ↑
+              Load Active Case into Workbench &uarr;
             </button>
           </div>
         </aside>
@@ -334,31 +341,31 @@
           <div class="dossier-bento-grid" id="dossier-bento-grid">
             <!-- 1. Science Simplified -->
             <div class="bento-block" id="dossier-block-science">
-              <div class="bento-block-title"><span>🛰️</span> 1. The Science Simplified</div>
+              <div class="bento-block-title">1. The Science Simplified</div>
               <div class="bento-block-body" id="dossier-body-science"></div>
             </div>
 
             <!-- 2. Empirical Findings -->
             <div class="bento-block" id="dossier-block-findings">
-              <div class="bento-block-title"><span>📈</span> 2. Empirical Analysis &amp; Findings</div>
+              <div class="bento-block-title">2. Empirical Analysis &amp; Findings</div>
               <div class="bento-block-body" id="dossier-body-findings"></div>
             </div>
 
             <!-- 3. Real-World Impact -->
             <div class="bento-block" id="dossier-block-impact">
-              <div class="bento-block-title"><span>🏥</span> 3. Real-World Impact</div>
+              <div class="bento-block-title">3. Real-World Impact</div>
               <div class="bento-block-body" id="dossier-body-impact"></div>
             </div>
 
             <!-- 4. Study Limitations -->
             <div class="bento-block" id="dossier-block-limitations">
-              <div class="bento-block-title"><span>⚠️</span> 4. Study &amp; Sensor Limitations</div>
+              <div class="bento-block-title">4. Study &amp; Sensor Limitations</div>
               <div class="bento-block-body" id="dossier-body-limitations"></div>
             </div>
 
             <!-- 5. Future Predictions & Outlook (Full Width) -->
             <div class="bento-block bento-block-full" id="dossier-block-outlook">
-              <div class="bento-block-title"><span>🌿</span> 5. Future Outlook &amp; Adaptation Directives</div>
+              <div class="bento-block-title">5. Future Outlook &amp; Adaptation Directives</div>
               <div class="bento-block-body" id="dossier-body-outlook"></div>
             </div>
           </div>
@@ -415,7 +422,7 @@
               <td>0.5° × 0.625° reanalysis</td>
               <td>mm/month</td>
               <td>2002-01 to 2026-07</td>
-              <td>⚠️ 2015 observing system step artifact (audited in Case File #3).</td>
+              <td>[AUDIT] 2015 observing system step artifact (audited in Case File #3).</td>
             </tr>
             <tr>
               <td><strong>Root-Zone Soil Moisture</strong></td>
@@ -488,12 +495,26 @@
   </div>
 
   <!-- ======================================================================
+       Secondary Variable Overlay Comparison Modal (Dual-Axis)
+       ====================================================================== -->
+  <div class="var-popover-backdrop" id="overlay-popover-backdrop"></div>
+  <div class="var-popover" id="overlay-compare-modal">
+    <div class="var-popover-header">
+      <span>Compare Secondary Variable (Dual-Axis Overlay)</span>
+      <button class="drawer-close-btn" id="overlay-modal-close">&times;</button>
+    </div>
+    <div class="var-popover-grid" id="overlay-modal-grid">
+      <!-- Populated dynamically via app.js -->
+    </div>
+  </div>
+
+  <!-- ======================================================================
        Slide-Over Drawer: Statistical Rigor & Power Diagnostics
        ====================================================================== -->
   <div class="drawer-backdrop" id="diagnostics-backdrop"></div>
   <aside class="slide-drawer" id="drawer-diagnostics">
     <div class="drawer-header">
-      <div class="drawer-title"><span>🔬</span> Statistical Rigor &amp; Detection Power</div>
+      <div class="drawer-title">Statistical Rigor &amp; Detection Power</div>
       <button class="drawer-close-btn" id="close-diagnostics">&times;</button>
     </div>
     <div class="drawer-body">
@@ -518,7 +539,7 @@
   <div class="drawer-backdrop" id="directives-backdrop"></div>
   <aside class="slide-drawer" id="drawer-directives">
     <div class="drawer-header">
-      <div class="drawer-title"><span>🌾</span> Regional Stakeholder Action Directives</div>
+      <div class="drawer-title">Regional Stakeholder Action Directives</div>
       <button class="drawer-close-btn" id="close-directives">&times;</button>
     </div>
     <div class="drawer-body">

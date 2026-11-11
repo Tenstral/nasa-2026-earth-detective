@@ -931,6 +931,79 @@ a:hover {
   border-bottom-color: var(--accent-blue);
 }
 
+/* Secondary Overlay Comparator in Lens Bar */
+.overlay-compare-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-compare-series {
+  background: var(--bg-subtle);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-xs);
+  padding: 3px 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all var(--transition);
+}
+.btn-compare-series:hover {
+  background: var(--bg-hover);
+  color: #ea580c;
+  border-color: #ea580c;
+}
+.btn-compare-series .compare-plus {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.active-overlay-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.4);
+  border-radius: var(--radius-xs);
+  padding: 2px 6px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: #ea580c;
+}
+
+.active-overlay-chip .aoc-tag {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.active-overlay-chip .aoc-name {
+  font-weight: 600;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-clear-overlay {
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  line-height: 1;
+  color: #ea580c;
+  cursor: pointer;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+.btn-clear-overlay:hover {
+  background: rgba(234, 88, 12, 0.2);
+}
+
 .layer-toggles {
   display: flex;
   align-items: center;

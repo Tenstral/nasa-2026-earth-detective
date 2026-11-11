@@ -59,7 +59,14 @@
     el.varPopoverBackdrop = document.getElementById('var-popover-backdrop');
     el.varPopoverGrid = document.getElementById('var-popover-grid');
     el.varPopoverClose = document.getElementById('var-popover-close');
-    el.overlaySelect = document.getElementById('overlay-select');
+    el.btnCompareSeries = document.getElementById('btn-compare-series');
+    el.activeOverlayChip = document.getElementById('active-overlay-chip');
+    el.activeOverlayName = document.getElementById('active-overlay-name');
+    el.btnClearOverlay = document.getElementById('btn-clear-overlay');
+    el.overlayCompareModal = document.getElementById('overlay-compare-modal');
+    el.overlayPopoverBackdrop = document.getElementById('overlay-popover-backdrop');
+    el.overlayModalGrid = document.getElementById('overlay-modal-grid');
+    el.overlayModalClose = document.getElementById('overlay-modal-close');
     el.spatialToggle = document.getElementById('spatial-toggle');
     el.regionSelect = document.getElementById('region-select');
     el.regionalCaveatPill = document.getElementById('regional-caveat-pill');
@@ -383,6 +390,59 @@
     el.varPopoverBackdrop.classList.remove('open');
   }
 
+  function initOverlayModal() {
+    el.overlayModalGrid.innerHTML = '';
+    const vars = window.ED.catalog.variables;
+
+    // None / Remove Card
+    const noneCard = document.createElement('div');
+    noneCard.className = `var-item-card ${!state.overlayVariable ? 'active' : ''}`;
+    noneCard.innerHTML = `
+      <div class="vic-info">
+        <span class="vic-name">None (Single Primary Variable)</span>
+        <span class="vic-sub">Disable secondary overlay comparison</span>
+      </div>
+    `;
+    noneCard.addEventListener('click', () => {
+      state.overlayVariable = '';
+      closeOverlayModal();
+      syncCommandRibbon();
+      runWorkflow();
+    });
+    el.overlayModalGrid.appendChild(noneCard);
+
+    // List of eligible overlay variables
+    vars.forEach(v => {
+      if (v.id === state.variable) return;
+      const card = document.createElement('div');
+      card.className = `var-item-card ${state.overlayVariable === v.id ? 'active' : ''}`;
+      card.innerHTML = `
+        <div class="vic-info">
+          <span class="vic-name">${v.name}</span>
+          <span class="vic-sub">${v.sensor} • ${v.unit}</span>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        state.overlayVariable = v.id;
+        closeOverlayModal();
+        syncCommandRibbon();
+        runWorkflow();
+      });
+      el.overlayModalGrid.appendChild(card);
+    });
+  }
+
+  function openOverlayModal() {
+    initOverlayModal();
+    el.overlayCompareModal.classList.add('open');
+    el.overlayPopoverBackdrop.classList.add('open');
+  }
+
+  function closeOverlayModal() {
+    el.overlayCompareModal.classList.remove('open');
+    el.overlayPopoverBackdrop.classList.remove('open');
+  }
+
   function syncCommandRibbon() {
     const curVar = getVarMeta(state.variable);
     if (curVar) {
@@ -390,16 +450,16 @@
       el.currentVarChip.textContent = curVar.unit;
     }
 
-    // Populate Overlay Select
-    el.overlaySelect.innerHTML = '<option value="">Overlay: None</option>';
-    window.ED.catalog.variables.forEach(v => {
-      if (v.id === state.variable) return;
-      const opt = document.createElement('option');
-      opt.value = v.id;
-      opt.textContent = `Overlay: ${v.name} (${v.sensor.split(' ')[0]})`;
-      if (state.overlayVariable === v.id) opt.selected = true;
-      el.overlaySelect.appendChild(opt);
-    });
+    // Update Secondary Overlay Chip in Lens Bar
+    if (state.overlayVariable) {
+      const oMeta = getVarMeta(state.overlayVariable);
+      el.activeOverlayChip.style.display = 'inline-flex';
+      el.activeOverlayName.textContent = oMeta ? oMeta.name : state.overlayVariable;
+      el.btnCompareSeries.style.display = 'none';
+    } else {
+      el.activeOverlayChip.style.display = 'none';
+      el.btnCompareSeries.style.display = 'inline-flex';
+    }
 
     // Spatial Scale buttons
     const segBtns = el.spatialToggle.querySelectorAll('.seg-btn');
@@ -521,8 +581,12 @@
   }
 
   function initEventListeners() {
-    el.overlaySelect.addEventListener('change', (e) => {
-      state.overlayVariable = e.target.value;
+    el.btnCompareSeries.addEventListener('click', openOverlayModal);
+    el.overlayModalClose.addEventListener('click', closeOverlayModal);
+    el.overlayPopoverBackdrop.addEventListener('click', closeOverlayModal);
+    el.btnClearOverlay.addEventListener('click', () => {
+      state.overlayVariable = '';
+      syncCommandRibbon();
       runWorkflow();
     });
 
@@ -533,12 +597,14 @@
         state.entity = (state.spatialType === 'division') ? 'Rajshahi' : 'NW';
         syncCommandRibbon();
         runWorkflow();
+        zoomToEntity(state.entity, state.spatialType === 'division');
       });
     });
 
     el.regionSelect.addEventListener('change', (e) => {
       state.entity = e.target.value;
       runWorkflow();
+      zoomToEntity(state.entity, state.spatialType === 'division');
     });
 
     el.startYearSelect.addEventListener('change', (e) => {
@@ -819,7 +885,7 @@
         }
         syncCommandRibbon();
         runWorkflow();
-        zoomToElement(pathEl);
+        zoomToEntity(state.entity, isDivision);
       });
 
       el.svgPathsGroup.appendChild(pathEl);
@@ -843,6 +909,7 @@
         state.entity = ent.id;
         syncCommandRibbon();
         runWorkflow();
+        zoomToEntity(state.entity, isDivision);
       });
       el.quickRegionPills.appendChild(btn);
     });
@@ -872,20 +939,31 @@
     el.mapHoverHud.style.display = 'none';
   }
 
-  function zoomToElement(svgEl) {
-    try {
-      const bbox = svgEl.getBBox();
-      const pad = 40;
-      const targetBox = {
-        x: Math.max(0, bbox.x - pad),
-        y: Math.max(0, bbox.y - pad),
-        w: Math.min(600, bbox.width + pad * 2),
-        h: Math.min(730, bbox.height + pad * 2)
-      };
-      animateViewBox(targetBox);
-    } catch (err) {
-      console.warn('Zoom error:', err);
-    }
+  const REGION_VIEWBOXES = {
+    'NW': { x: 10, y: 80, w: 360, h: 440 },
+    'NE': { x: 220, y: 80, w: 360, h: 440 },
+    'Central': { x: 120, y: 160, w: 360, h: 440 },
+    'SW': { x: 50, y: 280, w: 360, h: 440 },
+    'SE': { x: 220, y: 270, w: 360, h: 440 },
+    'National': { x: 0, y: 0, w: 600, h: 730 }
+  };
+
+  function getDivisionViewBox(divName) {
+    const centers = (window.ED.map && (window.ED.map.divCenters || window.ED.map.centroids)) || {};
+    const c = centers[divName] || { x: 300, y: 365 };
+    const targetW = 360;
+    const targetH = 440;
+    let targetX = c.x - targetW / 2;
+    let targetY = c.y - targetH / 2;
+    // Clamp to [0, 0, 600, 730]
+    targetX = Math.max(0, Math.min(600 - targetW, Math.round(targetX)));
+    targetY = Math.max(0, Math.min(730 - targetH, Math.round(targetY)));
+    return { x: targetX, y: targetY, w: targetW, h: targetH };
+  }
+
+  function zoomToEntity(entity, isDivision) {
+    const target = isDivision ? getDivisionViewBox(entity) : (REGION_VIEWBOXES[entity] || BD_VIEWBOX);
+    animateViewBox(target);
   }
 
   function resetMapZoom() {
@@ -1123,12 +1201,20 @@
 
     if (state.overlayVariable && overlayPoints.length > 0) {
       const oVar = getVarMeta(state.overlayVariable);
-      const oMap = new Map();
-      overlayPoints.forEach(p => oMap.set(p.decimal_year, p.value));
+      const ymMap = new Map();
+      const decMap = new Map();
+      overlayPoints.forEach(p => {
+        if (p.ym) ymMap.set(p.ym, p.value);
+        if (p.year && !p.month) ymMap.set(String(p.year), p.value);
+        decMap.set(p.decimal_year, p.value);
+      });
+
       const alignedOverlayVals = points.map(p => {
+        if (p.ym && ymMap.has(p.ym)) return ymMap.get(p.ym);
+        if (p.year && ymMap.has(String(p.year))) return ymMap.get(String(p.year));
         let bestVal = null;
-        let minDiff = 0.05;
-        for (const [t, val] of oMap.entries()) {
+        let minDiff = 0.08;
+        for (const [t, val] of decMap.entries()) {
           const diff = Math.abs(t - p.decimal_year);
           if (diff < minDiff) { minDiff = diff; bestVal = val; }
         }
@@ -1140,11 +1226,11 @@
         data: alignedOverlayVals,
         borderColor: '#ea580c',
         backgroundColor: '#ea580c',
-        borderWidth: 1.5,
-        borderDash: [4, 4],
-        pointRadius: 0,
-        pointHoverRadius: 4,
-        tension: 0.1,
+        borderWidth: 1.8,
+        borderDash: [5, 4],
+        pointRadius: 2,
+        pointHoverRadius: 5,
+        tension: 0.15,
         yAxisID: 'y1'
       });
     }
@@ -1184,7 +1270,7 @@
         // 2. FFWC Historical Flood Event Markers
         if (state.showFloodMarkers) {
           const floodYears = [2004.58, 2007.67, 2017.62, 2020.54, 2022.46];
-          const floodNames = ['2004 Flood', '2007 Flood', '2017 Flood', '2020 Flood', '2022 Flood'];
+          const floodNames = ['Flood 2004', 'Flood 2007', 'Flood 2017', 'Flood 2020', 'Flood 2022'];
 
           floodYears.forEach((fy, fIdx) => {
             let closestIdx = -1;
@@ -1207,7 +1293,7 @@
 
               ctx.fillStyle = '#0284c7';
               ctx.font = '9.5px -apple-system, sans-serif';
-              ctx.fillText(`🌊 ${floodNames[fIdx]}`, xPos + 3, chart.chartArea.top + 28 + (fIdx % 2) * 14);
+              ctx.fillText(floodNames[fIdx], xPos + 3, chart.chartArea.top + 28 + (fIdx % 2) * 14);
               ctx.restore();
             }
           });
@@ -1252,6 +1338,12 @@
             display: Boolean(state.overlayVariable),
             position: 'right',
             grid: { drawOnChartArea: false },
+            title: {
+              display: Boolean(state.overlayVariable),
+              text: state.overlayVariable ? `${getVarMeta(state.overlayVariable)?.name || 'Overlay'} (${getVarMeta(state.overlayVariable)?.unit || ''})` : '',
+              color: '#ea580c',
+              font: { size: 10.5, family: 'var(--font-sans)', weight: '600' }
+            },
             ticks: { font: { size: 10, family: 'var(--font-mono)' }, color: '#ea580c' }
           }
         }
@@ -1494,23 +1586,23 @@
     const mds = statResult.mds_80_power !== undefined && statResult.mds_80_power !== null ? statResult.mds_80_power : 0;
     if (spanYrs <= 9) {
       el.diagWindowLesson.innerHTML = `
-        <strong>⚠️ Short Observation Baseline (${spanYrs} years):</strong>
+        <strong>[NOTE] Short Observation Baseline (${spanYrs} years):</strong>
         At N = ${count}, statistical power requires a steep slope (MDS threshold: ±${Number(mds).toFixed(3)}) to achieve significance. As Dr. James Acker notes: <em>'If p &gt; 0.05, that does not mean a trend does not exist—sometimes a longer time series is all that is needed.'</em> Widen the temporal window back to 2002 to test the secular baseline.
       `;
     } else {
       el.diagWindowLesson.innerHTML = `
-        <strong>✓ Multi-Decadal Baseline (${spanYrs} years):</strong>
+        <strong>[VERIFIED] Multi-Decadal Baseline (${spanYrs} years):</strong>
         With ${count} observations spanning ${state.startYear}–${state.endYear}, the effective sample size (N* = ${Number(nEff).toFixed(1)}) drives the Minimum Detectable Slope down to ±${Number(mds).toFixed(3)} ${curVar.unit}/yr, allowing subtle secular trends to be identified reliably.
       `;
     }
 
     // Sensor safeguard audit note
     if (curVar.id === 'power_precip') {
-      el.diagSensorSafeguard.innerHTML = '⚠️ <strong>Sensor Break Audit:</strong> NASA POWER MERRA-2 exhibits a known observing system step artifact around 2015. Always verify model reanalysis trends against physical satellite radar (GPM IMERG).';
+      el.diagSensorSafeguard.innerHTML = '<strong>[AUDIT] Sensor Break Analysis:</strong> NASA POWER MERRA-2 exhibits a known observing system step artifact around 2015. Always verify model reanalysis trends against physical satellite radar (GPM IMERG).';
     } else if (curVar.id === 'grace_tws') {
-      el.diagSensorSafeguard.innerHTML = '🛰️ <strong>Gravimetry Mission Bridge:</strong> The 11-month observation gap between GRACE and GRACE-FO (July 2017 to May 2018) is shaded on the canvas. Newey-West HAC bridge testing confirms continuity across satellite generations.';
+      el.diagSensorSafeguard.innerHTML = '<strong>[MISSION BRIDGE] Gravimetry Inter-Mission Continuity:</strong> The 11-month observation gap between GRACE and GRACE-FO (July 2017 to May 2018) is shaded on the canvas. Newey-West HAC bridge testing confirms continuity across satellite generations.';
     } else {
-      el.diagSensorSafeguard.innerHTML = '🛰️ <strong>Observational Audit:</strong> Observations conform to standard NASA GES DISC calibrations.';
+      el.diagSensorSafeguard.innerHTML = '<strong>[OBSERVATION AUDIT] NASA GES DISC Calibrations:</strong> Observations conform to standard NASA GES DISC calibrations.';
     }
   }
 
@@ -1528,22 +1620,22 @@
 
     el.directivesItemsContainer.innerHTML = `
       <div class="drawer-directive-box mandate">
-        <div class="dd-label" style="color:var(--accent-amber);">🏛️ Government &amp; Water Board Mandate</div>
+        <div class="dd-label" style="color:var(--accent-amber);">[MANDATE] Government &amp; Water Board Policy</div>
         <p>${directives.mandate}</p>
       </div>
 
       <div class="drawer-directive-box farmer-do">
-        <div class="dd-label" style="color:var(--accent-emerald);">🌱 Farmer Priority Actions (Do's)</div>
+        <div class="dd-label" style="color:var(--accent-emerald);">[DIRECTIVE] Recommended Agricultural Practices (Do's)</div>
         <p>${directives.farmer_dos}</p>
       </div>
 
       <div class="drawer-directive-box farmer-dont">
-        <div class="dd-label" style="color:var(--accent-crimson);">🚫 Prohibited / Unsustainable Practices (Don'ts)</div>
+        <div class="dd-label" style="color:var(--accent-crimson);">[RESTRICTION] Unsustainable Practices (Don'ts)</div>
         <p>${directives.farmer_donts}</p>
       </div>
 
       <div class="drawer-directive-box citizen">
-        <div class="dd-label" style="color:var(--accent-cyan);">💧 Community &amp; Citizen Directives</div>
+        <div class="dd-label" style="color:var(--accent-cyan);">[COMMUNITY] Citizen Water Conservation Actions</div>
         <p>${directives.citizen_action}</p>
       </div>
     `;
