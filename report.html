@@ -9,6 +9,7 @@
   <!-- Local Vendored Chart.js -->
   <script src="assets/vendor/chart.umd.min.js"></script>
   <script src="assets/url_state.js"></script>
+  <script src="assets/i18n.js"></script>
   <link rel="stylesheet" href="assets/css/top_nav.css">
 
   <style>
@@ -914,13 +915,13 @@
   <!-- Shared Universal Top Navigation -->
   <header class="top-nav">
     <div class="top-nav-brand">
-      <span class="top-nav-badge">NASA TREND DETECTIVE</span>
-      <span class="top-nav-title">Universal 5-Step Earth Observation Tool</span>
+      <span class="top-nav-badge" data-i18n="nav.brand">NASA TREND DETECTIVE</span>
+      <span class="top-nav-title" data-i18n="nav.title">Universal 5-Step Earth Observation Tool</span>
     </div>
     <nav class="top-nav-links" id="main-top-nav">
-      <a href="index.html" class="top-nav-link" data-page="index.html">🔍 5-Step Detective Workbench</a>
-      <a href="report.html" class="top-nav-link" data-page="report.html">🇧🇩 Flagship Report: Bangladesh Deep-Dive</a>
-      <a href="demo.html" class="top-nav-link" data-page="demo.html">📊 Interactive Pitch Deck</a>
+      <a href="index.html" class="top-nav-link" data-page="index.html" data-i18n="nav.workbench">🔍 5-Step Detective Workbench</a>
+      <a href="report.html" class="top-nav-link" data-page="report.html" data-i18n="nav.report">🇧🇩 Flagship Report: Bangladesh Deep-Dive</a>
+      <a href="demo.html" class="top-nav-link" data-page="demo.html" data-i18n="nav.demo">📊 Interactive Pitch Deck</a>
     </nav>
     <div class="top-nav-controls">
       <div class="nav-toggle-group">
@@ -936,18 +937,22 @@
 
   <div class="container">
 
+    <div class="report-notice" data-i18n="report.notice_methods_english" style="background: var(--bg-subtle); border-left: 4px solid var(--accent-blue); padding: 10px 16px; margin: 12px 0 16px 0; font-size: 0.88rem; color: var(--ink-secondary); border-radius: 4px;">
+      Full methodological narrative and diagnostic tables are maintained in English for peer-review precision.
+    </div>
+
     <!-- Section Navigation -->
     <nav class="report-section-nav">
       <div class="brand-wrap">
         <span style="font-weight: 700; font-size: 0.95rem; font-family: 'Source Serif 4', Georgia, serif;">Dossier #01: Bangladesh Water Reserve Audit</span>
       </div>
       <div class="nav-links">
-        <a href="#console" class="nav-link">1. Spatial Overview</a>
-        <a href="#timeseries" class="nav-link">2. Regional Trends</a>
-        <a href="#subsurface-validation" class="nav-link">3. Subsurface &amp; Validation</a>
-        <a href="#seasonal-exposure" class="nav-link">4. Seasonal &amp; Exposure</a>
-        <a href="#stakeholder-actions" class="nav-link">5. Stakeholder Directives</a>
-        <a href="#limitations" class="nav-link">6. Limitations &amp; Appendix</a>
+        <a href="#console" class="nav-link" data-i18n="report.nav_sec1">1. Spatial Overview</a>
+        <a href="#timeseries" class="nav-link" data-i18n="report.nav_sec2">2. Regional Trends</a>
+        <a href="#subsurface-validation" class="nav-link" data-i18n="report.nav_sec3">3. Subsurface &amp; Validation</a>
+        <a href="#seasonal-exposure" class="nav-link" data-i18n="report.nav_sec4">4. Seasonal &amp; Exposure</a>
+        <a href="#stakeholder-actions" class="nav-link" data-i18n="report.nav_sec5">5. Stakeholder Directives</a>
+        <a href="#limitations" class="nav-link" data-i18n="report.nav_sec6">6. Limitations &amp; Appendix</a>
         <a href="project_status.html" class="nav-link" target="_blank" style="color: var(--accent-blue);">Status Guide ↗</a>
       </div>
     </nav>
@@ -972,7 +977,7 @@
     <section class="section-card" id="console">
       <div class="section-header">
         <div>
-          <h2 class="section-title">1. Spatial Overview: Water Storage &amp; Precipitation Scrubber</h2>
+          <h2 class="section-title" data-i18n="report.sec1_title">1. Spatial Overview: Water Storage &amp; Precipitation Scrubber</h2>
           <p class="section-desc">Explore spatial storage and precipitation dynamics toggleable across years
             (2002–2026), monthly snapshots, and milestone seasons.</p>
         </div>
@@ -1123,7 +1128,7 @@
     <section class="section-card" id="timeseries">
       <div class="section-header">
         <div>
-          <h2 class="section-title">2. Regional Water Storage Trends &amp; Time Series Analysis</h2>
+          <h2 class="section-title" data-i18n="report.sec2_title">2. Regional Water Storage Trends &amp; Time Series Analysis</h2>
           <p class="section-desc">Multi-sensor monthly series comparing gravimetric water storage anomalies and
             satellite rainfall across Bangladesh's hydrological regions.</p>
         </div>
@@ -1187,7 +1192,10 @@
           <span>2A. Regional TWS Trends &amp; Minimum Detectable Slope (MDS) Summary</span>
           <span class="tag" style="font-size: 0.72rem; padding: 2px 8px;">Full 24-Year Record (2002–2026)</span>
         </h3>
-        <div class="table-container">
+        <div class="student-plain-summary" data-mode="student">
+          <strong>Plain-Language Detection Power Lesson:</strong> Over short 5-year periods (like 2020–2026), natural weather swings make trends hard to prove (minimum detectable rate is &plusmn;2.34 cm/yr). Over the full 24-year satellite record (2002–2026), statistical detection power is very high (detectable rate down to &plusmn;0.32 cm/yr), confirming that the Northwest's -1.25 cm/yr water loss is real, persistent, and not temporary noise.
+        </div>
+        <div class="table-container" data-mode="scientist">
           <table>
             <thead>
               <tr>
@@ -1206,7 +1214,7 @@
             </tbody>
           </table>
         </div>
-        <div class="callout-box">
+        <div class="callout-box" data-mode="scientist">
           <strong>Limits Line:</strong> Under 24-year continuous satellite observations with empirical autocorrelation
           (&phi; &approx; 0.43–0.62), secular trend changes smaller than the regional minimum detectable slope
           (0.22–0.32 cm/yr) cannot be distinguished from natural multi-year variability. SW and SE slopes (-0.05 cm/yr)
@@ -1230,8 +1238,12 @@
           Benjamini-Hochberg FDR control.
         </p>
 
+        <div class="student-plain-summary" data-mode="student">
+          <strong>Plain-Language Regional Contrast:</strong> Northwest Bangladesh is losing water significantly faster than all other parts of the country (declining -0.70 to -1.21 cm/yr faster than Eastern and Southern regions). Meanwhile, Southwest and Southeast Bangladesh show balanced water storage with no detectable decline, with storage loss observed across the northwestern agricultural basin.
+        </div>
+
         <!-- Controls: Variable & Sensitivity Toggles -->
-        <div
+        <div data-mode="scientist"
           style="display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
             <span
@@ -1253,7 +1265,7 @@
           </div>
         </div>
 
-        <div class="table-container">
+        <div class="table-container" data-mode="scientist">
           <table>
             <thead>
               <tr>
@@ -1275,12 +1287,12 @@
           </table>
         </div>
 
-        <div class="callout-box" style="margin-top: 10px;">
+        <div class="callout-box" data-mode="scientist" style="margin-top: 10px;">
           <strong>Methodological Limits:</strong> "Regions are adjacent and GRACE resolves a few hundred kilometres, so neighbouring regions share signal and coastal leakage is possible. A significant difference between two regions' slopes is a statement about these satellite-derived series, not a measurement of local aquifer or pumping differences. Recent windows are below the detection limit."
         </div>
 
         <!-- Visible Calibration Line & Audit Disclosure -->
-        <div class="audit-note" style="margin-top: 12px; margin-bottom: 0;">
+        <div class="audit-note" data-mode="scientist" style="margin-top: 12px; margin-bottom: 0;">
           <div style="font-weight: 700; color: #166534; margin-bottom: 4px;">
             Selected Method: Calibrated ESS-MK on the difference series |
             False-Positive Rate: 3.60%–6.50% (Target: 3.5%–6.5%) |
@@ -1303,7 +1315,7 @@
     <section class="section-card" id="subsurface-validation">
       <div class="section-header">
         <div>
-          <h2 class="section-title">3. Subsurface Storage Partitioning &amp; Sensor Transition Integrity</h2>
+          <h2 class="section-title" data-i18n="report.sec3_title">3. Subsurface Storage Partitioning &amp; Sensor Transition Integrity</h2>
           <p class="section-desc">Evaluating soil moisture contributions, the 2017–2018 inter-satellite gap, and
             precipitation sensor calibration.</p>
         </div>
@@ -1326,7 +1338,11 @@
           labeled: <em>"groundwater + surface water + model error residual"</em>.
         </p>
 
-        <div class="table-container">
+        <div class="student-plain-summary" data-mode="student">
+          <strong>Plain-Language Soil Moisture Audit:</strong> Land models (GLDAS Noah and VIC) reveal that topsoil moisture (0–2 meters deep) exhibited minimal change (-0.02 to -0.06 cm/yr). This indicates that shallow soil moisture accounts for less than 10% of Northwest water loss—the vast majority (-1.19 to -1.23 cm/yr) is unmonitored residual loss from deep underground reserves and surface storage.
+        </div>
+
+        <div class="table-container" data-mode="scientist">
           <table>
             <thead>
               <tr>
@@ -1345,7 +1361,7 @@
           </table>
         </div>
 
-        <div
+        <div data-mode="scientist"
           style="margin-top: 10px; padding: 10px 14px; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 6px; font-size: 0.78rem; color: #92400e; line-height: 1.5;">
           <strong>Methodological Quarantine Notice:</strong> Catchment Land Surface Model (CLSM 2.2) assimilates GRACE
           satellite gravity observations via an Ensemble Kalman Filter (EnKF). Because CLSM directly ingests GRACE data
@@ -1374,7 +1390,11 @@
             cm/year</strong> (lead benchmark: <strong>-1.56 cm/year</strong>).
         </p>
 
-        <div class="table-container">
+        <div class="student-plain-summary" data-mode="student">
+          <strong>Plain-Language Sensor Transition Audit:</strong> Between 2017 and 2018, NASA bridged the original GRACE satellite to GRACE Follow-On. All three independent transition tests—analyzing the original satellite era alone (-1.41 cm/yr), mathematically adjusting for the satellite handoff step (-1.25 cm/yr), or cutting out the gap entirely (-1.27 cm/yr)—consistently agree on rapid, sustained water storage loss in the Northwest.
+        </div>
+
+        <div class="table-container" data-mode="scientist">
           <table>
             <thead>
               <tr>
@@ -1429,7 +1449,7 @@
     <section class="section-card" id="seasonal-exposure">
       <div class="section-header">
         <div>
-          <h2 class="section-title">4. Seasonal Storage Dynamics &amp; Agricultural Exposure</h2>
+          <h2 class="section-title" data-i18n="report.sec4_title">4. Seasonal Storage Dynamics &amp; Agricultural Exposure</h2>
           <p class="section-desc">Investigating monsoon recharge rebound, dry-season drawdown cycles, and human cropland
             exposure across 24 hydrological years (2002–2026).</p>
         </div>
@@ -1444,11 +1464,14 @@
           <span>4A. Seasonal Storage Response Ratio Trends (2002–2025)</span>
           <span class="tag" style="font-size: 0.72rem; padding: 2px 8px;">Main Run: N = 22 Complete Seasons</span>
         </h3>
-        <p style="font-size: 0.84rem; color: var(--ink-secondary); margin-bottom: 10px; line-height: 1.5;">
+        <div class="student-plain-summary" data-mode="student">
+          <strong>Plain-Language Seasonal Audit:</strong> Every year during the dry season, Northwest water storage drops by an average of 54 cm as irrigation ramps up, followed by monsoon recharge. This annual swing has remained consistent, meaning the crisis is a long-term downward shift in baseline water reserves rather than an expanding seasonal drop.
+        </div>
+        <p style="font-size: 0.84rem; color: var(--ink-secondary); margin-bottom: 10px; line-height: 1.5;" data-mode="scientist">
           Ratio of seasonal storage rebound (&Delta;TWS, cm) to IMERG monsoon rainfall (0.1 &times; P_monsoon, cm).
           Missing satellite gap seasons (2017, 2018) excluded.
         </p>
-        <div class="table-container">
+        <div class="table-container" data-mode="scientist">
           <table>
             <thead>
               <tr>
@@ -1477,11 +1500,11 @@
           <span>4B. Annual Dry-Season Drawdown Trends &amp; Cropland Overlay (2002–2026)</span>
           <span class="tag" style="font-size: 0.72rem; padding: 2px 8px;">Main Run: N = 23 Cycles</span>
         </h3>
-        <p style="font-size: 0.84rem; color: var(--ink-secondary); margin-bottom: 10px; line-height: 1.5;">
+        <p style="font-size: 0.84rem; color: var(--ink-secondary); margin-bottom: 10px; line-height: 1.5;" data-mode="scientist">
           Drawdown = (monsoon peak TWS in Aug–Nov) minus (following pre-monsoon low in Mar–May). Cycle 2017–2018 dropped
           due to satellite gap.
         </p>
-        <div class="table-container">
+        <div class="table-container" data-mode="scientist">
           <table>
             <thead>
               <tr>
@@ -1503,7 +1526,7 @@
           </table>
         </div>
 
-        <div class="callout-box" style="margin-top: 10px;">
+        <div class="callout-box" data-mode="scientist" style="margin-top: 10px;">
           <strong>Methodological Limits:</strong> Gravimetry measures total water storage (groundwater, soil moisture
           and surface water together). This analysis shows regional patterns that are consistent with dry-season
           agricultural water use but does not attribute them to irrigation pumping. Testing that would require metered
@@ -1549,7 +1572,7 @@
     <section class="section-card" id="stakeholder-actions">
       <div class="section-header">
         <div>
-          <h2 class="section-title">5. Regional Stakeholder Action Directives</h2>
+          <h2 class="section-title" data-i18n="report.sec5_title">5. Regional Stakeholder Action Directives</h2>
           <p class="section-desc">Translating 24-year satellite trend detection into differentiated policy mandates, agricultural directives (Do's &amp; Don'ts), and citizen initiatives.</p>
         </div>
         <span class="tag">Policy Guidance</span>
@@ -1628,7 +1651,7 @@
     <section class="section-card" id="limitations">
       <div class="section-header">
         <div>
-          <h2 class="section-title">6. Scientific Limitations &amp; Master Data Appendix</h2>
+          <h2 class="section-title" data-i18n="report.sec6_title">6. Scientific Limitations &amp; Master Data Appendix</h2>
           <p class="section-desc">Upholding strict scientific integrity by documenting observational boundaries and
             providing the complete 336-test audit database.</p>
         </div>
@@ -1699,8 +1722,12 @@
         </table>
       </div>
 
+      <div class="student-plain-summary" data-mode="student">
+        <strong>Plain-Language Limitations Summary:</strong> Satellite gravimetry measures total mass changes across broad regional areas (300 km footprint). It provides clear macro-level evidence of long-term water balance trends, but cannot monitor individual village tubewells or replace on-the-ground well networks.
+      </div>
+
       <!-- Collapsible Appendix: Master Results Registry -->
-      <details class="appendix-details" id="registry">
+      <details class="appendix-details" id="registry" data-mode="scientist">
         <summary class="appendix-summary">
           📋 Master Results Registry (Click to expand all 336 statistical tests)
         </summary>

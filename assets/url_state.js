@@ -252,6 +252,9 @@
       const newUrl = `${window.location.pathname}${query}${hash}`;
       window.history.replaceState(null, '', newUrl);
 
+      // Declaratively apply mode if updated
+      applyMode(updated.mode);
+
       // Dispatch custom event for reactive listeners
       try {
         window.dispatchEvent(new CustomEvent('urlstatechange', { detail: updated }));
@@ -294,6 +297,22 @@
   }
 
   /**
+   * Declaratively applies mode ('student' | 'scientist') to the root document element
+   */
+  function applyMode(mode) {
+    const m = mode === 'student' ? 'student' : 'scientist';
+    if (typeof document !== 'undefined' && document.documentElement) {
+      document.documentElement.dataset.mode = m;
+      document.documentElement.setAttribute('data-mode', m);
+    }
+    const modeLabel = typeof document !== 'undefined' ? document.getElementById('nav-mode-label') : null;
+    if (modeLabel) {
+      modeLabel.textContent = m === 'student' ? 'Student' : 'Scientist';
+    }
+    return m;
+  }
+
+  /**
    * Initializes or updates the shared top navigation bar:
    *  - Sets relative links with current mode & lang
    *  - Highlights the active page link
@@ -310,6 +329,7 @@
     if (!activePage || activePage === '') activePage = 'index.html';
 
     const state = getState();
+    applyMode(state.mode);
 
     // 1. Update navigation links
     const navLinks = document.querySelectorAll('.top-nav-link, .top-nav a[data-page]');
@@ -379,6 +399,7 @@
     getState,
     setState,
     buildLink,
+    applyMode,
     sanitizeState,
     serializeQuery,
     initTopNav

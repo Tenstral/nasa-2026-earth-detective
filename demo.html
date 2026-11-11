@@ -278,13 +278,13 @@
   <!-- Shared Universal Top Navigation -->
   <header class="top-nav">
     <div class="top-nav-brand">
-      <span class="top-nav-badge">NASA TREND DETECTIVE</span>
-      <span class="top-nav-title">Universal 5-Step Earth Observation Tool</span>
+      <span class="top-nav-badge" data-i18n="nav.brand">NASA TREND DETECTIVE</span>
+      <span class="top-nav-title" data-i18n="nav.title">Universal 5-Step Earth Observation Tool</span>
     </div>
     <nav class="top-nav-links" id="main-top-nav">
-      <a href="index.html" class="top-nav-link" data-page="index.html">🔍 5-Step Detective Workbench</a>
-      <a href="report.html" class="top-nav-link" data-page="report.html">🇧🇩 Flagship Report: Bangladesh Deep-Dive</a>
-      <a href="demo.html" class="top-nav-link" data-page="demo.html">📊 Interactive Pitch Deck</a>
+      <a href="index.html" class="top-nav-link" data-page="index.html" data-i18n="nav.workbench">🔍 5-Step Detective Workbench</a>
+      <a href="report.html" class="top-nav-link" data-page="report.html" data-i18n="nav.report">🇧🇩 Flagship Report: Bangladesh Deep-Dive</a>
+      <a href="demo.html" class="top-nav-link" data-page="demo.html" data-i18n="nav.demo">📊 Interactive Pitch Deck</a>
     </nav>
     <div class="top-nav-controls">
       <div class="nav-toggle-group">
@@ -299,7 +299,7 @@
   </header>
 
   <header class="app-header">
-    <div class="app-title">NASA Space Apps 2026 // Trend Detective</div>
+    <div class="app-title" data-i18n="demo.header_title">NASA Space Apps 2026 // Trend Detective</div>
     <div style="font-size: 0.9rem; color: #94a3b8;">Pitch Target: <strong>240 Seconds</strong> | Hub: <strong>tenstral-nasa26.pages.dev</strong></div>
   </header>
 
@@ -376,10 +376,15 @@
           <h4 style="margin: 8px 0;">Theil-Sen Slopes</h4>
           <p style="font-size: 0.85rem;">Computes median slopes with 95% confidence intervals, resistant to sensor noise, outlier months, and inter-satellite transitions.</p>
         </div>
-        <div class="sketch-box">
+        <div class="sketch-box" data-mode="scientist">
           <div style="font-weight: 700; color: #64748b;">STEP 3</div>
           <h4 style="margin: 8px 0;">Calibrated ESS-MK</h4>
           <p style="font-size: 0.85rem;">Effective Sample Size Mann-Kendall with AR(1) correction and Benjamini-Hochberg FDR control across families of m = 36 tests per window.</p>
+        </div>
+        <div class="sketch-box" data-mode="student">
+          <div style="font-weight: 700; color: #64748b;">STEP 3</div>
+          <h4 style="margin: 8px 0;">Trend Verification</h4>
+          <p style="font-size: 0.85rem;">Confirms the trend is real and sustained, checking whether the rate exceeds natural random weather fluctuations.</p>
         </div>
       </div>
       <div style="margin-top: 16px; text-align: center;">
@@ -459,11 +464,18 @@
             <li><strong>Rainfall Pairs:</strong> Zero pairs differ across the country.</li>
           </ul>
         </div>
-        <div class="sketch-box" style="border-left: 6px solid #e11d48;">
+        <div class="sketch-box" style="border-left: 6px solid #e11d48;" data-mode="scientist">
           <h3 style="color: #be123c; margin-bottom: 8px;">Placebo Check &amp; Overlap Precaution</h3>
           <p style="font-size: 0.85rem; line-height: 1.5; color: #334155;">
             • <strong>Why no p-values?</strong> A circular-shift placebo test revealed elevated false-positive rates, revealing raw p-values are overconfident. In accordance with honest reporting, exact p-values are withheld.<br><br>
             • <strong>Descriptive note:</strong> The NE vs. Central paired test detects a small mathematical difference (-0.07 cm/yr), but their individual 95% CIs overlap. It is treated as small and descriptive.
+          </p>
+        </div>
+        <div class="sketch-box" style="border-left: 6px solid #0284c7;" data-mode="student">
+          <h3 style="color: #0284c7; margin-bottom: 8px;">Regional Comparison Check</h3>
+          <p style="font-size: 0.85rem; line-height: 1.5; color: #334155;">
+            • <strong>Why compare regions?</strong> Comparing the Northwest against other regions shows that rapid water loss is localized to the Barind agricultural hub.<br><br>
+            • <strong>Plain Summary:</strong> Other parts of Bangladesh (Southwest and Southeast) maintain balanced water storage, confirming this is not a nationwide satellite artifact.
           </p>
         </div>
       </div>
@@ -503,7 +515,7 @@
         <div class="sketch-subtitle">Understanding statistical power, temporal duration, and the interactive decision hub</div>
       </div>
       <div class="grid-2">
-        <div class="sketch-box">
+        <div class="sketch-box" data-mode="scientist">
           <h3 style="margin-bottom: 8px;">Statistical Power &amp; Minimum Detectable Slopes</h3>
           <p style="font-size: 0.85rem; line-height: 1.5; color: #334155; margin-bottom: 10px;">
             "No detectable trend" reflects statistical detection limits, not proof that rainfall or southern storage has zero physical variation. Wide confidence intervals stem from high natural interannual variability in monsoon cloudbursts.
@@ -511,6 +523,16 @@
           <div style="background: #f1f5f9; padding: 10px; border-radius: 6px; font-size: 0.82rem; border-left: 4px solid var(--ink-blue);">
             • <strong>Full 24-Year Record:</strong> NW TWS MDS = <span class="mono">0.32 cm/yr</span> (high power to detect -1.25 cm/yr).<br>
             • <strong>Recent 2020–2026 Window:</strong> NW TWS MDS = <span class="mono">2.34 cm/yr</span> (short window below detection threshold).
+          </div>
+        </div>
+        <div class="sketch-box" data-mode="student">
+          <h3 style="margin-bottom: 8px;">Window Length &amp; Detection Lesson</h3>
+          <p style="font-size: 0.85rem; line-height: 1.5; color: #334155; margin-bottom: 10px;">
+            Why satellites need long records to confirm true climate trends:
+          </p>
+          <div style="background: #f1f5f9; padding: 10px; border-radius: 6px; font-size: 0.82rem; border-left: 4px solid var(--ink-blue);">
+            • <strong>Short 5-Year Windows:</strong> Wet and dry years can easily confuse sensors into seeing temporary false trends.<br>
+            • <strong>Full 24-Year History:</strong> Over two decades, real persistent trends become undeniable.
           </div>
         </div>
         <div class="sketch-box" style="text-align: center; display: flex; flex-direction: column; justify-content: center;">
@@ -528,9 +550,9 @@
 
   <!-- Controls -->
   <footer class="controls-bar">
-    <button class="btn btn-secondary" id="prevBtn" onclick="changeSlide(-1)">◀ Previous</button>
+    <button class="btn btn-secondary" id="prevBtn" onclick="changeSlide(-1)" data-i18n="btn.prev">◀ Previous</button>
     <div class="slide-pills" id="pillsContainer"></div>
-    <button class="btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+    <button class="btn" id="nextBtn" onclick="changeSlide(1)" data-i18n="btn.next">Next ▶</button>
   </footer>
 
   <!-- Script Rehearsal Box -->
@@ -579,11 +601,18 @@
       });
 
       const activeSlide = slides[currentSlide];
-      scriptTimeLabel.innerText = `VOICEOVER SCRIPT (${activeSlide.getAttribute('data-time')})`;
+      const timeStr = activeSlide.getAttribute('data-time') || '';
+      const scriptLabel = (typeof window.t === 'function') ? window.t('demo.script_label', 'VOICEOVER SCRIPT') : 'VOICEOVER SCRIPT';
+      scriptTimeLabel.innerText = `${scriptLabel} (${timeStr})`;
       scriptContent.innerText = scripts[currentSlide];
 
       prevBtn.disabled = currentSlide === 0;
-      nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish ↺' : 'Next ▶';
+      const isFinish = currentSlide === slides.length - 1;
+      const finishText = (typeof window.t === 'function') ? window.t('btn.finish', 'Finish ↺') : 'Finish ↺';
+      const nextText = (typeof window.t === 'function') ? window.t('btn.next', 'Next ▶') : 'Next ▶';
+      nextBtn.innerText = isFinish ? finishText : nextText;
+      const prevText = (typeof window.t === 'function') ? window.t('btn.prev', '◀ Previous') : '◀ Previous';
+      prevBtn.innerText = prevText;
     }
 
     function changeSlide(direction) {
@@ -609,9 +638,14 @@
       }
     });
 
+    window.addEventListener('i18n:langchange', () => {
+      updateDeck();
+    });
+
     // Initialize
     updateDeck();
   </script>
+  <script src="assets/i18n.js"></script>
   <script src="assets/url_state.js"></script>
 </body>
 </html>

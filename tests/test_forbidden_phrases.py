@@ -84,6 +84,7 @@ class TestForbiddenPhrases(unittest.TestCase):
         action_report_file = REPO_ROOT / "regional_action_report.md"
         cases_js_file = REPO_ROOT / "assets/js/cases.js"
         catalog_js_file = REPO_ROOT / "data/catalog.js"
+        i18n_js_file = REPO_ROOT / "assets/i18n.js"
         deck_file = REPO_ROOT / "DECK.md"
         video_script_file = REPO_ROOT / "VIDEO_SCRIPT.md"
 
@@ -95,6 +96,7 @@ class TestForbiddenPhrases(unittest.TestCase):
         self.assertTrue(index_file.exists(), "index.html must exist")
         self.assertTrue(report_file.exists(), "report.html must exist")
         self.assertTrue(action_report_file.exists(), "regional_action_report.md must exist")
+        self.assertTrue(i18n_js_file.exists(), "assets/i18n.js must exist")
         if deck_file.exists():
             self.assertTrue(deck_file.exists(), "DECK.md must exist")
         if video_script_file.exists():
@@ -102,7 +104,7 @@ class TestForbiddenPhrases(unittest.TestCase):
 
         # Scan all .md, .txt, and .html files under outputs/ (excluding archived outputs/v2),
         # plus root deliverables, presentation deliverables, and core webapp metadata files
-        extra_targets = [readme_file, notes_file, project_status_file, demo_file, index_file, report_file, action_report_file, cases_js_file, catalog_js_file]
+        extra_targets = [readme_file, notes_file, project_status_file, demo_file, index_file, report_file, action_report_file, cases_js_file, catalog_js_file, i18n_js_file]
         if deck_file.exists():
             extra_targets.append(deck_file)
         if video_script_file.exists():
@@ -177,7 +179,8 @@ class TestForbiddenPhrases(unittest.TestCase):
         targets = [
             REPO_ROOT / "report.html",
             REPO_ROOT / "index.html",
-            REPO_ROOT / "demo.html"
+            REPO_ROOT / "demo.html",
+            REPO_ROOT / "assets/i18n.js"
         ]
         forbidden_tws_patterns = [
             (r"\bGRACE\s+groundwater\b", "GRACE groundwater"),

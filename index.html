@@ -20,13 +20,13 @@
   <!-- Shared Universal Top Navigation -->
   <header class="top-nav">
     <div class="top-nav-brand">
-      <span class="top-nav-badge">NASA TREND DETECTIVE</span>
-      <span class="top-nav-title">Universal 5-Step Earth Observation Tool</span>
+      <span class="top-nav-badge" data-i18n="nav.brand">NASA TREND DETECTIVE</span>
+      <span class="top-nav-title" data-i18n="nav.title">Universal 5-Step Earth Observation Tool</span>
     </div>
     <nav class="top-nav-links" id="main-top-nav">
-      <a href="index.html" class="top-nav-link" data-page="index.html">🔍 5-Step Detective Workbench</a>
-      <a href="report.html" class="top-nav-link" data-page="report.html">🇧🇩 Flagship Report: Bangladesh Deep-Dive</a>
-      <a href="demo.html" class="top-nav-link" data-page="demo.html">📊 Interactive Pitch Deck</a>
+      <a href="index.html" class="top-nav-link" data-page="index.html" data-i18n="nav.workbench">🔍 5-Step Detective Workbench</a>
+      <a href="report.html" class="top-nav-link" data-page="report.html" data-i18n="nav.report">🇧🇩 Flagship Report: Bangladesh Deep-Dive</a>
+      <a href="demo.html" class="top-nav-link" data-page="demo.html" data-i18n="nav.demo">📊 Interactive Pitch Deck</a>
     </nav>
     <div class="top-nav-controls">
       <div class="nav-toggle-group">
@@ -175,11 +175,11 @@
           <div class="map-stage-col">
             <div class="map-toolbar">
               <div class="map-tool-pills">
-                <button class="map-tool-btn active" id="map-toggle-choropleth" title="Toggle live Theil-Sen trend slope coloring">Choropleth</button>
-                <button class="map-tool-btn active" id="map-toggle-grid" title="Toggle 1.0° / 0.25° satellite graticule">1° Grid</button>
-                <button class="map-tool-btn active" id="map-toggle-station" title="Toggle Dhaka AERONET station beacon">Station</button>
+                <button class="map-tool-btn active" id="map-toggle-choropleth" data-i18n="map.choropleth" title="Toggle live Theil-Sen trend slope coloring">Choropleth</button>
+                <button class="map-tool-btn active" id="map-toggle-grid" data-i18n="map.grid" title="Toggle 1.0° / 0.25° satellite graticule">1° Grid</button>
+                <button class="map-tool-btn active" id="map-toggle-station" data-i18n="map.station" title="Toggle Dhaka AERONET station beacon">Station</button>
               </div>
-              <button class="map-tool-btn" id="map-reset-zoom" title="Reset camera zoom and pan">&olarr; Reset</button>
+              <button class="map-tool-btn" id="map-reset-zoom" data-i18n="map.reset" title="Reset camera zoom and pan">&olarr; Reset</button>
             </div>
 
             <!-- Map Viewport with GSAP Camera Zoom/Pan -->
@@ -241,20 +241,20 @@
             <!-- Lens Sub-Tabs & Layer Toggles Bar -->
             <div class="lens-bar">
               <div class="lens-tabs">
-                <button class="lens-tab-btn active" id="lens-trend">
+                <button class="lens-tab-btn active" id="lens-trend" data-i18n="lens.trend">
                   Trend &amp; 95% CI Fan
                 </button>
-                <button class="lens-tab-btn" id="lens-seasonal">
+                <button class="lens-tab-btn" id="lens-seasonal" data-i18n="lens.seasonal">
                   Seasonal Climatology Cycle
                 </button>
-                <button class="lens-tab-btn" id="lens-epochs">
+                <button class="lens-tab-btn" id="lens-epochs" data-i18n="lens.epochs">
                   Multi-Epoch Comparison
                 </button>
               </div>
 
               <!-- Secondary Overlay Comparator Trigger -->
               <div class="overlay-compare-wrap">
-                <button class="btn-compare-series" id="btn-compare-series" title="Add secondary Earth science series to chart for cross-validation">
+                <button class="btn-compare-series" id="btn-compare-series" data-i18n="lens.compare" title="Add secondary Earth science series to chart for cross-validation">
                   <span class="compare-plus">+</span> Compare Series
                 </button>
                 <div class="active-overlay-chip" id="active-overlay-chip" style="display:none;">
@@ -265,10 +265,10 @@
               </div>
 
               <div class="layer-toggles">
-                <button class="layer-toggle-btn active" id="toggle-deseason" title="Remove 12-month calendar climatology">Deseasonalized</button>
-                <button class="layer-toggle-btn active" id="toggle-trendline" title="Show Theil-Sen fit &amp; 95% duality slope envelope">Trend Line &amp; CI</button>
-                <button class="layer-toggle-btn active" id="toggle-gap" title="Show shaded 2017–2018 GRACE to GRACE-FO bridge gap">11-Mo Gap</button>
-                <button class="layer-toggle-btn active" id="toggle-floods" title="Show FFWC historical flood events (2004, 2007, 2017, 2020, 2022)">Historical Floods</button>
+                <button class="layer-toggle-btn active" id="toggle-deseason" data-i18n="layer.deseason" title="Remove 12-month calendar climatology">Deseasonalized</button>
+                <button class="layer-toggle-btn active" id="toggle-trendline" data-i18n="layer.trendline" title="Show Theil-Sen fit &amp; 95% duality slope envelope">Trend Line &amp; CI</button>
+                <button class="layer-toggle-btn active" id="toggle-gap" data-i18n="layer.gap" title="Show shaded 2017–2018 GRACE to GRACE-FO bridge gap">11-Mo Gap</button>
+                <button class="layer-toggle-btn active" id="toggle-floods" data-i18n="layer.floods" title="Show FFWC historical flood events (2004, 2007, 2017, 2020, 2022)">Historical Floods</button>
               </div>
             </div>
 
@@ -302,54 +302,72 @@
 
             <!-- Bottom 5-Cell Swiss Telemetry Verdict Strip -->
             <div class="verdict-telemetry-bar">
-              <div class="telemetry-cell">
-                <span class="tel-label">Statistical Verdict</span>
+              <!-- Scientist Mode Cell 1: Statistical Verdict -->
+              <div class="telemetry-cell" data-mode="scientist">
+                <span class="tel-label" data-i18n="tel.verdict_label">Statistical Verdict</span>
                 <div class="tel-val" id="tel-verdict">
                   <span class="badge-null-trend">Evaluating...</span>
                 </div>
-                <span class="tel-sub" id="tel-verdict-sub">Standard standard threshold p &lt; 0.05</span>
-                <a id="btn-verdict-report-link" class="verdict-report-link" href="report.html#subsurface-validation" title="Open full hydrogeological audit in Flagship Report">
+                <span class="tel-sub" id="tel-verdict-sub" data-i18n="tel.verdict_sub">Standard standard threshold p &lt; 0.05</span>
+                <a id="btn-verdict-report-link" class="verdict-report-link" href="report.html#subsurface-validation" title="Open full hydrogeological audit in Flagship Report" data-i18n="student.open_report">
                   Open Full Hydrogeological Proof &amp; Audit in Report &rarr;
                 </a>
               </div>
 
-              <div class="telemetry-cell">
-                <span class="tel-label">Theil-Sen Slope</span>
+              <!-- Student Mode Verdict Card (Plain Language) -->
+              <div class="telemetry-cell student-verdict-cell" data-mode="student">
+                <span class="tel-label" data-i18n="student.verdict_title">Trend Detective Plain Verdict</span>
+                <div class="student-verdict-title" id="student-verdict-heading" data-i18n="student.evaluating_title">Evaluating Trend...</div>
+                <div class="student-verdict-desc" id="student-verdict-sentence" data-i18n="student.evaluating_desc">Analyzing satellite observations...</div>
+                <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                  <span id="student-verdict-rate" style="font-weight: 700; font-size: 13px; color: var(--accent-blue);">—</span>
+                  <a id="btn-student-report-link" class="verdict-report-link" href="report.html#subsurface-validation" title="Open full hydrogeological audit in Flagship Report" data-i18n="student.open_report">
+                    Open Full Hydrogeological Proof &amp; Audit in Report &rarr;
+                  </a>
+                </div>
+              </div>
+
+              <!-- Scientist Mode Cell 2: Theil-Sen Slope -->
+              <div class="telemetry-cell" data-mode="scientist">
+                <span class="tel-label" data-i18n="tel.slope_label">Theil-Sen Slope</span>
                 <span class="tel-val" id="tel-slope">—</span>
-                <span class="tel-sub" id="tel-slope-vol">Volumetric rate</span>
+                <span class="tel-sub" id="tel-slope-vol" data-i18n="tel.slope_vol">Volumetric rate</span>
               </div>
 
-              <div class="telemetry-cell">
-                <span class="tel-label">95% Confidence Bounds</span>
+              <!-- Scientist Mode Cell 3: 95% Confidence Bounds -->
+              <div class="telemetry-cell" data-mode="scientist">
+                <span class="tel-label" data-i18n="tel.ci_label">95% Confidence Bounds</span>
                 <span class="tel-val" id="tel-ci" style="font-size:12.5px;">—</span>
-                <span class="tel-sub">Duality rank inversion</span>
+                <span class="tel-sub" data-i18n="tel.ci_sub">Duality rank inversion</span>
               </div>
 
-              <div class="telemetry-cell">
-                <span class="tel-label">p-Value &amp; FDR</span>
+              <!-- Scientist Mode Cell 4: p-Value & FDR -->
+              <div class="telemetry-cell" data-mode="scientist">
+                <span class="tel-label" data-i18n="tel.p_label">p-Value &amp; FDR</span>
                 <span class="tel-val" id="tel-p">—</span>
-                <span class="tel-sub" id="tel-fdr">Benjamini-Hochberg</span>
+                <span class="tel-sub" id="tel-fdr" data-i18n="tel.p_sub">Benjamini-Hochberg</span>
               </div>
 
-              <div class="telemetry-cell">
-                <span class="tel-label">Sample &amp; Power Limit</span>
+              <!-- Scientist Mode Cell 5: Sample & Power Limit -->
+              <div class="telemetry-cell" data-mode="scientist">
+                <span class="tel-label" data-i18n="tel.n_label">Sample &amp; Power Limit</span>
                 <span class="tel-val" id="tel-n">—</span>
-                <span class="tel-sub" id="tel-mds">80% detection threshold</span>
+                <span class="tel-sub" id="tel-mds" data-i18n="tel.n_sub">80% detection threshold</span>
               </div>
             </div>
 
             <!-- Drawer Triggers Bar -->
             <div class="drawer-trigger-bar">
-              <button class="drawer-btn" id="btn-open-diagnostics">
+              <button class="drawer-btn" id="btn-open-diagnostics" data-mode="scientist" data-i18n="btn.open_diagnostics">
                 Statistical Rigor Diagnostics &amp; Detection Power Drawer
               </button>
-              <button class="drawer-btn" id="btn-open-directives">
+              <button class="drawer-btn" id="btn-open-directives" data-i18n="btn.open_directives">
                 Regional Stakeholder Action Directives Drawer
               </button>
-              <button class="drawer-btn" id="btn-open-evidence" style="border-color: var(--accent-blue); color: var(--accent-blue); font-weight: 700;">
+              <button class="drawer-btn" id="btn-open-evidence" data-i18n="btn.open_evidence" style="border-color: var(--accent-blue); color: var(--accent-blue); font-weight: 700;">
                 🔍 View Methodological Proof
               </button>
-              <a class="drawer-btn report-jump-btn" id="btn-trigger-report-link" href="report.html#subsurface-validation" style="display:inline-flex; align-items:center; text-decoration:none; color:var(--accent-blue); font-weight:600;">
+              <a class="drawer-btn report-jump-btn" id="btn-trigger-report-link" data-i18n="btn.open_report_link" href="report.html#subsurface-validation" style="display:inline-flex; align-items:center; text-decoration:none; color:var(--accent-blue); font-weight:600;">
                 Open Full Hydrogeological Proof &amp; Audit in Report &rarr;
               </a>
             </div>
@@ -592,24 +610,24 @@
        Slide-Over Drawer: Statistical Rigor & Power Diagnostics
        ====================================================================== -->
   <div class="drawer-backdrop" id="diagnostics-backdrop"></div>
-  <aside class="slide-drawer" id="drawer-diagnostics">
+  <aside class="slide-drawer" id="drawer-diagnostics" data-mode="scientist">
     <div class="drawer-header">
-      <div class="drawer-title">Statistical Rigor &amp; Detection Power</div>
+      <div class="drawer-title" data-i18n="diag.title">Statistical Rigor &amp; Detection Power</div>
       <button class="drawer-close-btn" id="close-diagnostics">&times;</button>
     </div>
     <div class="drawer-body">
-      <p style="color:var(--text-muted);font-size:11px;margin-bottom:12px;">
+      <p style="color:var(--text-muted);font-size:11px;margin-bottom:12px;" data-i18n="diag.subtitle">
         Mathematical diagnostics verifying statistical independence, Hurwicz small-sample autocorrelation correction, and duality confidence intervals.
       </p>
 
-      <div class="drawer-section-title">Mann-Kendall Test Statistics</div>
-      <div class="diagnostics-grid" id="diag-stats-grid"></div>
+      <div class="drawer-section-title" data-mode="scientist" data-i18n="diag.sec_stats">Mann-Kendall Test Statistics</div>
+      <div class="diagnostics-grid" id="diag-stats-grid" data-mode="scientist"></div>
 
-      <div class="drawer-section-title">Dr. James Acker's Window Length Lesson</div>
-      <p id="diag-window-lesson" style="background:var(--bg-subtle);padding:10px;border-radius:4px;border:1px solid var(--border-grid);margin-bottom:12px;"></p>
+      <div class="drawer-section-title" data-mode="scientist" data-i18n="diag.sec_window">Dr. James Acker's Window Length Lesson</div>
+      <p id="diag-window-lesson" data-mode="scientist" style="background:var(--bg-subtle);padding:10px;border-radius:4px;border:1px solid var(--border-grid);margin-bottom:12px;"></p>
 
-      <div class="drawer-section-title">Sensor &amp; Mission Break Safeguards</div>
-      <p id="diag-sensor-safeguard" style="font-size:11px;color:var(--text-muted);"></p>
+      <div class="drawer-section-title" data-mode="scientist" data-i18n="diag.sec_sensor">Sensor &amp; Mission Break Safeguards</div>
+      <p id="diag-sensor-safeguard" data-mode="scientist" style="font-size:11px;color:var(--text-muted);"></p>
     </div>
   </aside>
 
@@ -619,11 +637,11 @@
   <div class="drawer-backdrop" id="directives-backdrop"></div>
   <aside class="slide-drawer" id="drawer-directives">
     <div class="drawer-header">
-      <div class="drawer-title">Regional Stakeholder Action Directives</div>
+      <div class="drawer-title" data-i18n="directives.title">Regional Stakeholder Action Directives</div>
       <button class="drawer-close-btn" id="close-directives">&times;</button>
     </div>
     <div class="drawer-body">
-      <p style="color:var(--text-muted);font-size:11px;margin-bottom:12px;">
+      <p style="color:var(--text-muted);font-size:11px;margin-bottom:12px;" data-i18n="directives.subtitle">
         Actionable policy, agricultural, and citizen directives translated directly from 24-year satellite trend detection for <strong id="directives-region-name">Northwest Bangladesh</strong>:
       </p>
 
@@ -638,22 +656,22 @@
   <aside class="slide-drawer" id="evidenceDrawer" style="width: min(760px, 94vw); max-width: 760px;">
     <div class="drawer-header" style="justify-content: space-between;">
       <div>
-        <div class="drawer-title">Methodological Proof &amp; In-Depth Audit</div>
-        <div style="font-size: 11px; color: var(--text-muted);">Verified analytical evidence extracted from Dossier #01</div>
+        <div class="drawer-title" data-i18n="evidence.title">Methodological Proof &amp; In-Depth Audit</div>
+        <div style="font-size: 11px; color: var(--text-muted);" data-i18n="evidence.subtitle">Verified analytical evidence extracted from Dossier #01</div>
       </div>
       <div style="display: flex; align-items: center; gap: 12px;">
-        <a id="evidence-open-report-link" href="report.html#subsurface-validation" target="_blank" style="font-size: 11.5px; font-weight: 700; color: var(--accent-blue); text-decoration: none;">
+        <a id="evidence-open-report-link" href="report.html#subsurface-validation" target="_blank" data-i18n="evidence.open_report" style="font-size: 11.5px; font-weight: 700; color: var(--accent-blue); text-decoration: none;">
           Open in full report &rarr;
         </a>
         <button class="drawer-close-btn" id="close-evidence">&times;</button>
       </div>
     </div>
     <div class="evidence-nav-tabs">
-      <button class="evidence-tab-btn active" data-frag="threeway">3-Way Transition</button>
-      <button class="evidence-tab-btn" data-frag="gldas">GLDAS Partition</button>
-      <button class="evidence-tab-btn" data-frag="pairwise-differences">Pairwise Differences</button>
-      <button class="evidence-tab-btn" data-frag="stakeholder-actions">Stakeholder Directives</button>
-      <button class="evidence-tab-btn" data-frag="limitations">Limitations</button>
+      <button class="evidence-tab-btn active" data-frag="threeway" data-i18n="evidence.tab_threeway">3-Way Transition</button>
+      <button class="evidence-tab-btn" data-frag="gldas" data-i18n="evidence.tab_gldas">GLDAS Partition</button>
+      <button class="evidence-tab-btn" data-frag="pairwise-differences" data-i18n="evidence.tab_pairwise">Pairwise Differences</button>
+      <button class="evidence-tab-btn" data-frag="stakeholder-actions" data-i18n="evidence.tab_directives">Stakeholder Directives</button>
+      <button class="evidence-tab-btn" data-frag="limitations" data-i18n="evidence.tab_limitations">Limitations</button>
     </div>
     <div class="drawer-body" id="evidence-body" style="padding-top: 10px;">
       <div id="evidence-content" class="evidence-content-container"></div>
@@ -680,6 +698,7 @@
 
   <!-- Application Script Modules -->
   <script src="assets/url_state.js"></script>
+  <script src="assets/i18n.js"></script>
   <script id="dashboard-data">
     const DASHBOARD_DATA = {
   "svg_paths": {

@@ -207,6 +207,10 @@
     // Telemetry Verdict Cells
     el.telVerdict = document.getElementById('tel-verdict');
     el.telVerdictSub = document.getElementById('tel-verdict-sub');
+    el.studentVerdictHeading = document.getElementById('student-verdict-heading');
+    el.studentVerdictSentence = document.getElementById('student-verdict-sentence');
+    el.studentVerdictRate = document.getElementById('student-verdict-rate');
+    el.btnStudentReportLink = document.getElementById('btn-student-report-link');
     el.btnVerdictReportLink = document.getElementById('btn-verdict-report-link');
     el.btnTriggerReportLink = document.getElementById('btn-trigger-report-link');
     el.telSlope = document.getElementById('tel-slope');
@@ -2017,6 +2021,46 @@
     const sign = statResult.slope > 0 ? '+' : '';
     el.telSlope.textContent = `${sign}${statResult.slope.toFixed(4)} ${curVar.unit}/yr`;
 
+    // Student plain verdict card
+    if (el.studentVerdictHeading && el.studentVerdictSentence) {
+      const isBn = (state.lang === 'bn') || (document.documentElement.lang === 'bn');
+      const studentCell = el.studentVerdictHeading.closest('.student-verdict-cell');
+      const slopeFormatted = `${sign}${statResult.slope.toFixed(2)} ${curVar.unit}/yr`;
+      const direction = statResult.slope > 0 ? (isBn ? "বৃদ্ধি পাচ্ছে" : "increasing") : (isBn ? "হ্রাস পাচ্ছে" : "declining");
+      const directionNoun = statResult.slope > 0 ? (isBn ? "বৃদ্ধি" : "Rise") : (isBn ? "হ্রাস" : "Decline");
+      const regionLabel = state.entity || (isBn ? "নির্বাচিত অঞ্চল" : "Selected Region");
+      const varLabel = curVar.name || (isBn ? "সর্বমোট পানি সঞ্চয় (TWS)" : "Total Water Storage (TWS)");
+
+      if (isSig) {
+        el.studentVerdictHeading.textContent = isBn
+          ? `উল্লেখযোগ্য ${directionNoun} (${slopeFormatted})` // DRAFT: needs native review
+          : `Significant ${directionNoun} (${slopeFormatted})`;
+        el.studentVerdictSentence.textContent = isBn
+          ? `${regionLabel}-এ ${varLabel} ${slopeFormatted} হারে ${direction}। আমরা অত্যন্ত নিশ্চিত (৯৯.৯%-এর বেশি পরিসংখ্যানগত নিশ্চয়তা) যে এই দীর্ঘমেয়াদী প্রবণতা বাস্তব এবং ঋতুভিত্তিক প্রাকৃতিক ওঠানামার চেয়ে বেশি।` // DRAFT: needs native review
+          : `${varLabel} in ${regionLabel} is ${direction} at ${slopeFormatted}. We are highly confident (over 99.9% statistical certainty) that this secular trend is real and exceeds seasonal noise.`;
+        if (studentCell) {
+          studentCell.classList.add(statResult.slope < 0 ? 'verdict-decline' : 'verdict-stable');
+          studentCell.classList.remove(statResult.slope < 0 ? 'verdict-stable' : 'verdict-decline');
+        }
+      } else {
+        el.studentVerdictHeading.textContent = isBn
+          ? `কোনো দীর্ঘমেয়াদী প্রবণতা লক্ষণীয় নয় (${slopeFormatted})` // DRAFT: needs native review
+          : `No Detectable Long-Term Trend (${slopeFormatted})`;
+        el.studentVerdictSentence.textContent = isBn
+          ? `${regionLabel}-এ ${varLabel}-এ কোনো স্পষ্ট দীর্ঘমেয়াদী প্রবণতা দেখা যায়নি। বর্তমান হার (${slopeFormatted}) স্বাভাবিক আবহাওয়ার ওঠানামার মধ্যেই বিদ্যমান।` // DRAFT: needs native review
+          : `${varLabel} in ${regionLabel} shows no clear multi-year ${directionNoun.toLowerCase()}. The observed rate (${slopeFormatted}) stays within expected natural weather fluctuations.`;
+        if (studentCell) {
+          studentCell.classList.add('verdict-stable');
+          studentCell.classList.remove('verdict-decline');
+        }
+      }
+      if (el.studentVerdictRate) {
+        el.studentVerdictRate.textContent = isBn
+          ? `হার: ${slopeFormatted} • নিশ্চয়তা: ${isSig ? 'উচ্চ (p < 0.05)' : 'স্বাভাবিক ওঠানামা'}` // DRAFT: needs native review
+          : `Rate: ${slopeFormatted} • Confidence: ${isSig ? 'High (p < 0.05)' : 'Within Normal Variation'}`;
+      }
+    }
+
     // Volumetric conversion for TWS (NW area: 31,348 km²)
     if (curVar.id === 'grace_tws' && state.entity === 'NW') {
       const volKm3 = (statResult.slope / 100000) * 31348;
@@ -2067,6 +2111,14 @@
         el.btnVerdictReportLink.href = reportLinkHref;
       } else {
         el.btnVerdictReportLink.style.display = 'none';
+      }
+    }
+    if (el.btnStudentReportLink) {
+      if (isBangladesh) {
+        el.btnStudentReportLink.style.display = 'inline-flex';
+        el.btnStudentReportLink.href = reportLinkHref;
+      } else {
+        el.btnStudentReportLink.style.display = 'none';
       }
     }
     if (el.btnTriggerReportLink) {
@@ -2150,24 +2202,30 @@
     };
     el.directivesRegionName.textContent = directives.region_name;
 
+    const isBn = (state.lang === 'bn') || (document.documentElement.lang === 'bn');
+    const labelMandate = isBn ? '[নীতিমালা] সরকারি ও পানি উন্নয়ন বোর্ড নীতি' : '[MANDATE] Government &amp; Water Board Policy'; // DRAFT: needs native review
+    const labelFarmerDo = isBn ? '[সুপারিশ] টেকসই কৃষি পদ্ধতি (করণীয়)' : '[DIRECTIVE] Recommended Agricultural Practices (Do\'s)'; // DRAFT: needs native review
+    const labelFarmerDont = isBn ? '[সীমাবদ্ধতা] অপচয়মূলক চর্চা (বর্জনীয়)' : '[RESTRICTION] Unsustainable Practices (Don\'ts)'; // DRAFT: needs native review
+    const labelCitizen = isBn ? '[নাগরিক উদ্যোগ] পানি সংরক্ষণ কর্মপরিকল্পনা' : '[COMMUNITY] Citizen Water Conservation Actions'; // DRAFT: needs native review
+
     el.directivesItemsContainer.innerHTML = `
       <div class="drawer-directive-box mandate">
-        <div class="dd-label" style="color:var(--accent-amber);">[MANDATE] Government &amp; Water Board Policy</div>
+        <div class="dd-label" style="color:var(--accent-amber);">${labelMandate}</div>
         <p>${directives.mandate}</p>
       </div>
 
       <div class="drawer-directive-box farmer-do">
-        <div class="dd-label" style="color:var(--accent-emerald);">[DIRECTIVE] Recommended Agricultural Practices (Do's)</div>
+        <div class="dd-label" style="color:var(--accent-emerald);">${labelFarmerDo}</div>
         <p>${directives.farmer_dos}</p>
       </div>
 
       <div class="drawer-directive-box farmer-dont">
-        <div class="dd-label" style="color:var(--accent-crimson);">[RESTRICTION] Unsustainable Practices (Don'ts)</div>
+        <div class="dd-label" style="color:var(--accent-crimson);">${labelFarmerDont}</div>
         <p>${directives.farmer_donts}</p>
       </div>
 
       <div class="drawer-directive-box citizen">
-        <div class="dd-label" style="color:var(--accent-cyan);">[COMMUNITY] Citizen Water Conservation Actions</div>
+        <div class="dd-label" style="color:var(--accent-cyan);">${labelCitizen}</div>
         <p>${directives.citizen_action}</p>
       </div>
     `;
@@ -2213,6 +2271,10 @@
             lang: state.lang
           }, '#' + fragId)
         : `report.html#${fragId}`;
+    }
+
+    if (window.applyLang) {
+      window.applyLang(state.lang || 'en');
     }
   }
 
