@@ -4,839 +4,384 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bengal Earth System Trend Detective — NASA Space Apps Challenge 2026</title>
-  <meta name="description" content="Interactive 5-step trend detection workbench analyzing 24 years of NASA Earth observations across Bangladesh.">
+  <meta name="description" content="Scientific desktop analytical deck and 5-step trend detection workbench analyzing 24 years of NASA Earth observations across Bangladesh.">
 
-  <!-- Local Vendored Chart.js -->
+  <!-- Local Vendored Libraries (100% Offline Ready) -->
   <script src="assets/vendor/chart.umd.min.js"></script>
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script src="assets/vendor/ScrollToPlugin.min.js"></script>
 
-  <!-- Application Stylesheet -->
+  <!-- Application Stylesheet: Scientific Daylight (Swiss Grid) -->
   <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
 
-  <!-- Top App Navigation -->
-  <header class="app-header">
-    <div class="header-inner">
-      <div class="brand">
-        <div class="brand-logo">🛰️</div>
-        <div>
-          <div class="brand-title">Bengal Earth System Trend Detective</div>
-          <div class="brand-sub">NASA Space Apps Challenge 2026 • “Be an Earth Systems Trend Detective!”</div>
+  <!-- Fixed Top Swiss Command Header (48px) -->
+  <header class="swiss-header">
+    <div class="brand-cell">
+      <div class="brand-badge">🛰️</div>
+      <div class="brand-title-wrap">
+        <div class="brand-title">
+          Bengal Earth System Trend Detective
+          <span class="hack-tag">NASA Space Apps 2026</span>
         </div>
+        <div class="brand-sub">Dr. James Acker's 5-Step Analytical Framework • 2002–2026 Baseline</div>
       </div>
-      <div class="header-links">
-        <a href="#case-dossiers" class="report-link-btn" style="background:transparent;border-color:#334155;color:#cbd5e1;">Case Dossiers</a>
-        <a href="#data-catalog" class="report-link-btn" style="background:transparent;border-color:#334155;color:#cbd5e1;">Data Sources</a>
-        <a href="report.html" class="report-link-btn" title="View comprehensive 24-year hydroclimatic research report">
-          <span>🔬 Research Report View</span>
-          <span>↗</span>
-        </a>
-      </div>
+    </div>
+
+    <!-- Navigation Deck Jump Pills -->
+    <nav class="deck-nav-pills" id="deck-nav">
+      <button class="deck-nav-btn active" data-target="sec-cases">
+        <span class="num">01</span> Cases
+      </button>
+      <button class="deck-nav-btn" data-target="sec-workbench">
+        <span class="num">02</span> Workbench
+      </button>
+      <button class="deck-nav-btn" data-target="sec-dossiers">
+        <span class="num">03</span> Dossiers
+      </button>
+      <button class="deck-nav-btn" data-target="sec-catalog">
+        <span class="num">04</span> Catalog
+      </button>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <button class="header-btn" id="btn-fullscreen-header" title="Toggle Simulation Fullscreen (Key: F)">
+        <span>⛶</span> Fullscreen
+      </button>
+      <a href="report.html" class="header-btn report-btn" title="View comprehensive 24-year hydroclimatic research report">
+        <span>🔬 Research Report</span>
+        <span>↗</span>
+      </a>
     </div>
   </header>
 
-  <main class="app-container">
+  <!-- Deck Snap Viewport Container (100vh Sections) -->
+  <main class="deck-container" id="deck-viewport">
 
-    <!-- Challenge Hero Intro -->
-    <section class="challenge-hero">
-      <span class="hero-tag">Challenge Objective</span>
-      <h1 class="hero-title">Be an Earth System Trend Detective!</h1>
-      <p class="hero-desc">
-        Investigate changes in Bangladesh's climate, water cycle, and atmosphere. Follow Dr. James Acker's official 5-step scientific workflow: select Earth observation variables, define geographic boundaries, set your temporal window, inspect the time series, and test for statistical significance (<em>p</em> &lt; 0.05).
-      </p>
-      <div class="workflow-pills">
-        <div class="step-pill"><span class="step-num">1</span> Select Variable(s)</div>
-        <div class="step-pill"><span class="step-num">2</span> Define Region</div>
-        <div class="step-pill"><span class="step-num">3</span> Select Time Window</div>
-        <div class="step-pill"><span class="step-num">4</span> Inspect Time Series</div>
-        <div class="step-pill"><span class="step-num">5</span> Test Significance</div>
+    <!-- ====================================================================
+         Section 01: Hero & Guided Detective Case Bento Grid (100vh)
+         ==================================================================== -->
+    <section class="deck-section" id="sec-cases">
+      <div class="hero-compact">
+        <div class="hero-text-block">
+          <h1 class="hero-headline">Be an Earth System Trend Detective!</h1>
+          <p class="hero-desc">
+            Investigate changes in Bangladesh's climate, water cycle, and atmospheric loading across 24 years of NASA Earth observations. Follow Dr. James Acker's official 5-step scientific workflow to test whether trends are statistically significant (<em>p</em> &lt; 0.05).
+          </p>
+        </div>
+        <div class="workflow-bar">
+          <div class="wf-step"><span class="wf-num">1</span> Variable</div>
+          <span class="wf-arrow">→</span>
+          <div class="wf-step"><span class="wf-num">2</span> Region</div>
+          <span class="wf-arrow">→</span>
+          <div class="wf-step"><span class="wf-num">3</span> Window</div>
+          <span class="wf-arrow">→</span>
+          <div class="wf-step"><span class="wf-num">4</span> Inspect</div>
+          <span class="wf-arrow">→</span>
+          <div class="wf-step"><span class="wf-num">5</span> Significance</div>
+        </div>
+      </div>
+
+      <!-- 6-Card Swiss Bento Grid -->
+      <div class="cases-bento-grid" id="cases-bento-container">
+        <!-- Rendered dynamically via cases.js / app.js -->
       </div>
     </section>
 
-    <!-- Guided Case Files Strip -->
-    <section class="case-files-section">
-      <div class="section-head">
-        <div>
-          <h2 class="section-title">📂 Guided Detective Case Files</h2>
-          <div class="section-subtitle">Click any case file below to load the investigation into the workbench</div>
-        </div>
-      </div>
-      <div class="case-cards-grid" id="case-cards-container">
-        <!-- Injected via cases.js -->
-      </div>
-    </section>
+    <!-- ====================================================================
+         Section 02: Interactive Simulation Workbench (100vh / Fullscreen)
+         ==================================================================== -->
+    <section class="deck-section" id="sec-workbench">
+      <div class="workbench-shell" id="workbench-shell">
 
-    <!-- Active Case Banner -->
-    <div class="active-case-banner" id="active-case-banner">
-      <div class="case-banner-top">
-        <span class="case-banner-title" id="case-banner-title">Active Investigation</span>
-        <button class="close-case-btn" id="close-case-btn" title="Exit case file and explore freely">✕</button>
-      </div>
-      <div class="case-banner-prompt" id="case-banner-prompt"></div>
-      <div class="case-banner-takeaway" id="case-banner-takeaway"></div>
-    </div>
-
-    <!-- 5-Step Workbench Layout -->
-    <div class="workbench-layout">
-
-      <!-- Left Column: Controls (Steps 1, 2, 3) -->
-      <div class="left-controls">
-
-        <!-- Step 1: Select Variable -->
-        <div class="step-card">
-          <div class="step-card-header">
-            <span class="step-circle">1</span>
-            <div>
-              <h3 class="step-title">Select Earth Science Variable</h3>
-              <div class="step-subtitle">Primary satellite observation or model estimate</div>
-            </div>
-          </div>
-
-          <div id="var-cards-container">
-            <!-- Injected via app.js -->
-          </div>
-
-          <!-- Secondary Overlay Selector -->
-          <div class="overlay-row">
-            <span class="overlay-label">Compare with (Overlay):</span>
-            <select class="overlay-select" id="overlay-select">
-              <option value="">None (Single Variable)</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Step 2: Define Region -->
-        <div class="step-card">
-          <div class="step-card-header">
-            <span class="step-circle">2</span>
-            <div>
-              <h3 class="step-title">Define Geographic Region</h3>
-              <div class="step-subtitle">Choose hydrological macro-region or administrative division</div>
-            </div>
-          </div>
-
-          <div class="spatial-toggle-wrap" id="spatial-toggle">
-            <button class="spatial-toggle-btn active" data-type="region">Macro-Regions (5 + National)</button>
-            <button class="spatial-toggle-btn" data-type="division">Administrative Divisions (8)</button>
-          </div>
-
-          <div class="regional-caveat-badge" id="regional-caveat"></div>
-
-          <div class="map-and-list">
-            <div class="map-wrapper" id="svg-map-container">
-              <!-- SVG map injected via app.js -->
-            </div>
-            <div class="regions-button-list" id="regions-list-container">
-              <!-- Buttons injected via app.js -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 3: Select Time Window -->
-        <div class="step-card">
-          <div class="step-card-header">
-            <span class="step-circle">3</span>
-            <div>
-              <h3 class="step-title">Select Time Period &amp; Season</h3>
-              <div class="step-subtitle">Choose analytical window and seasonal aggregation</div>
-            </div>
-          </div>
-
-          <div class="control-label">Quick Canonical Presets:</div>
-          <div class="time-presets-strip" id="time-presets-container">
-            <!-- Buttons injected via app.js -->
-          </div>
-
-          <div class="time-range-row">
-            <div>
-              <div class="control-label">Start Year:</div>
-              <select class="year-select" id="start-year-select"></select>
-            </div>
-            <div>
-              <div class="control-label">End Year:</div>
-              <select class="year-select" id="end-year-select"></select>
-            </div>
-          </div>
-
-          <div class="season-selector-wrap">
-            <div class="control-label">Seasonal Filter:</div>
-            <select class="season-select" id="season-select"></select>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Right Column: Visualization & Results (Steps 4 & 5) -->
-      <div class="right-column">
-
-        <!-- Step 4: Time Series Visualization -->
-        <div class="chart-card">
-          <div class="chart-header">
-            <div class="chart-title-wrap">
-              <span class="step-pill" style="margin-bottom:6px;"><span class="step-num">4</span> Generate &amp; Inspect Time Series</span>
-              <h3 id="chart-title">Observation Series</h3>
-              <p id="chart-subtitle"></p>
-            </div>
-            <div class="chart-layer-toggles">
-              <button class="toggle-pill active" id="toggle-deseason" title="Remove 12-month calendar climatology">Deseasonalized</button>
-              <button class="toggle-pill active" id="toggle-trendline" title="Show Theil-Sen regression fit">Trend Line &amp; CI</button>
-              <button class="toggle-pill active" id="toggle-gap" title="Show 2017–2018 inter-satellite mission gap">11-Mo Gap</button>
-              <button class="toggle-pill active" id="toggle-floods" title="Show major historical flood years (FFWC)">🌊 Flood Events</button>
-            </div>
-          </div>
-
-          <div class="canvas-container">
-            <canvas id="timeseries-canvas"></canvas>
-          </div>
-
-          <div class="chart-legend-notes">
-            <div class="legend-key">
-              <span class="legend-dot" style="background:#2563eb;"></span>
-              <span>Observations</span>
-            </div>
-            <div class="legend-key">
-              <span class="legend-dot" style="background:#dc2626;"></span>
-              <span>Theil-Sen Trend Line</span>
-            </div>
-            <div class="legend-key">
-              <span class="legend-box" style="background:rgba(220,38,38,0.15);"></span>
-              <span>95% Trend Slope Bounds</span>
-            </div>
-            <div class="legend-key">
-              <span class="legend-dot" style="background:#ea580c;"></span>
-              <span>Overlay Series (Right Axis)</span>
-            </div>
-            <div class="legend-key">
-              <span class="legend-box" style="background:rgba(148,163,184,0.3);border:1px dashed #64748b;"></span>
-              <span>2017–18 Gap</span>
-            </div>
-            <div class="legend-key">
-              <span class="legend-dot" style="background:#0284c7;"></span>
-              <span>🌊 Historical Floods</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 5: Statistical Significance Verdict -->
-        <div class="verdict-card">
-          <div class="verdict-header">
-            <div>
-              <span class="step-pill" style="margin-bottom:6px;"><span class="step-num">5</span> Test for Statistical Significance</span>
-              <h3 style="font-size:1.15rem;font-weight:800;">Trend Detective Verdict Card</h3>
-            </div>
-            <div class="verdict-badge" id="verdict-badge">Evaluating...</div>
-          </div>
-
-          <div class="verdict-stats-summary">
-            <div class="stat-item">
-              <span class="stat-label">Theil-Sen Slope</span>
-              <span class="stat-value" id="stat-slope">—</span>
-              <span class="stat-sub">Median pairwise rate</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">95% Confidence Interval</span>
-              <span class="stat-value" id="stat-ci" style="font-size:0.95rem;">—</span>
-              <span class="stat-sub">Duality rank bounds</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">p-Value</span>
-              <span class="stat-value" id="stat-p">—</span>
-              <span class="stat-sub">Standard threshold &lt; 0.05</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Sample Size</span>
-              <span class="stat-value" id="stat-n">—</span>
-              <span class="stat-sub">Effective ESS (Hurwicz)</span>
-            </div>
-          </div>
-
-          <div class="verdict-explanation" id="verdict-explanation"></div>
-
-          <div class="impact-conversion-box" id="impact-box" style="display:none;"></div>
-
-          <div class="window-length-lesson" id="window-length-lesson" style="display:none;"></div>
-
-          <div class="gap-caution-box" id="gap-caution" style="display:none;"></div>
-
-          <!-- Collapsible Science Diagnostics Panel -->
-          <div>
-            <button class="science-panel-toggle" id="science-toggle">
-              <span>🔬 Show Statistical Diagnostics &amp; Rigor Details</span>
+        <!-- Top Parameter Command Ribbon (Steps 1, 2, 3 + Fullscreen) -->
+        <div class="command-ribbon">
+          <!-- Step 1: Variable Selector Popover Trigger -->
+          <div class="cmd-group">
+            <span class="cmd-step-badge" title="Step 1: Select Variable">1</span>
+            <button class="var-picker-btn" id="var-picker-btn" title="Click to choose Earth science variable">
+              <span class="var-name" id="current-var-name">Loading...</span>
+              <span class="var-spec-chip" id="current-var-chip">TWS</span>
               <span>▾</span>
             </button>
-            <div class="science-panel-body" id="science-body">
-              <div class="science-grid" id="science-grid"></div>
-              <p style="margin-top:10px;font-size:0.75rem;color:var(--text-muted);">
-                <strong>Rigor Guarantee:</strong> Autocorrelation corrected using Hurwicz small-sample bias adjustment. Variance inflated by γ = (1+r₁*)/(1-r₁*). Confidence intervals use duality-aligned rank inversion matching scipy/numpy benchmarks to 4 decimal places.
-              </p>
+
+            <!-- Overlay Select -->
+            <select class="cmd-select" id="overlay-select" title="Compare with secondary overlay variable">
+              <option value="">Overlay: None</option>
+            </select>
+          </div>
+
+          <div class="cmd-divider"></div>
+
+          <!-- Step 2: Spatial Scale & Region -->
+          <div class="cmd-group">
+            <span class="cmd-step-badge" title="Step 2: Define Geographic Region">2</span>
+            <div class="seg-control" id="spatial-toggle">
+              <button class="seg-btn active" data-type="region">Macro-Regions</button>
+              <button class="seg-btn" data-type="division">Divisions</button>
             </div>
+            <select class="cmd-select" id="region-select"></select>
+            <span id="regional-caveat-pill" style="display:none;" title="Coarse footprint or point observation note">⚠️</span>
+          </div>
+
+          <div class="cmd-divider"></div>
+
+          <!-- Step 3: Temporal Window & Season -->
+          <div class="cmd-group">
+            <span class="cmd-step-badge" title="Step 3: Temporal Window">3</span>
+            <div class="preset-pills" id="time-presets-container"></div>
+            <select class="cmd-select" id="start-year-select" style="width:64px;"></select>
+            <span style="color:var(--text-faint);">–</span>
+            <select class="cmd-select" id="end-year-select" style="width:64px;"></select>
+            <select class="cmd-select" id="season-select" style="width:105px;"></select>
+          </div>
+
+          <!-- Right Utility Group -->
+          <div class="cmd-group" style="margin-left:auto;">
+            <div class="active-mission-pill" id="active-mission-pill" style="display:none;" title="Click to review active investigation mission">
+              <span>📂</span> <span id="mission-pill-label">Case Active</span>
+            </div>
+            <button class="fullscreen-btn" id="workbench-fullscreen-btn" title="Toggle Workbench Fullscreen (Key: F)">
+              <span>⛶</span> Fullscreen
+            </button>
           </div>
         </div>
 
-        <!-- Stakeholder Directives & Practical Impact Card -->
-        <div class="stakeholder-card" id="stakeholder-card">
-          <div class="stakeholder-header">
-            <span class="step-pill" style="margin-bottom:6px;"><span class="step-num">★</span> Practical Action Directives</span>
-            <h3 id="stakeholder-title">Regional Stakeholder Directives</h3>
-            <p id="stakeholder-sub" style="font-size:0.85rem;color:var(--text-muted);margin-top:2px;">
-              Actionable guidance translated from 24-year satellite trends for farmers, planners, and citizens
-            </p>
+        <!-- 28% / 72% Split Stage -->
+        <div class="stage-split">
+
+          <!-- Left 28%: Modern Geospatial Map Stage -->
+          <div class="map-stage-col">
+            <div class="map-toolbar">
+              <div class="map-tool-pills">
+                <button class="map-tool-btn active" id="map-toggle-choropleth" title="Toggle live Theil-Sen trend slope coloring">Choropleth</button>
+                <button class="map-tool-btn active" id="map-toggle-grid" title="Toggle 1.0° / 0.25° satellite graticule">1° Grid</button>
+                <button class="map-tool-btn active" id="map-toggle-station" title="Toggle Dhaka AERONET station beacon">Station</button>
+              </div>
+              <button class="map-tool-btn" id="map-reset-zoom" title="Reset camera zoom and pan">⟲ Reset</button>
+            </div>
+
+            <!-- Map Viewport with GSAP Camera Zoom/Pan -->
+            <div class="map-viewport" id="map-viewport">
+              <svg class="map-svg" id="svg-map" viewBox="0 0 600 730" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <pattern id="sat-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#e2e8f0" stroke-width="0.8" stroke-dasharray="2,3"/>
+                  </pattern>
+                </defs>
+                <rect width="600" height="730" fill="url(#sat-grid)" id="graticule-layer"/>
+                <g id="svg-paths-group"></g>
+                <g id="svg-stations-group">
+                  <!-- Dhaka Station Radar Beacon (Lat 23.81°N, Lon 90.41°E -> X: 285.5, Y: 346.7) -->
+                  <circle cx="285.5" cy="346.7" r="4.5" class="station-pulse"/>
+                  <circle cx="285.5" cy="346.7" r="5" class="pulse-ring"/>
+                </g>
+              </svg>
+
+              <!-- Floating Hover Telemetry HUD -->
+              <div class="map-hud" id="map-hover-hud" style="display:none;">
+                <div class="hud-region-name" id="hud-name">—</div>
+                <div class="hud-row">
+                  <span class="hud-label">Slope:</span>
+                  <span class="hud-val" id="hud-slope">—</span>
+                </div>
+                <div class="hud-row">
+                  <span class="hud-label">p-Value:</span>
+                  <span class="hud-val" id="hud-p">—</span>
+                </div>
+                <div class="hud-row">
+                  <span class="hud-label">Population:</span>
+                  <span class="hud-val" id="hud-pop">—</span>
+                </div>
+                <div class="hud-row">
+                  <span class="hud-label">Cropland:</span>
+                  <span class="hud-val" id="hud-crop">—</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Diverging Choropleth Scale Bar -->
+            <div class="choropleth-scale-bar" id="choropleth-legend">
+              <div class="scale-gradient"></div>
+              <div class="scale-ticks">
+                <span>−1.5 cm/yr</span>
+                <span>0.0</span>
+                <span>+1.5 cm/yr</span>
+              </div>
+            </div>
+
+            <!-- Regional Quick Selection Pills -->
+            <div class="regional-quick-pills" id="quick-region-pills"></div>
           </div>
-          <div class="stakeholder-body" id="stakeholder-body"></div>
+
+          <!-- Right 72%: Multi-Lens Chart & Telemetry Stage -->
+          <div class="chart-stage-col">
+
+            <!-- Lens Sub-Tabs & Layer Toggles Bar -->
+            <div class="lens-bar">
+              <div class="lens-tabs">
+                <button class="lens-tab-btn active" id="lens-trend">
+                  <span>📈</span> Trend &amp; 95% CI Fan
+                </button>
+                <button class="lens-tab-btn" id="lens-seasonal">
+                  <span>🔄</span> Seasonal Cycle Decomposition
+                </button>
+                <button class="lens-tab-btn" id="lens-epochs">
+                  <span>📊</span> Multi-Epoch Comparison
+                </button>
+              </div>
+
+              <div class="layer-toggles">
+                <button class="layer-toggle-btn active" id="toggle-deseason" title="Remove 12-month calendar climatology">Deseasonalized</button>
+                <button class="layer-toggle-btn active" id="toggle-trendline" title="Show Theil-Sen fit &amp; 95% duality slope envelope">Trend Line &amp; CI</button>
+                <button class="layer-toggle-btn active" id="toggle-gap" title="Show shaded 2017–2018 GRACE to GRACE-FO bridge gap">11-Mo Gap</button>
+                <button class="layer-toggle-btn active" id="toggle-floods" title="Show FFWC historical flood events (2004, 2007, 2017, 2020, 2022)">🌊 Floods</button>
+              </div>
+            </div>
+
+            <!-- Canvas Display Area -->
+            <div class="chart-canvas-wrap">
+              <canvas id="timeseries-canvas"></canvas>
+            </div>
+
+            <!-- Bottom 5-Cell Swiss Telemetry Verdict Strip -->
+            <div class="verdict-telemetry-bar">
+              <div class="telemetry-cell">
+                <span class="tel-label">Statistical Verdict</span>
+                <div class="tel-val" id="tel-verdict">
+                  <span class="badge-null-trend">Evaluating...</span>
+                </div>
+                <span class="tel-sub" id="tel-verdict-sub">Standard standard threshold p &lt; 0.05</span>
+              </div>
+
+              <div class="telemetry-cell">
+                <span class="tel-label">Theil-Sen Slope</span>
+                <span class="tel-val" id="tel-slope">—</span>
+                <span class="tel-sub" id="tel-slope-vol">Volumetric rate</span>
+              </div>
+
+              <div class="telemetry-cell">
+                <span class="tel-label">95% Confidence Bounds</span>
+                <span class="tel-val" id="tel-ci" style="font-size:12.5px;">—</span>
+                <span class="tel-sub">Duality rank inversion</span>
+              </div>
+
+              <div class="telemetry-cell">
+                <span class="tel-label">p-Value &amp; FDR</span>
+                <span class="tel-val" id="tel-p">—</span>
+                <span class="tel-sub" id="tel-fdr">Benjamini-Hochberg</span>
+              </div>
+
+              <div class="telemetry-cell">
+                <span class="tel-label">Sample &amp; Power Limit</span>
+                <span class="tel-val" id="tel-n">—</span>
+                <span class="tel-sub" id="tel-mds">80% detection threshold</span>
+              </div>
+            </div>
+
+            <!-- Drawer Triggers Bar -->
+            <div class="drawer-trigger-bar">
+              <button class="drawer-btn" id="btn-open-diagnostics">
+                <span>🔬</span> Statistical Rigor Diagnostics &amp; Detection Power Drawer
+              </button>
+              <button class="drawer-btn" id="btn-open-directives">
+                <span>🌾</span> Regional Stakeholder Action Directives Drawer
+              </button>
+            </div>
+
+          </div>
+
         </div>
 
-      </div>
-
-    </div>
-
-    <!-- Elaborated Guided Detective Case Dossiers (Merged from DOOM) -->
-<section class="case-dossiers-section" id="case-dossiers">
-      <div class="case-dossiers-header">
-        <h2 class="case-dossiers-title">
-          <span>🔎</span> Guided Detective Case Dossiers (In-Depth Scientific Analysis)
-        </h2>
-        <p class="case-dossiers-subtitle">
-          Comprehensive, peer-reviewed explanations of all 6 guided case investigations. Each dossier explores the Earth observation science, empirical satellite measurements, societal impacts, methodological limitations, and future outlook—designed for clarity without sacrificing scientific rigor.
-        </p>
-      </div>
-
-      <!-- Case 1 -->
-      <div class="dossier-card" id="dossier-case-1">
-        <div class="dossier-card-header">
-          <div class="dossier-title-area">
-            <div class="dossier-badges">
-              <span class="dossier-badge">Case File #1</span>
-              <span class="dossier-domain">Water &amp; Food Security</span>
-            </div>
-            <h3 class="dossier-title">Where Is the Northwest's Water Going?</h3>
-            <div class="dossier-tagline">Total Water Storage vs. Satellite Rainfall in the Barind Tract</div>
-          </div>
-          <button class="dossier-btn" onclick="window.ED.activateCase('case-1')">
-            <span>🔍 Load into Workbench</span>
-          </button>
-        </div>
-        <div class="dossier-grid">
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>🛰️</span> 1. The Science Simplified
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Think of the regional water cycle as an immense natural savings account. During the summer monsoon, heavy rainfall deposits water across rivers, soil layers, and underground storage. Throughout the dry winter months, withdrawals occur through evaporation, plant transpiration, and human pumping.
-              </p>
-              <p>
-                To measure how much water Bangladesh holds, NASA uses the twin <strong>GRACE and GRACE Follow-On</strong> satellites orbiting 500 km above Earth. These spacecraft act like an ultra-sensitive scale: as water mass shifts across the landscape, Earth's gravitational pull changes subtly, shifting the distance between the two satellites by micrometers. Simultaneously, the <strong>GPM IMERG</strong> satellite constellation uses spaceborne radar and microwave sensors to track every millimeter of precipitation falling from clouds.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>📈</span> 2. Empirical Analysis &amp; Findings
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Over the full 24-year satellite observation baseline (2002–2026), Northwest Bangladesh shows a statistically significant decrease in total water storage at a rate of <span class="dossier-stat-highlight">-1.25 cm/yr</span> (95% CI: [-1.50, -1.02] cm/yr; p &lt; 0.0001, FDR q &lt; 0.0001; total volumetric loss rate of -0.39 km³/yr).
-              </p>
-              <p>
-                In contrast, GPM IMERG satellite rainfall over the identical geographic window exhibits <span class="dossier-stat-highlight">no detectable trend</span> (-1.91 mm/yr, 95% CI: [-11.0, +4.5] mm/yr; p = 0.54, FDR q = 0.8968). The storage decline occurring alongside precipitation with no detectable trend is consistent with intensive dry-season groundwater abstraction for Boro rice cultivation across 74.2% of the region's cultivated agricultural land.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>🌾</span> 3. Real-World Impact
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                The Northwest region includes <strong>38.81 million people living in regions with a significant total water storage decline</strong> (22.9% of the national population) and produces over one-third of the country's domestic rice supply.
-              </p>
-              <p>
-                As regional total water storage decreases year after year, shallow tubewells run dry during the critical pre-monsoon irrigation months (March–May). Farmers must repeatedly re-bore tubewells to greater depths and transition from suction-mode centrifugal pumps to costlier submersible pumps. This increases operating costs, strains household finances, and escalates rural electrical and diesel energy demands.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>⚠️</span> 4. Study &amp; Analysis Limitations
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                GRACE satellite gravimetry operates at a coarse spatial resolution of roughly 300 km (~100,000 km²), smoothing out localized hydrological gradients across individual upazilas.
-              </p>
-              <p>
-                Gravimetry measures total integrated column mass; it does not mechanically separate agricultural pumping from natural evapotranspiration without supplemental land surface models. Direct ground calibration against Bangladesh Water Development Board (BWDB) monitoring piezometers remains necessary to resolve local water table dynamics.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block dossier-block-full">
-            <div class="dossier-block-title">
-              <span>🔮</span> 5. Future Predictions &amp; Outlook
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Without proactive demand-side interventions, ongoing dry-season abstraction will continue to deepen pumping lifts across the Barind Tract. This will heighten vulnerability to seasonal dry spells and elevate production costs for staple grain crops.
-              </p>
-              <p>
-                Practical interventions include scaling <strong>Alternate Wetting and Drying (AWD)</strong> irrigation protocols (reducing irrigation water consumption by 15–30% without yield penalty), expanding prepaid smart meters on agricultural tubewells to curb over-pumping, and diversifying crop calendars toward less water-intensive winter crops such as wheat, maize, mustard, and pulses.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Case 2 -->
-      <div class="dossier-card" id="dossier-case-2">
-        <div class="dossier-card-header">
-          <div class="dossier-title-area">
-            <div class="dossier-badges">
-              <span class="dossier-badge">Case File #2 • Challenge Benchmark</span>
-              <span class="dossier-domain">Statistical Power &amp; Time Series</span>
-            </div>
-            <h3 class="dossier-title">Is 8 Years Enough?</h3>
-            <div class="dossier-tagline">Dr. James Acker's Core Lesson: Time Window Length &amp; Detection Limits</div>
-          </div>
-          <button class="dossier-btn" onclick="window.ED.activateCase('case-2')">
-            <span>🔍 Load into Workbench</span>
-          </button>
-        </div>
-        <div class="dossier-grid">
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>⏱️</span> 1. The Science Simplified
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                In environmental time series analysis, a common pitfall is assuming that when a statistical test reports p &gt; 0.05 ("not statistically significant"), the underlying physical process has stopped.
-              </p>
-              <p>
-                Natural weather patterns wander in multi-year waves: unusually wet years follow dry years. This persistence, called <strong>serial autocorrelation</strong>, creates statistical noise. As NASA oceanographer Dr. James Acker taught, analyzing a short record means natural noise can easily mask a true ongoing trend. Detecting a subtle secular rate of change requires either an exceptionally steep slope or a sufficiently long observation baseline to rise above the noise floor.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>📊</span> 2. Empirical Analysis &amp; Findings
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Restricting the analysis to the modern single-instrument <strong>GRACE-FO</strong> era (2018–2026, an 8-year span) yields an estimated slope for Northwest total water storage of <span class="dossier-stat-highlight">-1.67 cm/yr</span> (95% CI: [-3.32, +0.06] cm/yr; p = 0.0549, FDR q = 0.4626), classified as <span class="dossier-stat-highlight">no detectable trend</span> because the p-value exceeds 0.05.
-              </p>
-              <p>
-                Because month-to-month water storage exhibits high serial autocorrelation (lag-1 autocorrelation r₁ ≈ 0.55), the <strong>minimum detectable slope</strong> for an 8-year window is ~2.3 cm/yr. However, when the window expands to the full 24-year combined baseline (2002–2026), the detection limit drops to ~0.4 cm/yr, and the long-term trend of -1.25 cm/yr achieves unambiguous significance (p &lt; 0.0001, FDR q &lt; 0.0001).
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>🏛️</span> 3. Real-World Impact
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Misinterpreting non-significant short windows can lead decision-makers to conclude that regional water challenges have resolved, risking premature scale-back of conservation policies or infrastructure funding.
-              </p>
-              <p>
-                Recognizing detection limits ensures that long-term regional planning remains grounded in rigorous statistical power calculations rather than premature assumptions derived from truncated observation records.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>⚙️</span> 4. Study &amp; Analysis Limitations
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Bridging the original GRACE mission (2002–2017) and GRACE-FO (2018–2026) involves spanning an 11-month data gap during which no gravimetric satellite was aloft.
-              </p>
-              <p>
-                Statistical evaluations detect a potential inter-mission calibration offset (+9.15 cm, p = 0.028; falling to +7.83 cm, p = 0.171 when transition months are excluded). Because step shifts can influence trend lines, our analysis transparently presents three methodological options: single continuous slope (-1.25 cm/yr), step-adjusted (-1.81 cm/yr), and gap-transition excluded (-1.29 cm/yr).
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block dossier-block-full">
-            <div class="dossier-block-title">
-              <span>🚀</span> 5. Future Predictions &amp; Outlook
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                As the GRACE-FO satellite mission continues and the upcoming <strong>GRACE Continuity (GRACE-C)</strong> mission launches later this decade, single-instrument operational baselines will expand past 15 to 20 years.
-              </p>
-              <p>
-                These extended mission lifespans will enable future analysts to independently resolve multi-decadal trends using single instruments without cross-sensor calibration uncertainty, enhancing confidence in Earth system trend evaluations.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Case 3 -->
-      <div class="dossier-card" id="dossier-case-3">
-        <div class="dossier-card-header">
-          <div class="dossier-title-area">
-            <div class="dossier-badges">
-              <span class="dossier-badge">Case File #3 • Data Verification</span>
-              <span class="dossier-domain">Observational Audit</span>
-            </div>
-            <h3 class="dossier-title">The Reanalysis Trap</h3>
-            <div class="dossier-tagline">Atmospheric Model Artifact vs. Satellite Radar Observations</div>
-          </div>
-          <button class="dossier-btn" onclick="window.ED.activateCase('case-3')">
-            <span>🔍 Load into Workbench</span>
-          </button>
-        </div>
-        <div class="dossier-grid">
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>💻</span> 1. The Science Simplified
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Climate scientists rely on two primary information sources: <strong>direct physical observations</strong> (satellites, radars, and rain gauges) and <strong>atmospheric reanalyses</strong> (computer simulations that blend physical fluid dynamics with historical weather data).
-              </p>
-              <p>
-                While reanalyses generate continuous global weather grids, they can suffer from artificial shifts when the underlying satellite sensors assimilated into the simulation are upgraded or replaced. If an input sensor changes abruptly, the computer simulation may generate an artificial jump in rainfall that never occurred in the real atmosphere. A rigorous trend detective must always audit numerical reanalyses against direct physical satellite measurements.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>🔍</span> 2. Empirical Analysis &amp; Findings
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                In preliminary environmental assessments, NASA POWER (derived from the MERRA-2 atmospheric reanalysis) indicated a large upward rainfall trend (+29 to +86 mm/yr across varying windows), showing an artificial step increase of +45% to +84% around 2014–2015.
-              </p>
-              <p>
-                However, auditing this against direct physical spaceborne radar and microwave observations from <strong>NASA GPM IMERG V07B</strong> across 285 months (2002–2025) shows no such upward surge. National IMERG precipitation displays an estimated slope of <span class="dossier-stat-highlight">+2.04 mm/yr</span> (95% CI: [-7.70, +12.45] mm/yr; p = 0.64, FDR q = 0.93), classified as <span class="dossier-stat-highlight">no detectable trend</span>. The apparent rainfall increase was a simulation artifact stemming from assimilation transitions.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>💧</span> 3. Real-World Impact
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Accepting an artificial rainfall surge could lead water management authorities to design oversized flood drainage works or assume that climate change will naturally provide additional precipitation to offset regional groundwater depletion.
-              </p>
-              <p>
-                Independent observational audits protect regional infrastructure investments by ensuring climate adaptation policies are founded on validated physical observations rather than simulation artifacts.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>📡</span> 4. Study &amp; Analysis Limitations
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                The calibrated GPM IMERG V07B monthly dataset used in this evaluation terminates in September 2025, leaving a 10-month unmonitored period relative to the gravimetric satellite baseline ending in July 2026.
-              </p>
-              <p>
-                Additionally, spaceborne microwave precipitation retrievals encounter calibration complexities over mixed coastal land-water pixels along the Meghna estuary and southern mangrove deltas.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block dossier-block-full">
-            <div class="dossier-block-title">
-              <span>🛡️</span> 5. Future Predictions &amp; Outlook
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Automated multi-sensor verification algorithms (such as the verification gates built into this application) will become standard in climate risk modeling.
-              </p>
-              <p>
-                As next-generation dual-frequency precipitation radars and geostationary lightning mappers expand operational coverage, direct physical observation networks will provide continuous, artifact-screened climate monitoring worldwide.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Case 4 -->
-      <div class="dossier-card" id="dossier-case-4">
-        <div class="dossier-card-header">
-          <div class="dossier-title-area">
-            <div class="dossier-badges">
-              <span class="dossier-badge">Case File #4</span>
-              <span class="dossier-domain">Hydrological Modeling</span>
-            </div>
-            <h3 class="dossier-title">Soil or Deeper?</h3>
-            <div class="dossier-tagline">Partitioning Root-Zone Moisture vs. Subsurface Residual</div>
-          </div>
-          <button class="dossier-btn" onclick="window.ED.activateCase('case-4')">
-            <span>🔍 Load into Workbench</span>
-          </button>
-        </div>
-        <div class="dossier-grid">
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>🌱</span> 1. The Science Simplified
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                When satellite gravimetry detects that a region is losing water mass, where is that loss located? Is topsoil drying out in the sun, or are deeper subsurface reserves being drawn down?
-              </p>
-              <p>
-                Total water storage measured from space represents the combined sum of all water columns: vegetation canopy moisture, topsoil moisture, rivers, lakes, and deeper subterranean reserves. To partition these layers, hydrologists employ land surface models (such as NASA GLDAS Noah and VIC) that simulate water movement through the upper 2.0 meters of soil—the zone accessed by crop roots. Subtracting simulated root-zone soil moisture from total satellite water storage leaves an <strong>unpartitioned residual (groundwater + surface water + biomass + model error)</strong>.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>🔬</span> 2. Empirical Analysis &amp; Findings
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                In Northwest Bangladesh, simulated root-zone soil moisture (0–200 cm) from GLDAS Noah exhibits a small trend of only <span class="dossier-stat-highlight">-0.12 cm/yr</span> (-0.10 cm/yr under VIC), accounting for roughly 8% to 10% of the total regional storage decrease.
-              </p>
-              <p>
-                In contrast, the unpartitioned residual (groundwater + surface water + biomass + model error) declines at <span class="dossier-stat-highlight">-1.12 to -1.11 cm/yr</span>, representing approximately 90% of the total storage deficit. While root-zone soil moisture replenishes each monsoon, the unpartitioned residual shows a persistent cumulative decline across consecutive seasons.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>🌾</span> 3. Real-World Impact
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Because upper root-zone moisture refills during monsoon rainfall, rainfed summer Aman rice cultivation is largely supported in normal monsoon seasons.
-              </p>
-              <p>
-                However, the persistent deficit in the unpartitioned residual directly affects the winter Boro crop season, which depends on mechanized tubewell pumping. Lower water levels increase the energy requirements for pumping, and falling water tables heighten the risk of heavy metal and arsenic mobilization in rural drinking water supplies.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>🧩</span> 4. Study &amp; Analysis Limitations
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Standard GLDAS land surface models run in "open-loop" mode without dynamic irrigation abstractions, meaning they simulate natural infiltration but do not explicitly represent tubewell pumping.
-              </p>
-              <p>
-                Furthermore, the residual remains an unpartitioned residual (groundwater + surface water + biomass + model error); satellite gravimetry alone cannot independently isolate deep groundwater from surface water bodies, vegetation biomass variations, or model structure errors.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block dossier-block-full">
-            <div class="dossier-block-title">
-              <span>💧</span> 5. Future Predictions &amp; Outlook
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Continued depletion of the unpartitioned residual will push water tables deeper across the Barind Tract, increasing operating expenses for agricultural tubewells.
-              </p>
-              <p>
-                Integrating satellite gravimetry with in situ telemetric piezometers and high-resolution surface water altimetry from the <strong>SWOT</strong> satellite mission will enable detailed 3D partitioning between surface reservoirs and subsurface storage layers.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Case 5 -->
-      <div class="dossier-card" id="dossier-case-5">
-        <div class="dossier-card-header">
-          <div class="dossier-title-area">
-            <div class="dossier-badges">
-              <span class="dossier-badge">Case File #5</span>
-              <span class="dossier-domain">Atmospheric Aerosols</span>
-            </div>
-            <h3 class="dossier-title">Is Dhaka's Air Getting Hazier?</h3>
-            <div class="dossier-tagline">NASA AERONET Ground Sun Photometer vs. Satellite Skies</div>
-          </div>
-          <button class="dossier-btn" onclick="window.ED.activateCase('case-5')">
-            <span>🔍 Load into Workbench</span>
-          </button>
-        </div>
-        <div class="dossier-grid">
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>☀️</span> 1. The Science Simplified
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Suspended atmospheric particles—including smoke, soot, vehicle exhaust, and mineral dust—scatter and absorb incoming sunlight. Scientists measure this atmospheric haziness using <strong>Aerosol Optical Depth (AOD)</strong>.
-              </p>
-              <p>
-                An AOD of ~0.1 indicates clear skies, while values exceeding 1.0 signify dense, hazardous smog. To measure aerosols without satellite cloud-glare distortion, NASA established the global <strong>AERONET</strong> network: calibrated ground-based sun photometers on rooftops that track direct solar extinction through spectral filters. Simultaneously, NASA's <strong>MODIS sensor aboard the Aqua satellite</strong> retrieves Level 3 1° gridded monthly AOD across entire regional landscapes at 550 nm.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>📈</span> 2. Empirical Analysis &amp; Findings
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Synthesizing 24 years of NASA MODIS Aqua Level 3 satellite observations (2002–2026, 277 months) alongside 12 years of ground-truth NASA AERONET sun photometer observations (2012–2024, Dhaka University) establishes a statistically significant secular increase in atmospheric aerosol loading.
-              </p>
-              <p>
-                Across the full 24-year satellite record, MODIS Aqua measures an upward slope in Dhaka AOD of <span class="dossier-stat-highlight">+0.0115 per year</span> (95% CI: [+0.0063, +0.0168], p &lt; 0.0001, Hurwicz-corrected ESS N* = 140.4). Across the nationwide Bangladesh bounding box, a statistically significant upward trend also emerges (+0.0081/yr, p = 0.0040). Ground-truth AERONET sun photometers independently validate this trajectory (+0.012/yr, p = 0.014). Both sensors reveal marked seasonality: monsoon rain scavenges particulates down to 0.2–0.4 AOD, while dry winter months (DJF) regularly exceed 1.1–1.4 AOD due to brick kiln operations and boundary layer stagnation.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>🏥</span> 3. Real-World Impact
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Central Bangladesh houses <strong>45.64 million residents</strong> (26.9% of the national population), predominantly residing within the Dhaka megacity area.
-              </p>
-              <p>
-                Winter aerosol levels consistently exceeding 1.0 AOD correspond to unhealthy particulate matter concentrations (PM2.5), contributing to spikes in pediatric asthma admissions, chronic obstructive pulmonary disease (COPD), and cardiovascular illnesses during the winter season.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>🌫️</span> 4. Study &amp; Analysis Limitations
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Dhaka AERONET data is collected from a single rooftop monitoring station at Dhaka University. While offering high radiometric accuracy, a point measurement cannot resolve horizontal dispersion gradients across outlying industrial hubs such as Gazipur and Narayanganj.
-              </p>
-              <p>
-                Furthermore, frequent cloud cover during the summer monsoon creates intermittent observational gaps requiring robust temporal filtering.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block dossier-block-full">
-            <div class="dossier-block-title">
-              <span>🌿</span> 5. Future Predictions &amp; Outlook
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Without structural changes in industrial and transportation emissions, winter atmospheric haze will remain elevated across the capital region.
-              </p>
-              <p>
-                Effective mitigation strategies include transitioning traditional brick kilns to cleaner Zigzag, Hybrid Hoffman, or tunnel kilns, enforcing stricter vehicular emissions standards, suppressing roadside dust, and coordinating airshed management policies across the Indo-Gangetic Plain.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Case 6 -->
-      <div class="dossier-card" id="dossier-case-6">
-        <div class="dossier-card-header">
-          <div class="dossier-title-area">
-            <div class="dossier-badges">
-              <span class="dossier-badge">Case File #6</span>
-              <span class="dossier-domain">Climate Extremes</span>
-            </div>
-            <h3 class="dossier-title">Are Downpours Getting Stronger?</h3>
-            <div class="dossier-tagline">ETCCDI Extreme 1-Day Downpours (Rx1day)</div>
-          </div>
-          <button class="dossier-btn" onclick="window.ED.activateCase('case-6')">
-            <span>🔍 Load into Workbench</span>
-          </button>
-        </div>
-        <div class="dossier-grid">
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>⛈️</span> 1. The Science Simplified
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Basic atmospheric physics (the Clausius-Clapeyron relation) establishes that a warmer atmosphere holds roughly 7% more water vapor per 1°C of warming. This has led scientists to investigate whether short-duration downpours are intensifying even when annual total rainfall exhibits no detectable trend.
-              </p>
-              <p>
-                To study this, the international <strong>ETCCDI</strong> initiative developed standardized climate extreme indices. The <strong>Rx1day index</strong> measures the single highest 24-hour rainfall total recorded in each calendar year, tracking the severity of extreme daily storm events.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>📉</span> 2. Empirical Analysis &amp; Findings
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Evaluating the Rx1day extreme precipitation index from satellite radar and gauge records across 22 years (2003–2024) reveals substantial year-to-year variability, with annual national maximum 1-day totals swinging from ~50 mm/day up to over 115 mm/day during major flood years (including 2004, 2007, 2017, 2020, and 2022).
-              </p>
-              <p>
-                Applying the Mann-Kendall trend test with Hurwicz autocorrelation adjustment yields p &gt; 0.05, placing the secular trend in the category of <span class="dossier-stat-highlight">no detectable trend</span>. The high natural interannual variance of extreme deluges requires a longer observation baseline before a secular trend can be statistically separated from random noise.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>🌊</span> 3. Real-World Impact
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Even without a statistically detectable trend in the historical satellite record, single-day downpours exceeding 80–115 mm cause flash flooding in northeastern wetland haor basins and severe urban waterlogging in Dhaka and Chattogram.
-              </p>
-              <p>
-                These extreme rain events overwhelm city drainage systems, submerge agricultural fields, disrupt transport networks, and heighten the risk of waterborne diseases in densely populated urban centers.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block">
-            <div class="dossier-block-title">
-              <span>⏱️</span> 4. Study &amp; Analysis Limitations
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                The Rx1day metric aggregates rainfall over a full 24-hour window, so it cannot resolve sub-daily cloudbursts (such as 70 mm in 2 hours), which often cause the most intense localized urban flooding.
-              </p>
-              <p>
-                In addition, satellite radar pixels (~10 km footprint) spatially average intense convective storm cores, which may underestimate peak localized deluge intensity relative to ground tipping-bucket rain gauges.
-              </p>
-            </div>
-          </div>
-
-          <div class="dossier-block dossier-block-full">
-            <div class="dossier-block-title">
-              <span>🏗️</span> 5. Future Predictions &amp; Outlook
-            </div>
-            <div class="dossier-block-content">
-              <p>
-                Climate modeling projections indicate that ongoing thermodynamic warming will increase the frequency of high-intensity short-duration rainfall events across South Asia.
-              </p>
-              <p>
-                Enhancing resilience will depend on upgrading municipal stormwater drainage networks to accommodate sub-daily rainfall intensities, protecting natural retention wetlands, and expanding Doppler radar networks to deliver multi-hour early warnings for localized flash floods.
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- Data Catalog & Methodology -->
-    <section class="data-catalog-section" id="data-catalog">
-      <h3 style="font-size:1.15rem;font-weight:800;margin-bottom:6px;">NASA Earth Observations &amp; Models Catalog</h3>
-      <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:14px;">
-        All variables in this application are derived from authenticated NASA Earth science satellites and land surface reanalyses:
-      </p>
-      <div class="catalog-table-wrap">
-        <table class="catalog-table">
+    <!-- ====================================================================
+         Section 03: Tabbed Bento Case Dossier Explorer (100vh)
+         ==================================================================== -->
+    <section class="deck-section" id="sec-dossiers">
+      <div class="dossier-explorer-shell">
+
+        <!-- Left 24% Vertical Tab Rail -->
+        <aside class="dossier-rail">
+          <div class="dossier-rail-header">
+            <span>📂</span> Guided Case Investigations
+          </div>
+
+          <div id="dossier-tabs-list" style="display:flex;flex-direction:column;gap:6px;">
+            <!-- Injected via cases.js / app.js -->
+          </div>
+
+          <div class="dossier-rail-action">
+            <button class="load-workbench-btn" id="dossier-load-btn">
+              <span>🔍</span> Load Active Case into Workbench ↑
+            </button>
+          </div>
+        </aside>
+
+        <!-- Right 76% Animated Swiss Bento Grid -->
+        <div class="dossier-content-area" id="dossier-content-area">
+          <div class="dossier-header-bar">
+            <div>
+              <div class="case-badge" id="dossier-badge">Case File #1</div>
+              <h2 class="dossier-active-title" id="dossier-title">Where Is the Northwest's Water Going?</h2>
+              <div class="dossier-active-tagline" id="dossier-tagline">Total Water Storage vs. Satellite Rainfall in the Barind Tract</div>
+            </div>
+          </div>
+
+          <div class="dossier-bento-grid" id="dossier-bento-grid">
+            <!-- 1. Science Simplified -->
+            <div class="bento-block" id="dossier-block-science">
+              <div class="bento-block-title"><span>🛰️</span> 1. The Science Simplified</div>
+              <div class="bento-block-body" id="dossier-body-science"></div>
+            </div>
+
+            <!-- 2. Empirical Findings -->
+            <div class="bento-block" id="dossier-block-findings">
+              <div class="bento-block-title"><span>📈</span> 2. Empirical Analysis &amp; Findings</div>
+              <div class="bento-block-body" id="dossier-body-findings"></div>
+            </div>
+
+            <!-- 3. Real-World Impact -->
+            <div class="bento-block" id="dossier-block-impact">
+              <div class="bento-block-title"><span>🏥</span> 3. Real-World Impact</div>
+              <div class="bento-block-body" id="dossier-body-impact"></div>
+            </div>
+
+            <!-- 4. Study Limitations -->
+            <div class="bento-block" id="dossier-block-limitations">
+              <div class="bento-block-title"><span>⚠️</span> 4. Study &amp; Sensor Limitations</div>
+              <div class="bento-block-body" id="dossier-body-limitations"></div>
+            </div>
+
+            <!-- 5. Future Predictions & Outlook (Full Width) -->
+            <div class="bento-block bento-block-full" id="dossier-block-outlook">
+              <div class="bento-block-title"><span>🌿</span> 5. Future Outlook &amp; Adaptation Directives</div>
+              <div class="bento-block-body" id="dossier-body-outlook"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Section 04: NASA Sensor Telemetry Catalog (100vh)
+         ==================================================================== -->
+    <section class="deck-section" id="sec-catalog">
+      <div class="catalog-shell">
+        <div class="catalog-headline-bar">
+          <div>
+            <h2 class="catalog-title">NASA Earth Observations &amp; Models Specification Matrix</h2>
+            <p style="color:var(--text-muted);font-size:11px;margin-top:2px;">
+              Authenticated satellite missions, land surface reanalyses, and in situ calibration baselines utilized across Bangladesh.
+            </p>
+          </div>
+        </div>
+
+        <table class="catalog-matrix-table">
           <thead>
             <tr>
               <th>Variable</th>
@@ -844,7 +389,7 @@
               <th>Spatial Footprint</th>
               <th>Native Units</th>
               <th>Temporal Span</th>
-              <th>Key Limitation / Caveat</th>
+              <th>Scientific Limitation / Detection Boundary</th>
             </tr>
           </thead>
           <tbody>
@@ -854,7 +399,7 @@
               <td>~300 km regional mascon</td>
               <td>cm (equivalent water)</td>
               <td>2002-04 to 2026-07</td>
-              <td>Coarse resolution; division boundaries share footprint. 11-mo gap (2017–2018).</td>
+              <td>Coarse resolution; division boundaries share footprint. 11-mo observation gap (2017–2018).</td>
             </tr>
             <tr>
               <td><strong>Satellite Precipitation</strong></td>
@@ -862,7 +407,7 @@
               <td>0.1° (~10 km) gridded</td>
               <td>mm/month</td>
               <td>2002-01 to 2025-09</td>
-              <td>Rain gauge density varies; extreme convective cloud saturation.</td>
+              <td>Rain gauge density varies; extreme convective cloud saturation in mountain fronts.</td>
             </tr>
             <tr>
               <td><strong>Reanalysis Precipitation</strong></td>
@@ -870,7 +415,7 @@
               <td>0.5° × 0.625° reanalysis</td>
               <td>mm/month</td>
               <td>2002-01 to 2026-07</td>
-              <td>⚠️ 2015 observing system step artifact (Case File #3).</td>
+              <td>⚠️ 2015 observing system step artifact (audited in Case File #3).</td>
             </tr>
             <tr>
               <td><strong>Root-Zone Soil Moisture</strong></td>
@@ -886,7 +431,15 @@
               <td>Macro-regional aggregate</td>
               <td>cm (equivalent water)</td>
               <td>2002-04 to 2026-07</td>
-              <td>Strictly labeled 'groundwater + surface water + model error residual'.</td>
+              <td>Strictly labeled 'unpartitioned residual (groundwater + surface water + biomass + model error)'.</td>
+            </tr>
+            <tr>
+              <td><strong>Aerosol Optical Depth (MODIS Aqua)</strong></td>
+              <td>MODIS Aqua Level 3 (MYD08_M3 v6.1 via NASA Harmony)</td>
+              <td>1° (~110 km) gridded</td>
+              <td>Dimensionless (550 nm)</td>
+              <td>2002-07 to 2026-07</td>
+              <td>289 monthly granules. Satellite pass ~13:30 local solar time. Passive optical retrieval.</td>
             </tr>
             <tr>
               <td><strong>Aerosol Optical Depth (AERONET)</strong></td>
@@ -897,47 +450,99 @@
               <td>Level 1.5 cloud-cleared point measurement; urban center exposure.</td>
             </tr>
             <tr>
-              <td><strong>Aerosol Optical Depth (MODIS Aqua)</strong></td>
-              <td>MODIS Aqua Level 3 (MYD08_M3 v6.1 via NASA Harmony)</td>
-              <td>1° (~110 km) gridded (Dhaka cell &amp; BD box)</td>
-              <td>Dimensionless (550 nm)</td>
-              <td>2002-07 to 2026-07</td>
-              <td>Satellite pass over Bangladesh at ~13:30 local solar time. Passive optical retrieval.</td>
-            </tr>
-            <tr>
               <td><strong>Extreme 1-Day Downpours (Rx1day)</strong></td>
               <td>GPM IMERG Daily Precipitation Derivative</td>
               <td>Macro-regional aggregate</td>
               <td>mm/day</td>
               <td>2003 to 2024 (annual)</td>
-              <td>ETCCDI climate extreme index measuring the single wettest day per calendar year.</td>
+              <td>ETCCDI climate extreme index measuring single wettest day per calendar year.</td>
             </tr>
           </tbody>
         </table>
+
+        <div class="catalog-footer-credits">
+          <div>
+            <strong>NASA Space Apps Challenge 2026</strong> • “Be an Earth Systems Trend Detective!” • Team Tenstral
+          </div>
+          <div>
+            100% Client-Side Pure JS Statistical Engine • Zero Server Dependency • Fully Offline Capable
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer-credits">
-      <p>NASA Space Apps Challenge 2026 • “Be an Earth Systems Trend Detective!” • Team Tenstral</p>
-      <p style="margin-top:4px;font-size:0.75rem;">
-        Developed for the Dhaka Regional Round • Offline-Ready Architecture • 100% Client-Side Statistical Engine
-      </p>
-    </footer>
-
   </main>
 
-  <!-- Variable Definition Popover Modal -->
+  <!-- ======================================================================
+       Step 1 Variable Selection Popover Dropdown
+       ====================================================================== -->
+  <div class="var-popover-backdrop" id="var-popover-backdrop"></div>
+  <div class="var-popover" id="var-popover">
+    <div class="var-popover-header">
+      <span>Select Earth Science Variable (Step 1)</span>
+      <button class="drawer-close-btn" id="var-popover-close">&times;</button>
+    </div>
+    <div class="var-popover-grid" id="var-popover-grid">
+      <!-- Populated dynamically via app.js -->
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       Slide-Over Drawer: Statistical Rigor & Power Diagnostics
+       ====================================================================== -->
+  <div class="drawer-backdrop" id="diagnostics-backdrop"></div>
+  <aside class="slide-drawer" id="drawer-diagnostics">
+    <div class="drawer-header">
+      <div class="drawer-title"><span>🔬</span> Statistical Rigor &amp; Detection Power</div>
+      <button class="drawer-close-btn" id="close-diagnostics">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <p style="color:var(--text-muted);font-size:11px;margin-bottom:12px;">
+        Mathematical diagnostics verifying statistical independence, Hurwicz small-sample autocorrelation correction, and duality confidence intervals.
+      </p>
+
+      <div class="drawer-section-title">Mann-Kendall Test Statistics</div>
+      <div class="diagnostics-grid" id="diag-stats-grid"></div>
+
+      <div class="drawer-section-title">Dr. James Acker's Window Length Lesson</div>
+      <p id="diag-window-lesson" style="background:var(--bg-subtle);padding:10px;border-radius:4px;border:1px solid var(--border-grid);margin-bottom:12px;"></p>
+
+      <div class="drawer-section-title">Sensor &amp; Mission Break Safeguards</div>
+      <p id="diag-sensor-safeguard" style="font-size:11px;color:var(--text-muted);"></p>
+    </div>
+  </aside>
+
+  <!-- ======================================================================
+       Slide-Over Drawer: Regional Stakeholder Directives
+       ====================================================================== -->
+  <div class="drawer-backdrop" id="directives-backdrop"></div>
+  <aside class="slide-drawer" id="drawer-directives">
+    <div class="drawer-header">
+      <div class="drawer-title"><span>🌾</span> Regional Stakeholder Action Directives</div>
+      <button class="drawer-close-btn" id="close-directives">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <p style="color:var(--text-muted);font-size:11px;margin-bottom:12px;">
+        Actionable policy, agricultural, and citizen directives translated directly from 24-year satellite trend detection for <strong id="directives-region-name">Northwest Bangladesh</strong>:
+      </p>
+
+      <div id="directives-items-container"></div>
+    </div>
+  </aside>
+
+  <!-- ======================================================================
+       Variable Specification Modal (ⓘ Details)
+       ====================================================================== -->
   <div class="modal-overlay" id="modal-overlay">
     <div class="modal-content">
       <button class="modal-close-btn" id="modal-close-btn">&times;</button>
-      <h3 class="modal-title" id="modal-title"></h3>
-      <div class="modal-meta" id="modal-meta"></div>
-      <div class="modal-body">
-        <p id="modal-def"></p>
-        <div class="modal-section">
-          <div class="modal-section-title">Scientific Caveats &amp; Detection Limits</div>
-          <p id="modal-caveats" style="color:var(--text-muted);font-size:0.85rem;"></p>
+      <h3 class="modal-title" id="modal-title" style="font-size:14px;font-weight:700;"></h3>
+      <div class="modal-meta" id="modal-meta" style="color:var(--text-muted);font-size:11px;margin:4px 0 10px 0;"></div>
+      <div class="modal-body" style="font-size:11.5px;line-height:1.5;">
+        <p id="modal-def" style="margin-bottom:10px;"></p>
+        <div style="background:var(--bg-subtle);padding:10px;border-radius:4px;border:1px solid var(--border-grid);">
+          <strong style="font-size:10.5px;text-transform:uppercase;color:var(--text-muted);">Scientific Caveats &amp; Detection Limits:</strong>
+          <p id="modal-caveats" style="color:var(--text-muted);margin-top:4px;"></p>
         </div>
       </div>
     </div>
