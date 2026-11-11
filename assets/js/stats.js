@@ -307,6 +307,17 @@
     const n = validY.length;
     if (n < 5) return null;
 
+    // Calculate Theil-Sen intercept: median(y - slope * t)
+    const rawIntercepts = [];
+    for (let i = 0; i < n; i++) {
+      rawIntercepts.push(validY[i] - slope * validT[i]);
+    }
+    rawIntercepts.sort((a, b) => a - b);
+    const midIdx = Math.floor(n / 2);
+    const intercept = (n % 2 !== 0)
+      ? rawIntercepts[midIdx]
+      : 0.5 * (rawIntercepts[midIdx - 1] + rawIntercepts[midIdx]);
+
     let meanT = 0;
     for (let i = 0; i < n; i++) meanT += validT[i];
     meanT /= n;
@@ -316,7 +327,7 @@
     for (let i = 0; i < n; i++) {
       const dt = validT[i] - meanT;
       ssT += dt * dt;
-      const resid = validY[i] - slope * validT[i];
+      const resid = validY[i] - (intercept + slope * validT[i]);
       ssResid += resid * resid;
     }
 
