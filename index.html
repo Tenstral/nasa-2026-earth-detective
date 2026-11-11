@@ -253,6 +253,29 @@
               <canvas id="timeseries-canvas"></canvas>
             </div>
 
+            <!-- Chart Timeline Brush Zoom Bar (Lens 1) -->
+            <div class="chart-zoom-bar" id="chart-zoom-bar">
+              <div class="czb-meta">
+                <span class="czb-tag">[ZOOM VIEWPORT]</span>
+                <span class="czb-readout" id="czb-readout">Full Time Range</span>
+              </div>
+              <div class="czb-track-container" id="czb-track-container">
+                <div class="czb-track-bg"></div>
+                <div class="czb-selection-window" id="czb-window">
+                  <div class="czb-handle czb-handle-left" id="czb-handle-left" title="Drag to adjust start date">
+                    <span class="czb-grip-line"></span>
+                  </div>
+                  <div class="czb-drag-pan" id="czb-drag-pan" title="Drag to pan timeline"></div>
+                  <div class="czb-handle czb-handle-right" id="czb-handle-right" title="Drag to adjust end date">
+                    <span class="czb-grip-line"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="czb-actions">
+                <button class="czb-btn-reset" id="czb-btn-reset" title="Reset to 100% full view">Reset Zoom</button>
+              </div>
+            </div>
+
             <!-- Bottom 5-Cell Swiss Telemetry Verdict Strip -->
             <div class="verdict-telemetry-bar">
               <div class="telemetry-cell">
@@ -464,6 +487,30 @@
               <td>2003 to 2024 (annual)</td>
               <td>ETCCDI climate extreme index measuring single wettest day per calendar year.</td>
             </tr>
+            <tr>
+              <td><strong>Near-Surface Air Temperature (AIRS)</strong></td>
+              <td>NASA Aqua AIRS Level 3 (AIRS3STM v7.0 SurfAirTemp_A)</td>
+              <td>1.0° (~111 km) gridded</td>
+              <td>°C (converted from K)</td>
+              <td>2002-09 to 2026-07</td>
+              <td>Coarse 1° grid (regions contain 1–3 cells; divisions disabled). Cloud-cleared daytime sampling (~1:30 PM).</td>
+            </tr>
+            <tr>
+              <td><strong>Total Column Water Vapor (AIRS)</strong></td>
+              <td>NASA Aqua AIRS Level 3 (AIRS3STM v7.0 TotH2OVap_A)</td>
+              <td>1.0° (~111 km) gridded</td>
+              <td>kg/m² (mm precipitable water)</td>
+              <td>2002-09 to 2026-07</td>
+              <td>Coarse 1° grid (divisions disabled). Clear-sky bias in deep convective monsoon systems.</td>
+            </tr>
+            <tr>
+              <td><strong>Tropospheric NO₂ Column (OMI)</strong></td>
+              <td>NASA Aura OMI Level 3 (OMNO2d v004 Cloud-Screened)</td>
+              <td>0.25° (~25 km) gridded</td>
+              <td>10¹⁵ molec/cm²</td>
+              <td>2004-10 to 2026-07</td>
+              <td>High urban sensitivity (traffic, brick kilns, thermal inversion trapping). OMI row anomaly mitigated by quality flags.</td>
+            </tr>
           </tbody>
         </table>
 
@@ -577,6 +624,8 @@
   <script src="data/series_divisions.js"></script>
   <script src="data/series_extremes.js"></script>
   <script src="data/series_aod.js"></script>
+  <script src="data/series_airs.js"></script>
+  <script src="data/series_omi.js"></script>
   <script src="assets/js/stats.js"></script>
   <script src="assets/js/cases.js"></script>
   <script src="assets/js/app.js"></script>

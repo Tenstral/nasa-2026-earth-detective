@@ -1044,6 +1044,164 @@ a:hover {
   height: 100% !important;
 }
 
+/* Timeline Brush Zoom Bar */
+.chart-zoom-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 12px 6px 12px;
+  background: var(--surface-card);
+  border-top: 1px solid var(--border-grid);
+  border-bottom: 1px solid var(--border-grid);
+  user-select: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.chart-zoom-bar.czb-hidden {
+  display: none !important;
+}
+
+.czb-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.czb-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--accent-blue);
+  background: var(--accent-blue-wash);
+  border: 1px solid var(--accent-blue-border);
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+}
+
+.czb-readout {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  min-width: 140px;
+}
+
+.czb-track-container {
+  flex: 1;
+  position: relative;
+  height: 22px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-grid);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.czb-track-bg {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 19px,
+    var(--border-subtle) 19px,
+    var(--border-subtle) 20px
+  );
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.czb-selection-window {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0%;
+  right: 0%;
+  background: rgba(2, 132, 199, 0.12);
+  border-top: 2px solid var(--accent-blue);
+  border-bottom: 2px solid var(--accent-blue);
+  display: flex;
+  align-items: center;
+  touch-action: none;
+}
+
+.czb-drag-pan {
+  flex: 1;
+  height: 100%;
+  cursor: grab;
+}
+.czb-drag-pan:active {
+  cursor: grabbing;
+}
+
+.czb-handle {
+  width: 12px;
+  height: 100%;
+  background: var(--surface-card);
+  border: 1px solid var(--accent-blue);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ew-resize;
+  z-index: 2;
+  flex-shrink: 0;
+  touch-action: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.czb-handle:hover,
+.czb-handle.dragging {
+  background: var(--accent-blue-wash);
+  border-color: #0284c7;
+}
+
+.czb-handle-left {
+  border-top-left-radius: var(--radius-xs);
+  border-bottom-left-radius: var(--radius-xs);
+}
+
+.czb-handle-right {
+  border-top-right-radius: var(--radius-xs);
+  border-bottom-right-radius: var(--radius-xs);
+}
+
+.czb-grip-line {
+  width: 2px;
+  height: 10px;
+  background: var(--accent-blue);
+  border-radius: 1px;
+}
+
+.czb-actions {
+  flex-shrink: 0;
+}
+
+.czb-btn-reset {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-grid);
+  border-radius: var(--radius-xs);
+  padding: 3px 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.czb-btn-reset:hover {
+  background: var(--bg-hover);
+  color: var(--text-main);
+  border-color: var(--border-strong);
+}
+.czb-btn-reset.active-zoom {
+  background: var(--accent-blue-wash);
+  color: var(--accent-blue);
+  border-color: var(--accent-blue-border);
+}
+
 /* Bottom 5-Cell Swiss Telemetry Verdict Strip */
 .verdict-telemetry-bar {
   display: grid;

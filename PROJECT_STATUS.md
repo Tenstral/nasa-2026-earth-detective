@@ -312,3 +312,18 @@ All reported figures have been audited against the primary single sources of tru
 
 6. **Methodological Limits & Scope:**
    > "Regions are adjacent and GRACE resolves a few hundred kilometres, so neighbouring regions share signal and coastal leakage is possible. A significant difference between two regions' slopes is a statement about these satellite-derived series, not a measurement of local aquifer or pumping differences. Recent windows are below the detection limit."
+
+---
+
+## 11. Atmospheric Extension: NASA AIRS & OMI Satellite Observables
+
+1. **AIRS Atmospheric Thermodynamics (`airs_temp` and `airs_h2o`):**
+   - **Instruments & Products:** Atmospheric Infrared Sounder on NASA Aqua (AIRS3STM v7.0 daytime ascending overpass ~1:30 PM local solar time, 2002-09 to 2026-07).
+   - **Near-Surface Air Temperature (`SurfAirTemp_A`, °C):** Converted from Kelvin ($T_{^{\circ}\text{C}} = T_{\text{K}} - 273.15$). Regional means range seasonally from ~21–24°C in winter (DJF) to ~31–34°C in pre-monsoon (MAM).
+   - **Total Column Water Vapor (`TotH2OVap_A`, kg/m²):** Measures total precipitable water column, ranging from ~14–20 kg/m² during dry winter months to ~60–65 kg/m² during peak monsoon (JJAS).
+   - **Spatial Scale Caveats:** 1.0° (~111 km) coarse resolution. Bangladesh contains ~10 grid cells; macro-regions contain only 1–3 cells (Central: ~1.4 cells; National: ~9.9 cells). Administrative division toggling is disabled. Cloud-clearing sampling bias is noted during deep monsoon cloud decks.
+
+2. **OMI Tropospheric Composition (`omi_no2`):**
+   - **Instrument & Product:** Ozone Monitoring Instrument on NASA Aura (OMNO2d v004 cloud-screened tropospheric column NO₂, 0.25° grid, 2004-10 to 2026-07).
+   - **Combustion Dynamics in Central Bangladesh:** High tropospheric NO₂ densities concentrated over Central / Dhaka Division, peaking during winter (DJF: ~4.5–5.8 $\times 10^{15}\ \text{molec/cm}^2$) due to planetary boundary layer compression (~200–500 m), thermal inversions, and seasonal brick kiln operations. Minimum levels occur during monsoon rain washout (~1.1–1.6 $\times 10^{15}$).
+   - **Case File #7:** Investigates "Is Dhaka's Air Getting Dirtier?" by pairing OMI tropospheric NO₂ with MODIS Aqua AOD in the interactive workbench.
