@@ -260,6 +260,18 @@ def build_dashboard_data(repo_root: Path = REPO_ROOT) -> dict:
         with open(placebo_json, "r", encoding="utf-8") as f:
             placebo_data = json.load(f)
 
+    catalog_path = repo_root / "data" / "catalog.js"
+    stakeholder_directives = {}
+    if catalog_path.exists():
+        with open(catalog_path, "r", encoding="utf-8") as f:
+            cat_text = f.read()
+            prefix = "window.ED.catalog = "
+            if prefix in cat_text:
+                idx = cat_text.find(prefix) + len(prefix)
+                end_idx = cat_text.rfind("};") + 1
+                cat = json.loads(cat_text[idx:end_idx])
+                stakeholder_directives = cat.get("stakeholderDirectives", {})
+
     compiled = {
         "svg_paths": svg_paths,
         "div_centers": div_centers,
@@ -279,6 +291,7 @@ def build_dashboard_data(repo_root: Path = REPO_ROOT) -> dict:
         "pairwise_differences": pairwise_data,
         "pairwise_calibration": calib_data,
         "real_residual_placebo": placebo_data,
+        "stakeholderDirectives": stakeholder_directives,
     }
     return compiled
 
@@ -294,14 +307,56 @@ def sanitize_nans(obj):
     return obj
 
 
+def extract_element_by_id(html: str, elem_id: str) -> str:
+    m = re.search(r'<([a-zA-Z0-9]+)[^>]*id=[\'"]' + re.escape(elem_id) + r'[\'"][^>]*>', html)
+    if not m:
+        return ""
+    start = m.start()
+    tag = m.group(1)
+
+    pos = start + len(m.group(0))
+    depth = 1
+    tag_pattern = re.compile(r'</?' + tag + r'[\s/>]', re.I)
+    for tm in tag_pattern.finditer(html, pos):
+        match_str = tm.group(0)
+        if match_str.startswith('</'):
+            depth -= 1
+            if depth == 0:
+                end_gt = html.find('>', tm.start()) + 1
+                return html[start:end_gt]
+        elif not match_str.endswith('/>'):
+            depth += 1
+    return ""
+
+
+def write_fragments(repo_root: Path, report_html: str):
+    ids = ["gldas", "threeway", "pairwise-differences", "limitations", "stakeholder-actions"]
+    fragments = {}
+    for fid in ids:
+        fragment_html = extract_element_by_id(report_html, fid)
+        if not fragment_html:
+            raise ValueError(f"Could not extract fragment #{fid} from report.html")
+        fragments[fid] = fragment_html
+
+    out_json = repo_root / "fragments.json"
+    with open(out_json, "w", encoding="utf-8") as f:
+        json.dump(fragments, f, indent=2)
+
+    out_js = repo_root / "data" / "fragments.js"
+    with open(out_js, "w", encoding="utf-8") as f:
+        f.write("window.REPORT_FRAGMENTS = ")
+        json.dump(fragments, f, indent=2)
+        f.write(";\n")
+
+
 def generate_updated_html(index_html_path: Path, data: dict) -> str:
-    """Replaces DASHBOARD_DATA in index.html with new JSON data block."""
+    """Replaces DASHBOARD_DATA in index.html or report.html with new JSON data block."""
     with open(index_html_path, "r", encoding="utf-8") as f:
         content = f.read()
 
     m = re.search(r"const DASHBOARD_DATA = \{.*?\};\s*</script>", content, re.DOTALL)
     if not m:
-        raise ValueError("Could not find 'const DASHBOARD_DATA = { ... }; </script>' in index.html")
+        raise ValueError(f"Could not find 'const DASHBOARD_DATA = {{ ... }}; </script>' in {index_html_path.name}")
 
     sanitized_data = sanitize_nans(data)
     data_json_str = json.dumps(sanitized_data, indent=2)
@@ -320,7 +375,10 @@ def generate_updated_html(index_html_path: Path, data: dict) -> str:
 def main():
     data = build_dashboard_data(REPO_ROOT)
     report_path = REPO_ROOT / "report.html"
-    new_html = generate_updated_html(report_path, data)
+    index_path = REPO_ROOT / "index.html"
+
+    # 1. Update report.html
+    new_report_html = generate_updated_html(report_path, data)
 
     # Check for forbidden patterns
     banned = [
@@ -331,14 +389,28 @@ def main():
         r"\bproves\b",
     ]
     for b in banned:
-        matches = list(re.finditer(b, new_html, re.IGNORECASE))
+        matches = list(re.finditer(b, new_report_html, re.IGNORECASE))
         if matches:
-            raise ValueError(f"Forbidden phrase '{b}' found in updated HTML: {[m.group(0) for m in matches]}")
+            raise ValueError(f"Forbidden phrase '{b}' found in updated report.html: {[m.group(0) for m in matches]}")
 
     with open(report_path, "w", encoding="utf-8") as f:
-        f.write(new_html)
+        f.write(new_report_html)
+    print(f"[OK] Successfully built dashboard data and updated: {report_path} ({len(new_report_html)} bytes)")
 
-    print(f"[OK] Successfully built dashboard data and updated: {report_path} ({len(new_html)} bytes)")
+    # 2. Extract and write fragments from report.html
+    write_fragments(REPO_ROOT, new_report_html)
+    print(f"[OK] Extracted 5 report fragments into fragments.json and data/fragments.js")
+
+    # 3. Update index.html
+    if index_path.exists():
+        new_index_html = generate_updated_html(index_path, data)
+        for b in banned:
+            matches = list(re.finditer(b, new_index_html, re.IGNORECASE))
+            if matches:
+                raise ValueError(f"Forbidden phrase '{b}' found in updated index.html: {[m.group(0) for m in matches]}")
+        with open(index_path, "w", encoding="utf-8") as f:
+            f.write(new_index_html)
+        print(f"[OK] Successfully injected dashboard data into: {index_path} ({len(new_index_html)} bytes)")
 
 
 if __name__ == "__main__":

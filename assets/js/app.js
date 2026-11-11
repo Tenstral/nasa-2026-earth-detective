@@ -31,8 +31,92 @@
     showStation: true,
     activeDossierCaseId: 'case-1',
     zoomStartRatio: 0, // 0.0 to 1.0 (Lens 1 viewport zoom)
-    zoomEndRatio: 1.0
+    zoomEndRatio: 1.0,
+    mode: 'scientist',
+    lang: 'en'
   };
+
+  const VAR_MAP_FROM_URL = {
+    'tws': 'grace_tws',
+    'grace_tws': 'grace_tws',
+    'grace_tws_cm': 'grace_tws',
+    'imerg': 'imerg_precip',
+    'imerg_precip': 'imerg_precip',
+    'imerg_precip_mm': 'imerg_precip',
+    'precip': 'imerg_precip',
+    'power': 'power_precip',
+    'power_precip': 'power_precip',
+    'noah_sms': 'noah_sms_anom',
+    'noah_sms_anom': 'noah_sms_anom',
+    'vic_sms': 'vic_sms_anom',
+    'vic_sms_anom': 'vic_sms_anom',
+    'residual': 'subsurface_residual',
+    'subsurface_residual': 'subsurface_residual',
+    'rx1day': 'extreme_rx1day',
+    'extreme_rx1day': 'extreme_rx1day',
+    'aod': 'modis_aod',
+    'modis_aod': 'modis_aod'
+  };
+
+  const VAR_MAP_TO_URL = {
+    'grace_tws': 'tws',
+    'imerg_precip': 'imerg',
+    'power_precip': 'power',
+    'noah_sms_anom': 'noah_sms',
+    'vic_sms_anom': 'vic_sms',
+    'subsurface_residual': 'residual',
+    'extreme_rx1day': 'rx1day',
+    'modis_aod': 'aod'
+  };
+
+  const DIVISIONS = ['Barishal', 'Chattogram', 'Dhaka', 'Khulna', 'Mymensingh', 'Rajshahi', 'Rangpur', 'Sylhet'];
+
+  function applyUrlStateToApp(urlSt) {
+    if (!urlSt) return;
+    if (urlSt.var && VAR_MAP_FROM_URL[urlSt.var.toLowerCase()]) {
+      state.variable = VAR_MAP_FROM_URL[urlSt.var.toLowerCase()];
+    }
+    if (urlSt.region) {
+      if (DIVISIONS.includes(urlSt.region)) {
+        state.spatialType = 'division';
+        state.entity = urlSt.region;
+      } else {
+        state.spatialType = 'region';
+        state.entity = urlSt.region;
+      }
+    }
+    if (urlSt.start && urlSt.end) {
+      state.startYear = urlSt.start;
+      state.endYear = urlSt.end;
+    } else if (urlSt.window && window.URLState && window.URLState.WINDOW_YEARS[urlSt.window]) {
+      const wy = window.URLState.WINDOW_YEARS[urlSt.window];
+      state.startYear = wy.start;
+      state.endYear = wy.end;
+    }
+    if (urlSt.season) {
+      state.season = urlSt.season;
+    }
+    if (urlSt.mode) {
+      state.mode = urlSt.mode;
+    }
+    if (urlSt.lang) {
+      state.lang = urlSt.lang;
+    }
+  }
+
+  function syncAppToUrlState() {
+    if (!window.URLState) return;
+    const urlVar = VAR_MAP_TO_URL[state.variable] || state.variable;
+    window.URLState.setState({
+      var: urlVar,
+      region: state.entity,
+      start: state.startYear,
+      end: state.endYear,
+      season: state.season,
+      mode: state.mode,
+      lang: state.lang
+    });
+  }
 
   let chartInstance = null;
   let currentTrendPoints = [];
@@ -123,6 +207,8 @@
     // Telemetry Verdict Cells
     el.telVerdict = document.getElementById('tel-verdict');
     el.telVerdictSub = document.getElementById('tel-verdict-sub');
+    el.btnVerdictReportLink = document.getElementById('btn-verdict-report-link');
+    el.btnTriggerReportLink = document.getElementById('btn-trigger-report-link');
     el.telSlope = document.getElementById('tel-slope');
     el.telSlopeVol = document.getElementById('tel-slope-vol');
     el.telCi = document.getElementById('tel-ci');
@@ -146,6 +232,14 @@
     el.closeDirectives = document.getElementById('close-directives');
     el.directivesRegionName = document.getElementById('directives-region-name');
     el.directivesItemsContainer = document.getElementById('directives-items-container');
+
+    // Methodological Evidence Drawer
+    el.drawerEvidence = document.getElementById('evidenceDrawer');
+    el.evidenceBackdrop = document.getElementById('evidence-backdrop');
+    el.closeEvidence = document.getElementById('close-evidence');
+    el.btnOpenEvidence = document.getElementById('btn-open-evidence');
+    el.evidenceContent = document.getElementById('evidence-content');
+    el.evidenceOpenReportLink = document.getElementById('evidence-open-report-link');
 
     // Section 3: Dossier Explorer
     el.dossierTabsList = document.getElementById('dossier-tabs-list');
@@ -429,6 +523,7 @@
           state.zoomStartRatio = 0;
           state.zoomEndRatio = 1.0;
           if (state.overlayVariable === v.id) state.overlayVariable = '';
+          syncAppToUrlState();
           closeVarPopover();
           syncCommandRibbon();
           runWorkflow();
@@ -680,6 +775,7 @@
       return;
     }
 
+    const curVar = getVarMeta(state.variable);
     const n = currentTrendPoints.length;
     const L = state.zoomStartRatio;
     const R = state.zoomEndRatio;
@@ -688,6 +784,10 @@
     if (!isZoomed) {
       chartInstance.options.scales.x.min = undefined;
       chartInstance.options.scales.x.max = undefined;
+      if (state.lastStatResult && curVar) {
+        renderTelemetryStrip(state.lastStatResult, currentTrendPoints.length, curVar);
+        updateDiagnosticsContent(state.lastStatResult, currentTrendPoints.length, curVar);
+      }
     } else {
       const startIdx = Math.max(0, Math.min(n - 1, Math.round(L * (n - 1))));
       const endIdx = Math.max(0, Math.min(n - 1, Math.round(R * (n - 1))));
@@ -695,6 +795,29 @@
       const pEnd = currentTrendPoints[endIdx];
       chartInstance.options.scales.x.min = pStart?.ym || pStart?.year;
       chartInstance.options.scales.x.max = pEnd?.ym || pEnd?.year;
+
+      const slicedPoints = currentTrendPoints.slice(startIdx, endIdx + 1);
+      const startYr = pStart?.year || state.startYear;
+      const endYr = pEnd?.year || state.endYear;
+      const sliceStat = window.Stats.analyze({
+        var: state.variable,
+        region: state.entity,
+        start: startYr,
+        end: endYr,
+        season: state.season,
+        points: slicedPoints
+      });
+      sliceStat.valid = Boolean(sliceStat && !sliceStat.error && !isNaN(sliceStat.slope));
+      if (sliceStat.valid) {
+        sliceStat.slope = (sliceStat.theil_sen_slope !== undefined && !isNaN(sliceStat.theil_sen_slope)) ? sliceStat.theil_sen_slope : sliceStat.slope;
+        sliceStat.n_eff = (sliceStat.n_star !== undefined && typeof sliceStat.n_star === 'number') ? sliceStat.n_star : sliceStat.n;
+        sliceStat.slope_ci_low = sliceStat.slope_ci_low !== undefined ? sliceStat.slope_ci_low : sliceStat.ci_low;
+        sliceStat.slope_ci_high = sliceStat.slope_ci_high !== undefined ? sliceStat.slope_ci_high : sliceStat.ci_high;
+      }
+      if (curVar) {
+        renderTelemetryStrip(sliceStat, slicedPoints.length, curVar);
+        updateDiagnosticsContent(sliceStat, slicedPoints.length, curVar);
+      }
     }
 
     chartInstance.update('none');
@@ -838,6 +961,7 @@
         state.startYear = sy;
         state.endYear = ey;
         state.season = 'annual';
+        syncAppToUrlState();
         syncCommandRibbon();
         runWorkflow();
       });
@@ -882,6 +1006,7 @@
       btn.addEventListener('click', () => {
         state.spatialType = btn.getAttribute('data-type');
         state.entity = (state.spatialType === 'division') ? 'Rajshahi' : 'NW';
+        syncAppToUrlState();
         syncCommandRibbon();
         runWorkflow();
         zoomToEntity(state.entity, state.spatialType === 'division');
@@ -890,6 +1015,7 @@
 
     el.regionSelect.addEventListener('change', (e) => {
       state.entity = e.target.value;
+      syncAppToUrlState();
       runWorkflow();
       zoomToEntity(state.entity, state.spatialType === 'division');
     });
@@ -899,6 +1025,7 @@
       if (state.startYear > state.endYear) state.endYear = state.startYear;
       state.zoomStartRatio = 0;
       state.zoomEndRatio = 1.0;
+      syncAppToUrlState();
       syncCommandRibbon();
       runWorkflow();
     });
@@ -908,12 +1035,14 @@
       if (state.endYear < state.startYear) state.startYear = state.endYear;
       state.zoomStartRatio = 0;
       state.zoomEndRatio = 1.0;
+      syncAppToUrlState();
       syncCommandRibbon();
       runWorkflow();
     });
 
     el.seasonSelect.addEventListener('change', (e) => {
       state.season = e.target.value;
+      syncAppToUrlState();
       runWorkflow();
     });
 
@@ -982,6 +1111,23 @@
     el.btnOpenDirectives.addEventListener('click', openDirectivesDrawer);
     el.closeDirectives.addEventListener('click', closeAllDrawers);
     el.directivesBackdrop.addEventListener('click', closeAllDrawers);
+
+    if (el.btnOpenEvidence) {
+      el.btnOpenEvidence.addEventListener('click', () => openEvidenceDrawer('threeway'));
+    }
+    if (el.closeEvidence) {
+      el.closeEvidence.addEventListener('click', closeAllDrawers);
+    }
+    if (el.evidenceBackdrop) {
+      el.evidenceBackdrop.addEventListener('click', closeAllDrawers);
+    }
+
+    document.querySelectorAll('.evidence-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const fragId = btn.getAttribute('data-frag');
+        renderEvidenceFragment(fragId);
+      });
+    });
 
     // Modal
     el.modalCloseBtn.addEventListener('click', closeModal);
@@ -1370,14 +1516,22 @@
     const tYears = processedPoints.map(d => d.decimal_year);
     const yVals = processedPoints.map(d => d.value);
 
-    // Calibrated ESS-MK Test
-    const statResult = window.Stats.essMannKendall(tYears, yVals, 0.05);
-    statResult.valid = Boolean(statResult && !statResult.error && !isNaN(statResult.slope));
+    // Client-side analyze() reading DASHBOARD_DATA
+    const statResult = window.Stats.analyze({
+      var: state.variable,
+      region: state.entity,
+      start: state.startYear,
+      end: state.endYear,
+      season: state.season,
+      points: processedPoints
+    });
+    statResult.valid = Boolean(statResult && !statResult.error && !isNaN(statResult.theil_sen_slope !== undefined ? statResult.theil_sen_slope : statResult.slope));
     if (statResult.valid) {
-      statResult.n_eff = statResult.n_star !== undefined ? statResult.n_star : statResult.n;
-      statResult.slope_ci_low = statResult.ci_low;
-      statResult.slope_ci_high = statResult.ci_high;
-      const mds = window.Stats.approxMDS(tYears, yVals, statResult.slope, statResult.gamma || 1.0);
+      statResult.slope = (statResult.theil_sen_slope !== undefined && !isNaN(statResult.theil_sen_slope)) ? statResult.theil_sen_slope : statResult.slope;
+      statResult.n_eff = (statResult.n_star !== undefined && typeof statResult.n_star === 'number') ? statResult.n_star : statResult.n;
+      statResult.slope_ci_low = statResult.slope_ci_low !== undefined ? statResult.slope_ci_low : statResult.ci_low;
+      statResult.slope_ci_high = statResult.slope_ci_high !== undefined ? statResult.slope_ci_high : statResult.ci_high;
+      const mds = window.Stats.approxMDS(tYears, yVals, statResult.slope, typeof statResult.gamma === 'number' ? statResult.gamma : 1.0);
       statResult.mds_80_power = (mds !== null && !isNaN(mds)) ? mds : 0.0;
     }
 
@@ -1876,32 +2030,81 @@
     el.telCi.textContent = `[${ciLow !== null && !isNaN(ciLow) ? Number(ciLow).toFixed(3) : '—'}, ${ciHigh !== null && !isNaN(ciHigh) ? Number(ciHigh).toFixed(3) : '—'}]`;
 
     el.telP.textContent = statResult.p_value < 0.0001 ? '< 0.0001' : statResult.p_value.toFixed(4);
-    el.telFdr.textContent = `Z = ${statResult.z >= 0 ? '+' : ''}${statResult.z.toFixed(2)} • S = ${statResult.s}`;
+    if (statResult.is_precomputed) {
+      if (typeof statResult.bh_fdr_q_value === 'number') {
+        el.telFdr.textContent = `q = ${statResult.bh_fdr_q_value < 0.0001 ? '< 0.0001' : statResult.bh_fdr_q_value.toFixed(4)}`;
+      } else {
+        el.telFdr.textContent = `Z = ${statResult.z >= 0 ? '+' : ''}${statResult.z.toFixed(2)} • S = ${statResult.s}`;
+      }
+    } else {
+      el.telFdr.textContent = 'precomputed windows only';
+    }
 
     const nEff = statResult.n_eff !== undefined ? statResult.n_eff : (statResult.n_star !== undefined ? statResult.n_star : count);
     const mds = statResult.mds_80_power !== undefined && statResult.mds_80_power !== null ? statResult.mds_80_power : 0;
-    el.telN.textContent = `N* = ${Number(nEff).toFixed(1)} (N = ${count})`;
-    el.telMds.textContent = `80% MDS = ±${Number(mds).toFixed(3)} ${curVar.unit}/yr`;
+    if (typeof nEff === 'number') {
+      el.telN.textContent = `N* = ${Number(nEff).toFixed(1)} (N = ${count})`;
+    } else {
+      el.telN.textContent = `N = ${count}`;
+    }
+    el.telMds.textContent = (typeof mds === 'number' && mds > 0) ? `80% MDS = ±${Number(mds).toFixed(3)} ${curVar.unit}/yr` : '—';
+
+    // Step 5 link to Report (Bangladesh regions only)
+    const isBangladesh = !['wisconsin_us', 'wisconsin'].includes(String(state.entity).toLowerCase());
+    const reportLinkHref = window.URLState ? window.URLState.buildLink('report.html', {
+      region: state.entity,
+      var: VAR_MAP_TO_URL[state.variable] || state.variable,
+      start: state.startYear,
+      end: state.endYear,
+      season: state.season,
+      mode: state.mode,
+      lang: state.lang
+    }, '#subsurface-validation') : 'report.html#subsurface-validation';
+
+    if (el.btnVerdictReportLink) {
+      if (isBangladesh) {
+        el.btnVerdictReportLink.style.display = 'inline-flex';
+        el.btnVerdictReportLink.href = reportLinkHref;
+      } else {
+        el.btnVerdictReportLink.style.display = 'none';
+      }
+    }
+    if (el.btnTriggerReportLink) {
+      if (isBangladesh) {
+        el.btnTriggerReportLink.style.display = 'inline-flex';
+        el.btnTriggerReportLink.href = reportLinkHref;
+      } else {
+        el.btnTriggerReportLink.style.display = 'none';
+      }
+    }
   }
 
   // 11. Drawers Content Updaters
   function updateDiagnosticsContent(statResult, count, curVar) {
+    const isPre = statResult.is_precomputed;
+    const r1Text = (isPre && typeof statResult.r1_detrended === 'number')
+      ? statResult.r1_detrended.toFixed(4)
+      : (typeof statResult.r1_detrended === 'number' ? statResult.r1_detrended.toFixed(4) : 'precomputed windows only');
+    const gamText = (isPre && typeof statResult.gamma === 'number')
+      ? statResult.gamma.toFixed(3)
+      : (typeof statResult.gamma === 'number' ? statResult.gamma.toFixed(3) : 'precomputed windows only');
+
     el.diagStatsGrid.innerHTML = `
       <div class="diag-item">
         <div class="diag-lbl">Mann-Kendall Score (S)</div>
-        <div class="diag-val">${statResult.s || 0}</div>
+        <div class="diag-val">${statResult.s !== undefined ? statResult.s : 0}</div>
       </div>
       <div class="diag-item">
         <div class="diag-lbl">Standardized Test (Z)</div>
-        <div class="diag-val">${statResult.z ? (statResult.z >= 0 ? '+' : '') + statResult.z.toFixed(3) : '0.000'}</div>
+        <div class="diag-val">${statResult.z !== undefined && typeof statResult.z === 'number' ? (statResult.z >= 0 ? '+' : '') + statResult.z.toFixed(3) : '0.000'}</div>
       </div>
       <div class="diag-item">
         <div class="diag-lbl">Hurwicz Lag-1 Autocorr (r₁*)</div>
-        <div class="diag-val">${statResult.r1_detrended ? statResult.r1_detrended.toFixed(4) : '0.000'}</div>
+        <div class="diag-val">${r1Text}</div>
       </div>
       <div class="diag-item">
         <div class="diag-lbl">Variance Inflation (γ)</div>
-        <div class="diag-val">${statResult.gamma ? statResult.gamma.toFixed(3) : '1.000'}</div>
+        <div class="diag-val">${gamText}</div>
       </div>
     `;
 
@@ -1980,11 +2183,46 @@
     el.directivesBackdrop.classList.add('open');
   }
 
+  function openEvidenceDrawer(initialFragment = 'threeway') {
+    if (el.drawerEvidence && el.evidenceBackdrop) {
+      el.drawerEvidence.classList.add('open');
+      el.evidenceBackdrop.classList.add('open');
+      renderEvidenceFragment(initialFragment);
+    }
+  }
+
+  function renderEvidenceFragment(fragId) {
+    if (!el.evidenceContent) return;
+    const frags = window.REPORT_FRAGMENTS || {};
+    const html = frags[fragId] || `<div style="padding:20px; color:var(--text-muted);">Fragment #${fragId} not loaded.</div>`;
+    el.evidenceContent.innerHTML = html;
+
+    document.querySelectorAll('.evidence-tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-frag') === fragId);
+    });
+
+    if (el.evidenceOpenReportLink) {
+      el.evidenceOpenReportLink.href = window.URLState
+        ? window.URLState.buildLink('report.html', {
+            region: state.entity,
+            var: VAR_MAP_TO_URL[state.variable] || state.variable,
+            start: state.startYear,
+            end: state.endYear,
+            season: state.season,
+            mode: state.mode,
+            lang: state.lang
+          }, '#' + fragId)
+        : `report.html#${fragId}`;
+    }
+  }
+
   function closeAllDrawers() {
-    el.drawerDiagnostics.classList.remove('open');
-    el.diagnosticsBackdrop.classList.remove('open');
-    el.drawerDirectives.classList.remove('open');
-    el.directivesBackdrop.classList.remove('open');
+    if (el.drawerDiagnostics) el.drawerDiagnostics.classList.remove('open');
+    if (el.diagnosticsBackdrop) el.diagnosticsBackdrop.classList.remove('open');
+    if (el.drawerDirectives) el.drawerDirectives.classList.remove('open');
+    if (el.directivesBackdrop) el.directivesBackdrop.classList.remove('open');
+    if (el.drawerEvidence) el.drawerEvidence.classList.remove('open');
+    if (el.evidenceBackdrop) el.evidenceBackdrop.classList.remove('open');
   }
 
   // 12. Section 3: Tabbed Bento Case Dossier Explorer
@@ -2206,6 +2444,13 @@
   document.addEventListener('DOMContentLoaded', () => {
     initDOM();
     initNavigation();
+
+    // Ingest URL State if present
+    if (window.URLState) {
+      const urlSt = window.URLState.getState();
+      applyUrlStateToApp(urlSt);
+    }
+
     initVariablePopover();
     initChartZoomBar();
     initEventListeners();
@@ -2216,6 +2461,13 @@
 
     syncCommandRibbon();
     runWorkflow();
+
+    // If query string had params, auto-jump to workbench so verdict card is in view with no clicks
+    if (window.location.search && window.location.search.length > 1) {
+      setTimeout(() => {
+        jumpToSection('sec-workbench');
+      }, 150);
+    }
   });
 
 })();

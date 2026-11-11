@@ -8,6 +8,8 @@
   <!-- Offline System Fonts -->
   <!-- Local Vendored Chart.js -->
   <script src="assets/vendor/chart.umd.min.js"></script>
+  <script src="assets/url_state.js"></script>
+  <link rel="stylesheet" href="assets/css/top_nav.css">
 
   <style>
     :root {
@@ -64,8 +66,8 @@
       font-weight: 600;
     }
 
-    /* Top Navigation */
-    .top-nav {
+    /* Section Navigation */
+    .report-section-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -858,31 +860,95 @@
     .appendix-content {
       padding: 18px;
     }
+
+    /* URL State Highlighting & Directive Styling */
+    tr.table-row-highlight {
+      background-color: rgba(37, 99, 235, 0.14) !important;
+      outline: 2px solid var(--accent-blue, #2563eb);
+    }
+    .directive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .directive-card {
+      background: var(--bg-subtle, #f8fafc);
+      border: 1px solid var(--border-subtle, #e2e8f0);
+      border-radius: 8px;
+      padding: 16px;
+      transition: all 0.2s ease;
+    }
+    .directive-card.active-region {
+      border-color: var(--accent-blue, #2563eb);
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+    }
+    .directive-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink-primary);
+      margin-bottom: 6px;
+    }
+    .directive-metric {
+      font-size: 0.8rem;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--accent-blue, #0284c7);
+      margin-bottom: 8px;
+    }
+    .directive-box {
+      font-size: 0.82rem;
+      line-height: 1.45;
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 6px;
+    }
+    .directive-box.mandate { background: #fef3c7; color: #92400e; }
+    .directive-box.dos { background: #ecfdf5; color: #065f46; }
+    .directive-box.donts { background: #fee2e2; color: #991b1b; }
+    .directive-box.citizen { background: #eff6ff; color: #1e40af; }
   </style>
 </head>
 
 <body>
-  <div style="background:#0f172a;color:#f8fafc;padding:10px 24px;font-size:0.88rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #334155;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
-    <span>🔬 <strong>Research Report View</strong> — Comprehensive hydroclimatic diagnostics &amp; multi-model partition.</span>
-    <a href="index.html" style="color:#38bdf8;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px;">← Back to Interactive Trend Detective Workbench</a>
-  </div>
+  <!-- Shared Universal Top Navigation -->
+  <header class="top-nav">
+    <div class="top-nav-brand">
+      <span class="top-nav-badge">NASA TREND DETECTIVE</span>
+      <span class="top-nav-title">Universal 5-Step Earth Observation Tool</span>
+    </div>
+    <nav class="top-nav-links" id="main-top-nav">
+      <a href="index.html" class="top-nav-link" data-page="index.html">🔍 5-Step Detective Workbench</a>
+      <a href="report.html" class="top-nav-link" data-page="report.html">🇧🇩 Flagship Report: Bangladesh Deep-Dive</a>
+      <a href="demo.html" class="top-nav-link" data-page="demo.html">📊 Interactive Pitch Deck</a>
+    </nav>
+    <div class="top-nav-controls">
+      <div class="nav-toggle-group">
+        <button class="nav-toggle-btn" id="nav-mode-toggle" title="Toggle Plain-Language Student / Scientific Diagnostics Mode">
+          <span class="toggle-indicator">●</span> <span id="nav-mode-label">Scientist</span>
+        </button>
+        <button class="nav-toggle-btn" id="nav-lang-toggle" title="Switch Language EN / বাংলা">
+          <span id="nav-lang-label">বাংলা</span>
+        </button>
+      </div>
+    </div>
+  </header>
 
   <div class="container">
 
-    <!-- Top Navigation -->
-    <nav class="top-nav">
+    <!-- Section Navigation -->
+    <nav class="report-section-nav">
       <div class="brand-wrap">
-        <span style="font-weight: 700; font-size: 0.95rem; font-family: 'Source Serif 4', Georgia, serif;">Bengal Hydro
-          Detective</span>
+        <span style="font-weight: 700; font-size: 0.95rem; font-family: 'Source Serif 4', Georgia, serif;">Dossier #01: Bangladesh Water Reserve Audit</span>
       </div>
       <div class="nav-links">
         <a href="#console" class="nav-link">1. Spatial Overview</a>
         <a href="#timeseries" class="nav-link">2. Regional Trends</a>
         <a href="#subsurface-validation" class="nav-link">3. Subsurface &amp; Validation</a>
         <a href="#seasonal-exposure" class="nav-link">4. Seasonal &amp; Exposure</a>
-        <a href="#limitations" class="nav-link">5. Limitations &amp; Appendix</a>
-        <a href="project_status.html" class="nav-link" target="_blank" style="color: var(--accent-blue);">Status Guide
-          ↗</a>
+        <a href="#stakeholder-actions" class="nav-link">5. Stakeholder Directives</a>
+        <a href="#limitations" class="nav-link">6. Limitations &amp; Appendix</a>
+        <a href="project_status.html" class="nav-link" target="_blank" style="color: var(--accent-blue);">Status Guide ↗</a>
       </div>
     </nav>
 
@@ -1154,7 +1220,10 @@
         <h3
           style="font-size: 1.05rem; color: var(--ink-primary); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
           <span>2B. Between-Region Secular Trend Differences (2002–2026)</span>
-          <span class="tag" style="font-size: 0.72rem; padding: 2px 8px;">Calibrated Pairwise Tests</span>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <a href="index.html?var=tws&region=NW&start=2002&end=2026&season=annual&mode=scientist" class="btn btn-secondary workbench-live-btn" data-preset-var="tws" data-preset-region="NW" data-preset-start="2002" data-preset-end="2026" style="font-size: 0.74rem; padding: 3px 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">⚡ Test This Live in Workbench</a>
+            <span class="tag" style="font-size: 0.72rem; padding: 2px 8px;">Calibrated Pairwise Tests</span>
+          </div>
         </h3>
         <p style="font-size: 0.84rem; color: var(--ink-secondary); margin-bottom: 12px;">
           Pairwise secular trend differences using Calibrated ESS-MK on the difference series and within-family
@@ -1243,9 +1312,12 @@
 
       <!-- 3A: GLDAS Multi-Model Partitioning -->
       <div id="gldas" style="margin-bottom: 24px;">
-        <h3 style="font-size: 1.05rem; color: var(--ink-primary); margin-bottom: 8px;">
-          3A. Multi-Model Soil Moisture Partitioning (NASA GLDAS)
-        </h3>
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+          <h3 style="font-size: 1.05rem; color: var(--ink-primary); margin: 0;">
+            3A. Multi-Model Soil Moisture Partitioning (NASA GLDAS)
+          </h3>
+          <a href="index.html?var=residual&region=NW&start=2002&end=2026&season=annual&mode=scientist" class="btn btn-secondary workbench-live-btn" data-preset-var="residual" data-preset-region="NW" data-preset-start="2002" data-preset-end="2026" style="font-size: 0.74rem; padding: 3px 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">⚡ Test This Live in Workbench</a>
+        </div>
         <p style="font-size: 0.84rem; color: var(--ink-secondary); margin-bottom: 12px; line-height: 1.55;">
           Open-loop land surface models (Noah 2.1 &amp; VIC 2.1) simulate topsoil moisture (top 2 meters) purely from
           atmospheric forcing (rainfall, solar radiation, temperature, wind). In the Northwest full record, topsoil
@@ -1288,7 +1360,10 @@
         <h3
           style="font-size: 1.05rem; color: var(--ink-primary); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
           <span>3B. Inter-Satellite Transition Gap Sensitivity (2017–2018)</span>
-          <span class="tag" style="font-size: 0.72rem; padding: 2px 8px;">Intercalibration Audit</span>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <a href="index.html?var=tws&region=NW&start=2002&end=2026&season=annual&mode=scientist" class="btn btn-secondary workbench-live-btn" data-preset-var="tws" data-preset-region="NW" data-preset-start="2002" data-preset-end="2026" style="font-size: 0.74rem; padding: 3px 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">⚡ Test This Live in Workbench</a>
+            <span class="tag" style="font-size: 0.72rem; padding: 2px 8px;">Intercalibration Audit</span>
+          </div>
         </h3>
         <p style="font-size: 0.84rem; color: var(--ink-secondary); margin-bottom: 12px; line-height: 1.55;">
           Between GRACE decommissioning (2017-06) and GRACE-FO startup (2018-06), an upward step offset (+9.15 cm in NW,
@@ -1326,7 +1401,10 @@
         </h3>
         <div class="grid-2col" style="margin-bottom: 0;">
           <div class="col-card">
-            <div class="col-card-title">NASA POWER Reanalysis Step Artifact</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <div class="col-card-title" style="margin: 0;">NASA POWER Reanalysis Step Artifact</div>
+              <a href="index.html?var=power&region=NW&start=2002&end=2026&season=annual&mode=scientist" class="btn btn-secondary workbench-live-btn" data-preset-var="power" data-preset-region="NW" data-preset-start="2002" data-preset-end="2026" style="font-size: 0.72rem; padding: 2px 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">⚡ Test Live in Workbench</a>
+            </div>
             <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.55;">
               Earlier project drafts noted surging rainfall (+29 to +86 mm/yr). Systematic homogeneity audits identified
               this as a non-climatic data artifact in NASA POWER (MERRA-2 reanalysis), which underwent an abrupt upward
@@ -1467,11 +1545,90 @@
       </div>
     </section>
 
-    <!-- SECTION 5: SCIENTIFIC LIMITATIONS & DATA APPENDIX -->
+    <!-- SECTION 5: REGIONAL STAKEHOLDER ACTION DIRECTIVES -->
+    <section class="section-card" id="stakeholder-actions">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">5. Regional Stakeholder Action Directives</h2>
+          <p class="section-desc">Translating 24-year satellite trend detection into differentiated policy mandates, agricultural directives (Do's &amp; Don'ts), and citizen initiatives.</p>
+        </div>
+        <span class="tag">Policy Guidance</span>
+      </div>
+
+      <div class="directive-grid" id="stakeholderDirectivesGrid">
+        <!-- Northwest -->
+        <div class="directive-card" data-region="NW">
+          <div class="directive-card-title">Northwest Depletion Corridor (Rajshahi &amp; Rangpur)</div>
+          <div class="directive-metric">Satellite Metric: -1.25 cm/yr TWS decline (-0.39 km³/yr). Rainfall: No detectable trend (-1.91 mm/yr).</div>
+          <p style="font-size:0.8rem; color:var(--ink-secondary); margin-bottom:6px;">Depletion is consistent with intensive dry-season Boro rice cultivation on Pleistocene clay terraces that impede natural monsoon recharge.</p>
+          <div class="directive-box mandate"><strong>[MANDATE] BMDA &amp; Water Board:</strong> Enforce smart-card volumetric pricing and halt unmetered deep tubewell permits. Expand surface water irrigation from Padma/Teesta rivers by 10% by 2030.</div>
+          <div class="directive-box dos"><strong>[FARMER DO'S]:</strong> Adopt Alternate Wetting and Drying (AWD) using PVC pipes (cuts water use by 15–30%). Plant short-duration drought-escaping T. Aman (BRRI dhan56/57) before July 24. Shift to winter crops (BARI chhola-5, BARI sarisha-10).</div>
+          <div class="directive-box donts"><strong>[FARMER DON'TS]:</strong> Do not maintain continuous standing water in Boro paddies. Do not plant three-crop continuous cereal rotations. Do not delay T. Aman transplanting past July 24.</div>
+          <div class="directive-box citizen"><strong>[CITIZEN ACTION]:</strong> Convert upland plots to drought-hardy orchards (mango, jujube, dragon fruit). Install rooftop rainwater harvesting and farm recharge ponds.</div>
+        </div>
+
+        <!-- Northeast -->
+        <div class="directive-card" data-region="NE">
+          <div class="directive-card-title">Northeast Haor Basin (Sylhet &amp; Mymensingh)</div>
+          <div class="directive-metric">Satellite Metric: -0.56 cm/yr TWS decline. Mean dry-season drawdown: 58.48 cm.</div>
+          <p style="font-size:0.8rem; color:var(--ink-secondary); margin-bottom:6px;">Choked river corridors drain summer flash floods rapidly into the Bay of Bengal, leaving subsurface storage unrefilled for the dry season.</p>
+          <div class="directive-box mandate"><strong>[MANDATE] BWDB &amp; Haor Dev Board:</strong> Construct and maintain engineered submersible embankments against early April flash floods. Dredge rivers and raise rural homestead mounds.</div>
+          <div class="directive-box dos"><strong>[FARMER DO'S]:</strong> Plant flash-flood-escaping Boro varieties (BRRI dhan110, 28, 58) for early April harvest. In floodplains, plant submergence-tolerant Aman (BRRI dhan51/52).</div>
+          <div class="directive-box donts"><strong>[FARMER DON'TS]:</strong> Do not plant long-duration Boro (BRRI dhan29) in deep Haor bowls where April floods destroy unharvested crops. Avoid unlined earthen canals.</div>
+          <div class="directive-box citizen"><strong>[CITIZEN ACTION]:</strong> Construct floating agricultural beds (dhap) using water hyacinth. Raise pond embankments and install nylon netting to prevent fish loss.</div>
+        </div>
+
+        <!-- Central -->
+        <div class="directive-card" data-region="Central">
+          <div class="directive-card-title">Central Megacity &amp; Terrace (Dhaka Division)</div>
+          <div class="directive-metric">Satellite Metric: -0.47 cm/yr TWS decline. Highest monsoon storage response ratio (42.2%).</div>
+          <p style="font-size:0.8rem; color:var(--ink-secondary); margin-bottom:6px;">Relentless municipal and industrial groundwater extraction from the "Dupi Tila" aquifer formation beneath impervious Madhupur clay creates a deep metropolitan cone of depression.</p>
+          <div class="directive-box mandate"><strong>[MANDATE] RAJUK &amp; DWASA:</strong> Enforce Zero-Liquid-Discharge (ZLD) for Gazipur/Narayanganj textile factories. Mandate rooftop Managed Aquifer Recharge ("MAR") in municipal building codes.</div>
+          <div class="directive-box dos"><strong>[FARMER DO'S]:</strong> Practice contour mulching and intercrop pineapple with ginger and turmeric on the Madhupur Tract. Cultivate disease-resistant BRRI dhan114.</div>
+          <div class="directive-box donts"><strong>[FARMER DON'TS]:</strong> Do not irrigate peri-urban vegetables with untreated industrial effluent from the Turag or Buriganga rivers. Do not clear-cut hillocks.</div>
+          <div class="directive-box citizen"><strong>[CITIZEN ACTION]:</strong> Establish urban rooftop gardens with rainwater harvesting and greywater recycling to cool buildings and reduce urban runoff.</div>
+        </div>
+
+        <!-- Southwest -->
+        <div class="directive-card" data-region="SW">
+          <div class="directive-card-title">Southwest Estuarine Delta (Khulna &amp; Barishal)</div>
+          <div class="directive-metric">Satellite Metric: No detectable trend in bulk mass (-0.05 cm/yr), but severe dry-season salinity intrusion.</div>
+          <p style="font-size:0.8rem; color:var(--ink-secondary); margin-bottom:6px;">Reduced dry-season freshwater river flow drives a brackish salinity wedge into shallow subsurface waters and polders, idling agricultural land in winter.</p>
+          <div class="directive-box mandate"><strong>[MANDATE] Coastal Polder Management:</strong> Operate coastal polder sluice gates dynamically to trap fresh monsoon river water internally before February salinity spikes. Enforce agro-ecological zoning.</div>
+          <div class="directive-box dos"><strong>[FARMER DO'S]:</strong> Cultivate salt-tolerant Boro rice (BINA dhan10, BINA dhan8, BRRI dhan67). Grow saline-tolerant sweet potato (BARI misti alu-6) on residual moisture.</div>
+          <div class="directive-box donts"><strong>[FARMER DON'TS]:</strong> Do not plant salt-sensitive BRRI dhan28 in coastal mauzas. Do not breach polder embankments for brackish tiger shrimp (bagda) monoculture.</div>
+          <div class="directive-box citizen"><strong>[CITIZEN ACTION]:</strong> Construct raised bed-and-trench (Sorjan) systems to block capillary salt rise for vegetable cultivation. Maintain Pond Sand Filters for drinking water.</div>
+        </div>
+
+        <!-- Southeast -->
+        <div class="directive-card" data-region="SE">
+          <div class="directive-card-title">Southeast Hill Tracts (Chattogram &amp; CHT)</div>
+          <div class="directive-metric">Satellite Metric: No detectable trend in bulk mass (-0.05 cm/yr), but lowest monsoon retention (26%).</div>
+          <p style="font-size:0.8rem; color:var(--ink-secondary); margin-bottom:6px;">Steep Tertiary hill slopes cause 74% of heavy monsoon rain to sheet off instantly as rapid runoff, drying up natural hill springs by winter.</p>
+          <div class="directive-box mandate"><strong>[MANDATE] Hill District Councils:</strong> Provide land tenure security and micro-credit for Sloping Agricultural Land Technology (SALT). Legally protect Village Common Forests (VCFs).</div>
+          <div class="directive-box dos"><strong>[FARMER DO'S]:</strong> Implement SALT contour hedgerows using nitrogen-fixing legumes every 4–6 meters to diffuse runoff. Cultivate flash-flood-tolerant BRRI dhan110.</div>
+          <div class="directive-box donts"><strong>[FARMER DON'TS]:</strong> Do not practice short-fallow slash-and-burn or till root crops vertically on steep slopes. Do not expand tobacco farming in river valleys.</div>
+          <div class="directive-box citizen"><strong>[CITIZEN ACTION]:</strong> Establish multistrata perennial fruit orchards. Protect headwater bamboo inside Village Common Forests to revive natural springs (chhara).</div>
+        </div>
+
+        <!-- National -->
+        <div class="directive-card" data-region="National">
+          <div class="directive-card-title">National Macro-Regional Directives Summary</div>
+          <div class="directive-metric">Satellite Metric: -0.51 cm/yr national TWS decline; 108.5M people live in depleting northern &amp; central regions.</div>
+          <p style="font-size:0.8rem; color:var(--ink-secondary); margin-bottom:6px;">National water management requires a regionalized approach: Northwest replenishment, Northeast flash flood escape, Central industrial water recycling, and Southern salinity barrier management.</p>
+          <div class="directive-box mandate"><strong>[MANDATE] Ministry of Water Resources:</strong> Implement the Bangladesh Delta Plan 2100 with regional differentiation rather than uniform national water policies.</div>
+          <div class="directive-box dos"><strong>[FARMER DO'S]:</strong> Match crop choices to regional hydrological regimes: drought-tolerant crops in NW, flash-flood-escaping varieties in NE, and salt-tolerant cultivars in SW.</div>
+          <div class="directive-box donts"><strong>[FARMER DON'TS]:</strong> Do not treat water resources as homogeneous across the country; avoid applying uniform dry-season pumping standards nationwide.</div>
+          <div class="directive-box citizen"><strong>[CITIZEN ACTION]:</strong> Support community water monitoring, local watershed protection, and rooftop rainwater harvesting across all divisions.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: SCIENTIFIC LIMITATIONS & DATA APPENDIX -->
     <section class="section-card" id="limitations">
       <div class="section-header">
         <div>
-          <h2 class="section-title">5. Scientific Limitations &amp; Master Data Appendix</h2>
+          <h2 class="section-title">6. Scientific Limitations &amp; Master Data Appendix</h2>
           <p class="section-desc">Upholding strict scientific integrity by documenting observational boundaries and
             providing the complete 336-test audit database.</p>
         </div>
@@ -38303,6 +38460,62 @@
         "placebo_flag": "Passes real-residual placebo"
       }
     }
+  },
+  "stakeholderDirectives": {
+    "NW": {
+      "region_name": "Northwest Depletion Corridor (Rajshahi & Rangpur)",
+      "satellite_metric": "-1.25 cm/year TWS decline (-0.39 km\u00b3/year). Rainfall shows no detectable trend (-1.91 mm/year).",
+      "historical_context": "Depletion is consistent with intensive dry-season Boro rice cultivation on Pleistocene clay terraces that impede natural monsoon recharge.",
+      "mandate": "BMDA must enforce smart-card volumetric pricing and halt unmetered deep tubewell permits. Expand surface water irrigation from Padma/Teesta rivers by 10% by 2030.",
+      "farmer_dos": "Adopt Alternate Wetting and Drying (AWD) using PVC pipes (cuts water use by 15\u201330%). Plant short-duration drought-escaping T. Aman (BRRI dhan56/57) before July 24. Shift to winter crops (BARI chhola-5, BARI sarisha-10).",
+      "farmer_donts": "Do not maintain continuous standing water in Boro paddies. Do not plant three-crop continuous cereal rotations. Do not delay T. Aman transplanting past July 24.",
+      "citizen_action": "Convert upland plots to drought-hardy orchards (mango, jujube, dragon fruit). Install rooftop rainwater harvesting and farm recharge ponds."
+    },
+    "NE": {
+      "region_name": "Northeast Haor Basin (Sylhet & Mymensingh)",
+      "satellite_metric": "-0.56 cm/year TWS decline. Mean annual dry-season drawdown is massive (58.48 cm).",
+      "historical_context": "Choked river corridors drain summer flash floods rapidly into the Bay of Bengal, leaving subsurface storage unrefilled for the dry season.",
+      "mandate": "BWDB must construct and maintain engineered submersible embankments against early April flash floods. Dredge rivers and raise rural homestead mounds.",
+      "farmer_dos": "Plant flash-flood-escaping Boro varieties (BRRI dhan110, 28, 58) for early April harvest. In floodplains, plant submergence-tolerant Aman (BRRI dhan51/52).",
+      "farmer_donts": "Do not plant long-duration Boro (BRRI dhan29) in deep Haor bowls where April floods destroy unharvested crops. Avoid unlined earthen canals.",
+      "citizen_action": "Construct floating agricultural beds (dhap) using water hyacinth. Raise pond embankments and install nylon netting to prevent fish loss."
+    },
+    "Central": {
+      "region_name": "Central Megacity & Terrace (Dhaka Division)",
+      "satellite_metric": "-0.47 cm/year TWS decline. Highest monsoon storage response ratio (42.2%).",
+      "historical_context": "Relentless municipal and industrial groundwater extraction from the \"Dupi Tila\" aquifer formation beneath impervious Madhupur clay creates a deep metropolitan cone of depression.",
+      "mandate": "Enforce Zero-Liquid-Discharge (ZLD) for Gazipur/Narayanganj textile factories. Mandate rooftop Managed Aquifer Recharge (\"MAR\") in municipal building codes.",
+      "farmer_dos": "Practice contour mulching and intercrop pineapple with ginger and turmeric on the Madhupur Tract. Cultivate disease-resistant BRRI dhan114.",
+      "farmer_donts": "Do not irrigate peri-urban vegetables with untreated industrial effluent from the Turag or Buriganga rivers. Do not clear-cut hillocks.",
+      "citizen_action": "Establish urban rooftop gardens with rainwater harvesting and greywater recycling to cool buildings and reduce urban runoff."
+    },
+    "SW": {
+      "region_name": "Southwest Estuarine Delta (Khulna & Barishal)",
+      "satellite_metric": "No detectable trend in bulk mass (-0.05 cm/year), but severe dry-season river and soil salinity intrusion.",
+      "historical_context": "Reduced dry-season freshwater river flow drives a brackish salinity wedge into shallow subsurface waters and polders, idling agricultural land in winter.",
+      "mandate": "Operate coastal polder sluice gates dynamically to trap fresh monsoon river water internally before February salinity spikes. Enforce agro-ecological zoning.",
+      "farmer_dos": "Cultivate salt-tolerant Boro rice (BINA dhan10, BINA dhan8, BRRI dhan67). Grow saline-tolerant sweet potato (BARI misti alu-6) on residual moisture.",
+      "farmer_donts": "Do not plant salt-sensitive BRRI dhan28 in coastal mauzas. Do not breach polder embankments for brackish tiger shrimp (bagda) monoculture.",
+      "citizen_action": "Construct raised bed-and-trench (Sorjan) systems to block capillary salt rise for vegetable cultivation. Maintain Pond Sand Filters for drinking water."
+    },
+    "SE": {
+      "region_name": "Southeast Hill Tracts (Chattogram & CHT)",
+      "satellite_metric": "No detectable trend in bulk mass (-0.05 cm/year), but the lowest monsoon retention in the country (only 26%).",
+      "historical_context": "Steep Tertiary hill slopes cause 74% of heavy monsoon rain to sheet off instantly as rapid runoff, drying up natural hill springs by winter.",
+      "mandate": "Provide land tenure security and micro-credit for Sloping Agricultural Land Technology (SALT). Legally protect Village Common Forests (VCFs).",
+      "farmer_dos": "Implement SALT contour hedgerows using nitrogen-fixing legumes every 4\u20136 meters to diffuse runoff. Cultivate flash-flood-tolerant BRRI dhan110.",
+      "farmer_donts": "Do not practice short-fallow slash-and-burn or till root crops vertically on steep slopes. Do not expand tobacco farming in river valleys.",
+      "citizen_action": "Establish multistrata perennial fruit orchards. Protect headwater bamboo inside Village Common Forests to revive natural springs (chhara)."
+    },
+    "National": {
+      "region_name": "National Macro-Regional Directives Summary",
+      "satellite_metric": "-0.51 cm/year national TWS decline; 108.5M people live in depleting northern and central regions.",
+      "historical_context": "National water management requires a regionalized approach: Northwest replenishment, Northeast flash flood escape, Central industrial water recycling, and Southern salinity barrier management.",
+      "mandate": "Implement the Bangladesh Delta Plan 2100 with regional differentiation rather than uniform national water policies.",
+      "farmer_dos": "Match crop choices to regional hydrological regimes: drought-tolerant crops in NW, flash-flood-escaping varieties in NE, and salt-tolerant cultivars in SW.",
+      "farmer_donts": "Do not treat water resources as homogeneous across the country; avoid applying uniform dry-season pumping standards nationwide.",
+      "citizen_action": "Support community water monitoring, local watershed protection, and rooftop rainwater harvesting across all divisions."
+    }
   }
 };
   </script>
@@ -38350,7 +38563,104 @@
       populateSeasonalExploratoryTables();
       populatePairwiseDifferencesTable();
       populateResultsTable();
+
+      applyUrlStateToReport();
     });
+
+    function applyUrlStateToReport() {
+      if (!window.URLState) return;
+      const urlSt = window.URLState.getState();
+      if (!urlSt) return;
+
+      const validMacro = ['NW', 'NE', 'Central', 'SW', 'SE', 'National'];
+      const divToMacro = {
+        'Rajshahi': 'NW', 'Rangpur': 'NW',
+        'Sylhet': 'NE', 'Mymensingh': 'NE',
+        'Dhaka': 'Central',
+        'Khulna': 'SW', 'Barishal': 'SW',
+        'Chattogram': 'SE'
+      };
+
+      const regParam = urlSt.region;
+      let targetMacro = 'NW';
+      if (validMacro.includes(regParam)) {
+        targetMacro = regParam;
+        setTimeSeriesRegion(targetMacro);
+      } else if (divToMacro[regParam]) {
+        targetMacro = divToMacro[regParam];
+        setTimeSeriesRegion(targetMacro);
+        selectDivision(regParam);
+      } else {
+        setTimeSeriesRegion('NW');
+      }
+
+      if (urlSt.window && ['full_record', 'grace_era', 'grace_fo_era', 'recent_2020'].includes(urlSt.window)) {
+        setTimeSeriesWindow(urlSt.window);
+      }
+
+      if (urlSt.var) {
+        if (urlSt.var === 'tws') setTimeSeriesVariable('tws');
+        else if (urlSt.var === 'imerg' || urlSt.var === 'power' || urlSt.var === 'precip') setTimeSeriesVariable('precip');
+      }
+
+      // Highlight matching table rows across all tables
+      highlightMatchingReportRows(regParam || targetMacro, urlSt.window || 'full_record', urlSt.var || 'tws');
+
+      // Highlight active directive card in #stakeholder-actions
+      document.querySelectorAll('#stakeholder-actions .directive-card').forEach(card => {
+        const cReg = card.getAttribute('data-region');
+        if (cReg === targetMacro || cReg === regParam) {
+          card.classList.add('active-region');
+        } else {
+          card.classList.remove('active-region');
+        }
+      });
+
+      // Update preset buttons linking back to workbench
+      document.querySelectorAll('.workbench-live-btn').forEach(btn => {
+        const pVar = btn.dataset.presetVar || urlSt.var || 'tws';
+        const pReg = btn.dataset.presetRegion || targetMacro;
+        const pStart = btn.dataset.presetStart || (urlSt.start || 2002);
+        const pEnd = btn.dataset.presetEnd || (urlSt.end || 2026);
+        btn.href = window.URLState.buildLink('index.html', {
+          var: pVar,
+          region: pReg,
+          start: pStart,
+          end: pEnd,
+          season: urlSt.season || 'annual',
+          mode: urlSt.mode || 'scientist',
+          lang: urlSt.lang || 'en'
+        });
+      });
+
+      // Scroll to hash anchor smoothly if present
+      if (window.location.hash) {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 150);
+        }
+      }
+    }
+
+    function highlightMatchingReportRows(targetRegion, targetWindow, targetVar) {
+      document.querySelectorAll('tr[data-region]').forEach(tr => {
+        tr.classList.remove('table-row-highlight');
+        const rReg = tr.getAttribute('data-region');
+        const rRegB = tr.getAttribute('data-region-b');
+        const rWin = tr.getAttribute('data-window');
+        const rVar = tr.getAttribute('data-var');
+
+        const regMatch = !targetRegion || rReg === targetRegion || rRegB === targetRegion;
+        const winMatch = !targetWindow || rWin === targetWindow;
+        const varMatch = !targetVar || rVar === targetVar || (targetVar === 'tws' && rVar === 'tws') || (targetVar === 'imerg' && rVar === 'precip');
+
+        if (regMatch && winMatch && varMatch) {
+          tr.classList.add('table-row-highlight');
+        }
+      });
+    }
 
     // 1. Initialize SVG Vector Map
     function initSvgMap() {
@@ -38851,6 +39161,9 @@
       tbody.innerHTML = '';
       for (const r of DASHBOARD_DATA.three_way) {
         const tr = document.createElement('tr');
+        tr.setAttribute('data-region', r.region || 'NW');
+        tr.setAttribute('data-window', 'full_record');
+        tr.setAttribute('data-var', 'tws');
         tr.innerHTML = `
           <td style="font-weight: 700; color: var(--ink-primary);">${r.region_name}</td>
           <td class="mono" style="color: var(--accent-blue);">${r.lead_grace_era_slope_cm_yr.toFixed(2)} cm/yr <span style="color: var(--ink-muted); font-size: 0.75rem;">${r.lead_grace_era_ci95}</span></td>
@@ -38869,6 +39182,9 @@
       tbody.innerHTML = '';
       for (const r of DASHBOARD_DATA.gldas_summary) {
         const tr = document.createElement('tr');
+        tr.setAttribute('data-region', r.region);
+        tr.setAttribute('data-window', r.window);
+        tr.setAttribute('data-var', 'tws');
         tr.innerHTML = `
           <td><span class="mono">${r.window}</span></td>
           <td style="font-weight: 700; color: var(--ink-primary);">${r.region}</td>
@@ -38887,6 +39203,9 @@
       tbody.innerHTML = '';
       for (const r of DASHBOARD_DATA.exposure) {
         const tr = document.createElement('tr');
+        tr.setAttribute('data-region', r.region);
+        tr.setAttribute('data-window', 'full_record');
+        tr.setAttribute('data-var', 'tws');
         const vrdBadge = r.tws_verdict === 'Significant' ? 'badge-sig' : 'badge-null';
         tr.innerHTML = `
           <td style="font-weight: 700; color: var(--ink-primary);">${r.region}</td>
@@ -38920,6 +39239,9 @@
         if (!res) continue;
         const calib = mdsFull[reg] || {};
         const tr = document.createElement('tr');
+        tr.setAttribute('data-region', reg);
+        tr.setAttribute('data-window', 'full_record');
+        tr.setAttribute('data-var', 'tws');
         const vrdBadge = res.verdict === 'Significant' ? 'badge-sig' : (res.verdict === 'method-dependent' ? 'badge-method' : 'badge-null');
         const slopeFmt = `${res.slope > 0 ? '+' : ''}${res.slope.toFixed(2)}`;
         const ciFmt = `[${res.slope_ci_low > 0 ? '+' : ''}${res.slope_ci_low.toFixed(2)}, ${res.slope_ci_high > 0 ? '+' : ''}${res.slope_ci_high.toFixed(2)}]`;
@@ -38947,6 +39269,9 @@
         const mainRatios = DASHBOARD_DATA.ratio_trends.filter(r => r.analysis_type === 'main_run');
         for (const r of mainRatios) {
           const tr = document.createElement('tr');
+          tr.setAttribute('data-region', r.region);
+          tr.setAttribute('data-window', 'full_record');
+          tr.setAttribute('data-var', 'ratio');
           const vrdBadge = r.verdict.includes('trend detected') ? 'badge-sig' : (r.verdict === 'Suggestive' ? 'badge-suggestive' : 'badge-null');
           tr.innerHTML = `
             <td style="font-weight: 700; color: var(--ink-primary);">${r.region} <span style="font-size: 0.75rem; color: var(--ink-muted);">(${r.region_name})</span></td>
@@ -38970,6 +39295,9 @@
         const mainDDs = DASHBOARD_DATA.dry_season_drawdowns.filter(r => r.analysis_type === 'main_run');
         for (const r of mainDDs) {
           const tr = document.createElement('tr');
+          tr.setAttribute('data-region', r.region);
+          tr.setAttribute('data-window', 'full_record');
+          tr.setAttribute('data-var', 'drawdown');
           const vrdBadge = r.verdict.includes('trend detected') ? 'badge-sig' : (r.verdict === 'Suggestive' ? 'badge-suggestive' : 'badge-null');
           tr.innerHTML = `
             <td style="font-weight: 700; color: var(--ink-primary);">${r.region}</td>
@@ -39021,6 +39349,10 @@
 
       for (const d of filtered) {
         const tr = document.createElement('tr');
+        tr.setAttribute('data-region', d.region_A);
+        tr.setAttribute('data-region-b', d.region_B);
+        tr.setAttribute('data-window', d.run === 'sensitivity_grace_era' ? 'grace_era' : 'full_record');
+        tr.setAttribute('data-var', d.variable);
         const vrdBadge = d.verdict === 'Significant difference'
           ? 'badge-sig'
           : (d.verdict === 'Suggestive' ? 'badge-suggestive' : 'badge-null');
@@ -39069,6 +39401,9 @@
 
       for (const r of list) {
         const tr = document.createElement('tr');
+        tr.setAttribute('data-region', r.entity);
+        tr.setAttribute('data-window', r.window);
+        tr.setAttribute('data-var', r.variable);
         let badgeClass = 'badge-null';
         if (r.verdict === 'Significant') badgeClass = 'badge-sig';
         else if (r.verdict === 'Suggestive') badgeClass = 'badge-suggestive';

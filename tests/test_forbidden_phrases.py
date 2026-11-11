@@ -171,6 +171,30 @@ class TestForbiddenPhrases(unittest.TestCase):
             msg = "\n".join(["Forbidden phrases detected in deliverables:"] + violations)
             self.fail(msg)
 
+    def test_bulk_tws_wording_integrity(self):
+        """Rule 6: Use 'Total Water Storage (TWS)' for bulk GRACE TWS (never 'groundwater').
+        GLDAS partition must use 'groundwater + surface water + model error residual'."""
+        targets = [
+            REPO_ROOT / "report.html",
+            REPO_ROOT / "index.html",
+            REPO_ROOT / "demo.html"
+        ]
+        forbidden_tws_patterns = [
+            (r"\bGRACE\s+groundwater\b", "GRACE groundwater"),
+            (r"\bgroundwater\s+trend\b", "groundwater trend (use TWS trend)"),
+            (r"\bgroundwater\s+storage\s+anomaly\b", "groundwater storage anomaly (use residual or TWS anomaly)"),
+        ]
+        violations = []
+        for target in targets:
+            text = target.read_text(encoding="utf-8")
+            for pat, label in forbidden_tws_patterns:
+                for m in re.finditer(pat, text, re.IGNORECASE):
+                    start = max(0, m.start() - 30)
+                    end = min(len(text), m.end() + 30)
+                    violations.append(f"{target.name}: Found '{label}' -> {repr(text[start:end])}")
+        if violations:
+            self.fail("\n".join(["Bulk TWS mislabeled as groundwater:"] + violations))
+
 
 if __name__ == "__main__":
     unittest.main()

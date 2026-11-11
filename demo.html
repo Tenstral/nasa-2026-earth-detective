@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trend Detective: Bengal Hydro Detective — Slide Deck Preview</title>
+  <link rel="stylesheet" href="assets/css/top_nav.css">
   <!-- Offline System Fonts -->
   <style>
     :root {
@@ -32,7 +33,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 16px;
+      padding: 0 0 24px 0;
+    }
+
+    body .top-nav {
+      width: 100%;
     }
 
     .app-header {
@@ -42,7 +47,8 @@
       justify-content: space-between;
       align-items: center;
       color: #f8fafc;
-      margin-bottom: 16px;
+      margin: 16px 0;
+      padding: 0 16px;
     }
 
     .app-title {
@@ -269,6 +275,28 @@
   </style>
 </head>
 <body>
+  <!-- Shared Universal Top Navigation -->
+  <header class="top-nav">
+    <div class="top-nav-brand">
+      <span class="top-nav-badge">NASA TREND DETECTIVE</span>
+      <span class="top-nav-title">Universal 5-Step Earth Observation Tool</span>
+    </div>
+    <nav class="top-nav-links" id="main-top-nav">
+      <a href="index.html" class="top-nav-link" data-page="index.html">🔍 5-Step Detective Workbench</a>
+      <a href="report.html" class="top-nav-link" data-page="report.html">🇧🇩 Flagship Report: Bangladesh Deep-Dive</a>
+      <a href="demo.html" class="top-nav-link" data-page="demo.html">📊 Interactive Pitch Deck</a>
+    </nav>
+    <div class="top-nav-controls">
+      <div class="nav-toggle-group">
+        <button class="nav-toggle-btn" id="nav-mode-toggle" title="Toggle Plain-Language Student / Scientific Diagnostics Mode">
+          <span class="toggle-indicator">●</span> <span id="nav-mode-label">Scientist</span>
+        </button>
+        <button class="nav-toggle-btn" id="nav-lang-toggle" title="Switch Language EN / বাংলা">
+          <span id="nav-lang-label">বাংলা</span>
+        </button>
+      </div>
+    </div>
+  </header>
 
   <header class="app-header">
     <div class="app-title">NASA Space Apps 2026 // Trend Detective</div>
@@ -584,5 +612,6 @@
     // Initialize
     updateDeck();
   </script>
+  <script src="assets/url_state.js"></script>
 </body>
 </html>
