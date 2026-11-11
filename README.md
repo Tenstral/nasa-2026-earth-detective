@@ -130,6 +130,22 @@ Every window is evaluated under its own independent Benjamini-Hochberg False Dis
 
 ---
 
+### 2.8 Atmospheric Thermodynamics & Composition (AIRS & OMI Satellite Observables)
+Extends the observational synthesis with hyperspectral atmospheric sounding (NASA AIRS on Aqua) and trace gas spectroscopy (NASA OMI on Aura) across 2002–2026:
+- **NASA Aqua AIRS Level 3 (AIRS3STM v7.0)**:
+  * Variables: Near-Surface Air Temperature (`SurfAirTemp_A`, °C, daytime ~1:30 PM local solar overpass) and Total Column Water Vapor (`TotH2OVap_A`, kg/m² precipitable water).
+  * Spatial coverage: 5 macro-regions + National composite (2002-09 to 2026-07).
+  * Methodological Caveats: Coarse 1.0° footprint (~111 km); individual regions contain only 1–3 grid cell centers (Central: ~1.4 cells; National: ~9.9 cells), so administrative division breakdown is disabled. Clear-sky sampling bias occurs in heavy monsoon cloud decks due to cloud-clearing retrieval requirements.
+  * Citations: Aumann et al. (2003, 2018), *IEEE Trans. Geosci. Remote Sens.*; Susskind et al. (2014), *IEEE Trans. Geosci. Remote Sens.*
+- **NASA Aura OMI Level 3 (OMNO2d v004)**:
+  * Variable: Tropospheric NO₂ Vertical Column Density (`ColumnAmountNO2TropCloudScreened`, $10^{15}\ \text{molec/cm}^2$).
+  * Spatial coverage: 5 macro-regions, National composite, and all 8 administrative divisions (2004-10 to 2026-07) at 0.25° grid resolution (~25 km).
+  * Methodological Caveats: OMI row anomaly is mitigated by cloud-screened quality filtering. Pronounced seasonal winter peaks reflect shallow planetary boundary layer compression (~200–500 m) and winter brick kiln operations rather than annual emission shifts alone.
+  * Interactive Investigation: Case File #7 ("Is Dhaka's Air Getting Dirtier?") pairs OMI tropospheric NO₂ with MODIS Aqua AOD across Central Bangladesh.
+  * Citations: Krotkov et al. (2016), *Atmos. Chem. Phys.* (DOI: [10.5194/acp-16-4605-2016](https://doi.org/10.5194/acp-16-4605-2016)); Levelt et al. (2018), *Atmos. Chem. Phys.*
+
+---
+
 ## 3. How to Run & Reproduce
 
 All pipeline results, summary tables, and figures are committed and ready for inspection under `outputs/v3/`. Rerunning from raw data requires the raw CSR GRACE/GRACE-FO NetCDF file and NASA Earthdata credentials.

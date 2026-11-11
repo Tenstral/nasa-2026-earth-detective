@@ -29,10 +29,13 @@
     showChoropleth: true,
     showGrid: true,
     showStation: true,
-    activeDossierCaseId: 'case-1'
+    activeDossierCaseId: 'case-1',
+    zoomStartRatio: 0, // 0.0 to 1.0 (Lens 1 viewport zoom)
+    zoomEndRatio: 1.0
   };
 
   let chartInstance = null;
+  let currentTrendPoints = [];
   const el = {};
 
   // Bounding box for entire Bangladesh SVG (0 0 600 730)
@@ -106,6 +109,16 @@
     el.toggleTrendLine = document.getElementById('toggle-trendline');
     el.toggleGap = document.getElementById('toggle-gap');
     el.toggleFloods = document.getElementById('toggle-floods');
+
+    // Chart Timeline Zoom Bar (Lens 1)
+    el.chartZoomBar = document.getElementById('chart-zoom-bar');
+    el.czbReadout = document.getElementById('czb-readout');
+    el.czbTrackContainer = document.getElementById('czb-track-container');
+    el.czbWindow = document.getElementById('czb-window');
+    el.czbHandleLeft = document.getElementById('czb-handle-left');
+    el.czbHandleRight = document.getElementById('czb-handle-right');
+    el.czbDragPan = document.getElementById('czb-drag-pan');
+    el.czbBtnReset = document.getElementById('czb-btn-reset');
 
     // Telemetry Verdict Cells
     el.telVerdict = document.getElementById('tel-verdict');
@@ -243,6 +256,11 @@
     return window.ED.catalog.regions.find(r => r.id === regId) || null;
   }
 
+  function getDivisionMeta(divName) {
+    if (!window.ED.catalog || !window.ED.catalog.divisions) return null;
+    return window.ED.catalog.divisions.find(d => d.id === divName || d.name === divName || d.name === `${divName} Division`) || null;
+  }
+
   function extractSeries(varId, entity, isDivision) {
     const vMeta = getVarMeta(varId);
     if (!vMeta) return [];
@@ -291,6 +309,54 @@
       }));
     }
 
+    // AIRS (Temperature & Water Vapor)
+    if (varId === 'airs_temp' || varId === 'airs_h2o') {
+      const regKey = (isDivision && window.ED.map && window.ED.map.divisionToRegion && window.ED.map.divisionToRegion[entity])
+        ? window.ED.map.divisionToRegion[entity]
+        : entity;
+      const airsObj = (window.ED.seriesAIRS && window.ED.seriesAIRS[regKey]) || (window.ED.seriesAIRS && window.ED.seriesAIRS['National']);
+      if (!airsObj) return [];
+      const valArray = varId === 'airs_temp' ? airsObj.airs_temp : airsObj.airs_h2o;
+      if (!valArray) return [];
+      return airsObj.ym.map((ymStr, idx) => {
+        const yr = parseInt(ymStr.slice(0, 4));
+        const mo = parseInt(ymStr.slice(5, 7));
+        return {
+          ym: ymStr,
+          year: yr,
+          month: mo,
+          decimal_year: airsObj.t ? airsObj.t[idx] : Math.round((yr + (mo - 0.5) / 12) * 10000) / 10000,
+          value: valArray[idx]
+        };
+      });
+    }
+
+    // OMI Tropospheric NO2 Column
+    if (varId === 'omi_no2') {
+      let omiObj = null;
+      if (window.ED.seriesOMI) {
+        if (isDivision) {
+          omiObj = (window.ED.seriesOMI.divisions && window.ED.seriesOMI.divisions[entity]) || window.ED.seriesOMI[entity];
+        } else {
+          omiObj = (window.ED.seriesOMI.regions && window.ED.seriesOMI.regions[entity]) || window.ED.seriesOMI[entity];
+        }
+      }
+      if (!omiObj) return [];
+      const valArray = omiObj.omi_no2;
+      if (!valArray) return [];
+      return omiObj.ym.map((ymStr, idx) => {
+        const yr = parseInt(ymStr.slice(0, 4));
+        const mo = parseInt(ymStr.slice(5, 7));
+        return {
+          ym: ymStr,
+          year: yr,
+          month: mo,
+          decimal_year: omiObj.t ? omiObj.t[idx] : Math.round((yr + (mo - 0.5) / 12) * 10000) / 10000,
+          value: valArray[idx]
+        };
+      });
+    }
+
     // Monthly Regional or Divisional series
     const seriesObj = isDivision ? window.ED.seriesDivisions[entity] : window.ED.seriesRegions[entity];
     if (!seriesObj) return [];
@@ -328,7 +394,9 @@
       { name: 'Precipitation & Cross-Validation', ids: ['imerg_precip', 'power_precip'] },
       { name: 'Soil Moisture & Subsurface', ids: ['noah_sms_anom', 'vic_sms_anom', 'subsurface_residual'] },
       { name: 'Climate Extremes', ids: ['extreme_rx1day', 'extreme_days_ge_50'] },
-      { name: 'Atmospheric Aerosols', ids: ['modis_aod', 'aeronet_aod'] }
+      { name: 'Atmospheric Aerosols', ids: ['modis_aod', 'aeronet_aod'] },
+      { name: 'Atmospheric Thermodynamics', ids: ['airs_temp', 'airs_h2o'] },
+      { name: 'Atmospheric Composition', ids: ['omi_no2'] }
     ];
 
     domains.forEach(d => {
@@ -358,6 +426,8 @@
             return;
           }
           state.variable = v.id;
+          state.zoomStartRatio = 0;
+          state.zoomEndRatio = 1.0;
           if (state.overlayVariable === v.id) state.overlayVariable = '';
           closeVarPopover();
           syncCommandRibbon();
@@ -443,6 +513,199 @@
     el.overlayPopoverBackdrop.classList.remove('open');
   }
 
+  // 5b. Chart Timeline Brush Zoom Controller (Lens 1)
+  function initChartZoomBar() {
+    if (!el.czbTrackContainer || !el.czbWindow) return;
+
+    let dragMode = null; // 'left', 'right', 'pan'
+    let panStartX = 0;
+    let initialL = 0;
+    let initialR = 1;
+    let initialSpan = 1;
+
+    function getTrackRect() {
+      return el.czbTrackContainer.getBoundingClientRect();
+    }
+
+    // Left Handle
+    el.czbHandleLeft.addEventListener('pointerdown', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      dragMode = 'left';
+      el.czbHandleLeft.classList.add('dragging');
+      el.czbHandleLeft.setPointerCapture(e.pointerId);
+    });
+
+    // Right Handle
+    el.czbHandleRight.addEventListener('pointerdown', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      dragMode = 'right';
+      el.czbHandleRight.classList.add('dragging');
+      el.czbHandleRight.setPointerCapture(e.pointerId);
+    });
+
+    // Middle Pan Bar
+    el.czbDragPan.addEventListener('pointerdown', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      dragMode = 'pan';
+      panStartX = e.clientX;
+      initialL = state.zoomStartRatio;
+      initialR = state.zoomEndRatio;
+      initialSpan = Math.max(0.04, initialR - initialL);
+      el.czbDragPan.setPointerCapture(e.pointerId);
+    });
+
+    function handlePointerMove(e) {
+      if (!dragMode) return;
+      const rect = getTrackRect();
+      if (!rect || rect.width <= 0) return;
+
+      const minSpan = Math.max(0.03, currentTrendPoints.length > 0 ? (4 / currentTrendPoints.length) : 0.04);
+
+      if (dragMode === 'left') {
+        const rawRatio = (e.clientX - rect.left) / rect.width;
+        state.zoomStartRatio = Math.max(0, Math.min(state.zoomEndRatio - minSpan, rawRatio));
+      } else if (dragMode === 'right') {
+        const rawRatio = (e.clientX - rect.left) / rect.width;
+        state.zoomEndRatio = Math.min(1, Math.max(state.zoomStartRatio + minSpan, rawRatio));
+      } else if (dragMode === 'pan') {
+        const deltaRatio = (e.clientX - panStartX) / rect.width;
+        let newL = initialL + deltaRatio;
+        let newR = initialR + deltaRatio;
+        if (newL < 0) {
+          newL = 0;
+          newR = initialSpan;
+        } else if (newR > 1) {
+          newR = 1;
+          newL = 1 - initialSpan;
+        }
+        state.zoomStartRatio = Math.max(0, newL);
+        state.zoomEndRatio = Math.min(1, newR);
+      }
+
+      applyChartZoom();
+    }
+
+    function handlePointerUp(e) {
+      if (!dragMode) return;
+      if (dragMode === 'left') el.czbHandleLeft.classList.remove('dragging');
+      if (dragMode === 'right') el.czbHandleRight.classList.remove('dragging');
+      dragMode = null;
+    }
+
+    el.czbHandleLeft.addEventListener('pointermove', handlePointerMove);
+    el.czbHandleLeft.addEventListener('pointerup', handlePointerUp);
+    el.czbHandleLeft.addEventListener('pointercancel', handlePointerUp);
+
+    el.czbHandleRight.addEventListener('pointermove', handlePointerMove);
+    el.czbHandleRight.addEventListener('pointerup', handlePointerUp);
+    el.czbHandleRight.addEventListener('pointercancel', handlePointerUp);
+
+    el.czbDragPan.addEventListener('pointermove', handlePointerMove);
+    el.czbDragPan.addEventListener('pointerup', handlePointerUp);
+    el.czbDragPan.addEventListener('pointercancel', handlePointerUp);
+
+    // Track Background Click to jump or pan window
+    el.czbTrackContainer.addEventListener('click', (e) => {
+      if (e.target === el.czbHandleLeft || e.target === el.czbHandleRight || e.target === el.czbDragPan) return;
+      const rect = getTrackRect();
+      if (!rect || rect.width <= 0) return;
+      const clickRatio = (e.clientX - rect.left) / rect.width;
+      const span = state.zoomEndRatio - state.zoomStartRatio;
+      let newL = clickRatio - span / 2;
+      let newR = clickRatio + span / 2;
+      if (newL < 0) { newL = 0; newR = span; }
+      if (newR > 1) { newR = 1; newL = 1 - span; }
+      state.zoomStartRatio = Math.max(0, newL);
+      state.zoomEndRatio = Math.min(1, newR);
+      applyChartZoom();
+    });
+
+    // Reset button
+    if (el.czbBtnReset) {
+      el.czbBtnReset.addEventListener('click', () => {
+        resetChartZoom();
+      });
+    }
+  }
+
+  function updateChartZoomUI() {
+    if (!el.czbWindow || !el.czbReadout) return;
+
+    const L = state.zoomStartRatio;
+    const R = state.zoomEndRatio;
+
+    el.czbWindow.style.left = (L * 100) + '%';
+    el.czbWindow.style.right = ((1 - R) * 100) + '%';
+
+    const isZoomed = (L > 0.005 || R < 0.995);
+    if (el.czbBtnReset) {
+      if (isZoomed) {
+        el.czbBtnReset.classList.add('active-zoom');
+        el.czbBtnReset.textContent = 'Reset Zoom [Active]';
+      } else {
+        el.czbBtnReset.classList.remove('active-zoom');
+        el.czbBtnReset.textContent = 'Reset Zoom';
+      }
+    }
+
+    if (!currentTrendPoints || currentTrendPoints.length === 0) {
+      el.czbReadout.textContent = 'Full Time Range';
+      return;
+    }
+
+    const n = currentTrendPoints.length;
+    const startIdx = Math.max(0, Math.min(n - 1, Math.round(L * (n - 1))));
+    const endIdx = Math.max(0, Math.min(n - 1, Math.round(R * (n - 1))));
+
+    const pStart = currentTrendPoints[startIdx];
+    const pEnd = currentTrendPoints[endIdx];
+
+    const labelStart = pStart?.ym || (pStart?.year ? String(pStart.year) : 'Start');
+    const labelEnd = pEnd?.ym || (pEnd?.year ? String(pEnd.year) : 'End');
+
+    if (isZoomed) {
+      el.czbReadout.textContent = `${labelStart} — ${labelEnd} (${endIdx - startIdx + 1} mos)`;
+    } else {
+      el.czbReadout.textContent = `${labelStart} — ${labelEnd} [Full]`;
+    }
+  }
+
+  function applyChartZoom() {
+    updateChartZoomUI();
+
+    if (!chartInstance || state.activeLens !== 'trend' || !currentTrendPoints || currentTrendPoints.length === 0) {
+      return;
+    }
+
+    const n = currentTrendPoints.length;
+    const L = state.zoomStartRatio;
+    const R = state.zoomEndRatio;
+    const isZoomed = (L > 0.005 || R < 0.995);
+
+    if (!isZoomed) {
+      chartInstance.options.scales.x.min = undefined;
+      chartInstance.options.scales.x.max = undefined;
+    } else {
+      const startIdx = Math.max(0, Math.min(n - 1, Math.round(L * (n - 1))));
+      const endIdx = Math.max(0, Math.min(n - 1, Math.round(R * (n - 1))));
+      const pStart = currentTrendPoints[startIdx];
+      const pEnd = currentTrendPoints[endIdx];
+      chartInstance.options.scales.x.min = pStart?.ym || pStart?.year;
+      chartInstance.options.scales.x.max = pEnd?.ym || pEnd?.year;
+    }
+
+    chartInstance.update('none');
+  }
+
+  function resetChartZoom() {
+    state.zoomStartRatio = 0;
+    state.zoomEndRatio = 1.0;
+    applyChartZoom();
+  }
+
   function syncCommandRibbon() {
     const curVar = getVarMeta(state.variable);
     if (curVar) {
@@ -461,7 +724,25 @@
       el.btnCompareSeries.style.display = 'inline-flex';
     }
 
-    // Spatial Scale buttons
+    // Spatial Scale buttons & Division support check
+    const supportsDiv = curVar ? (curVar.supports_divisions !== false) : true;
+    const divBtn = el.spatialToggle.querySelector('.seg-btn[data-type="division"]');
+    if (divBtn) {
+      if (!supportsDiv) {
+        divBtn.disabled = true;
+        divBtn.classList.add('disabled');
+        divBtn.title = 'Divisional breakdown is not supported for coarse resolution datasets (1° grid / mascons).';
+        if (state.spatialType === 'division') {
+          state.spatialType = 'region';
+          state.entity = 'NW';
+        }
+      } else {
+        divBtn.disabled = false;
+        divBtn.classList.remove('disabled');
+        divBtn.title = '';
+      }
+    }
+
     const segBtns = el.spatialToggle.querySelectorAll('.seg-btn');
     segBtns.forEach(btn => {
       if (btn.getAttribute('data-type') === state.spatialType) {
@@ -496,6 +777,12 @@
     if (isDivision && state.variable === 'grace_tws') {
       el.regionalCaveatPill.style.display = 'inline-block';
       el.regionalCaveatPill.title = 'Coarse Footprint: GRACE ~300 km footprint. Divisional estimates share neighboring mascons.';
+    } else if (state.variable === 'airs_temp' || state.variable === 'airs_h2o') {
+      el.regionalCaveatPill.style.display = 'inline-block';
+      el.regionalCaveatPill.title = 'Coarse 1.0° Grid: Regional values reflect ~1–3 cell centers. Clear-sky bias in monsoon.';
+    } else if (state.variable === 'omi_no2') {
+      el.regionalCaveatPill.style.display = 'inline-block';
+      el.regionalCaveatPill.title = 'Atmospheric Trace Gas: 0.25° grid. Winter peaks reflect boundary layer compression and brick kilns.';
     } else if (state.variable === 'aeronet_aod') {
       el.regionalCaveatPill.style.display = 'inline-block';
       el.regionalCaveatPill.title = 'Station-Specific: AERONET is located at Dhaka University (Central Region).';
@@ -610,6 +897,8 @@
     el.startYearSelect.addEventListener('change', (e) => {
       state.startYear = parseInt(e.target.value);
       if (state.startYear > state.endYear) state.endYear = state.startYear;
+      state.zoomStartRatio = 0;
+      state.zoomEndRatio = 1.0;
       syncCommandRibbon();
       runWorkflow();
     });
@@ -617,6 +906,8 @@
     el.endYearSelect.addEventListener('change', (e) => {
       state.endYear = parseInt(e.target.value);
       if (state.endYear < state.startYear) state.startYear = state.endYear;
+      state.zoomStartRatio = 0;
+      state.zoomEndRatio = 1.0;
       syncCommandRibbon();
       runWorkflow();
     });
@@ -768,6 +1059,8 @@
     state.season = c.config.season;
     state.showDeseasonalized = c.config.deseasonalize;
     state.activeLens = 'trend';
+    state.zoomStartRatio = 0;
+    state.zoomEndRatio = 1.0;
 
     syncCommandRibbon();
     runWorkflow();
@@ -927,8 +1220,25 @@
     el.hudP.textContent = slopeInfo.p < 0.0001 ? '< 0.0001' : slopeInfo.p.toFixed(4);
 
     const regMeta = getRegionMeta(macroReg);
-    el.hudPop.textContent = regMeta ? `${regMeta.pop_millions} M` : '—';
-    el.hudCrop.textContent = regMeta ? `${regMeta.cropland_pct}%` : '—';
+    const divMeta = getDivisionMeta(divName);
+
+    // Population display (BBS 2022 Census / GPWv4, in Millions)
+    let popVal = null;
+    if (isDivision && divMeta && (divMeta.population_2020_m != null || divMeta.pop_millions != null)) {
+      popVal = divMeta.population_2020_m ?? divMeta.pop_millions;
+    } else if (regMeta && (regMeta.population_2020_m != null || regMeta.pop_millions != null)) {
+      popVal = regMeta.population_2020_m ?? regMeta.pop_millions;
+    }
+    el.hudPop.textContent = (popVal != null && !isNaN(popVal)) ? `${popVal} M` : '—';
+
+    // Cropland percentage (MODIS MCD12Q1)
+    let cropVal = null;
+    if (isDivision && divMeta && divMeta.cropland_pct != null) {
+      cropVal = `${divMeta.cropland_pct}%`;
+    } else if (regMeta && regMeta.cropland_pct != null) {
+      cropVal = `${regMeta.cropland_pct}%${isDivision ? ` (${macroReg})` : ''}`;
+    }
+    el.hudCrop.textContent = (cropVal != null) ? cropVal : '—';
   }
 
   function moveMapHover(e) {
@@ -1119,11 +1429,17 @@
     const curVar = getVarMeta(state.variable);
 
     if (state.activeLens === 'trend') {
+      currentTrendPoints = points;
+      if (el.chartZoomBar) el.chartZoomBar.classList.remove('czb-hidden');
       renderLensTrend(ctx, points, statResult, overlayPoints, curVar);
-    } else if (state.activeLens === 'seasonal') {
-      renderLensSeasonal(ctx, inWindowRaw, curVar);
-    } else if (state.activeLens === 'epochs') {
-      renderLensEpochs(ctx, curVar);
+      updateChartZoomUI();
+    } else {
+      if (el.chartZoomBar) el.chartZoomBar.classList.add('czb-hidden');
+      if (state.activeLens === 'seasonal') {
+        renderLensSeasonal(ctx, inWindowRaw, curVar);
+      } else if (state.activeLens === 'epochs') {
+        renderLensEpochs(ctx, curVar);
+      }
     }
   }
 
@@ -1244,6 +1560,11 @@
         const xMeta = chart.getDatasetMeta(0);
         if (!xMeta || !xMeta.data || xMeta.data.length === 0) return;
 
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(chart.chartArea.left, chart.chartArea.top, chart.chartArea.width, chart.chartArea.height);
+        ctx.clip();
+
         // 1. Shaded 2017-2018 GRACE Bridge Gap
         if (state.showGap && curVar.has_gap) {
           let xStart = null;
@@ -1298,6 +1619,8 @@
             }
           });
         }
+
+        ctx.restore();
       }
     };
 
@@ -1325,6 +1648,8 @@
         },
         scales: {
           x: {
+            min: (state.zoomStartRatio > 0.005 && labels.length > 0) ? labels[Math.max(0, Math.min(labels.length - 1, Math.round(state.zoomStartRatio * (labels.length - 1))))] : undefined,
+            max: (state.zoomEndRatio < 0.995 && labels.length > 0) ? labels[Math.max(0, Math.min(labels.length - 1, Math.round(state.zoomEndRatio * (labels.length - 1))))] : undefined,
             grid: { color: '#f1f5f9' },
             ticks: { font: { size: 10, family: 'var(--font-mono)' }, color: '#64748b', maxTicksLimit: 14 }
           },
@@ -1601,6 +1926,10 @@
       el.diagSensorSafeguard.innerHTML = '<strong>[AUDIT] Sensor Break Analysis:</strong> NASA POWER MERRA-2 exhibits a known observing system step artifact around 2015. Always verify model reanalysis trends against physical satellite radar (GPM IMERG).';
     } else if (curVar.id === 'grace_tws') {
       el.diagSensorSafeguard.innerHTML = '<strong>[MISSION BRIDGE] Gravimetry Inter-Mission Continuity:</strong> The 11-month observation gap between GRACE and GRACE-FO (July 2017 to May 2018) is shaded on the canvas. Newey-West HAC bridge testing confirms continuity across satellite generations.';
+    } else if (curVar.id === 'airs_temp' || curVar.id === 'airs_h2o') {
+      el.diagSensorSafeguard.innerHTML = '<strong>[SPATIAL AUDIT] AIRS 1.0° Footprint &amp; Clear-Sky Sampling:</strong> At 1° (~111 km), Bangladesh comprises ~10 grid cells. Regional values reflect area-weighted nearest-cell averages. Cloud-clearing retrievals have lower sampling frequency during deep monsoon cloud decks.';
+    } else if (curVar.id === 'omi_no2') {
+      el.diagSensorSafeguard.innerHTML = '<strong>[QUALITY AUDIT] OMI Row Anomaly &amp; Boundary Layer Dynamics:</strong> Cloud-screened tropospheric column NO₂ filters pixels affected by the OMI row anomaly. Winter peaks reflect boundary layer compression and winter brick kiln operations rather than annual emission shifts alone.';
     } else {
       el.diagSensorSafeguard.innerHTML = '<strong>[OBSERVATION AUDIT] NASA GES DISC Calibrations:</strong> Observations conform to standard NASA GES DISC calibrations.';
     }
@@ -1878,6 +2207,7 @@
     initDOM();
     initNavigation();
     initVariablePopover();
+    initChartZoomBar();
     initEventListeners();
     initMap();
 

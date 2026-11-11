@@ -127,5 +127,24 @@ window.ED.cases = [
     },
     prompt: "Annual maximum 1-day rainfall fluctuates wildly from 50 mm up to > 115 mm in catastrophic flood years (2004, 2007, 2017, 2020, 2022). Test whether a secular trend has emerged.",
     takeaway: "Extreme downpours exhibit intense year-to-year volatility, but the 22-year record falls below the statistical detection threshold for a secular trend (p > 0.05). Trend detectives learn that high-variance extremes require longer observation baselines."
+  },
+  {
+    id: "case-7",
+    badge: "Case File #7",
+    title: "Is Dhaka's Air Getting Dirtier?",
+    tagline: "Combustion Trace Gases (OMI NO₂) vs Total Aerosol Loading (MODIS AOD)",
+    domain: "Atmospheric Composition & Trace Gases",
+    question: "Does satellite monitoring show a rising trend in nitrogen dioxide (NO₂) pollution over Dhaka from fossil fuel and vehicle emissions, and how does it correlate with aerosol haze?",
+    config: {
+      variable: "omi_no2",
+      overlayVariable: "modis_aod",
+      region: "Central",
+      startYear: 2004,
+      endYear: 2026,
+      season: "annual",
+      deseasonalize: true
+    },
+    prompt: "Observe how tropospheric NO₂ column density (blue) tracks fossil fuel combustion, vehicle density, and brick kiln activity over Central Bangladesh (Dhaka), alongside total aerosol optical depth (orange dashed). Note the strong winter boundary layer concentration spikes.",
+    takeaway: "OMI tropospheric NO₂ provides a direct proxy for nitrogen oxide emissions from high-temperature combustion (traffic, brick kilns, diesel generators). Central Bangladesh exhibits elevated NO₂ densities with pronounced winter entrapment beneath thermal inversions, consistent with accelerating urban industrial activity alongside regional aerosol loading."
   }
 ];

@@ -160,6 +160,54 @@ window.ED.catalog = {
       "has_gap": false,
       "can_deseasonalize": true,
       "kind": "mean"
+    },
+    {
+      "id": "airs_temp",
+      "name": "Near-Surface Air Temperature (NASA AIRS)",
+      "domain": "Atmospheric Thermodynamics",
+      "sensor": "NASA Aqua AIRS Level 3 (AIRS3STM v7.0 SurfAirTemp_A)",
+      "unit": "\u00b0C",
+      "unit_description": "Near-surface air temperature in degrees Celsius (converted from Kelvin; ~1:30 PM daytime overpass)",
+      "spatial_footprint": "1.0\u00b0 (~111 km) satellite infrared/microwave grid (5 macro-regions + National)",
+      "temporal_range": "2002-09 to 2026-07 (monthly)",
+      "definition": "Atmospheric Infrared Sounder (AIRS) hyperspectral sounding retrieval of daytime near-surface air temperature.",
+      "caveats": "\u26a0\ufe0f Coarse 1.0\u00b0 footprint (~111 km). Individual regions contain only 1\u20133 grid cell centers (Central: ~1.4 cells; National: ~9.9 cells). Divisional breakdown is disabled. Clear-sky sampling bias: cloud-cleared retrievals in heavy monsoon months are less representative.",
+      "supports_divisions": false,
+      "has_gap": false,
+      "can_deseasonalize": true,
+      "kind": "mean"
+    },
+    {
+      "id": "airs_h2o",
+      "name": "Total Column Water Vapor (NASA AIRS)",
+      "domain": "Atmospheric Thermodynamics",
+      "sensor": "NASA Aqua AIRS Level 3 (AIRS3STM v7.0 TotH2OVap_A)",
+      "unit": "kg/m\u00b2",
+      "unit_description": "Total integrated atmospheric column water vapor (precipitable water in kg/m\u00b2 or mm)",
+      "spatial_footprint": "1.0\u00b0 (~111 km) satellite infrared/microwave grid (5 macro-regions + National)",
+      "temporal_range": "2002-09 to 2026-07 (monthly)",
+      "definition": "Total mass of water vapor in an atmospheric column from surface to top of atmosphere.",
+      "caveats": "\u26a0\ufe0f Coarse 1.0\u00b0 footprint (~111 km). Divisional breakdown is disabled. Clear-sky sampling bias in heavy monsoon cloud decks.",
+      "supports_divisions": false,
+      "has_gap": false,
+      "can_deseasonalize": true,
+      "kind": "mean"
+    },
+    {
+      "id": "omi_no2",
+      "name": "Tropospheric NO\u2082 Column (NASA OMI)",
+      "domain": "Atmospheric Composition",
+      "sensor": "NASA Aura OMI Level 3 (OMNO2d v004 Cloud-Screened)",
+      "unit": "10\u00b9\u2075 molec/cm\u00b2",
+      "unit_description": "Tropospheric nitrogen dioxide vertical column density in 10\u00b9\u2075 molecules per square centimeter",
+      "spatial_footprint": "0.25\u00b0 (~25 km) satellite ultraviolet/visible grid (5 macro-regions, National + 8 divisions)",
+      "temporal_range": "2004-10 to 2026-07 (monthly)",
+      "definition": "Satellite ultraviolet-visible spectrometer measurement of nitrogen dioxide in the tropospheric boundary layer, serving as a primary indicator of combustion emissions (traffic, brick kilns, industry).",
+      "caveats": "Row anomaly on OMI (mitigated by cloud-screened quality filtering). Strong winter peak due to shallow planetary boundary layer and winter brick kiln operations.",
+      "supports_divisions": true,
+      "has_gap": false,
+      "can_deseasonalize": true,
+      "kind": "mean"
     }
   ],
   "regions": [
@@ -167,6 +215,7 @@ window.ED.catalog = {
       "id": "NW",
       "name": "Northwest (Rajshahi + Rangpur)",
       "population_2020_m": 38.81,
+      "pop_millions": 38.81,
       "population_share_pct": 22.9,
       "cropland_pct": 74.2,
       "total_agricultural_pct": 82.7,
@@ -179,6 +228,7 @@ window.ED.catalog = {
       "id": "NE",
       "name": "Northeast (Sylhet + Mymensingh)",
       "population_2020_m": 24.05,
+      "pop_millions": 24.05,
       "population_share_pct": 14.2,
       "cropland_pct": 58.6,
       "total_agricultural_pct": 69.8,
@@ -191,6 +241,7 @@ window.ED.catalog = {
       "id": "Central",
       "name": "Central (Dhaka)",
       "population_2020_m": 45.64,
+      "pop_millions": 45.64,
       "population_share_pct": 26.9,
       "cropland_pct": 56.4,
       "total_agricultural_pct": 66.2,
@@ -203,6 +254,7 @@ window.ED.catalog = {
       "id": "SW",
       "name": "Southwest (Khulna + Barishal)",
       "population_2020_m": 27.14,
+      "pop_millions": 27.14,
       "population_share_pct": 16.0,
       "cropland_pct": 48.7,
       "total_agricultural_pct": 56.1,
@@ -215,6 +267,7 @@ window.ED.catalog = {
       "id": "SE",
       "name": "Southeast (Chattogram)",
       "population_2020_m": 34.18,
+      "pop_millions": 34.18,
       "population_share_pct": 20.1,
       "cropland_pct": 32.1,
       "total_agricultural_pct": 46.7,
@@ -227,6 +280,7 @@ window.ED.catalog = {
       "id": "National",
       "name": "National Composite (Bangladesh)",
       "population_2020_m": 169.83,
+      "pop_millions": 169.83,
       "population_share_pct": 100.0,
       "cropland_pct": 57.8,
       "total_agricultural_pct": 68.1,
@@ -240,42 +294,58 @@ window.ED.catalog = {
     {
       "id": "Barishal",
       "name": "Barishal Division",
-      "region": "SW"
+      "region": "SW",
+      "population_2020_m": 9.33,
+      "pop_millions": 9.33
     },
     {
       "id": "Chattogram",
       "name": "Chattogram Division",
-      "region": "SE"
+      "region": "SE",
+      "population_2020_m": 34.18,
+      "pop_millions": 34.18
     },
     {
       "id": "Dhaka",
       "name": "Dhaka Division",
-      "region": "Central"
+      "region": "Central",
+      "population_2020_m": 45.64,
+      "pop_millions": 45.64
     },
     {
       "id": "Khulna",
       "name": "Khulna Division",
-      "region": "SW"
+      "region": "SW",
+      "population_2020_m": 17.81,
+      "pop_millions": 17.81
     },
     {
       "id": "Mymensingh",
       "name": "Mymensingh Division",
-      "region": "NE"
+      "region": "NE",
+      "population_2020_m": 12.64,
+      "pop_millions": 12.64
     },
     {
       "id": "Rajshahi",
       "name": "Rajshahi Division",
-      "region": "NW"
+      "region": "NW",
+      "population_2020_m": 20.79,
+      "pop_millions": 20.79
     },
     {
       "id": "Rangpur",
       "name": "Rangpur Division",
-      "region": "NW"
+      "region": "NW",
+      "population_2020_m": 18.02,
+      "pop_millions": 18.02
     },
     {
       "id": "Sylhet",
       "name": "Sylhet Division",
-      "region": "NE"
+      "region": "NE",
+      "population_2020_m": 11.41,
+      "pop_millions": 11.41
     }
   ],
   "floodEvents": [
