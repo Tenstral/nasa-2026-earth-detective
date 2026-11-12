@@ -318,6 +318,13 @@
         el.deckViewport.classList.remove('is-sliding');
         el.deckViewport.style.scrollSnapType = 'y mandatory';
       }
+      document.querySelectorAll('.load-workbench-btn, .case-launch-btn, .tab-direct-launch').forEach(b => b.classList.remove('launching'));
+      const casesContent = document.querySelector('#sec-cases .dossier-explorer-shell') || document.getElementById('sec-cases');
+      if (casesContent) {
+        casesContent.style.willChange = '';
+        casesContent.style.transform = '';
+        casesContent.style.opacity = '';
+      }
     };
     window.addEventListener('wheel', handleScrollInterrupt, { passive: true });
     window.addEventListener('touchstart', handleScrollInterrupt, { passive: true });
@@ -1355,8 +1362,7 @@
 
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // 4. Subtle GPU-only outgoing / incoming stagger effects
-    const casesContent = document.querySelector('#sec-cases .dossier-explorer-shell') || document.getElementById('sec-cases');
+    // 4. Clean GPU transition without dimming or fading out the case listing
     const wbShell = el.workbenchShell || document.getElementById('sec-workbench');
     const wbPanels = wbShell ? [
       el.commandRibbon || document.querySelector('.command-ribbon'),
@@ -1365,20 +1371,11 @@
     ].filter(Boolean) : [];
 
     if (!prefersReducedMotion && window.gsap) {
-      if (casesContent) {
-        casesContent.style.willChange = 'transform, opacity';
-        window.gsap.to(casesContent, {
-          y: -24,
-          opacity: 0.6,
-          duration: 0.95,
-          ease: 'power3.inOut'
-        });
-      }
       if (wbPanels.length > 0) {
         wbPanels.forEach(p => { p.style.willChange = 'transform, opacity'; });
         window.gsap.fromTo(wbPanels,
-          { y: 24, opacity: 0.5 },
-          { y: 0, opacity: 1, duration: 0.85, stagger: 0.05, ease: 'power3.out', delay: 0.1 }
+          { y: 16, opacity: 0.7 },
+          { y: 0, opacity: 1, duration: 0.75, stagger: 0.04, ease: 'power2.out', delay: 0.1 }
         );
       }
     }
@@ -1390,6 +1387,7 @@
       instant: prefersReducedMotion,
       onComplete: () => {
         // Reset GPU styles
+        const casesContent = document.querySelector('#sec-cases .dossier-explorer-shell') || document.getElementById('sec-cases');
         if (casesContent) {
           casesContent.style.willChange = '';
           casesContent.style.transform = '';
