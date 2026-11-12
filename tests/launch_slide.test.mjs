@@ -404,6 +404,43 @@ describe('Launch Simulation Slide End-to-End Acceptance Tests', () => {
         assert.ok(navCheck.observedNavs.length <= 2, `Nav pill should transition cleanly without mid-slide flickering: ${navCheck.observedNavs.join(' -> ')}`);
         assert.equal(navCheck.observedNavs[navCheck.observedNavs.length - 1], 'sec-workbench', 'Final active nav pill must be sec-workbench');
       });
+
+      test('Test 10: Persistent global footer renders with Tenstral logo across Cases, Analyzer, and Data sources', async () => {
+        const footerCheck = await cdp.evaluate(`
+          (() => {
+            const footer = document.getElementById('app-footer');
+            if (!footer) return { exists: false };
+            const rect = footer.getBoundingClientRect();
+            const logo = footer.querySelector('.footer-team-logo');
+            const logoRect = logo ? logo.getBoundingClientRect() : null;
+            const text = footer.textContent;
+
+            // Check sections
+            const secCases = document.getElementById('sec-cases');
+            const secWorkbench = document.getElementById('sec-workbench');
+            const secCatalog = document.getElementById('sec-catalog');
+
+            return {
+              exists: true,
+              visible: rect.height > 0 && rect.bottom <= window.innerHeight,
+              height: rect.height,
+              hasLogo: Boolean(logo),
+              logoHeight: logoRect ? logoRect.height : 0,
+              hasRequiredLeftText: text.includes('NASA Space Apps Challenge 2026') && text.includes('Team Tenstral'),
+              hasRequiredRightText: text.includes('100% Client-Side Pure JS Statistical Engine'),
+              teamWeight: window.getComputedStyle(footer.querySelector('.team-tenstral-name')).fontWeight
+            };
+          })()
+        `);
+
+        assert.ok(footerCheck.exists, 'Global footer #app-footer must exist in DOM');
+        assert.ok(footerCheck.visible, 'Footer must be visible at bottom of viewport');
+        assert.ok(footerCheck.height >= 30 && footerCheck.height <= 45, `Footer height must be ~32-40px, got ${footerCheck.height}`);
+        assert.ok(footerCheck.hasLogo, 'Footer must contain .footer-team-logo');
+        assert.ok(footerCheck.hasRequiredLeftText, 'Footer must contain NASA Space Apps text and Team Tenstral');
+        assert.ok(footerCheck.hasRequiredRightText, 'Footer must contain right side offline text');
+        assert.equal(footerCheck.teamWeight, '600', 'Team Tenstral must have font-weight: 600');
+      });
     });
   }
 });

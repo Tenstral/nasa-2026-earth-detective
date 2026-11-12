@@ -58,6 +58,7 @@
   --header-height: 48px;
   --top-nav-height: 40px;
   --total-top-offset: calc(var(--header-height) + var(--top-nav-height));
+  --footer-height: 36px;
   --transition: 0.16s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -256,7 +257,7 @@ a:hover {
   top: var(--total-top-offset);
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: var(--footer-height);
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
@@ -288,9 +289,9 @@ a:hover {
 
 .deck-section {
   width: 100%;
-  height: calc(100vh - var(--total-top-offset));
-  min-height: calc(100vh - var(--total-top-offset));
-  max-height: calc(100vh - var(--total-top-offset));
+  height: calc(100vh - var(--total-top-offset) - var(--footer-height));
+  min-height: calc(100vh - var(--total-top-offset) - var(--footer-height));
+  max-height: calc(100vh - var(--total-top-offset) - var(--footer-height));
   scroll-snap-align: start;
   scroll-snap-stop: always;
   display: flex;
@@ -1881,15 +1882,76 @@ html[data-mode="student"] aside#drawer-diagnostics.open {
   color: var(--text-muted);
 }
 
-.catalog-footer-credits {
-  margin-top: auto;
-  padding-top: 14px;
+/* ==========================================================================
+   Global Persistent Universal Footer (Cases, Analyzer, Data Sources)
+   ========================================================================== */
+.app-global-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--footer-height, 36px);
+  background: var(--bg-card);
   border-top: 1px solid var(--border-grid);
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  font-size: 11px;
+  color: var(--text-muted);
+  z-index: 500;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.app-global-footer .footer-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.app-global-footer .footer-team-logo {
+  height: 16px;
+  width: auto;
+  flex-shrink: 0;
+  display: block;
+}
+
+.app-global-footer .team-tenstral-name {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.app-global-footer .footer-right {
+  white-space: nowrap;
   font-size: 10.5px;
   color: var(--text-muted);
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 900px) {
+  .app-global-footer .footer-right {
+    display: none;
+  }
+}
+
+.brand-team-logo {
+  height: 20px;
+  width: auto;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@media (max-width: 992px) {
+  .brand-team-logo {
+    display: none;
+  }
+}
+
+.tenstral-logo-inverted {
+  filter: brightness(0) invert(1);
 }
 
 /* ==========================================================================
