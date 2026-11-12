@@ -61,11 +61,8 @@
       <button class="deck-nav-btn" data-target="sec-workbench">
         <span class="num">02</span> Workbench
       </button>
-      <button class="deck-nav-btn" data-target="sec-dossiers">
-        <span class="num">03</span> Dossiers
-      </button>
       <button class="deck-nav-btn" data-target="sec-catalog">
-        <span class="num">04</span> Catalog
+        <span class="num">03</span> Catalog
       </button>
     </nav>
 
@@ -94,32 +91,77 @@
   <main class="deck-container" id="deck-viewport">
 
     <!-- ====================================================================
-         Section 01: Hero & Guided Detective Case Bento Grid (100vh)
+         Section 01: Guided Case Investigations (100vh)
          ==================================================================== -->
     <section class="deck-section" id="sec-cases">
-      <div class="hero-compact">
-        <div class="hero-text-block">
-          <h1 class="hero-headline">Be an Earth System Trend Detective!</h1>
-          <p class="hero-desc">
-            Investigate changes in Bangladesh's climate, water cycle, and atmospheric loading across 24 years of NASA Earth observations. Follow Dr. James Acker's official 5-step scientific workflow to test whether trends are statistically significant (<em>p</em> &lt; 0.05).
-          </p>
-        </div>
-        <div class="workflow-bar">
-          <div class="wf-step"><span class="wf-num">1</span> Variable</div>
-          <span class="wf-arrow">→</span>
-          <div class="wf-step"><span class="wf-num">2</span> Region</div>
-          <span class="wf-arrow">→</span>
-          <div class="wf-step"><span class="wf-num">3</span> Window</div>
-          <span class="wf-arrow">→</span>
-          <div class="wf-step"><span class="wf-num">4</span> Inspect</div>
-          <span class="wf-arrow">→</span>
-          <div class="wf-step"><span class="wf-num">5</span> Significance</div>
-        </div>
-      </div>
+      <div class="dossier-explorer-shell">
 
-      <!-- 6-Card Swiss Bento Grid -->
-      <div class="cases-bento-grid" id="cases-bento-container">
-        <!-- Rendered dynamically via cases.js / app.js -->
+        <!-- Left 26% Vertical Tab Rail -->
+        <aside class="dossier-rail">
+          <div class="dossier-rail-header">
+            <span>Guided Case Investigations</span>
+            <span class="badge-count" style="background:var(--accent-blue-wash);color:var(--accent-blue);padding:1px 6px;border-radius:10px;font-size:10px;">7 Cases</span>
+          </div>
+
+          <div id="dossier-tabs-list" style="display:flex;flex-direction:column;gap:6px;overflow-y:auto;flex:1;min-height:0;padding-right:2px;">
+            <!-- Injected via cases.js / app.js -->
+          </div>
+
+          <div class="dossier-rail-action">
+            <button class="load-workbench-btn" id="dossier-load-btn" title="Launch simulation in interactive workbench">
+              🚀 Launch Simulation &darr;
+            </button>
+          </div>
+        </aside>
+
+        <!-- Right 74% Animated Swiss Bento Grid -->
+        <div class="dossier-content-area" id="dossier-content-area">
+          <div class="dossier-header-bar">
+            <div>
+              <div class="case-badge" id="dossier-badge">Case File #1</div>
+              <h2 class="dossier-active-title" id="dossier-title">Where Is the Northwest's Water Going?</h2>
+              <div class="dossier-active-tagline" id="dossier-tagline">Total Water Storage vs. Satellite Rainfall in the Barind Tract</div>
+            </div>
+            <div class="dossier-header-actions" style="display:flex;gap:8px;align-items:center;">
+              <button class="load-workbench-btn" id="dossier-header-launch-btn" style="padding:8px 16px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow-sm);">
+                <span>🚀 Launch Simulation</span> &darr;
+              </button>
+            </div>
+          </div>
+
+          <div class="dossier-bento-grid" id="dossier-bento-grid">
+            <!-- 1. Science Simplified -->
+            <div class="bento-block" id="dossier-block-science">
+              <div class="bento-block-title">1. The Science Simplified</div>
+              <div class="bento-block-body" id="dossier-body-science"></div>
+            </div>
+
+            <!-- 2. Empirical Findings -->
+            <div class="bento-block" id="dossier-block-findings">
+              <div class="bento-block-title">2. Empirical Analysis &amp; Findings</div>
+              <div class="bento-block-body" id="dossier-body-findings"></div>
+            </div>
+
+            <!-- 3. Real-World Impact -->
+            <div class="bento-block" id="dossier-block-impact">
+              <div class="bento-block-title">3. Real-World Impact</div>
+              <div class="bento-block-body" id="dossier-body-impact"></div>
+            </div>
+
+            <!-- 4. Study Limitations -->
+            <div class="bento-block" id="dossier-block-limitations">
+              <div class="bento-block-title">4. Study &amp; Sensor Limitations</div>
+              <div class="bento-block-body" id="dossier-body-limitations"></div>
+            </div>
+
+            <!-- 5. Future Predictions & Outlook (Full Width) -->
+            <div class="bento-block bento-block-full" id="dossier-block-outlook">
+              <div class="bento-block-title">5. Future Outlook &amp; Adaptation Directives</div>
+              <div class="bento-block-body" id="dossier-body-outlook"></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -389,76 +431,7 @@
     </section>
 
     <!-- ====================================================================
-         Section 03: Tabbed Bento Case Dossier Explorer (100vh)
-         ==================================================================== -->
-    <section class="deck-section" id="sec-dossiers">
-      <div class="dossier-explorer-shell">
-
-        <!-- Left 24% Vertical Tab Rail -->
-        <aside class="dossier-rail">
-          <div class="dossier-rail-header">
-            Guided Case Investigations
-          </div>
-
-          <div id="dossier-tabs-list" style="display:flex;flex-direction:column;gap:6px;">
-            <!-- Injected via cases.js / app.js -->
-          </div>
-
-          <div class="dossier-rail-action">
-            <button class="load-workbench-btn" id="dossier-load-btn">
-              Load Active Case into Workbench &uarr;
-            </button>
-          </div>
-        </aside>
-
-        <!-- Right 76% Animated Swiss Bento Grid -->
-        <div class="dossier-content-area" id="dossier-content-area">
-          <div class="dossier-header-bar">
-            <div>
-              <div class="case-badge" id="dossier-badge">Case File #1</div>
-              <h2 class="dossier-active-title" id="dossier-title">Where Is the Northwest's Water Going?</h2>
-              <div class="dossier-active-tagline" id="dossier-tagline">Total Water Storage vs. Satellite Rainfall in the Barind Tract</div>
-            </div>
-          </div>
-
-          <div class="dossier-bento-grid" id="dossier-bento-grid">
-            <!-- 1. Science Simplified -->
-            <div class="bento-block" id="dossier-block-science">
-              <div class="bento-block-title">1. The Science Simplified</div>
-              <div class="bento-block-body" id="dossier-body-science"></div>
-            </div>
-
-            <!-- 2. Empirical Findings -->
-            <div class="bento-block" id="dossier-block-findings">
-              <div class="bento-block-title">2. Empirical Analysis &amp; Findings</div>
-              <div class="bento-block-body" id="dossier-body-findings"></div>
-            </div>
-
-            <!-- 3. Real-World Impact -->
-            <div class="bento-block" id="dossier-block-impact">
-              <div class="bento-block-title">3. Real-World Impact</div>
-              <div class="bento-block-body" id="dossier-body-impact"></div>
-            </div>
-
-            <!-- 4. Study Limitations -->
-            <div class="bento-block" id="dossier-block-limitations">
-              <div class="bento-block-title">4. Study &amp; Sensor Limitations</div>
-              <div class="bento-block-body" id="dossier-body-limitations"></div>
-            </div>
-
-            <!-- 5. Future Predictions & Outlook (Full Width) -->
-            <div class="bento-block bento-block-full" id="dossier-block-outlook">
-              <div class="bento-block-title">5. Future Outlook &amp; Adaptation Directives</div>
-              <div class="bento-block-body" id="dossier-body-outlook"></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         Section 04: NASA Sensor Telemetry Catalog (100vh)
+         Section 03: NASA Sensor Telemetry Catalog (100vh)
          ==================================================================== -->
     <section class="deck-section" id="sec-catalog">
       <div class="catalog-shell">

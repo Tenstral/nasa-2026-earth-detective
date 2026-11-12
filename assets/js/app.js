@@ -250,7 +250,7 @@
     el.btnHeaderDirectives = document.getElementById('btn-header-directives');
     el.btnHeaderDiagnostics = document.getElementById('btn-header-diagnostics');
 
-    // Section 3: Dossier Explorer
+    // Section 1: Guided Case Investigations
     el.dossierTabsList = document.getElementById('dossier-tabs-list');
     el.dossierBadge = document.getElementById('dossier-badge');
     el.dossierTitle = document.getElementById('dossier-title');
@@ -261,6 +261,7 @@
     el.dossierBodyLimitations = document.getElementById('dossier-body-limitations');
     el.dossierBodyOutlook = document.getElementById('dossier-body-outlook');
     el.dossierLoadBtn = document.getElementById('dossier-load-btn');
+    el.dossierHeaderLaunchBtn = document.getElementById('dossier-header-launch-btn');
 
     // Specification Modal
     el.modalOverlay = document.getElementById('modal-overlay');
@@ -285,7 +286,7 @@
       const scrollPos = el.deckViewport.scrollTop;
       const secHeight = window.innerHeight - 48;
       const index = Math.round(scrollPos / secHeight);
-      const sectionIds = ['sec-cases', 'sec-workbench', 'sec-dossiers', 'sec-catalog'];
+      const sectionIds = ['sec-cases', 'sec-workbench', 'sec-catalog'];
       const curSecId = sectionIds[index] || 'sec-cases';
 
       el.deckNavBtns.forEach(btn => {
@@ -302,8 +303,7 @@
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
       if (e.key === '1') jumpToSection('sec-cases');
       if (e.key === '2') jumpToSection('sec-workbench');
-      if (e.key === '3') jumpToSection('sec-dossiers');
-      if (e.key === '4') jumpToSection('sec-catalog');
+      if (e.key === '3') jumpToSection('sec-catalog');
       if (e.key === 'f' || e.key === 'F') toggleWorkbenchFullscreen();
       if (e.key === 'Escape') {
         closeAllDrawers();
@@ -1152,23 +1152,31 @@
       if (e.target === el.modalOverlay) closeModal();
     });
 
-    // Active Mission Pill Click -> Jump to Dossier
-    el.activeMissionPill.addEventListener('click', () => {
-      state.activeDossierCaseId = state.activeCaseId;
-      renderDossierExplorer();
-      jumpToSection('sec-dossiers');
-    });
+    // Active Mission Pill Click -> Jump to Cases
+    if (el.activeMissionPill) {
+      el.activeMissionPill.addEventListener('click', () => {
+        state.activeDossierCaseId = state.activeCaseId;
+        renderDossierExplorer();
+        jumpToSection('sec-cases');
+      });
+    }
 
-    // Dossier Workbench Loader
-    el.dossierLoadBtn.addEventListener('click', () => {
+    // Dossier Workbench Loaders
+    const launchActiveCase = () => {
       activateCase(state.activeDossierCaseId);
       jumpToSection('sec-workbench');
-    });
+    };
+    if (el.dossierLoadBtn) {
+      el.dossierLoadBtn.addEventListener('click', launchActiveCase);
+    }
+    if (el.dossierHeaderLaunchBtn) {
+      el.dossierHeaderLaunchBtn.addEventListener('click', launchActiveCase);
+    }
   }
 
-  // 6. Section 1: Cases Bento Grid Renderer
+  // 6. Section 1: Cases Bento Grid Renderer (Safeguard)
   function renderCasesBentoGrid() {
-    el.casesBentoContainer.innerHTML = '';
+    if (!el.casesBentoContainer) return;
     window.ED.cases.forEach(c => {
       const card = document.createElement('div');
       card.className = `bento-case-card ${state.activeCaseId === c.id ? 'active-case' : ''}`;
@@ -2490,6 +2498,7 @@
   };
 
   function renderDossierExplorer() {
+    if (!el.dossierTabsList) return;
     el.dossierTabsList.innerHTML = '';
     const caseIds = Object.keys(DOSSIER_DATA);
 
@@ -2498,14 +2507,26 @@
       if (!d) return;
 
       const tab = document.createElement('div');
-      tab.className = `dossier-tab-card ${state.activeDossierCaseId === cId ? 'active' : ''}`;
+      const isActive = state.activeDossierCaseId === cId;
+      tab.className = `dossier-tab-card ${isActive ? 'active' : ''}`;
       tab.innerHTML = `
-        <div class="dossier-tab-badge">${d.badge}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div class="dossier-tab-badge">${d.badge}</div>
+          <button class="tab-direct-launch" data-case="${cId}" title="Launch simulation for ${d.badge}" style="background:var(--accent-blue-wash);border:1px solid var(--accent-blue-border);color:var(--accent-blue);font-size:10px;font-weight:700;border-radius:4px;cursor:pointer;padding:2px 6px;">🚀 Run &darr;</button>
+        </div>
         <div class="dossier-tab-title">${d.title}</div>
         <div class="dossier-tab-domain">${d.tagline}</div>
       `;
 
-      tab.addEventListener('click', () => {
+      tab.addEventListener('click', (e) => {
+        const directBtn = e.target.closest('.tab-direct-launch');
+        if (directBtn) {
+          e.stopPropagation();
+          state.activeDossierCaseId = cId;
+          activateCase(cId);
+          jumpToSection('sec-workbench');
+          return;
+        }
         state.activeDossierCaseId = cId;
         renderDossierExplorer();
       });
@@ -2514,21 +2535,21 @@
     });
 
     const activeData = DOSSIER_DATA[state.activeDossierCaseId] || DOSSIER_DATA['case-1'];
-    el.dossierBadge.textContent = activeData.badge;
-    el.dossierTitle.textContent = activeData.title;
-    el.dossierTagline.textContent = activeData.tagline;
+    if (el.dossierBadge) el.dossierBadge.textContent = activeData.badge;
+    if (el.dossierTitle) el.dossierTitle.textContent = activeData.title;
+    if (el.dossierTagline) el.dossierTagline.textContent = activeData.tagline;
 
-    el.dossierBodyScience.innerHTML = activeData.science;
-    el.dossierBodyFindings.innerHTML = activeData.findings;
-    el.dossierBodyImpact.innerHTML = activeData.impact;
-    el.dossierBodyLimitations.innerHTML = activeData.limitations;
-    el.dossierBodyOutlook.innerHTML = activeData.outlook;
+    if (el.dossierBodyScience) el.dossierBodyScience.innerHTML = activeData.science;
+    if (el.dossierBodyFindings) el.dossierBodyFindings.innerHTML = activeData.findings;
+    if (el.dossierBodyImpact) el.dossierBodyImpact.innerHTML = activeData.impact;
+    if (el.dossierBodyLimitations) el.dossierBodyLimitations.innerHTML = activeData.limitations;
+    if (el.dossierBodyOutlook) el.dossierBodyOutlook.innerHTML = activeData.outlook;
 
     // Animate Bento block entrance with GSAP
     if (window.gsap) {
       window.gsap.fromTo('#dossier-bento-grid .bento-block',
         { opacity: 0, y: 8 },
-        { opacity: 1, y: 0, duration: 0.35, stagger: 0.05, ease: 'power2.out' }
+        { opacity: 1, y: 0, duration: 0.25, stagger: 0.04, ease: 'power2.out' }
       );
     }
   }
