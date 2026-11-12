@@ -367,12 +367,342 @@
     }));
   }
 
+  /**
+   * Universal client-side analyze({var, region, start, end, season, data})
+   * Reads DASHBOARD_DATA (or window.ED series) and computes:
+   *   - n (sample count)
+   *   - slope (linear OLS slope)
+   *   - theil_sen_slope (median pairwise rate)
+   *   - p_value (Mann-Kendall p-value)
+   *   - slope_ci_low, slope_ci_high (95% CI)
+   *   - If window matches a precomputed window (full_record, grace_era, grace_fo_era, recent_2020),
+   *     reads advanced diagnostics (gamma, r1_detrended, n_star, bh_fdr_q_value, verdict)
+   *     from precomputed results data.
+   *   - For custom windows, sets advanced diagnostics to "precomputed windows only".
+   */
+  function analyze(params) {
+    const opts = params || {};
+    let varId = String(opts.var || opts.variable || 'tws').toLowerCase();
+    const canonicalMap = {
+      'tws': 'tws',
+      'grace_tws': 'tws',
+      'grace_tws_cm': 'tws',
+      'imerg': 'imerg',
+      'imerg_precip': 'imerg',
+      'imerg_precip_mm': 'imerg',
+      'precip': 'imerg',
+      'power': 'power',
+      'power_precip': 'power',
+      'power_precip_mm': 'power',
+      'noah_sms': 'noah_sms',
+      'noah_sms_anom': 'noah_sms',
+      'noah_sms_anom_cm': 'noah_sms',
+      'vic_sms': 'vic_sms',
+      'vic_sms_anom': 'vic_sms',
+      'vic_sms_anom_cm': 'vic_sms',
+      'residual': 'residual',
+      'subsurface_residual': 'residual',
+      'residual_mid': 'residual',
+      'rx1day': 'rx1day',
+      'extreme_rx1day': 'rx1day',
+      'aod': 'aod',
+      'modis_aod': 'aod',
+      'aeronet_aod': 'aod'
+    };
+    varId = canonicalMap[varId] || varId;
+
+    let region = String(opts.region || 'NW');
+    let start = opts.start !== undefined && opts.start !== null ? parseInt(opts.start, 10) : 2002;
+    let end = opts.end !== undefined && opts.end !== null ? parseInt(opts.end, 10) : 2026;
+    if (isNaN(start)) start = 2002;
+    if (isNaN(end)) end = 2026;
+    if (start > end) { const tmp = start; start = end; end = tmp; }
+
+    let season = String(opts.season || 'annual').toLowerCase();
+    if (!['annual', 'monsoon', 'dry'].includes(season)) season = 'annual';
+
+    const db = opts.data || (typeof window !== 'undefined' ? window.DASHBOARD_DATA : null);
+    const ed = typeof window !== 'undefined' ? window.ED : null;
+
+    // 1. Extract raw points
+    let points = [];
+    if (opts.points && Array.isArray(opts.points)) {
+      points = opts.points;
+    } else {
+      let series = null;
+      let valProp = 'tws';
+
+      if (varId === 'tws') {
+        series = (db && db.reg_monthly && db.reg_monthly[region]) ||
+                 (db && db.div_monthly && db.div_monthly[region]) ||
+                 (ed && ed.seriesRegions && ed.seriesRegions[region]) ||
+                 (ed && ed.seriesDivisions && ed.seriesDivisions[region]);
+        valProp = 'tws';
+      } else if (varId === 'imerg') {
+        series = (db && db.reg_monthly && db.reg_monthly[region]) ||
+                 (db && db.div_monthly && db.div_monthly[region]) ||
+                 (ed && ed.seriesRegions && ed.seriesRegions[region]) ||
+                 (ed && ed.seriesDivisions && ed.seriesDivisions[region]);
+        valProp = series && series.imerg ? 'imerg' : 'precip';
+      } else if (varId === 'power') {
+        series = (db && db.reg_monthly && db.reg_monthly[region]) ||
+                 (ed && ed.seriesRegions && ed.seriesRegions[region]);
+        valProp = 'power';
+      } else if (varId === 'noah_sms') {
+        series = (db && db.part_series && db.part_series[region]) ||
+                 (ed && ed.seriesRegions && ed.seriesRegions[region]);
+        valProp = 'noah_sms';
+      } else if (varId === 'vic_sms') {
+        series = (db && db.part_series && db.part_series[region]) ||
+                 (ed && ed.seriesRegions && ed.seriesRegions[region]);
+        valProp = 'vic_sms';
+      } else if (varId === 'residual') {
+        series = (db && db.part_series && db.part_series[region]) ||
+                 (ed && ed.seriesRegions && ed.seriesRegions[region]);
+        valProp = (series && series.residual_mid) ? 'residual_mid' : (series && series.noah_res ? 'noah_res' : 'subsurface');
+      } else if (varId === 'rx1day') {
+        const extList = (ed && ed.seriesExtremes && ed.seriesExtremes[region]) || [];
+        points = extList.map(item => ({
+          ym: `${item.year}-07`,
+          year: item.year,
+          month: 7,
+          decimal_year: item.year + 0.5,
+          value: item.rx1day_mm
+        }));
+      } else if (varId === 'aod') {
+        const aodList = (ed && ed.seriesAOD && (ed.seriesAOD.bangladesh_modis || ed.seriesAOD.dhaka_modis)) || [];
+        points = aodList.map(item => ({
+          ym: item.ym,
+          year: item.year,
+          month: item.month,
+          decimal_year: item.decimal_year,
+          value: item.aod_550
+        }));
+      }
+
+      if (series && series.ym && series[valProp]) {
+        points = series.ym.map((ymStr, idx) => {
+          const yr = parseInt(ymStr.slice(0, 4), 10);
+          const mo = parseInt(ymStr.slice(5, 7), 10);
+          const decYr = series.t ? series.t[idx] : (yr + (mo - 0.5) / 12);
+          return {
+            ym: ymStr,
+            year: yr,
+            month: mo,
+            decimal_year: decYr,
+            value: series[valProp][idx]
+          };
+        });
+      }
+    }
+
+    // 2. Filter date window
+    const inWindow = points.filter(d => d.year >= start && d.year <= end);
+
+    // 3. Seasonal processing
+    let processed = [];
+    if (season !== 'annual') {
+      const kind = (varId === 'imerg' || varId === 'power') ? 'sum' : 'mean';
+      processed = seasonalAggregate(inWindow, season, kind);
+    } else {
+      const months = inWindow.map(d => d.month);
+      const vals = inWindow.map(d => d.value);
+      const des = deseasonalize(months, vals);
+      processed = inWindow.map((d, i) => ({
+        ym: d.ym,
+        year: d.year,
+        month: d.month,
+        decimal_year: d.decimal_year,
+        value: des[i]
+      })).filter(d => d.value !== null && !isNaN(d.value));
+    }
+
+    // 4. Compute simple live statistics
+    const validT = [];
+    const validY = [];
+    for (let i = 0; i < processed.length; i++) {
+      const v = processed[i].value;
+      const t = processed[i].decimal_year;
+      if (v !== null && !isNaN(v) && t !== null && !isNaN(t)) {
+        validT.push(t);
+        validY.push(v);
+      }
+    }
+
+    const n = validY.length;
+    if (n < 10) {
+      return {
+        error: `n too small (n=${n}, minimum 10 required)`,
+        n: n,
+        slope: null,
+        theil_sen_slope: null,
+        slope_ci_low: null,
+        slope_ci_high: null,
+        p_value: null,
+        p_formatted: 'n too small',
+        z: null,
+        s: null,
+        is_precomputed: false,
+        window: 'custom',
+        verdict: 'n too small (< 10)',
+        bh_fdr_q_value: null,
+        gamma: null,
+        r1_detrended: null,
+        n_star: null,
+        primary_method: 'Live Calibrated ESS-MK',
+        diagnostics_note: 'Sample size n < 10 is too small for statistical trend estimation'
+      };
+    }
+
+    // Linear OLS slope
+    let sumT = 0, sumY = 0;
+    for (let i = 0; i < n; i++) { sumT += validT[i]; sumY += validY[i]; }
+    const meanT = sumT / n;
+    const meanY = sumY / n;
+    let cov = 0, varT = 0;
+    for (let i = 0; i < n; i++) {
+      const dt = validT[i] - meanT;
+      cov += dt * (validY[i] - meanY);
+      varT += dt * dt;
+    }
+    const olsSlope = varT > 0 ? cov / varT : 0;
+
+    // Theil-Sen slope & Kendall S
+    const slopes = [];
+    let s = 0;
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
+        const dy = validY[j] - validY[i];
+        const dt = validT[j] - validT[i];
+        slopes.push(dy / dt);
+        if (dy > 0) s += 1;
+        else if (dy < 0) s -= 1;
+      }
+    }
+    slopes.sort((a, b) => a - b);
+    const nPairs = slopes.length;
+    const mid = Math.floor(nPairs / 2);
+    const theilSenSlope = (nPairs % 2 === 1) ? slopes[mid] : (slopes[mid - 1] + slopes[mid]) / 2.0;
+
+    // Simple Mann-Kendall variance and Z
+    const vS0 = (n * (n - 1) * (2 * n + 5)) / 18.0;
+    let z = 0;
+    if (s > 0) z = (s - 1) / Math.sqrt(vS0);
+    else if (s < 0) z = (s + 1) / Math.sqrt(vS0);
+    const liveP = normalSurvival2Sided(z);
+
+    // 95% CI rank bounds
+    const zCrit = 1.959964;
+    const cAlpha = zCrit * Math.sqrt(vS0);
+    const kLow = Math.max(0, Math.floor((nPairs - cAlpha) / 2.0));
+    const kHigh = Math.min(nPairs - 1, Math.ceil((nPairs + cAlpha) / 2.0));
+    const ciLow = slopes[kLow];
+    const ciHigh = slopes[kHigh];
+
+    // 5. Precomputed matching
+    let matchedWindow = null;
+    if (start === 2002 && end === 2026) matchedWindow = 'full_record';
+    else if (start === 2002 && end === 2017) matchedWindow = 'grace_era';
+    else if (start === 2018 && end === 2026) matchedWindow = 'grace_fo_era';
+    else if (start === 2020 && end === 2026) matchedWindow = 'recent_2020';
+
+    let precomputedRow = null;
+    if (matchedWindow) {
+      const targetVar = (varId === 'imerg' ? 'precip' : varId);
+      if (db && Array.isArray(db.results)) {
+        precomputedRow = db.results.find(r =>
+          r.window === matchedWindow &&
+          String(r.entity).toLowerCase() === region.toLowerCase() &&
+          r.variable === targetVar &&
+          r.season === season
+        );
+      }
+      if (!precomputedRow && ed && ed.presets) {
+        const key = `${matchedWindow}_${region}_${targetVar}`;
+        precomputedRow = ed.presets[key];
+      }
+    }
+
+    if (precomputedRow) {
+      const pValRaw = precomputedRow.p_value !== undefined ? precomputedRow.p_value : liveP;
+      const pValNum = typeof pValRaw === 'number' ? pValRaw : (String(pValRaw).includes('<') ? 0.0 : parseFloat(pValRaw));
+      return {
+        n: precomputedRow.n_obs || n,
+        slope: olsSlope,
+        theil_sen_slope: precomputedRow.slope !== undefined ? Number(precomputedRow.slope) : theilSenSlope,
+        slope_ci_low: precomputedRow.slope_ci_low !== undefined ? Number(precomputedRow.slope_ci_low) : ciLow,
+        slope_ci_high: precomputedRow.slope_ci_high !== undefined ? Number(precomputedRow.slope_ci_high) : ciHigh,
+        p_value: pValNum,
+        p_formatted: typeof pValRaw === 'string' ? pValRaw : (pValNum < 0.0001 ? '< 0.0001' : pValNum.toFixed(4)),
+        z: z,
+        s: s,
+        is_precomputed: true,
+        window: matchedWindow,
+        verdict: precomputedRow.verdict || (pValNum < 0.05 ? 'Significant' : 'No detectable trend'),
+        bh_fdr_q_value: precomputedRow.bh_fdr_q_value !== undefined ? precomputedRow.bh_fdr_q_value : null,
+        gamma: precomputedRow.gamma !== undefined ? precomputedRow.gamma : 1.0,
+        r1_detrended: precomputedRow.r1_detrended !== undefined ? precomputedRow.r1_detrended : 0.0,
+        n_star: precomputedRow.n_star !== undefined ? precomputedRow.n_star : n,
+        primary_method: precomputedRow.primary_method || 'Calibrated ESS-MK',
+        diagnostics_note: 'Precomputed calibrated diagnostics'
+      };
+    }
+
+    // Custom window (Live Calibrated ESS-MK)
+    if (n < 10) {
+      return {
+        n: n,
+        slope: olsSlope,
+        theil_sen_slope: theilSenSlope,
+        slope_ci_low: null,
+        slope_ci_high: null,
+        p_value: null,
+        p_formatted: 'n too small',
+        z: null,
+        s: s,
+        is_precomputed: false,
+        window: 'custom',
+        verdict: 'n too small (< 10)',
+        bh_fdr_q_value: null,
+        gamma: null,
+        r1_detrended: null,
+        n_star: null,
+        primary_method: 'Live Calibrated ESS-MK',
+        diagnostics_note: 'Sample size n < 10 is too small for statistical trend estimation'
+      };
+    }
+
+    const ess = essMannKendall(validT, validY);
+    const pVal = ess.p_value;
+    return {
+      n: n,
+      slope: olsSlope,
+      theil_sen_slope: ess.slope,
+      slope_ci_low: ess.ci_low,
+      slope_ci_high: ess.ci_high,
+      p_value: pVal,
+      p_formatted: pVal < 0.0001 ? '< 0.0001' : pVal.toFixed(4),
+      z: ess.z,
+      s: ess.s,
+      is_precomputed: false,
+      window: 'custom',
+      verdict: pVal < 0.05 ? 'Significant (p < 0.05)' : 'No detectable trend (p ≥ 0.05)',
+      bh_fdr_q_value: null,
+      gamma: ess.gamma,
+      r1_detrended: ess.r1_detrended,
+      n_star: ess.n_star,
+      primary_method: 'Live Calibrated ESS-MK',
+      diagnostics_note: 'Custom window computed via live ESS-Mann-Kendall'
+    };
+  }
+
   return {
     deseasonalize: deseasonalize,
     essMannKendall: essMannKendall,
     seasonalAggregate: seasonalAggregate,
     approxMDS: approxMDS,
     calcTrendLine: calcTrendLine,
-    normalSurvival2Sided: normalSurvival2Sided
+    normalSurvival2Sided: normalSurvival2Sided,
+    analyze: analyze
   };
 }));

@@ -34,6 +34,12 @@
   --accent-emerald-wash: #f0fdf4;
   --accent-cyan: #0284c7;
 
+  /* Aliases for Report & Fragments Harmony */
+  --ink-primary: #0f172a;
+  --ink-secondary: #334155;
+  --ink-muted: #64748b;
+  --border-subtle: #e2e8f0;
+
   /* Typography */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", Menlo, Monaco, Consolas, monospace;
@@ -48,6 +54,8 @@
   --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
 
   --header-height: 48px;
+  --top-nav-height: 40px;
+  --total-top-offset: calc(var(--header-height) + var(--top-nav-height));
   --transition: 0.15s ease-out;
 }
 
@@ -90,7 +98,7 @@ a:hover {
    ========================================================================== */
 .swiss-header {
   position: fixed;
-  top: 0;
+  top: var(--top-nav-height);
   left: 0;
   right: 0;
   height: var(--header-height);
@@ -243,13 +251,21 @@ a:hover {
    ========================================================================== */
 .deck-container {
   position: absolute;
-  top: var(--header-height);
+  top: var(--total-top-offset);
   left: 0;
   right: 0;
   bottom: 0;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+}
+
+/* Deck Viewport Sliding Transition State */
+#deck-viewport.is-sliding {
+  scroll-snap-type: none !important;
+}
+#deck-viewport.is-sliding #sec-cases {
+  pointer-events: none !important;
 }
 
 /* Custom Scrollbar for Swiss Grid */
@@ -270,9 +286,9 @@ a:hover {
 
 .deck-section {
   width: 100%;
-  height: calc(100vh - var(--header-height));
-  min-height: calc(100vh - var(--header-height));
-  max-height: calc(100vh - var(--header-height));
+  height: calc(100vh - var(--total-top-offset));
+  min-height: calc(100vh - var(--total-top-offset));
+  max-height: calc(100vh - var(--total-top-offset));
   scroll-snap-align: start;
   scroll-snap-stop: always;
   display: flex;
@@ -362,14 +378,18 @@ a:hover {
   font-size: 10px;
 }
 
-/* Bento Case Grid (3x2) */
+#sec-cases {
+  overflow-y: auto;
+}
+
+/* Bento Case Grid */
 .cases-bento-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 12px;
   min-height: 0;
+  padding-bottom: 14px;
 }
 
 .bento-case-card {
@@ -1252,6 +1272,163 @@ a:hover {
   text-overflow: ellipsis;
 }
 
+.verdict-report-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.verdict-report-link:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+.report-jump-btn:hover {
+  background: var(--accent-blue) !important;
+  color: #ffffff !important;
+}
+
+/* Evidence Drawer Styling */
+.evidence-nav-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 10px 18px 0 18px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-grid);
+  overflow-x: auto;
+}
+
+.evidence-tab-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: none;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.evidence-tab-btn:hover {
+  color: var(--text-main);
+  background: var(--bg-subtle);
+}
+
+.evidence-tab-btn.active {
+  color: var(--accent-blue);
+  background: var(--bg-card);
+  border-color: var(--border-grid);
+  border-bottom: 2px solid var(--accent-blue);
+}
+
+.evidence-content-container {
+  color: var(--text-main);
+  font-size: 12px;
+  line-height: 1.55;
+  padding-bottom: 24px;
+}
+
+.evidence-content-container table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  margin: 10px 0;
+}
+
+.evidence-content-container th {
+  background: var(--bg-subtle);
+  padding: 6px 8px;
+  text-align: left;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-grid);
+}
+
+.evidence-content-container td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border-grid);
+}
+
+.evidence-content-container .callout-box,
+.evidence-content-container .audit-note {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-grid);
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin: 10px 0;
+  font-size: 11.5px;
+}
+
+/* Citation & Status Verification Badges */
+.citation-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 1.5px 6px;
+  border-radius: 3px;
+  margin-left: 4px;
+  vertical-align: middle;
+  letter-spacing: 0.02em;
+}
+.citation-badge.verified {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.citation-badge.unverified {
+  background: #fff1f2;
+  color: #9f1239;
+  border: 1px solid #fecdd3;
+}
+
+/* Diagnostics Power Verdict Box */
+.diag-power-verdict {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-radius: 5px;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.diag-power-verdict.underpowered {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-left: 4px solid #d97706;
+  color: #92400e;
+}
+.diag-power-verdict.significant {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid #2563eb;
+  color: #1e40af;
+}
+.diag-power-verdict.null {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #16a34a;
+  color: #166534;
+}
+
+/* Directives Basis Footer */
+.directive-basis {
+  margin-top: 10px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border-grid);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Ensure open diagnostics drawer is visible even in student mode */
+html[data-mode="student"] aside#drawer-diagnostics.open {
+  display: flex !important;
+}
 .badge-sig-trend {
   display: inline-flex;
   align-items: center;
@@ -1399,19 +1576,65 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  background: var(--accent-blue);
+  gap: 8px;
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
   color: #fff;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-sm);
-  padding: 8px 12px;
-  font-size: 11.5px;
+  padding: 9px 16px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
-  transition: opacity var(--transition);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 .load-workbench-btn:hover {
-  opacity: 0.9;
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
+  transform: translateY(-1px);
+}
+.load-workbench-btn:active,
+.load-workbench-btn.launching,
+.case-launch-btn.launching,
+.tab-direct-launch.launching {
+  transform: translateY(1px) scale(0.97) !important;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.45) !important;
+  filter: brightness(1.15) !important;
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease !important;
+}
+.load-workbench-btn .btn-arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+.load-workbench-btn:hover .btn-arrow,
+.load-workbench-btn.launching .btn-arrow {
+  transform: translateY(3px);
+}
+
+.tab-direct-launch {
+  background: var(--accent-blue-wash);
+  border: 1px solid var(--accent-blue-border);
+  color: var(--accent-blue);
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 2.5px 7px;
+  transition: all 0.15s ease;
+  user-select: none;
+  touch-action: manipulation;
+}
+.tab-direct-launch:hover {
+  background: var(--accent-blue);
+  color: #fff;
+  border-color: var(--accent-blue);
+  transform: translateY(-1px);
+}
+.tab-direct-launch:active {
+  transform: translateY(1px);
 }
 
 /* Right 76% Animated Swiss Bento Grid */
@@ -1584,7 +1807,7 @@ a:hover {
 .slide-drawer {
   position: fixed;
   top: 0;
-  right: -480px;
+  right: 0;
   width: 460px;
   max-width: 90vw;
   height: 100%;
@@ -1593,10 +1816,11 @@ a:hover {
   z-index: 1001;
   display: flex;
   flex-direction: column;
-  transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(100%);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .slide-drawer.open {
-  right: 0;
+  transform: translateX(0);
 }
 
 .drawer-header {
