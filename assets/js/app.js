@@ -287,21 +287,51 @@
       });
     });
 
-    // Sync active nav button on manual scroll
+    // Sync active nav button on manual scroll (suppressed during programmatic slide)
     el.deckViewport.addEventListener('scroll', () => {
+      if (isSliding) return;
       const scrollPos = el.deckViewport.scrollTop;
-      const secHeight = window.innerHeight - 88;
+      const secCases = document.getElementById('sec-cases');
+      const secHeight = secCases ? secCases.offsetHeight : (el.deckViewport.clientHeight || (window.innerHeight - 88));
       const index = Math.round(scrollPos / Math.max(secHeight, 1));
       const sectionIds = ['sec-cases', 'sec-workbench', 'sec-catalog'];
       const curSecId = sectionIds[index] || 'sec-cases';
 
       el.deckNavBtns.forEach(btn => {
-        if (btn.getAttribute('data-target') === curSecId) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
+        btn.classList.toggle('active', btn.getAttribute('data-target') === curSecId);
       });
+    });
+
+    // User Interruption Handler: abort active slide on wheel, touch or navigation keys
+    const handleScrollInterrupt = (e) => {
+      if (!isSliding) return;
+      if (e.type === 'keydown' && !['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Space'].includes(e.code)) {
+        return;
+      }
+      if (activeScrollTween) {
+        activeScrollTween.kill();
+        activeScrollTween = null;
+      }
+      isSliding = false;
+      isLaunching = false;
+      if (el.deckViewport) {
+        el.deckViewport.classList.remove('is-sliding');
+        el.deckViewport.style.scrollSnapType = 'y mandatory';
+      }
+    };
+    window.addEventListener('wheel', handleScrollInterrupt, { passive: true });
+    window.addEventListener('touchstart', handleScrollInterrupt, { passive: true });
+    window.addEventListener('keydown', handleScrollInterrupt);
+
+    // Event Delegation: unified handling for all Launch Simulation triggers
+    document.addEventListener('click', (e) => {
+      const launchBtn = e.target.closest('.load-workbench-btn, [data-action="workbench"], .tab-direct-launch');
+      if (launchBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const caseId = launchBtn.getAttribute('data-case') || state.activeDossierCaseId || state.activeCaseId || 'case-1';
+        launchToWorkbench(caseId);
+      }
     });
 
     // Keyboard Shortcuts
@@ -322,9 +352,27 @@
     if (el.workbenchFullscreenBtn) el.workbenchFullscreenBtn.addEventListener('click', toggleWorkbenchFullscreen);
   }
 
-  function jumpToSection(sectionId) {
+  let isSliding = false;
+  let isLaunching = false;
+  let activeScrollTween = null;
+
+  function jumpToSection(sectionId, options = {}) {
     const target = document.getElementById(sectionId);
-    if (!target) return;
+    if (!target) {
+      console.warn(`[Deck] Unknown section id: ${sectionId}`);
+      return;
+    }
+
+    const {
+      duration = 0.85,
+      ease = 'power3.inOut',
+      onStart = null,
+      onComplete = null,
+      instant = false
+    } = options;
+
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const shouldBeInstant = instant || prefersReducedMotion;
 
     if (el.deckNavBtns) {
       el.deckNavBtns.forEach(btn => {
@@ -333,38 +381,80 @@
     }
 
     if (!el.deckViewport) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.scrollIntoView({ behavior: shouldBeInstant ? 'auto' : 'smooth', block: 'start' });
+      if (onComplete) onComplete();
       return;
     }
 
     const targetTop = target.offsetTop;
 
-    // Use GSAP ScrollToPlugin for a silky 60fps smooth slide
-    if (window.gsap && window.ScrollToPlugin) {
+    if (shouldBeInstant) {
+      if (activeScrollTween) {
+        activeScrollTween.kill();
+        activeScrollTween = null;
+      }
+      isSliding = false;
+      isLaunching = false;
+      el.deckViewport.classList.remove('is-sliding');
       el.deckViewport.style.scrollSnapType = 'none';
-      window.gsap.killTweensOf(el.deckViewport);
-      window.gsap.to(el.deckViewport, {
-        duration: 0.85,
-        scrollTo: { y: targetTop, autoKill: false },
-        ease: 'power3.inOut',
-        onComplete: () => {
+      el.deckViewport.scrollTop = targetTop;
+      requestAnimationFrame(() => {
+        if (el.deckViewport) {
+          el.deckViewport.style.scrollSnapType = 'y mandatory';
+        }
+        if (onComplete) onComplete();
+      });
+      return;
+    }
+
+    // Set sliding state and initiate immediate initial nudge (starts within < 25ms)
+    isSliding = true;
+    el.deckViewport.classList.add('is-sliding');
+    el.deckViewport.style.scrollSnapType = 'none';
+    if (targetTop > el.deckViewport.scrollTop) {
+      el.deckViewport.scrollTop = Math.min(el.deckViewport.scrollTop + 1, targetTop);
+    }
+
+    if (onStart) onStart();
+
+    const cleanup = () => {
+      isSliding = false;
+      activeScrollTween = null;
+      if (el.deckViewport) {
+        el.deckViewport.scrollTop = targetTop;
+        requestAnimationFrame(() => {
           if (el.deckViewport) {
+            el.deckViewport.classList.remove('is-sliding');
+            el.deckViewport.style.scrollSnapType = 'y mandatory';
+          }
+        });
+      }
+      if (onComplete) onComplete();
+    };
+
+    if (window.gsap && window.ScrollToPlugin) {
+      if (activeScrollTween) activeScrollTween.kill();
+      activeScrollTween = window.gsap.to(el.deckViewport, {
+        duration: duration,
+        scrollTo: { y: targetTop, autoKill: true },
+        ease: ease,
+        onComplete: cleanup,
+        onInterrupt: () => {
+          isSliding = false;
+          isLaunching = false;
+          activeScrollTween = null;
+          if (el.deckViewport) {
+            el.deckViewport.classList.remove('is-sliding');
             el.deckViewport.style.scrollSnapType = 'y mandatory';
           }
         }
       });
     } else {
-      const prevSnap = el.deckViewport.style.scrollSnapType;
-      el.deckViewport.style.scrollSnapType = 'none';
       el.deckViewport.scrollTo({
         top: targetTop,
         behavior: 'smooth'
       });
-      setTimeout(() => {
-        if (el.deckViewport) {
-          el.deckViewport.style.scrollSnapType = prevSnap || 'y mandatory';
-        }
-      }, 850);
+      setTimeout(cleanup, duration * 1000);
     }
   }
 
@@ -1212,19 +1302,7 @@
     const launchActiveCase = (e) => {
       if (e) e.preventDefault();
       const targetCase = state.activeDossierCaseId || state.activeCaseId || 'case-1';
-      activateCase(targetCase);
-
-      // Tactile visual feedback on buttons
-      const btns = [el.dossierHeaderLaunchBtn, el.dossierLoadBtn].filter(Boolean);
-      btns.forEach(b => b.classList.add('launching'));
-      setTimeout(() => {
-        btns.forEach(b => b.classList.remove('launching'));
-      }, 900);
-
-      // Smooth slide to workbench
-      requestAnimationFrame(() => {
-        jumpToSection('sec-workbench');
-      });
+      launchToWorkbench(targetCase);
     };
     if (el.dossierLoadBtn) {
       el.dossierLoadBtn.addEventListener('click', launchActiveCase);
@@ -1233,6 +1311,122 @@
       el.dossierHeaderLaunchBtn.addEventListener('click', launchActiveCase);
     }
   }
+
+  // Unified Smooth Cinematic Launch Handler
+  function launchToWorkbench(caseId) {
+    if (isLaunching || isSliding) return;
+    isLaunching = true;
+
+    const targetCase = caseId || state.activeDossierCaseId || state.activeCaseId || 'case-1';
+    const c = window.ED?.cases?.find(x => x.id === targetCase);
+
+    // 1. Cheap state assignments immediately at t=0
+    if (c) {
+      state.activeCaseId = c.id;
+      state.activeDossierCaseId = c.id;
+      state.variable = c.config.variable;
+      state.overlayVariable = c.config.overlayVariable || '';
+      state.spatialType = 'region';
+      state.entity = c.config.region;
+      state.startYear = c.config.startYear;
+      state.endYear = c.config.endYear;
+      state.season = c.config.season;
+      state.showDeseasonalized = c.config.deseasonalize;
+      state.activeLens = 'trend';
+      state.zoomStartRatio = 0;
+      state.zoomEndRatio = 1.0;
+    }
+
+    // 2. Button press tactile feedback
+    const activeBtns = document.querySelectorAll('.load-workbench-btn, .case-launch-btn[data-action="workbench"], .tab-direct-launch');
+    activeBtns.forEach(b => b.classList.add('launching'));
+
+    // 3. In-place card highlight without re-rendering #sec-cases
+    document.querySelectorAll('.bento-case-card').forEach(card => {
+      const match = card.querySelector(`[data-case="${targetCase}"]`);
+      if (match) {
+        card.classList.add('active-case');
+      }
+    });
+    document.querySelectorAll('.dossier-tab-card').forEach(tab => {
+      const match = tab.querySelector(`[data-case="${targetCase}"]`);
+      tab.classList.toggle('active', Boolean(match) || tab.getAttribute('data-case-id') === targetCase);
+    });
+
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 4. Subtle GPU-only outgoing / incoming stagger effects
+    const casesContent = document.querySelector('#sec-cases .dossier-explorer-shell') || document.getElementById('sec-cases');
+    const wbShell = el.workbenchShell || document.getElementById('sec-workbench');
+    const wbPanels = wbShell ? [
+      el.commandRibbon || document.querySelector('.command-ribbon'),
+      document.querySelector('.workbench-grid') || document.querySelector('.map-card'),
+      document.querySelector('.chart-card')
+    ].filter(Boolean) : [];
+
+    if (!prefersReducedMotion && window.gsap) {
+      if (casesContent) {
+        casesContent.style.willChange = 'transform, opacity';
+        window.gsap.to(casesContent, {
+          y: -24,
+          opacity: 0.6,
+          duration: 0.95,
+          ease: 'power3.inOut'
+        });
+      }
+      if (wbPanels.length > 0) {
+        wbPanels.forEach(p => { p.style.willChange = 'transform, opacity'; });
+        window.gsap.fromTo(wbPanels,
+          { y: 24, opacity: 0.5 },
+          { y: 0, opacity: 1, duration: 0.85, stagger: 0.05, ease: 'power3.out', delay: 0.1 }
+        );
+      }
+    }
+
+    // 5. Start slide immediately (t=0)
+    jumpToSection('sec-workbench', {
+      duration: 0.92,
+      ease: 'power2.inOut',
+      instant: prefersReducedMotion,
+      onComplete: () => {
+        // Reset GPU styles
+        if (casesContent) {
+          casesContent.style.willChange = '';
+          casesContent.style.transform = '';
+          casesContent.style.opacity = '';
+        }
+        if (wbPanels.length > 0) {
+          wbPanels.forEach(p => {
+            p.style.willChange = '';
+            p.style.transform = '';
+            p.style.opacity = '';
+          });
+        }
+        activeBtns.forEach(b => b.classList.remove('launching'));
+
+        // Run heavy workbench workflow initialization at onComplete
+        syncAppToUrlState();
+        syncCommandRibbon();
+        runWorkflow();
+
+        // Chart resize and map camera init
+        if (chartInstance && typeof chartInstance.resize === 'function') {
+          chartInstance.resize();
+        }
+
+        // Set focus to workbench heading for accessibility
+        const wbHeading = document.querySelector('#sec-workbench h1, #sec-workbench h2, #sec-workbench .ribbon-title');
+        if (wbHeading) {
+          wbHeading.setAttribute('tabindex', '-1');
+          wbHeading.focus({ preventScroll: true });
+        }
+
+        isLaunching = false;
+      }
+    });
+  }
+  window.ED.launchToWorkbench = launchToWorkbench;
+  window.ED.jumpToSection = jumpToSection;
 
   // 6. Section 1: Cases Bento Grid Renderer (Safeguard)
   function renderCasesBentoGrid() {
@@ -1265,7 +1459,7 @@
           <span class="case-telemetry-tag">${metricTag}</span>
           <div style="display:flex;gap:6px;align-items:center;">
             <button class="case-launch-btn" data-action="dossier" style="color:var(--text-muted);font-size:10.5px;">Dossier ↗</button>
-            <button class="case-launch-btn" data-action="workbench">Launch Simulation →</button>
+            <button class="case-launch-btn" data-action="workbench" data-case="${c.id}">Launch Simulation →</button>
           </div>
         </div>
       `;
@@ -1275,11 +1469,10 @@
         if (actionBtn && actionBtn.getAttribute('data-action') === 'dossier') {
           state.activeDossierCaseId = c.id;
           renderDossierExplorer();
-          jumpToSection('sec-dossiers');
+          jumpToSection('sec-cases');
           return;
         }
-        activateCase(c.id);
-        jumpToSection('sec-workbench');
+        launchToWorkbench(c.id);
       });
 
       el.casesBentoContainer.appendChild(card);
@@ -1307,8 +1500,6 @@
     syncAppToUrlState();
     syncCommandRibbon();
     runWorkflow();
-    renderCasesBentoGrid();
-    renderDossierExplorer();
   }
   window.ED.activateCase = activateCase;
 
@@ -2576,9 +2767,10 @@
 
     const allDirectives = window.ED?.catalog?.stakeholderDirectives || window.ED?.catalog?.stakeholders || {};
     const directives = allDirectives[macroKey];
+    const regionNameEl = document.getElementById('directives-region-name') || el.directivesRegionName;
 
     if (!directives) {
-      el.directivesRegionName.textContent = isDivision ? `${divName} Division` : state.entity;
+      if (regionNameEl) regionNameEl.textContent = isDivision ? `${divName} Division` : state.entity;
       el.directivesItemsContainer.innerHTML = `
         <div style="padding:16px; background:var(--bg-subtle); border:1px solid var(--border-grid); border-radius:6px; color:var(--text-muted); font-size:12px;">
           <strong>No directive found:</strong> No regional stakeholder action plan is configured for the selected entity "${state.entity}". Please select a recognized region or division.
@@ -2587,10 +2779,12 @@
     }
 
     // Header naming division and parent region
-    if (isDivision) {
-      el.directivesRegionName.textContent = `${divName} Division (${directives.region_name})`;
-    } else {
-      el.directivesRegionName.textContent = directives.region_name;
+    if (regionNameEl) {
+      if (isDivision) {
+        regionNameEl.textContent = `${divName} Division (${directives.region_name})`;
+      } else {
+        regionNameEl.textContent = directives.region_name;
+      }
     }
 
     const isBn = (state.lang === 'bn') || (document.documentElement.lang === 'bn');
@@ -2935,11 +3129,7 @@
         if (directBtn) {
           e.stopPropagation();
           e.preventDefault();
-          state.activeDossierCaseId = cId;
-          activateCase(cId);
-          requestAnimationFrame(() => {
-            jumpToSection('sec-workbench');
-          });
+          launchToWorkbench(cId);
           return;
         }
         state.activeDossierCaseId = cId;

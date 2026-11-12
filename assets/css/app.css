@@ -259,6 +259,14 @@ a:hover {
   scroll-snap-type: y mandatory;
 }
 
+/* Deck Viewport Sliding Transition State */
+#deck-viewport.is-sliding {
+  scroll-snap-type: none !important;
+}
+#deck-viewport.is-sliding #sec-cases {
+  pointer-events: none !important;
+}
+
 /* Custom Scrollbar for Swiss Grid */
 .deck-container::-webkit-scrollbar {
   width: 6px;
@@ -1590,10 +1598,13 @@ html[data-mode="student"] aside#drawer-diagnostics.open {
   transform: translateY(-1px);
 }
 .load-workbench-btn:active,
-.load-workbench-btn.launching {
-  transform: translateY(1px) scale(0.98);
-  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.4);
-  background: #1e3a8a;
+.load-workbench-btn.launching,
+.case-launch-btn.launching,
+.tab-direct-launch.launching {
+  transform: translateY(1px) scale(0.97) !important;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.45) !important;
+  filter: brightness(1.15) !important;
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease !important;
 }
 .load-workbench-btn .btn-arrow {
   display: inline-block;
