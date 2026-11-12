@@ -299,15 +299,86 @@ a:hover {
 }
 
 /* Fullscreen Mode Overrides */
+:fullscreen .top-nav,
+:fullscreen .swiss-header,
+:-webkit-full-screen .top-nav,
+:-webkit-full-screen .swiss-header {
+  display: none !important;
+}
+
+:fullscreen .deck-container,
+:-webkit-full-screen .deck-container {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+:fullscreen .deck-section,
+:-webkit-full-screen .deck-section {
+  height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: 100vh !important;
+  padding: 12px 16px !important;
+}
+
 #sec-workbench:fullscreen,
-#sec-workbench:-webkit-full-screen {
+#sec-workbench:-webkit-full-screen,
+.workbench-shell:fullscreen,
+.workbench-shell:-webkit-full-screen {
   width: 100vw;
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
   padding: 12px 16px;
   background: var(--bg-deck);
-  z-index: 999999;
+  overflow: visible !important;
+}
+
+/* Ensure drawers & backdrops always show on top layer in Fullscreen */
+:fullscreen .slide-drawer,
+:-webkit-full-screen .slide-drawer,
+.workbench-shell:fullscreen .slide-drawer,
+.workbench-shell:-webkit-full-screen .slide-drawer,
+#sec-workbench:fullscreen .slide-drawer,
+#sec-workbench:-webkit-full-screen .slide-drawer {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  z-index: 2147483647 !important;
+}
+
+:fullscreen .drawer-backdrop,
+:-webkit-full-screen .drawer-backdrop,
+.workbench-shell:fullscreen .drawer-backdrop,
+.workbench-shell:-webkit-full-screen .drawer-backdrop,
+#sec-workbench:fullscreen .drawer-backdrop,
+#sec-workbench:-webkit-full-screen .drawer-backdrop {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 2147483646 !important;
+}
+
+:fullscreen .modal-overlay,
+:-webkit-full-screen .modal-overlay,
+.workbench-shell:fullscreen .modal-overlay,
+.workbench-shell:-webkit-full-screen .modal-overlay,
+#sec-workbench:fullscreen .modal-overlay,
+#sec-workbench:-webkit-full-screen .modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 2147483647 !important;
 }
 
 /* ==========================================================================

@@ -466,24 +466,70 @@
   }
 
   function toggleWorkbenchFullscreen() {
-    if (!document.fullscreenElement) {
-      if (el.workbenchShell.requestFullscreen) {
-        el.workbenchShell.requestFullscreen();
-      } else if (el.workbenchShell.webkitRequestFullscreen) {
-        el.workbenchShell.webkitRequestFullscreen();
+    const root = document.documentElement;
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+      if (root.requestFullscreen) {
+        root.requestFullscreen().catch(() => {
+          if (el.workbenchShell && el.workbenchShell.requestFullscreen) {
+            el.workbenchShell.requestFullscreen().catch(() => {});
+          }
+        });
+      } else if (root.webkitRequestFullscreen) {
+        root.webkitRequestFullscreen();
+      } else if (el.workbenchShell && el.workbenchShell.requestFullscreen) {
+        el.workbenchShell.requestFullscreen().catch(() => {});
       }
     } else {
       if (document.exitFullscreen) {
-        document.exitFullscreen();
+        document.exitFullscreen().catch(() => {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
       }
     }
   }
 
-  document.addEventListener('fullscreenchange', () => {
+  function syncFloatingElementsToFullscreen() {
+    const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    const floatingElements = [
+      el.evidenceBackdrop,
+      el.drawerEvidence,
+      el.diagnosticsBackdrop,
+      el.drawerDiagnostics,
+      el.directivesBackdrop,
+      el.drawerDirectives,
+      el.varPopoverBackdrop,
+      el.varPopover,
+      el.overlayPopoverBackdrop,
+      el.overlayCompareModal,
+      el.modalOverlay
+    ].filter(Boolean);
+
+    if (fsEl && fsEl !== document.documentElement && fsEl !== document.body) {
+      floatingElements.forEach(elem => {
+        if (elem.parentElement !== fsEl) {
+          fsEl.appendChild(elem);
+        }
+      });
+    } else {
+      floatingElements.forEach(elem => {
+        if (elem.parentElement !== document.body) {
+          document.body.appendChild(elem);
+        }
+      });
+    }
+  }
+
+  function handleFullscreenChange() {
+    syncFloatingElementsToFullscreen();
     setTimeout(() => {
-      if (chartInstance) chartInstance.resize();
+      if (chartInstance && typeof chartInstance.resize === 'function') {
+        chartInstance.resize();
+      }
     }, 150);
-  });
+  }
+
+  document.addEventListener('fullscreenchange', handleFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
 
   // 4. Data Extraction Helpers
   function getVarMeta(varId) {
@@ -690,6 +736,7 @@
   }
 
   function openVarPopover() {
+    syncFloatingElementsToFullscreen();
     el.varPopover.classList.add('open');
     el.varPopoverBackdrop.classList.add('open');
   }
@@ -742,6 +789,7 @@
   }
 
   function openOverlayModal() {
+    syncFloatingElementsToFullscreen();
     initOverlayModal();
     el.overlayCompareModal.classList.add('open');
     el.overlayPopoverBackdrop.classList.add('open');
@@ -2869,16 +2917,19 @@
   }
 
   function openDiagnosticsDrawer() {
+    syncFloatingElementsToFullscreen();
     el.drawerDiagnostics.classList.add('open');
     el.diagnosticsBackdrop.classList.add('open');
   }
 
   function openDirectivesDrawer() {
+    syncFloatingElementsToFullscreen();
     el.drawerDirectives.classList.add('open');
     el.directivesBackdrop.classList.add('open');
   }
 
   function openEvidenceDrawer(initialFragment = 'threeway') {
+    syncFloatingElementsToFullscreen();
     if (el.drawerEvidence && el.evidenceBackdrop) {
       el.drawerEvidence.classList.add('open');
       el.evidenceBackdrop.classList.add('open');
@@ -3159,6 +3210,7 @@
 
   // 13. Specification Modal (ⓘ Details)
   function openModal(varMeta) {
+    syncFloatingElementsToFullscreen();
     el.modalTitle.textContent = varMeta.name;
     el.modalMeta.textContent = `${varMeta.sensor} • Footprint: ${varMeta.spatial_footprint} • Span: ${varMeta.temporal_range}`;
     el.modalDef.textContent = varMeta.definition;
