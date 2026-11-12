@@ -613,17 +613,20 @@
     </div>
     <div class="drawer-body">
       <p style="color:var(--text-muted);font-size:11px;margin-bottom:12px;" data-i18n="diag.subtitle">
-        Mathematical diagnostics verifying statistical independence, Hurwicz small-sample autocorrelation correction, and duality confidence intervals.
+        Calibrated Effective-Sample-Size Mann-Kendall statistics, Minimum Detectable Slope power audit, and per-variable NASA sensor provenance.
       </p>
 
-      <div class="drawer-section-title" data-mode="scientist" data-i18n="diag.sec_stats">Mann-Kendall Test Statistics</div>
-      <div class="diagnostics-grid" id="diag-stats-grid" data-mode="scientist"></div>
+      <div id="diag-student-summary" data-mode="student" class="student-plain-summary" style="margin-bottom:12px;"></div>
+      <div id="diag-power-verdict-box" style="margin-bottom:12px;"></div>
 
-      <div class="drawer-section-title" data-mode="scientist" data-i18n="diag.sec_window">Dr. James Acker's Window Length Lesson</div>
-      <p id="diag-window-lesson" data-mode="scientist" style="background:var(--bg-subtle);padding:10px;border-radius:4px;border:1px solid var(--border-grid);margin-bottom:12px;"></p>
+      <div class="drawer-section-title" data-i18n="diag.sec_stats">Mann-Kendall Test Statistics</div>
+      <div class="diagnostics-grid" id="diag-stats-grid"></div>
 
-      <div class="drawer-section-title" data-mode="scientist" data-i18n="diag.sec_sensor">Sensor &amp; Mission Break Safeguards</div>
-      <p id="diag-sensor-safeguard" data-mode="scientist" style="font-size:11px;color:var(--text-muted);"></p>
+      <div class="drawer-section-title" data-i18n="diag.sec_window">Dr. James Acker's Window Length Lesson</div>
+      <p id="diag-window-lesson" style="background:var(--bg-subtle);padding:10px;border-radius:4px;border:1px solid var(--border-grid);margin-bottom:12px;"></p>
+
+      <div class="drawer-section-title" data-i18n="diag.sec_sensor">Sensor &amp; Mission Break Safeguards</div>
+      <p id="diag-sensor-safeguard" style="font-size:11px;color:var(--text-muted);"></p>
     </div>
   </aside>
 
@@ -37427,7 +37430,8 @@
   <script src="data/catalog.js"></script>
   <script src="data/map.js"></script>
   <script src="data/presets.js"></script>
-  <script src="data/fragments.js"></script>
+  <script src="assets/js/report_fragments.js"></script>
+  <script src="assets/js/citations.js"></script>
   <script src="data/series_regions.js"></script>
   <script src="data/series_divisions.js"></script>
   <script src="data/series_extremes.js"></script>

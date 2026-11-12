@@ -530,14 +530,27 @@
     }
 
     const n = validY.length;
-    if (n < 8) {
+    if (n < 10) {
       return {
-        error: `Insufficient data points (n=${n}, minimum 8 required)`,
+        error: `n too small (n=${n}, minimum 10 required)`,
         n: n,
-        slope: NaN,
-        theil_sen_slope: NaN,
-        p_value: NaN,
-        is_precomputed: false
+        slope: null,
+        theil_sen_slope: null,
+        slope_ci_low: null,
+        slope_ci_high: null,
+        p_value: null,
+        p_formatted: 'n too small',
+        z: null,
+        s: null,
+        is_precomputed: false,
+        window: 'custom',
+        verdict: 'n too small (< 10)',
+        bh_fdr_q_value: null,
+        gamma: null,
+        r1_detrended: null,
+        n_star: null,
+        primary_method: 'Live Calibrated ESS-MK',
+        diagnostics_note: 'Sample size n < 10 is too small for statistical trend estimation'
       };
     }
 
@@ -635,26 +648,51 @@
       };
     }
 
-    // Custom window (Live simple tests only)
+    // Custom window (Live Calibrated ESS-MK)
+    if (n < 10) {
+      return {
+        n: n,
+        slope: olsSlope,
+        theil_sen_slope: theilSenSlope,
+        slope_ci_low: null,
+        slope_ci_high: null,
+        p_value: null,
+        p_formatted: 'n too small',
+        z: null,
+        s: s,
+        is_precomputed: false,
+        window: 'custom',
+        verdict: 'n too small (< 10)',
+        bh_fdr_q_value: null,
+        gamma: null,
+        r1_detrended: null,
+        n_star: null,
+        primary_method: 'Live Calibrated ESS-MK',
+        diagnostics_note: 'Sample size n < 10 is too small for statistical trend estimation'
+      };
+    }
+
+    const ess = essMannKendall(validT, validY);
+    const pVal = ess.p_value;
     return {
       n: n,
       slope: olsSlope,
-      theil_sen_slope: theilSenSlope,
-      slope_ci_low: ciLow,
-      slope_ci_high: ciHigh,
-      p_value: liveP,
-      p_formatted: liveP < 0.0001 ? '< 0.0001' : liveP.toFixed(4),
-      z: z,
-      s: s,
+      theil_sen_slope: ess.slope,
+      slope_ci_low: ess.ci_low,
+      slope_ci_high: ess.ci_high,
+      p_value: pVal,
+      p_formatted: pVal < 0.0001 ? '< 0.0001' : pVal.toFixed(4),
+      z: ess.z,
+      s: ess.s,
       is_precomputed: false,
       window: 'custom',
-      verdict: liveP < 0.05 ? 'Significant (p < 0.05)' : 'No detectable trend (p ≥ 0.05)',
-      bh_fdr_q_value: 'precomputed windows only',
-      gamma: 'precomputed windows only',
-      r1_detrended: 'precomputed windows only',
-      n_star: 'precomputed windows only',
-      primary_method: 'Live Simple Mann-Kendall',
-      diagnostics_note: 'precomputed windows only'
+      verdict: pVal < 0.05 ? 'Significant (p < 0.05)' : 'No detectable trend (p ≥ 0.05)',
+      bh_fdr_q_value: null,
+      gamma: ess.gamma,
+      r1_detrended: ess.r1_detrended,
+      n_star: ess.n_star,
+      primary_method: 'Live Calibrated ESS-MK',
+      diagnostics_note: 'Custom window computed via live ESS-Mann-Kendall'
     };
   }
 

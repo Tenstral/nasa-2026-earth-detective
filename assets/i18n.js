@@ -125,7 +125,7 @@
 
       // Diagnostics Drawer
       'diag.title': 'Statistical Rigor & Detection Power',
-      'diag.subtitle': 'Mathematical diagnostics verifying statistical independence, Hurwicz small-sample autocorrelation correction, and duality confidence intervals.',
+      'diag.subtitle': 'Calibrated Effective-Sample-Size Mann-Kendall statistics, Minimum Detectable Slope power audit, and per-variable NASA sensor provenance.',
       'diag.sec_stats': 'Mann-Kendall Test Statistics',
       'diag.sec_window': "Dr. James Acker's Window Length Lesson",
       'diag.sec_sensor': 'Sensor & Mission Break Safeguards',
@@ -244,7 +244,7 @@
 
       // Diagnostics Drawer
       'diag.title': 'পরিসংখ্যানগত নির্ভুলতা ও শনাক্তকরণ ক্ষমতা', // DRAFT: needs native review
-      'diag.subtitle': 'Hurwicz ছোট নমুনার অটো-কোরিলেশন সমন্বয় ও দ্বৈত আত্মবিশ্বাস ব্যবধান যাচাইকারী গাণিতিক ডায়াগনস্টিক।', // DRAFT: needs native review
+      'diag.subtitle': 'ক্যালিব্রেটেড কার্যকরী নমুনার মান-কেন্ডাল পরিসংখ্যান, সনাক্তকরণ সক্ষমতা ও নাসা সেন্সর প্রমাণ নিরীক্ষা।', // DRAFT: needs native review
       'diag.sec_stats': 'মান-কেন্ডাল টেস্ট পরিসংখ্যান', // DRAFT: needs native review
       'diag.sec_window': 'ডঃ জেমস একারের সময়কাল ও পর্যবেক্ষণ পাঠ', // DRAFT: needs native review
       'diag.sec_sensor': 'সেন্সর ট্রানজিশন ও ব্রেক সুরক্ষা ব্যবস্থা', // DRAFT: needs native review

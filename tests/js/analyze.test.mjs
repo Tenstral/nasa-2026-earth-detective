@@ -66,7 +66,7 @@ describe('Client-side analyze() tests', () => {
     assert.ok(Math.abs(res.slope - (-1.25)) < 0.05);
   });
 
-  test('analyze() for custom window computes simple live tests and labels advanced diagnostics "precomputed windows only"', () => {
+  test('analyze() for custom window computes live ESS-MK numeric diagnostics', () => {
     // Custom window: 2005 to 2020
     const points = [];
     for (let yr = 2005; yr <= 2020; yr++) {
@@ -92,10 +92,32 @@ describe('Client-side analyze() tests', () => {
     assert.ok(!isNaN(res.slope));
     assert.ok(!isNaN(res.theil_sen_slope));
     assert.ok(!isNaN(res.p_value));
-    assert.equal(res.bh_fdr_q_value, 'precomputed windows only');
-    assert.equal(res.gamma, 'precomputed windows only');
-    assert.equal(res.r1_detrended, 'precomputed windows only');
-    assert.equal(res.n_star, 'precomputed windows only');
+    assert.equal(res.bh_fdr_q_value, null);
+    assert.equal(typeof res.gamma, 'number');
+    assert.equal(typeof res.r1_detrended, 'number');
+    assert.equal(typeof res.n_star, 'number');
+    assert.ok(res.gamma >= 1.0);
+    assert.ok(res.n_star <= res.n);
+  });
+
+  test('analyze() for short window n < 10 returns null diagnostics with "n too small"', () => {
+    const points = [
+      { ym: '2020-01', year: 2020, month: 1, decimal_year: 2020.04, value: 1.2 },
+      { ym: '2020-02', year: 2020, month: 2, decimal_year: 2020.12, value: 1.5 },
+      { ym: '2020-03', year: 2020, month: 3, decimal_year: 2020.21, value: 0.9 }
+    ];
+    const res = Stats.analyze({
+      var: 'tws',
+      region: 'NW',
+      start: 2020,
+      end: 2020,
+      season: 'annual',
+      points: points
+    });
+    assert.equal(res.p_formatted, 'n too small');
+    assert.equal(res.gamma, null);
+    assert.equal(res.r1_detrended, null);
+    assert.equal(res.n_star, null);
   });
 
 });
