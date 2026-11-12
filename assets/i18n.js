@@ -114,8 +114,8 @@
       'btn.open_report_link': 'Open Full Hydrogeological Proof & Audit in Report →',
 
       // Evidence Drawer
-      'evidence.title': 'Methodological Proof & In-Depth Audit',
-      'evidence.subtitle': 'Verified analytical evidence extracted from Dossier #01',
+      'evidence.title': 'Methodological Proof',
+      'evidence.subtitle': 'Methods and validation from Case #01',
       'evidence.tab_threeway': '3-Way Transition',
       'evidence.tab_gldas': 'GLDAS Partition',
       'evidence.tab_pairwise': 'Pairwise Differences',
@@ -124,15 +124,15 @@
       'evidence.open_report': 'Open in full report →',
 
       // Diagnostics Drawer
-      'diag.title': 'Statistical Rigor & Detection Power',
-      'diag.subtitle': 'Calibrated Effective-Sample-Size Mann-Kendall statistics, Minimum Detectable Slope power audit, and per-variable NASA sensor provenance.',
-      'diag.sec_stats': 'Mann-Kendall Test Statistics',
-      'diag.sec_window': "Dr. James Acker's Window Length Lesson",
-      'diag.sec_sensor': 'Sensor & Mission Break Safeguards',
+      'diag.title': 'Statistical Diagnostics',
+      'diag.subtitle': 'Effective-sample-size Mann-Kendall stats, Minimum Detectable Slope, and sensor provenance.',
+      'diag.sec_stats': 'Mann-Kendall Stats',
+      'diag.sec_window': 'Window Length',
+      'diag.sec_sensor': 'Sensor Safeguards',
 
       // Directives Drawer
-      'directives.title': 'Regional Stakeholder Action Directives',
-      'directives.subtitle': 'Actionable policy, agricultural, and citizen directives translated directly from 24-year satellite trend detection for',
+      'directives.title': 'Stakeholder Directives',
+      'directives.subtitle': 'Policy, farm, and local steps from 24-year satellite trends for',
       'directives.bangladesh_regions_only': 'Directives are available for Bangladesh hydrological regions.',
 
       // Report Specific Notice & Headings

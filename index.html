@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bengal Earth System Trend Detective — NASA Space Apps Challenge 2026</title>
+  <title>Bengal Hydro Detective | NASA Space Apps 2026</title>
   <meta name="description" content="Scientific desktop analytical deck and 5-step trend detection workbench analyzing 24 years of NASA Earth observations across Bangladesh.">
 
   <!-- Local Vendored Libraries (100% Offline Ready) -->
@@ -20,21 +20,17 @@
   <!-- Shared Universal Top Navigation -->
   <header class="top-nav">
     <div class="top-nav-brand">
-      <span class="top-nav-badge" data-i18n="nav.brand">NASA TREND DETECTIVE</span>
-      <span class="top-nav-title" data-i18n="nav.title">Universal 5-Step Earth Observation Tool</span>
+      <span class="top-nav-badge" data-i18n="nav.brand">BE AN EARTH DETECTIVE</span>
+      <span class="top-nav-title" data-i18n="nav.title">5 step Earth Observation Tool</span>
     </div>
     <nav class="top-nav-links" id="main-top-nav">
       <a href="index.html" class="top-nav-link" data-page="index.html" data-i18n="nav.workbench">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
-        <span>5-Step Detective Workbench</span>
+        <span>Analyzer</span>
       </a>
       <a href="report.html" class="top-nav-link" data-page="report.html" data-i18n="nav.report">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-        <span>Flagship Report: Bangladesh Deep-Dive</span>
-      </a>
-      <a href="demo.html" class="top-nav-link" data-page="demo.html" data-i18n="nav.demo">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-        <span>Interactive Pitch Deck</span>
+        <span>Water Reserve Report: Bangladesh</span>
       </a>
     </nav>
     <div class="top-nav-controls">
@@ -51,13 +47,11 @@
   <!-- Fixed Top Swiss Command Header (48px) -->
   <header class="swiss-header">
     <div class="brand-cell">
-      <div class="brand-badge">[EOS]</div>
-      <div class="brand-title-wrap">
+            <div class="brand-title-wrap">
         <div class="brand-title">
-          Bengal Earth System Trend Detective
+          Bengal Hydro Detective
           <span class="hack-tag">NASA Space Apps 2026</span>
         </div>
-        <div class="brand-sub">Dr. James Acker's 5-Step Analytical Framework • 2002–2026 Baseline</div>
       </div>
     </div>
 
@@ -67,26 +61,26 @@
         <span class="num">01</span> Cases
       </button>
       <button class="deck-nav-btn" data-target="sec-workbench">
-        <span class="num">02</span> Workbench
+        <span class="num">02</span> Analyzer
       </button>
       <button class="deck-nav-btn" data-target="sec-catalog">
-        <span class="num">03</span> Catalog
+        <span class="num">03</span> Data sources
       </button>
     </nav>
 
     <!-- Header Actions -->
     <div class="header-actions">
-      <button class="header-btn" id="btn-header-evidence" title="Open Methodological Evidence & In-Depth Proof Drawer" data-i18n="btn.open_evidence">
+      <button class="header-btn" id="btn-header-evidence" title="Open Methodological Evidence & In-Depth Proof Drawer">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
-        <span>Methodological Proof</span>
+        <span data-i18n="btn.open_evidence">Methodological Proof</span>
       </button>
-      <button class="header-btn" id="btn-header-directives" title="Open Stakeholder Action Directives Drawer" data-i18n="btn.open_directives">
+      <button class="header-btn" id="btn-header-directives" title="Open Stakeholder Action Directives Drawer">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M9 14l2 2 4-4"></path></svg>
-        <span>Directives</span>
+        <span data-i18n="btn.open_directives">Directives</span>
       </button>
-      <button class="header-btn" id="btn-header-diagnostics" data-mode="scientist" title="Open Statistical Rigor Diagnostics Drawer" data-i18n="btn.open_diagnostics">
+      <button class="header-btn" id="btn-header-diagnostics" data-mode="scientist" title="Open Statistical Rigor Diagnostics Drawer">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-        <span>Diagnostics</span>
+        <span data-i18n="btn.open_diagnostics">Diagnostics</span>
       </button>
       <button class="header-btn" id="btn-fullscreen-header" title="Toggle Simulation Fullscreen (Key: F)">
         <span class="mono-kbd">F</span>
@@ -111,7 +105,7 @@
         <!-- Left 26% Vertical Tab Rail -->
         <aside class="dossier-rail">
           <div class="dossier-rail-header">
-            <span>Guided Case Investigations</span>
+            <span>Case Studies</span>
             <span class="badge-count" style="background:var(--accent-blue-wash);color:var(--accent-blue);padding:1px 6px;border-radius:10px;font-size:10px;">7 Cases</span>
           </div>
 
@@ -133,7 +127,7 @@
             <div>
               <div class="case-badge" id="dossier-badge">Case File #1</div>
               <h2 class="dossier-active-title" id="dossier-title">Where Is the Northwest's Water Going?</h2>
-              <div class="dossier-active-tagline" id="dossier-tagline">Total Water Storage vs. Satellite Rainfall in the Barind Tract</div>
+              <div class="dossier-active-tagline" id="dossier-tagline">Water Storage vs. Rainfall, Barind Tract</div>
             </div>
             <div class="dossier-header-actions" style="display:flex;gap:8px;align-items:center;">
               <button class="load-workbench-btn" id="dossier-header-launch-btn" title="Launch simulation in interactive workbench">
@@ -144,33 +138,33 @@
           </div>
 
           <div class="dossier-bento-grid" id="dossier-bento-grid">
-            <!-- 1. Science Simplified -->
+            <!-- 1. Overview -->
             <div class="bento-block" id="dossier-block-science">
-              <div class="bento-block-title">1. The Science Simplified</div>
+              <div class="bento-block-title">1. Overview</div>
               <div class="bento-block-body" id="dossier-body-science"></div>
             </div>
 
-            <!-- 2. Empirical Findings -->
+            <!-- 2. Findings -->
             <div class="bento-block" id="dossier-block-findings">
-              <div class="bento-block-title">2. Empirical Analysis &amp; Findings</div>
+              <div class="bento-block-title">2. Findings</div>
               <div class="bento-block-body" id="dossier-body-findings"></div>
             </div>
 
-            <!-- 3. Real-World Impact -->
+            <!-- 3. Impact -->
             <div class="bento-block" id="dossier-block-impact">
-              <div class="bento-block-title">3. Real-World Impact</div>
+              <div class="bento-block-title">3. Impact</div>
               <div class="bento-block-body" id="dossier-body-impact"></div>
             </div>
 
-            <!-- 4. Study Limitations -->
+            <!-- 4. Limitations -->
             <div class="bento-block" id="dossier-block-limitations">
-              <div class="bento-block-title">4. Study &amp; Sensor Limitations</div>
+              <div class="bento-block-title">4. Limitations</div>
               <div class="bento-block-body" id="dossier-body-limitations"></div>
             </div>
 
-            <!-- 5. Future Predictions & Outlook (Full Width) -->
+            <!-- 5. Next Steps (Full Width) -->
             <div class="bento-block bento-block-full" id="dossier-block-outlook">
-              <div class="bento-block-title">5. Future Outlook &amp; Adaptation Directives</div>
+              <div class="bento-block-title">5. Next Steps</div>
               <div class="bento-block-body" id="dossier-body-outlook"></div>
             </div>
           </div>
@@ -423,19 +417,21 @@
 
             <!-- Drawer Triggers Bar -->
             <div class="drawer-trigger-bar">
-              <button class="drawer-btn" id="btn-open-diagnostics" data-mode="scientist" data-i18n="btn.open_diagnostics">
-                Statistical Rigor Diagnostics &amp; Detection Power Drawer
+              <button class="drawer-btn" id="btn-open-diagnostics" data-mode="scientist">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                <span data-i18n="btn.open_diagnostics">Statistical Test Report</span>
               </button>
-              <button class="drawer-btn" id="btn-open-directives" data-i18n="btn.open_directives">
-                Regional Stakeholder Action Directives Drawer
+              <button class="drawer-btn" id="btn-open-directives">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                <span data-i18n="btn.open_directives">Possible Action Idea</span>
               </button>
-              <button class="drawer-btn" id="btn-open-evidence" data-i18n="btn.open_evidence" style="border-color: var(--accent-blue); color: var(--accent-blue); font-weight: 700;">
-                🔍 View Methodological Proof
+              <button class="drawer-btn drawer-btn-accent" id="btn-open-evidence">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                <span data-i18n="btn.open_evidence">Methodological Proof</span>
               </button>
-              <a class="drawer-btn report-jump-btn" id="btn-trigger-report-link" data-i18n="btn.open_report_link" href="report.html#subsurface-validation" style="display:inline-flex; align-items:center; text-decoration:none; color:var(--accent-blue); font-weight:600;">
-                Open Full Hydrogeological Proof &amp; Audit in Report &rarr;
+              <a class="drawer-btn report-jump-btn" id="btn-trigger-report-link" href="report.html#subsurface-validation">
+                <span data-i18n="btn.open_report_link">Full Research Report &rarr;</span>
               </a>
-            </div>
             </div>
 
           </div>
@@ -448,14 +444,13 @@
     <!-- ====================================================================
          Section 03: NASA Sensor Telemetry Catalog (100vh)
          ==================================================================== -->
-         ==================================================================== -->
     <section class="deck-section" id="sec-catalog">
       <div class="catalog-shell">
         <div class="catalog-headline-bar">
           <div>
-            <h2 class="catalog-title">NASA Earth Observations &amp; Models Specification Matrix</h2>
+            <h2 class="catalog-title">Sensors &amp; Models</h2>
             <p style="color:var(--text-muted);font-size:11px;margin-top:2px;">
-              Authenticated satellite missions, land surface reanalyses, and in situ calibration baselines utilized across Bangladesh.
+              Satellite missions, land surface models, and ground stations used across Bangladesh.
             </p>
           </div>
         </div>
@@ -610,24 +605,24 @@
   <div class="drawer-backdrop" id="diagnostics-backdrop"></div>
   <aside class="slide-drawer" id="drawer-diagnostics" data-mode="scientist">
     <div class="drawer-header">
-      <div class="drawer-title" data-i18n="diag.title">Statistical Rigor &amp; Detection Power</div>
+      <div class="drawer-title" data-i18n="diag.title">Statistical Diagnostics</div>
       <button class="drawer-close-btn" id="close-diagnostics">&times;</button>
     </div>
     <div class="drawer-body">
       <p style="color:var(--text-muted);font-size:11px;margin-bottom:12px;" data-i18n="diag.subtitle">
-        Calibrated Effective-Sample-Size Mann-Kendall statistics, Minimum Detectable Slope power audit, and per-variable NASA sensor provenance.
+        Effective-sample-size Mann-Kendall stats, Minimum Detectable Slope, and sensor provenance.
       </p>
 
       <div id="diag-student-summary" data-mode="student" class="student-plain-summary" style="margin-bottom:12px;"></div>
       <div id="diag-power-verdict-box" style="margin-bottom:12px;"></div>
 
-      <div class="drawer-section-title" data-i18n="diag.sec_stats">Mann-Kendall Test Statistics</div>
+      <div class="drawer-section-title" data-i18n="diag.sec_stats">Mann-Kendall Stats</div>
       <div class="diagnostics-grid" id="diag-stats-grid"></div>
 
-      <div class="drawer-section-title" data-i18n="diag.sec_window">Dr. James Acker's Window Length Lesson</div>
+      <div class="drawer-section-title" data-i18n="diag.sec_window">Window Length</div>
       <p id="diag-window-lesson" style="background:var(--bg-subtle);padding:10px;border-radius:4px;border:1px solid var(--border-grid);margin-bottom:12px;"></p>
 
-      <div class="drawer-section-title" data-i18n="diag.sec_sensor">Sensor &amp; Mission Break Safeguards</div>
+      <div class="drawer-section-title" data-i18n="diag.sec_sensor">Sensor Safeguards</div>
       <p id="diag-sensor-safeguard" style="font-size:11px;color:var(--text-muted);"></p>
     </div>
   </aside>
@@ -638,12 +633,12 @@
   <div class="drawer-backdrop" id="directives-backdrop"></div>
   <aside class="slide-drawer" id="drawer-directives">
     <div class="drawer-header">
-      <div class="drawer-title" data-i18n="directives.title">Regional Stakeholder Action Directives</div>
+      <div class="drawer-title" data-i18n="directives.title">Stakeholder Directives</div>
       <button class="drawer-close-btn" id="close-directives">&times;</button>
     </div>
     <div class="drawer-body">
       <p style="color:var(--text-muted);font-size:11px;margin-bottom:12px;">
-        <span data-i18n="directives.subtitle">Actionable policy, agricultural, and citizen directives translated directly from 24-year satellite trend detection for</span> <strong id="directives-region-name">Northwest Bangladesh</strong>:
+        <span data-i18n="directives.subtitle">Policy, farm, and local steps from 24-year satellite trends for</span> <strong id="directives-region-name">Northwest Bangladesh</strong>:
       </p>
 
       <div id="directives-items-container"></div>
@@ -651,14 +646,14 @@
   </aside>
 
   <!-- ======================================================================
-       Slide-Over Drawer: Methodological Evidence & In-Depth Audit
+       Slide-Over Drawer: Methodological Evidence
        ====================================================================== -->
   <div class="drawer-backdrop" id="evidence-backdrop"></div>
   <aside class="slide-drawer" id="evidenceDrawer" style="width: min(760px, 94vw); max-width: 760px;">
     <div class="drawer-header" style="justify-content: space-between;">
       <div>
-        <div class="drawer-title" data-i18n="evidence.title">Methodological Proof &amp; In-Depth Audit</div>
-        <div style="font-size: 11px; color: var(--text-muted);" data-i18n="evidence.subtitle">Verified analytical evidence extracted from Dossier #01</div>
+        <div class="drawer-title" data-i18n="evidence.title">Methodological Proof</div>
+        <div style="font-size: 11px; color: var(--text-muted);" data-i18n="evidence.subtitle">Methods and validation from Case #01</div>
       </div>
       <div style="display: flex; align-items: center; gap: 12px;">
         <a id="evidence-open-report-link" href="report.html#subsurface-validation" target="_blank" data-i18n="evidence.open_report" style="font-size: 11.5px; font-weight: 700; color: var(--accent-blue); text-decoration: none;">
@@ -678,6 +673,7 @@
       <div id="evidence-content" class="evidence-content-container"></div>
     </div>
   </aside>
+  <!-- ======================================================================
        Variable Specification Modal (ⓘ Details)
        ====================================================================== -->
   <div class="modal-overlay" id="modal-overlay">
