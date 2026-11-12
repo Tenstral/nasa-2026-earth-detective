@@ -234,7 +234,7 @@
 
     if (state.season) parts.push(`season=${encodeURIComponent(state.season)}`);
     if (state.mode) parts.push(`mode=${encodeURIComponent(state.mode)}`);
-    if (state.lang) parts.push(`lang=${encodeURIComponent(state.lang)}`);
+    if (state.lang && state.lang !== 'en') parts.push(`lang=${encodeURIComponent(state.lang)}`);
 
     return parts.length > 0 ? `?${parts.join('&')}` : '';
   }
@@ -338,8 +338,8 @@
       const targetPage = link.getAttribute('data-page') || rawHref.split('?')[0].split('#')[0] || 'index.html';
       const linkHash = link.getAttribute('data-hash') || (rawHref.includes('#') ? '#' + rawHref.split('#')[1] : '');
 
-      // Carrying mode & lang
-      link.href = buildLink(targetPage, { mode: state.mode, lang: state.lang }, linkHash);
+      // Carrying mode across pages (clean English default)
+      link.href = buildLink(targetPage, { mode: state.mode }, linkHash);
 
       if (targetPage === activePage) {
         link.classList.add('active');
@@ -359,20 +359,6 @@
         e.preventDefault();
         const nextMode = state.mode === 'student' ? 'scientist' : 'student';
         setState({ mode: nextMode });
-      };
-    }
-
-    // 3. Lang toggle button
-    const langBtn = document.getElementById('nav-lang-toggle');
-    const langLabel = document.getElementById('nav-lang-label');
-    if (langBtn) {
-      if (langLabel) {
-        langLabel.textContent = state.lang === 'bn' ? 'English' : 'বাংলা';
-      }
-      langBtn.onclick = function(e) {
-        e.preventDefault();
-        const nextLang = state.lang === 'bn' ? 'en' : 'bn';
-        setState({ lang: nextLang });
       };
     }
   }

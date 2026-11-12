@@ -1,18 +1,8 @@
 /* ==========================================================================
    NASA Space Apps Challenge 2026 - Trend Detective
    assets/css/top_nav.css
-   Shared Top Navigation Bar across index.html, report.html, and demo.html
+   Shared Universal Top Navigation Bar across index.html, report.html, demo.html
    ========================================================================== */
-
-/* Bangla Typography Support */
-html[lang="bn"],
-html[lang="bn"] body,
-html[lang="bn"] input,
-html[lang="bn"] button,
-html[lang="bn"] select,
-html[lang="bn"] textarea {
-  font-family: "Noto Sans Bengali", "Kalpurush", "SolaimanLipi", "Vrinda", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-}
 
 .top-nav {
   position: sticky;
@@ -20,16 +10,18 @@ html[lang="bn"] textarea {
   left: 0;
   right: 0;
   height: 40px;
-  background: #0f172a;
+  background: #090d16;
   color: #f8fafc;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  border-bottom: 1px solid #1e293b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   z-index: 2000;
   box-sizing: border-box;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 body.workbench-page .top-nav {
@@ -39,7 +31,7 @@ body.workbench-page .top-nav {
 .top-nav-brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .top-nav-badge {
@@ -48,17 +40,19 @@ body.workbench-page .top-nav {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.8px;
-  padding: 2px 7px;
+  padding: 2.5px 8px;
   border-radius: 4px;
   text-transform: uppercase;
   white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.4);
 }
 
 .top-nav-title {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   color: #94a3b8;
   display: none;
+  letter-spacing: -0.01em;
 }
 @media (min-width: 992px) {
   .top-nav-title {
@@ -79,22 +73,43 @@ body.workbench-page .top-nav {
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 5px;
-  transition: all 0.15s ease;
+  transition: all 0.15s ease-out;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.top-nav-link svg {
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: opacity 0.15s ease;
 }
 
 .top-nav-link:hover {
-  color: #f8fafc;
-  background: #1e293b;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.top-nav-link:hover svg {
+  opacity: 1;
 }
 
 .top-nav-link.active {
   color: #ffffff;
   background: #0284c7;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 1px 4px rgba(2, 132, 199, 0.4);
+}
+
+.top-nav-link.active svg {
+  opacity: 1;
+  stroke: #ffffff;
+}
+
+.top-nav-link:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
 }
 
 .top-nav-controls {
@@ -109,30 +124,53 @@ body.workbench-page .top-nav {
   gap: 6px;
 }
 
-.nav-toggle-btn {
-  background: #1e293b;
-  border: 1px solid #334155;
+.nav-toggle-btn,
+.nav-mode-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   color: #e2e8f0;
-  padding: 3px 8px;
-  border-radius: 4px;
+  padding: 3.5px 10px;
+  border-radius: 20px;
   font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  transition: all 0.15s ease;
+  gap: 6px;
+  transition: all 0.15s ease-out;
 }
 
-.nav-toggle-btn:hover {
-  background: #334155;
+.nav-toggle-btn:hover,
+.nav-mode-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
   color: #ffffff;
-  border-color: #475569;
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
-.nav-toggle-btn .toggle-indicator {
-  color: #38bdf8;
-  font-size: 8px;
+.nav-toggle-btn:focus-visible,
+.nav-mode-pill:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+.mode-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 6px #38bdf8;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+html[data-mode="student"] .mode-status-dot {
+  background: #34d399;
+  box-shadow: 0 0 6px #34d399;
+}
+
+.mode-muted {
+  color: #94a3b8;
+  font-weight: 500;
 }
 
 /* ==========================================================================
@@ -179,4 +217,3 @@ html[data-mode="scientist"] [data-mode="student"] {
   border-color: #bbf7d0;
   border-left-color: #16a34a;
 }
-

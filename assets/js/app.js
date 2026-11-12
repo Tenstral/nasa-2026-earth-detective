@@ -284,8 +284,8 @@
     // Sync active nav button on manual scroll
     el.deckViewport.addEventListener('scroll', () => {
       const scrollPos = el.deckViewport.scrollTop;
-      const secHeight = window.innerHeight - 48;
-      const index = Math.round(scrollPos / secHeight);
+      const secHeight = window.innerHeight - 88;
+      const index = Math.round(scrollPos / Math.max(secHeight, 1));
       const sectionIds = ['sec-cases', 'sec-workbench', 'sec-catalog'];
       const curSecId = sectionIds[index] || 'sec-cases';
 
@@ -319,7 +319,28 @@
   function jumpToSection(sectionId) {
     const target = document.getElementById(sectionId);
     if (!target) return;
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    if (el.deckViewport) {
+      // Temporarily disable scroll-snap to prevent Chromium smooth scroll abort / snap-back
+      const prevSnap = el.deckViewport.style.scrollSnapType;
+      el.deckViewport.style.scrollSnapType = 'none';
+
+      const targetTop = target.offsetTop;
+      el.deckViewport.scrollTo({
+        top: targetTop,
+        behavior: 'smooth'
+      });
+
+      // Restore scroll-snap once smooth scroll completes
+      setTimeout(() => {
+        if (el.deckViewport) {
+          el.deckViewport.style.scrollSnapType = prevSnap || 'y mandatory';
+        }
+      }, 700);
+    } else {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     if (el.deckNavBtns) {
       el.deckNavBtns.forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-target') === sectionId);
@@ -1163,7 +1184,8 @@
 
     // Dossier Workbench Loaders
     const launchActiveCase = () => {
-      activateCase(state.activeDossierCaseId);
+      const targetCase = state.activeDossierCaseId || state.activeCaseId || 'case-1';
+      activateCase(targetCase);
       jumpToSection('sec-workbench');
     };
     if (el.dossierLoadBtn) {
