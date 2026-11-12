@@ -274,6 +274,12 @@
 
   // 3. Navigation & GSAP Section Scrolling
   function initNavigation() {
+    if (window.gsap && window.ScrollToPlugin) {
+      try {
+        window.gsap.registerPlugin(window.ScrollToPlugin);
+      } catch (err) {}
+    }
+
     el.deckNavBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const targetId = btn.getAttribute('data-target');
@@ -320,31 +326,45 @@
     const target = document.getElementById(sectionId);
     if (!target) return;
 
-    if (el.deckViewport) {
-      // Temporarily disable scroll-snap to prevent Chromium smooth scroll abort / snap-back
-      const prevSnap = el.deckViewport.style.scrollSnapType;
-      el.deckViewport.style.scrollSnapType = 'none';
-
-      const targetTop = target.offsetTop;
-      el.deckViewport.scrollTo({
-        top: targetTop,
-        behavior: 'smooth'
-      });
-
-      // Restore scroll-snap once smooth scroll completes
-      setTimeout(() => {
-        if (el.deckViewport) {
-          el.deckViewport.style.scrollSnapType = prevSnap || 'y mandatory';
-        }
-      }, 700);
-    } else {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
     if (el.deckNavBtns) {
       el.deckNavBtns.forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-target') === sectionId);
       });
+    }
+
+    if (!el.deckViewport) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
+    const targetTop = target.offsetTop;
+
+    // Use GSAP ScrollToPlugin for a silky 60fps smooth slide
+    if (window.gsap && window.ScrollToPlugin) {
+      el.deckViewport.style.scrollSnapType = 'none';
+      window.gsap.killTweensOf(el.deckViewport);
+      window.gsap.to(el.deckViewport, {
+        duration: 0.85,
+        scrollTo: { y: targetTop, autoKill: false },
+        ease: 'power3.inOut',
+        onComplete: () => {
+          if (el.deckViewport) {
+            el.deckViewport.style.scrollSnapType = 'y mandatory';
+          }
+        }
+      });
+    } else {
+      const prevSnap = el.deckViewport.style.scrollSnapType;
+      el.deckViewport.style.scrollSnapType = 'none';
+      el.deckViewport.scrollTo({
+        top: targetTop,
+        behavior: 'smooth'
+      });
+      setTimeout(() => {
+        if (el.deckViewport) {
+          el.deckViewport.style.scrollSnapType = prevSnap || 'y mandatory';
+        }
+      }, 850);
     }
   }
 
@@ -1183,10 +1203,22 @@
     }
 
     // Dossier Workbench Loaders
-    const launchActiveCase = () => {
+    const launchActiveCase = (e) => {
+      if (e) e.preventDefault();
       const targetCase = state.activeDossierCaseId || state.activeCaseId || 'case-1';
       activateCase(targetCase);
-      jumpToSection('sec-workbench');
+
+      // Tactile visual feedback on buttons
+      const btns = [el.dossierHeaderLaunchBtn, el.dossierLoadBtn].filter(Boolean);
+      btns.forEach(b => b.classList.add('launching'));
+      setTimeout(() => {
+        btns.forEach(b => b.classList.remove('launching'));
+      }, 900);
+
+      // Smooth slide to workbench
+      requestAnimationFrame(() => {
+        jumpToSection('sec-workbench');
+      });
     };
     if (el.dossierLoadBtn) {
       el.dossierLoadBtn.addEventListener('click', launchActiveCase);
@@ -2544,9 +2576,12 @@
         const directBtn = e.target.closest('.tab-direct-launch');
         if (directBtn) {
           e.stopPropagation();
+          e.preventDefault();
           state.activeDossierCaseId = cId;
           activateCase(cId);
-          jumpToSection('sec-workbench');
+          requestAnimationFrame(() => {
+            jumpToSection('sec-workbench');
+          });
           return;
         }
         state.activeDossierCaseId = cId;
