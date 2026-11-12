@@ -76,8 +76,8 @@ class TestForbiddenPhrases(unittest.TestCase):
     def test_zero_forbidden_phrases_in_outputs_and_readme(self):
         outputs_dir = REPO_ROOT / "outputs"
         readme_file = REPO_ROOT / "README.md"
-        notes_file = REPO_ROOT / "NOTES.md"
-        project_status_file = REPO_ROOT / "PROJECT_STATUS.md"
+        notes_file = REPO_ROOT / "docs" / "NOTES.md" if (REPO_ROOT / "docs" / "NOTES.md").exists() else REPO_ROOT / "NOTES.md"
+        project_status_file = REPO_ROOT / "docs" / "PROJECT_STATUS.md" if (REPO_ROOT / "docs" / "PROJECT_STATUS.md").exists() else REPO_ROOT / "PROJECT_STATUS.md"
         demo_file = REPO_ROOT / "demo.html"
         index_file = REPO_ROOT / "index.html"
         report_file = REPO_ROOT / "report.html"

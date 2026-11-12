@@ -916,6 +916,58 @@
         resetChartZoom();
       });
     }
+
+    // Desktop-only Ctrl/Cmd + Scroll Wheel zoom & Shift + Scroll Wheel pan on the chart canvas
+    if (el.timeseriesCanvas) {
+      el.timeseriesCanvas.addEventListener('wheel', (e) => {
+        const isZoom = e.ctrlKey || e.metaKey;
+        const isPan = !isZoom && e.shiftKey;
+        if (!isZoom && !isPan) return;
+
+        const isDesktop = window.innerWidth >= 768 && !window.matchMedia('(pointer: coarse)').matches;
+        if (!isDesktop) return;
+        if (el.chartZoomBar && el.chartZoomBar.classList.contains('czb-hidden')) return;
+
+        const L = state.zoomStartRatio;
+        const R = state.zoomEndRatio;
+        const span = R - L;
+
+        if (isPan) {
+          if (span >= 0.999) return;
+          e.preventDefault();
+          const rawDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+          if (rawDelta === 0) return;
+          const step = Math.sign(rawDelta) * Math.max(0.015, span * 0.12);
+          let newL = L + step;
+          let newR = R + step;
+          if (newL < 0) { newL = 0; newR = span; }
+          if (newR > 1) { newR = 1; newL = 1 - span; }
+          state.zoomStartRatio = Math.max(0, newL);
+          state.zoomEndRatio = Math.min(1, newR);
+          applyChartZoom();
+          return;
+        }
+
+        e.preventDefault();
+        const rect = el.timeseriesCanvas.getBoundingClientRect();
+        if (!rect || rect.width <= 0) return;
+        const anchorRatio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+
+        const minSpan = 0.04;
+        const zoomFactor = e.deltaY < 0 ? 0.85 : 1.18;
+        const newSpan = Math.max(minSpan, Math.min(1, span * zoomFactor));
+
+        const anchorData = L + anchorRatio * span;
+        let newL = anchorData - anchorRatio * newSpan;
+        let newR = newL + newSpan;
+        if (newL < 0) { newL = 0; newR = newSpan; }
+        if (newR > 1) { newR = 1; newL = 1 - newSpan; }
+
+        state.zoomStartRatio = Math.max(0, newL);
+        state.zoomEndRatio = Math.min(1, newR);
+        applyChartZoom();
+      }, { passive: false });
+    }
   }
 
   function updateChartZoomUI() {
@@ -2980,174 +3032,174 @@
     'case-1': {
       badge: 'Case File #1',
       title: "Where Is the Northwest's Water Going?",
-      tagline: 'Total Water Storage vs. Satellite Rainfall in the Barind Tract',
+      tagline: 'Water Storage vs. Rainfall, Barind Tract',
       science: `
-        <p>Think of the regional water cycle as an immense natural savings account. During the summer monsoon, heavy precipitation deposits water across river corridors, soil layers, and subterranean storage reserves. Throughout the dry winter months, withdrawals occur through evaporation, plant transpiration, and human tubewell pumping.</p>
-        <p>To measure how much water Bangladesh holds, NASA uses the twin <strong>GRACE and GRACE Follow-On</strong> satellites orbiting 500 km above Earth. These spacecraft act like an ultra-sensitive scale: as water mass shifts across the landscape, Earth's gravitational pull changes subtly, shifting the distance between the two satellites by micrometers. Simultaneously, the <strong>GPM IMERG</strong> constellation uses spaceborne radar and microwave sensors to track every millimeter of precipitation falling from clouds.</p>
+        <p>Think of the regional water cycle as a natural water budget. During the summer monsoon, rain adds water to rivers, soil, and underground aquifers. During the dry winter months, water leaves through evaporation, plant transpiration, and tubewell pumping.</p>
+        <p>To track how much water Bangladesh holds, NASA uses the twin <strong>GRACE and GRACE Follow-On</strong> satellites orbiting 500 km above Earth. As water mass shifts across the landscape, Earth's gravity pull changes slightly, shifting the distance between the two satellites by micrometers. At the same time, the <strong>GPM IMERG</strong> constellation uses spaceborne radar and microwave sensors to measure rainfall.</p>
       `,
       findings: `
-        <p>Over the full 24-year satellite observation baseline (2002–2026), Northwest Bangladesh shows a statistically significant decrease in total water storage at a rate of <span class="bento-stat-chip">-1.25 cm/yr</span> (95% CI: [-1.50, -1.02] cm/yr; p &lt; 0.0001, FDR q &lt; 0.0001; total volumetric loss rate of -0.39 km³/yr).</p>
-        <p>In contrast, GPM IMERG satellite rainfall over the identical geographic window exhibits <span class="bento-stat-chip">no detectable trend</span> (-1.91 mm/yr, 95% CI: [-11.0, +4.5] mm/yr; p = 0.54, FDR q = 0.8968). The storage decline occurring alongside precipitation with no detectable trend is consistent with intensive dry-season groundwater abstraction for Boro rice cultivation across 74.2% of the region's cultivated agricultural land.</p>
+        <p>Across the 24-year satellite record (2002–2026), Northwest Bangladesh shows a statistically significant decrease in total water storage at <span class="bento-stat-chip">-1.25 cm/yr</span> (95% CI: [-1.50, -1.02] cm/yr; p &lt; 0.0001, FDR q &lt; 0.0001; volumetric loss rate of -0.39 km³/yr).</p>
+        <p>Over the same area and period, GPM IMERG satellite rainfall shows <span class="bento-stat-chip">no detectable trend</span> (-1.91 mm/yr, 95% CI: [-11.0, +4.5] mm/yr; p = 0.54, FDR q = 0.8968). Storage loss occurring alongside steady rainfall points to dry-season groundwater pumping for Boro rice across 74.2% of the region's cropland.</p>
       `,
       impact: `
-        <p>The Northwest region includes <strong>38.81 million people</strong> (22.9% of the national population) and produces over one-third of the country's domestic rice supply.</p>
-        <p>As regional total water storage decreases year after year, shallow tubewells run dry during the critical pre-monsoon irrigation months (March–May). Farmers must repeatedly re-bore tubewells to greater depths and transition from suction-mode centrifugal pumps to costlier submersible pumps, increasing operating expenses and rural electrical and diesel energy demands.</p>
+        <p>The Northwest region is home to <strong>38.81 million people</strong> (22.9% of the national population) and produces over one-third of the country's domestic rice supply.</p>
+        <p>As regional water storage drops year after year, shallow tubewells run dry during pre-monsoon irrigation (March–May). Farmers must re-bore wells deeper and switch from suction centrifugal pumps to costlier submersible pumps, raising electricity and diesel expenses.</p>
       `,
       limitations: `
-        <p>GRACE satellite gravimetry operates at a native spatial resolution of ~300 km (roughly the size of an entire geographic macro-region). Consequently, satellite gravimetry cannot pinpoint field-scale drawdown at individual village tubewells.</p>
-        <p>Furthermore, satellite gravimetry measures the vertically integrated water column (surface water, soil moisture, and deeper subsurface storage combined) and requires land surface model partitioning to isolate sub-root-zone deficits.</p>
+        <p>GRACE gravimetry operates at a native resolution of ~300 km (roughly the size of a macro-region), so it cannot isolate drawdown at individual village tubewells.</p>
+        <p>Satellite gravimetry also measures the full vertical water column (surface water, soil moisture, and deeper subsurface storage combined) and needs land surface model partitioning to separate sub-root-zone deficits.</p>
       `,
       outlook: `
-        <p>To secure agricultural resilience, the Barind Multipurpose Development Authority (BMDA) is expanding prepaid smart-card metering to discourage over-pumping.</p>
-        <p>Widespread adoption of <strong>Alternate Wetting and Drying (AWD)</strong> irrigation reduces paddy water consumption by 15% to 30% without crop yield penalties, while crop diversification toward low-water winter pulses and oilseeds (BARI chhola, BARI sarisha) helps stabilize regional water reserves.</p>
+        <p>To curb over-pumping, the Barind Multipurpose Development Authority (BMDA) is expanding prepaid smart-card metering.</p>
+        <p><strong>Alternate Wetting and Drying (AWD)</strong> irrigation cuts paddy water use by 15% to 30% without yield loss, while shifting part of winter acreage to low-water pulses and oilseeds (BARI chhola, BARI sarisha) eases pressure on regional reserves.</p>
       `
     },
     'case-2': {
       badge: 'Case File #2 • Benchmark',
       title: 'Is 8 Years Enough?',
-      tagline: "Dr. James Acker's Core Lesson: Time Window Length & Detection Limits",
+      tagline: 'Time Window Length & Detection Limits',
       science: `
-        <p>When analyzing Earth observations, detecting whether a system is genuinely changing requires separating long-term secular trends from short-term natural variability and sensor noise.</p>
-        <p>Dr. James Acker illustrates that statistical significance depends fundamentally on the length of the observation window. Over short durations (such as 5 to 8 years), climate cycles such as El Niño and monsoon fluctuations introduce statistical noise that can obscure persistent secular changes.</p>
+        <p>Detecting a long-term trend in Earth observations requires separating steady change from short-term natural variability and sensor noise.</p>
+        <p>Dr. James Acker's framework shows that statistical significance depends on observation length. Over short spans (5 to 8 years), climate cycles such as El Niño and monsoon swings add noise that can mask ongoing long-term trends.</p>
       `,
       findings: `
-        <p>Examining Northwest Bangladesh solely across the 8-year GRACE Follow-On mission era (2018–2026, N = 96 months), the calculated Theil-Sen rate yields a p-value of <span class="bento-stat-chip">p = 0.0549</span>—just above the conventional 0.05 significance threshold. Under strict criteria, this window would be classified as 'No detectable trend'.</p>
-        <p>However, when the observation window is widened to encompass the full 24-year continuous record (2002–2026, N = 277 months), the identical downward trajectory yields <span class="bento-stat-chip">p &lt; 0.0001</span>. At 8 years, the 80% power Minimum Detectable Slope requires a steep rate of ±1.84 cm/yr to overcome noise, whereas across 24 years, the detection limit refines to ±0.42 cm/yr.</p>
+        <p>Looking only at the 8-year GRACE Follow-On era (2018–2026, N = 96 months) in Northwest Bangladesh, the Theil-Sen slope gives <span class="bento-stat-chip">p = 0.0549</span>, just above the 0.05 threshold. Under strict rules, this window is classified as 'No detectable trend'.</p>
+        <p>Widening the window to the 24-year record (2002–2026, N = 277 months) yields <span class="bento-stat-chip">p &lt; 0.0001</span>. At 8 years, the 80% power Minimum Detectable Slope needs ±1.84 cm/yr to stand out from noise; over 24 years, that detection limit tightens to ±0.42 cm/yr.</p>
       `,
       impact: `
-        <p>Premature conclusions based on brief observational windows risk misinforming resource managers.</p>
-        <p>If water planners had concluded in 2026 that Northwest storage had stabilized based on the single-mission 2018–2026 window, vital aquifer recharge and water-conservation policies might have been delayed.</p>
+        <p>Drawing conclusions from short windows risks misguiding water planning.</p>
+        <p>Concluding in 2026 that Northwest storage had stabilized based only on 2018–2026 data could delay aquifer recharge and conservation measures.</p>
       `,
       limitations: `
-        <p>Bridging separate satellite generations introduces potential instrument step offsets. Between GRACE-1 and GRACE-FO, an 11-month observation gap occurred (July 2017 to May 2018).</p>
-        <p>Rigorous trend detectives apply Newey-West HAC offset testing and Monte Carlo synthetic red-noise null simulations to verify that bridge step offsets do not artificially produce trend significance.</p>
+        <p>Joining two satellite missions introduces possible step offsets. Between GRACE-1 and GRACE-FO, an 11-month gap occurred (July 2017 to May 2018).</p>
+        <p>Trend checks apply Newey-West HAC offset tests and Monte Carlo red-noise simulations to verify that bridge offsets do not create false significance.</p>
       `,
       outlook: `
-        <p>Dr. Acker's guidance confirms that 'if p &gt; 0.05, that does not mean a trend does not exist—sometimes a longer time series is all that is needed.'</p>
-        <p>Future satellite gravimetry missions, including NASA-ESA GRACE-C (scheduled for launch in 2028), will extend the continuous observation baseline past three decades, dramatically improving the statistical power of global trend detection.</p>
+        <p>As Dr. Acker notes: 'if p &gt; 0.05, that does not mean a trend does not exist; sometimes a longer time series is all that is needed.'</p>
+        <p>Upcoming gravimetry missions, including NASA-ESA GRACE-C (planned for 2028), will extend the record past three decades and sharpen global trend detection.</p>
       `
     },
     'case-3': {
       badge: 'Case File #3 • Verification',
       title: 'The Reanalysis Trap',
-      tagline: 'Atmospheric Model Artifact vs. Satellite Radar Observations',
+      tagline: 'Model Artifact vs. Satellite Radar',
       science: `
-        <p>Earth scientists rely on two primary categories of global climate datasets: direct physical satellite observations (such as spaceborne radars and microwave radiometers) and numerical reanalysis models (which blend weather forecasts with ingested data streams).</p>
-        <p>When atmospheric models transition their underlying assimilation satellite constellations, artificial discontinuities or 'step jumps' can be introduced into the synthetic output—simulating a climate shift that never actually occurred.</p>
+        <p>Earth scientists use two main types of climate datasets: direct satellite measurements (such as spaceborne radars and microwave radiometers) and numerical reanalysis models (which blend weather forecasts with ingested observations).</p>
+        <p>When a reanalysis model changes its input satellite streams, step jumps can appear in the model output and look like a climate shift that never happened.</p>
       `,
       findings: `
-        <p>A direct comparison of <strong>NASA POWER MERRA-2</strong> reanalysis precipitation against physical <strong>GPM IMERG</strong> satellite radar observations reveals a pronounced discrepancy starting around 2015.</p>
-        <p>NASA POWER exhibits an abrupt upward shift of <span class="bento-stat-chip">+30 to +50 mm/month</span> over Bangladesh following updates to its underlying assimilation stream, whereas GPM IMERG physical radar retrievals confirm a steady, unbroken monsoonal distribution. Trend detectives must cross-validate model outputs against physical sensors before inferring climate shifts.</p>
+        <p>Comparing <strong>NASA POWER MERRA-2</strong> reanalysis precipitation with <strong>GPM IMERG</strong> satellite radar observations shows a clear mismatch starting around 2015.</p>
+        <p>NASA POWER jumps upward by <span class="bento-stat-chip">+30 to +50 mm/month</span> over Bangladesh after input stream updates, while GPM IMERG radar records remain steady across monsoon seasons. Model outputs should be checked against direct satellite sensors before inferring climate shifts.</p>
       `,
       impact: `
-        <p>National water and flood infrastructure design relies heavily on precipitation baselines.</p>
-        <p>Relying on artificial reanalysis rainfall jumps could lead engineers to over-dimension stormwater drainage networks or misdiagnose regional monsoon precipitation dynamics.</p>
+        <p>National water and flood infrastructure design depends on reliable rainfall baselines.</p>
+        <p>Using artificial reanalysis rainfall jumps could cause engineers to oversize drainage networks or misread monsoon behavior.</p>
       `,
       limitations: `
-        <p>While GPM IMERG V07B Final Run incorporates ground rain-gauge calibration from the Global Precipitation Climatology Centre (GPCC), gauge density across rural deltaic floodplains is uneven.</p>
-        <p>Additionally, satellite microwave algorithms can encounter challenges with heavy convective attenuation along the Himalayan foothills.</p>
+        <p>GPM IMERG V07B Final Run calibrates against Global Precipitation Climatology Centre (GPCC) rain gauges, though gauge spacing across rural floodplains varies.</p>
+        <p>Satellite microwave retrievals can also lose accuracy under heavy convective storms along the Himalayan foothills.</p>
       `,
       outlook: `
-        <p>Next-generation reanalysis projects (such as NASA GMAO's forthcoming GEOS-IT and MERRA-3) are implementing improved bias-correction routines to minimize sensor-break artifacts.</p>
-        <p>Ground-truthing satellite radar retrievals with automated telemetry rain gauges operated by the Bangladesh Meteorological Department (BMD) ensures reliable precipitation records.</p>
+        <p>Newer reanalysis efforts (such as NASA GMAO's GEOS-IT and MERRA-3) use updated bias corrections to reduce sensor-transition artifacts.</p>
+        <p>Checking satellite radar data against automated rain gauges run by the Bangladesh Meteorological Department (BMD) keeps rainfall records dependable.</p>
       `
     },
     'case-4': {
       badge: 'Case File #4',
       title: 'Soil or Deeper?',
-      tagline: 'Partitioning Root-Zone Moisture vs. Subsurface Residual',
+      tagline: 'Root-Zone Soil vs. Subsurface Residual',
       science: `
-        <p>When satellite gravimetry detects that a region is losing water mass, where is that loss located? Is topsoil drying out in the sun, or are deeper subsurface reserves being drawn down?</p>
-        <p>Total water storage measured from space represents the combined sum of all water columns: vegetation canopy moisture, topsoil moisture, rivers, lakes, and subterranean reserves. To partition these layers, hydrologists employ land surface models (such as NASA GLDAS Noah and VIC) that simulate water movement through the upper 2.0 meters of soil—the root zone. Subtracting simulated root-zone soil moisture from total satellite water storage isolates an <strong>unpartitioned residual (groundwater + surface water + biomass + model error)</strong>.</p>
+        <p>When satellite gravimetry shows regional water loss, where is that water coming from: drying topsoil, or deeper underground reserves?</p>
+        <p>Total water storage measured from space sums canopy water, topsoil moisture, rivers, lakes, and deeper aquifers. Land surface models (NASA GLDAS Noah and VIC) simulate moisture in the top 2.0 meters of soil (the root zone). Subtracting simulated root-zone moisture from total satellite storage leaves an <strong>unpartitioned residual (groundwater + surface water + biomass + model error)</strong>.</p>
       `,
       findings: `
-        <p>In Northwest Bangladesh, simulated root-zone soil moisture (0–200 cm) from GLDAS Noah exhibits a small trend of only <span class="bento-stat-chip">-0.12 cm/yr</span> (-0.10 cm/yr under VIC), accounting for roughly 8% to 10% of the total regional storage decrease.</p>
-        <p>In contrast, the unpartitioned residual (groundwater + surface water + biomass + model error) declines at <span class="bento-stat-chip">-1.12 to -1.11 cm/yr</span>, representing approximately 90% of the total storage deficit. While root-zone soil moisture replenishes each monsoon, the unpartitioned residual shows a persistent cumulative decline across consecutive seasons.</p>
+        <p>In Northwest Bangladesh, simulated root-zone soil moisture (0–200 cm) from GLDAS Noah changes by only <span class="bento-stat-chip">-0.12 cm/yr</span> (-0.10 cm/yr in VIC), about 8% to 10% of the total regional storage drop.</p>
+        <p>Meanwhile, the unpartitioned residual (groundwater + surface water + biomass + model error) falls at <span class="bento-stat-chip">-1.12 to -1.11 cm/yr</span>, roughly 90% of the total deficit. Topsoil moisture recovers each monsoon, while the subsurface residual declines across consecutive years.</p>
       `,
       impact: `
-        <p>Because upper root-zone moisture refills during monsoon rainfall, rainfed summer Aman rice cultivation is largely supported in normal monsoon seasons.</p>
-        <p>However, the persistent deficit in the unpartitioned residual directly affects the winter Boro crop season, which depends on mechanized tubewell pumping. Lower water levels increase the energy requirements for pumping, and falling water tables heighten the risk of heavy metal and arsenic mobilization in rural drinking water supplies.</p>
+        <p>Because upper root-zone moisture refills during monsoon rains, rainfed summer Aman rice still receives moisture in normal monsoon years.</p>
+        <p>The ongoing deficit in the subsurface residual hits the dry-season Boro rice crop, which relies on tubewell pumping. Lower water tables raise pumping energy costs and increase arsenic and heavy-metal mobilization risks in rural drinking water.</p>
       `,
       limitations: `
-        <p>Standard GLDAS land surface models run in "open-loop" mode without dynamic irrigation abstractions, meaning they simulate natural infiltration but do not explicitly represent tubewell pumping.</p>
-        <p>Furthermore, the residual remains an unpartitioned residual (groundwater + surface water + biomass + model error); satellite gravimetry alone cannot independently isolate deep groundwater from surface water bodies, vegetation biomass variations, or model structure errors.</p>
+        <p>Standard GLDAS models run in open-loop mode without dynamic irrigation withdrawals, so they simulate natural infiltration rather than direct tubewell pumping.</p>
+        <p>The remainder is strictly an unpartitioned residual (groundwater + surface water + biomass + model error); gravimetry alone cannot separate deep groundwater from surface water, biomass shifts, or model error.</p>
       `,
       outlook: `
-        <p>Continued depletion of the unpartitioned residual will push water tables deeper across the Barind Tract, increasing operating expenses for agricultural tubewells.</p>
-        <p>Integrating satellite gravimetry with in situ telemetric piezometers and high-resolution surface water altimetry from the <strong>SWOT</strong> satellite mission will enable detailed 3D partitioning between surface reservoirs and subsurface storage layers.</p>
+        <p>Continued loss in the subsurface residual will push water tables lower across the Barind Tract and raise farm pumping costs.</p>
+        <p>Combining satellite gravimetry with in situ piezometers and high-resolution surface water altimetry from the <strong>SWOT</strong> satellite mission will improve separation between surface reservoirs and deeper storage.</p>
       `
     },
     'case-5': {
       badge: 'Case File #5',
       title: "Is Dhaka's Air Getting Hazier?",
-      tagline: 'NASA MODIS Aqua Satellite vs. AERONET Ground Sun Photometer',
+      tagline: 'MODIS Aqua vs. AERONET Photometer',
       science: `
-        <p>Suspended atmospheric particles—including smoke, soot, vehicle exhaust, and mineral dust—scatter and absorb incoming sunlight. Scientists measure this atmospheric haziness using <strong>Aerosol Optical Depth (AOD)</strong>.</p>
-        <p>An AOD of ~0.1 indicates clear skies, while values exceeding 1.0 signify dense, hazardous smog. To measure aerosols without satellite cloud-glare distortion, NASA established the global <strong>AERONET</strong> network: calibrated ground-based sun photometers on rooftops that track direct solar extinction through spectral filters. Simultaneously, NASA's <strong>MODIS sensor aboard the Aqua satellite</strong> retrieves Level 3 1° gridded monthly AOD across entire regional landscapes at 550 nm.</p>
+        <p>Suspended particles such as smoke, soot, exhaust, and mineral dust scatter and absorb sunlight. Atmospheric scientists measure this haze using <strong>Aerosol Optical Depth (AOD)</strong>.</p>
+        <p>An AOD near 0.1 indicates clear skies, while values above 1.0 indicate heavy smog. NASA's ground-based <strong>AERONET</strong> network uses calibrated rooftop sun photometers to track direct sunlight extinction without cloud glare. In space, NASA's <strong>MODIS sensor on the Aqua satellite</strong> maps monthly 1° gridded AOD at 550 nm.</p>
       `,
       findings: `
-        <p>Synthesizing 24 years of NASA MODIS Aqua Level 3 satellite observations (2002–2026, 277 months) alongside 12 years of ground-truth NASA AERONET sun photometer observations (2012–2024, Dhaka University) establishes a statistically significant secular increase in atmospheric aerosol loading.</p>
-        <p>Across the full 24-year satellite record, MODIS Aqua measures an upward slope in Dhaka AOD of <span class="bento-stat-chip">+0.0115 per year</span> (95% CI: [+0.0063, +0.0168], p &lt; 0.0001, Hurwicz-corrected ESS N* = 140.4). Across the nationwide Bangladesh bounding box, a statistically significant upward trend also emerges (+0.0081/yr, p = 0.0040). Ground-truth AERONET sun photometers independently validate this trajectory (+0.012/yr, p = 0.014). Both sensors reveal marked seasonality: monsoon rain scavenges particulates down to 0.2–0.4 AOD, while dry winter months (DJF) regularly exceed 1.1–1.4 AOD due to brick kiln operations and boundary layer stagnation.</p>
+        <p>Combining 24 years of NASA MODIS Aqua observations (2002–2026, 277 months) with 12 years of Dhaka University AERONET ground measurements (2012–2024) shows a statistically significant rise in aerosol loading.</p>
+        <p>Over 24 years, MODIS Aqua measures an upward Dhaka AOD slope of <span class="bento-stat-chip">+0.0115 per year</span> (95% CI: [+0.0063, +0.0168], p &lt; 0.0001, Hurwicz-corrected ESS N* = 140.4). Across all of Bangladesh, AOD also rises (+0.0081/yr, p = 0.0040), and ground AERONET confirms the direction (+0.012/yr, p = 0.014). Both sensors show strong seasonality: monsoon rain washes AOD down to 0.2–0.4, while dry winter months (DJF) regularly exceed 1.1–1.4 from brick kilns and stagnant air.</p>
       `,
       impact: `
-        <p>Central Bangladesh houses <strong>45.64 million residents</strong> (26.9% of the national population), predominantly residing within the Dhaka megacity area.</p>
-        <p>Winter aerosol levels consistently exceeding 1.0 AOD correspond to hazardous particulate matter concentrations (PM2.5), contributing to acute spikes in pediatric respiratory infections, chronic obstructive pulmonary disease (COPD), and cardiovascular illnesses during the winter season.</p>
+        <p>Central Bangladesh holds <strong>45.64 million residents</strong> (26.9% of the national population), largely in the Dhaka metropolitan area.</p>
+        <p>Winter AOD values above 1.0 align with high particulate pollution (PM2.5), contributing to winter spikes in pediatric respiratory infections, COPD, and cardiovascular illness.</p>
       `,
       limitations: `
-        <p>While rooftop AERONET sun photometers provide high radiometric precision at a single point (Dhaka University), satellite MODIS retrievals provide spatial coverage at 1° (~110 km) resolution.</p>
-        <p>Because optical sensors are passive, thick monsoon cloud decks obstruct retrievals during peak summer rainfall. Our analytical engine accounts for this via Hurwicz small-sample autocorrelation correction and effective sample size weighting.</p>
+        <p>Rooftop AERONET photometers give accurate point measurements at Dhaka University, whereas MODIS provides wider spatial coverage at 1° (~110 km) resolution.</p>
+        <p>Because optical sensors cannot see through thick monsoon clouds, summer data has gaps. Our trend engine handles autocorrelation and missing months with Hurwicz small-sample correction and effective sample size weighting.</p>
       `,
       outlook: `
-        <p>Without structural interventions in regional brick kiln emissions and vehicular exhaust, winter aerosol loading will remain at hazardous levels across the capital.</p>
-        <p>Effective interventions include transitioning traditional clamp kilns to cleaner Zigzag and tunnel kilns, enforcing vehicular emission standards, expanding urban tree cover, and coordinating cross-border airshed policies across the Indo-Gangetic Plain.</p>
+        <p>Without cuts in regional brick kiln emissions and vehicle exhaust, winter haze across Dhaka will stay high.</p>
+        <p>Practical steps include converting clamp kilns to Zigzag or tunnel kilns, enforcing vehicle emission limits, adding urban tree cover, and coordinating airshed policies across the Indo-Gangetic Plain.</p>
       `
     },
     'case-6': {
       badge: 'Case File #6',
       title: 'Are Downpours Getting Stronger?',
-      tagline: 'ETCCDI Extreme 1-Day Downpours (Rx1day)',
+      tagline: 'Extreme 1-Day Rainfall (Rx1day)',
       science: `
-        <p>Under climate warming, a warmer atmosphere can hold approximately 7% more water vapor per degree Celsius of warming (the Clausius-Clapeyron relation). Consequently, even if total seasonal rainfall remains constant, precipitation may fall in shorter, more violent deluges.</p>
-        <p>To detect shifts in storm violence, international climatologists rely on the <strong>Expert Team on Climate Change Detection and Indices (ETCCDI)</strong> standard metrics, notably <strong>Rx1day</strong> (maximum 1-day rainfall recorded in a calendar year) derived from high-resolution satellite precipitation grids.</p>
+        <p>Warmer air holds roughly 7% more water vapor per degree Celsius of warming (the Clausius-Clapeyron relation). Even when total seasonal rainfall stays flat, rain can arrive in shorter, heavier bursts.</p>
+        <p>Climatologists track storm intensity using <strong>ETCCDI</strong> standard metrics such as <strong>Rx1day</strong>, the wettest single day in each calendar year, computed from daily satellite precipitation grids.</p>
       `,
       findings: `
-        <p>Analyzing GPM IMERG daily precipitation across 22 years (2003–2024), annual maximum 1-day downpours in Bangladesh exhibit dramatic year-to-year volatility, swinging from ~50 mm/day up to &gt; 115 mm/day during catastrophic historical flood years (2004, 2007, 2017, 2020, and 2022).</p>
-        <p>Testing for a monotonic trend in Rx1day yields a slightly positive rate (+0.32 mm/day per year), but with a p-value of <span class="bento-stat-chip">p = 0.42</span> (well above the 0.05 threshold). The statistical verdict is <span class="bento-stat-chip">No detectable trend</span>: extreme event variance is so high that 22 annual data points remain below the statistical detection boundary for a secular shift.</p>
+        <p>Across 22 years of GPM IMERG daily data (2003–2024), annual 1-day maximum rainfall in Bangladesh swings widely from ~50 mm/day to &gt; 115 mm/day during major flood years (2004, 2007, 2017, 2020, and 2022).</p>
+        <p>The trend slope is slightly positive (+0.32 mm/day per year), with <span class="bento-stat-chip">p = 0.42</span> (above the 0.05 threshold). The verdict is <span class="bento-stat-chip">No detectable trend</span>: year-to-year variance is too high for 22 annual points to confirm a long-term shift.</p>
       `,
       impact: `
-        <p>Extreme single-day downpours trigger urban flash waterlogging in Dhaka and Chittagong within hours, paralyzing transit corridors and submerging informal settlements.</p>
-        <p>In rural river basins, consecutive intense rainfall days breach earthen flood protection embankments, submerging standing Aman crops and washing away aquaculture ponds.</p>
+        <p>Heavy single-day storms flood streets in Dhaka and Chittagong within hours, stalling transport and inundating low-lying neighborhoods.</p>
+        <p>In rural river basins, back-to-back storm days can overtop earthen embankments, submerging standing Aman rice and washing out fish ponds.</p>
       `,
       limitations: `
-        <p>Rx1day is an annual maximum index, producing exactly one data point per calendar year (N = 22). Small sample sizes naturally limit statistical detection power.</p>
-        <p>Furthermore, satellite radar passes can smooth localized cloudburst cores smaller than the satellite pixel footprint.</p>
+        <p>Rx1day records one maximum value per year (N = 22), and small annual sample sizes limit statistical power.</p>
+        <p>Satellite radar pixels can also smooth localized cloudburst peaks smaller than a grid cell.</p>
       `,
       outlook: `
-        <p>Even in the absence of a statistically significant monotonic trend, high storm volatility demands robust climate adaptation.</p>
-        <p>Municipalities are deploying urban drainage pumping stations, restoring natural retention canals (khals), and implementing automated Flash Flood Early Warning Systems (FFEWS) across vulnerable northeastern Haor districts.</p>
+        <p>Even without a confirmed monotonic trend, wide storm swings call for flood preparedness.</p>
+        <p>Cities and districts are adding drainage pumping stations, clearing natural retention canals (khals), and expanding Flash Flood Early Warning Systems (FFEWS) in northeastern Haor basins.</p>
       `
     },
     'case-7': {
       badge: 'Case File #7',
       title: "Is Dhaka's Air Getting Dirtier?",
-      tagline: 'Combustion Trace Gases (OMI NO₂) vs Total Aerosol Loading (MODIS AOD)',
+      tagline: 'OMI NO₂ vs. MODIS AOD',
       science: `
-        <p>Nitrogen dioxide (NO₂) is a short-lived atmospheric trace gas produced by high-temperature combustion in vehicle engines, brick kilns, and industrial facilities. Because it breaks down within hours to days, satellite NO₂ columns trace active, localized pollution hotspots.</p>
-        <p>NASA's <strong>Ozone Monitoring Instrument (OMI)</strong> aboard Aura observes ultraviolet and visible sunlight backscattered by the atmosphere to quantify boundary-layer NO₂ density across a 0.25° grid.</p>
+        <p>Nitrogen dioxide (NO₂) is a short-lived trace gas released by high-temperature combustion in vehicles, brick kilns, and power generators. Because it breaks down within hours to days, satellite NO₂ maps pinpoint active emission zones.</p>
+        <p>NASA's <strong>Ozone Monitoring Instrument (OMI)</strong> on Aura measures backscattered ultraviolet and visible sunlight to map boundary-layer NO₂ on a 0.25° grid.</p>
       `,
       findings: `
-        <p>Across 22 years of continuous satellite observation (2004–2026), Central Bangladesh (Dhaka) exhibits strong seasonal winter boundary layer entrapment (&gt; 5.5 × 10¹⁵ molec/cm²).</p>
-        <p>Statistical trend tests reveal a secular upward shift in winter NO₂ over the Dhaka metropolitan belt, tracking the expansion of heavy freight transit, distributed diesel power, and regional brick manufacturing.</p>
+        <p>Across 22 years of satellite records (2004–2026), Central Bangladesh (Dhaka) shows heavy winter trapping beneath low thermal inversions (&gt; 5.5 × 10¹⁵ molec/cm²).</p>
+        <p>Trend tests show a long-term rise in winter NO₂ across the Dhaka belt, tracking growth in freight traffic, diesel backup generators, and brick manufacturing.</p>
       `,
       impact: `
-        <p>Over 22 million residents in the capital megacity experience chronic winter exposure to combustion byproducts, driving respiratory ailments and photochemical smog episodes.</p>
+        <p>More than 22 million residents in the capital region face recurring winter exposure to combustion gases, contributing to respiratory illness and urban smog.</p>
       `,
       limitations: `
-        <p>Frequent summer monsoon cloud decks limit satellite optical retrievals, creating an inherent clear-sky sampling bias.</p>
-        <p>Aging sensor row anomalies are mitigated through cloud-screened quality filtering.</p>
+        <p>Summer monsoon cloud cover blocks optical retrievals, creating clear-sky sampling bias during wet months.</p>
+        <p>Sensor row anomalies are filtered out using cloud-screened quality flags.</p>
       `,
       outlook: `
-        <p>Transitioning traditional brick kilns to cleaner zigzag/tunnel technologies and expanding electric mass transit (Dhaka Metro Rail) provide targeted avenues to curb combustion emissions.</p>
+        <p>Upgrading traditional brick kilns to Zigzag or tunnel designs and expanding electric transit (such as Dhaka Metro Rail) target the main combustion sources.</p>
       `
     }
   };

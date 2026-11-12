@@ -5,6 +5,11 @@ __pycache__/
 # Local scratch and debug scripts
 scratch/
 
+# Skills and Agent tools
+.agents/
+.agents/*
+skills/
+
 # Large binary & data formats
 *.nc
 *.xlsx

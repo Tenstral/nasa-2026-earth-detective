@@ -49,7 +49,7 @@ class TestV3RegionComparison(unittest.TestCase):
         cls.json_placebo = cls.out_dir / "real_residual_placebo.json"
         cls.results_all_csv = REPO_ROOT / "outputs" / "v3" / "full_record" / "results_all_windows.csv"
         cls.index_html_path = REPO_ROOT / "report.html"
-        cls.status_md_path = REPO_ROOT / "PROJECT_STATUS.md"
+        cls.status_md_path = REPO_ROOT / "docs" / "PROJECT_STATUS.md" if (REPO_ROOT / "docs" / "PROJECT_STATUS.md").exists() else REPO_ROOT / "PROJECT_STATUS.md"
 
     def test_01_output_files_exist(self):
         self.assertTrue(self.csv_path.exists(), f"Missing CSV: {self.csv_path}")
